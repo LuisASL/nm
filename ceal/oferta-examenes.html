@@ -1,0 +1,158 @@
+{% extends base %} 
+{% import 'bootstrap/wtf.html' as wtf %}
+
+{% block css %}
+<link type="text/css" href="{{url_for('static',filename='nmaquetado/css/perfil.css')}}" rel="stylesheet">
+{% endblock %} 
+{% block title %}{{title}}{% endblock %} 
+
+
+{% block app_content %}
+
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+    {% for message in messages %}
+    <div class="alert alert-info" role="alert">{{ message }}</div>
+    {% endfor %}
+{% endif %}
+{% endwith %}
+
+<div class="container acomodar">
+    <div class="row">
+        <div class="col-lg-3 col-md-12 estilo__cards">
+            <div class="card card--modificado">
+                <div class="card-header card-header--modificado">
+                    <h6>Información Académica</h6>
+                </div>
+                <div class="card-body">
+                    <ul class="justificar__cards contenido__texto card__listas">
+                      Nombre: {{user.ceal_papellido}} {{user.ceal_sapellido}} {{user.ceal_nombre}}<br>
+                      Número de alumno: {{user.ceal_cuenta}}<br>
+                      Plantel: {{plan.ceal_hist_plantel}}<br>
+                      Carrera: {{plan.ceal_hist_carrera}}<br>
+                      Plan: {{plan.ceal_hist_plan}}<br>
+
+                      <hr>
+                      {% if alumno_ee %}
+                          {% if alumno_ee.ceer_al_prop %} 
+                          Fecha de creación: {{alumno_ee.status_creacion()[0].strftime('%d-%m-%Y %H:%M:%S')}} {{alumno_ee.status_creacion()[1]}}
+                          <br>
+                          {% endif %}
+                          
+                          {% if alumno_ee.ceer_se_approve %} 
+                          Fecha de confirmación:  {{alumno_ee.status_confirmacion()[0].strftime('%d-%m-%Y %H:%M:%S')}} {{alumno_ee.status_confirmacion()[1]}}
+                          <br>
+                          {% endif %}
+                          Token: {{alumno_ee.status_token()}}
+                        <hr>
+                        Archivo propuesta: {% if alumno_ee.ceer_archivo_propuesta %} <a href="{{url_for('download_ceee_prop', id=user.ceal_cuenta)}}">{{alumno_ee.ceer_archivo_propuesta}} {% endif %}</a>    
+                        Archivo aprobado: {% if alumno_ee.ceer_archivo_complete %} <a href="{{url_for('download_ceee_comp', id=user.ceal_cuenta)}}">{{alumno_ee.ceer_archivo_complete}} {% endif %}</a>
+                      {% endif %}   
+                    <br>
+                    <hr>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-9 col-md-12 estilo__cards ">
+            <div class="card text-center card--modificado">
+                <div class="card-header card-header--modificado">
+                    <h6>Lista de Materias disponibles</h6>
+                </div>
+                <div class="card-body">
+
+                 <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                      <thead>
+                        <tr>
+                          <th>Aplicar</th>
+                          <th>Clave</th>
+                          <th>Materia</th> 
+                          <th>Plan</th>
+                          <th>Profesor</th>
+                          <th>Fecha</th>
+                          <th>Horario</th>
+                        </tr>
+                      </thead>
+                      <tfoot>
+                        <tr>
+                          <th>Aplicar</th>
+                          <th>Clave</th>
+                          <th>Materia</th> 
+                          <th>Plan</th>
+                          <th>Profesor</th>
+                          <th>Fecha</th>
+                          <th>Horario</th>
+                        </tr>
+                      </tfoot>
+                  <tbody> 
+                      {% for o in omateria if o.ceee_carrera_ceee == plan.ceal_hist_carrera %}
+
+                        {% if alumno_ee.ceer_al_prop != True %}
+                                {% for a in o.cesr_ceal_ceee if  a.ceal_cuenta ==  current_user.pgus_alumno_ceal %}
+                                <tr class="success">
+                                <td class="nav__enlace-om-modificado">
+                                <a class="list-group-item list-group-item-success"  href="{{url_for('ceee_ceal_des', ceal_id=current_user.pgus_alumno_ceal, ceee_id = o.ceee_clave)}}"><span class="glyphicon glyphicon-remove"></span>Cancelar</a>
+                                </td>                
+                                {% else %}
+                                <tr class="warning">
+                                <td class="nav__enlace">
+                                  <a class="list-group-item list-group-item-warning" href="{{url_for('ceee_ceer_cursar', ceal_id=current_user.pgus_alumno_ceal, ceee_id = o.ceee_clave)}}"><span class="glyphicon glyphicon-ok"></span>Inscribir</a>
+                                </td>
+                                {% endfor %}
+                        {% else %}
+                          <tr>
+                                {% for al in user.ceal_examen_ceee  if (al.ceee_clave == o.ceee_clave) %}
+                                <td class="nav__enlace-dark--modificado"> <a class="list-group-item list-group-item-success" >Inscrito</td>
+                                {% else %}
+                                <td class="nav__enlace-dark--modificado"> <a class="list-group-item list-group-item-warning" > No Inscrito</td>
+                                {% endfor %}  
+                        {% endif %}
+                      <td>{{o.ceee_materia_cema}}</td>
+                      <td>{{o.ceee_nombre}}
+                      <td>{{o.ceee_plan_cepe}}</td> 
+                      <td>
+                        {% for pr in o.cesr_cepr_ceee %}
+                            {{ pr.cepr_nombre }} {{ pr.cepr_papellido }} {{ pr.cepr_sapellido }} <br>
+                        {% endfor %}
+                      </td>              
+                      <td>{{o.ceee_dia}}</td>
+                      <td>{{o.ceee_inicio.strftime('%H:%M')}} / {{o.ceee_final.strftime('%H:%M')}}</td>  
+
+                      {% endfor %}
+                    </table>
+                    </span>
+                    </div>
+
+                  {% if alumno_ee.ceer_al_prop == True and alumno_ee.ceer_se_approve == False and alumno_ee.ceer_se_modificacion ==  False %}
+                    En proceso de revisión por el área de Servicios Escolares
+                  {% elif alumno_ee.ceer_al_prop == True and alumno_ee.ceer_se_approve == True %}
+                    Proceso completo
+                  {% elif alumno_ee.ceer_al_prop == True and alumno_ee.ceer_se_approve == False and alumno_ee.ceer_se_modificacion ==  True %}
+                    Confirmar modificación
+                    <a class="formulario__boton" href="{{url_for('pdf_inscripcion_ceee_ceal', id = user.ceal_cuenta)}}" type="button">Aceptar cambios</a>
+                  {% else %}
+                  <a class="formulario__boton" href="{{url_for('pdf_create_propuesta_ceee')}}" type="button">Enviar</a>
+                  {% endif %}
+
+                    </div>
+          </div>
+
+
+
+
+
+                </div>
+                
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
+
+
+
+{% endblock %}

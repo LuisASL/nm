@@ -1,0 +1,282 @@
+{% extends base %} 
+{% import 'bootstrap/wtf.html' as wtf %}
+
+{% block app_content %}
+
+
+
+<div class="container acomodar">
+
+
+
+
+
+
+{% if id_mod_first and id_mod_first.check_estatus_user(current_user.id|int) != True  or current_user.ceal_usuario_pgus.ceal_inscripcion_ini %}
+
+<div class="modal modal-dialog modal-xl" id="staticBackdrop{{ id_mod_first.id }}" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content modal-dialog modal-xl">
+      <div class="modal-header">
+        <h3 class="modal-title" id="staticBackdropLabel">Condiciones de uso, privacidad y derechos de usuarios</h3>
+        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">x</span></button>
+      </div>
+      <div class="modal-body">&nbsp;&nbsp;
+          <input type="checkbox" value = {{id_mod_first.check_estatus_user(current_user.id|int)}} 
+                 class="form-check-input btn-primary updateButton" id="dictamenInput{{ id_mod_first.id }}"
+                 member_id="{{ id_mod_first.id }}" revisor_id="{{ current_user.id }}" plan_id="{{ id_mod_first.id }}"
+                  onClick="add_submit('dictamenInput{{ id_mod_first.id }}', 'submit_ini')"
+          > 
+          &nbsp;&nbsp;&nbsp;&nbsp;
+          {{ id_mod_first.cpd_titulo }}{% if id_mod_first.cpd_url %}(Enlace: <a href="{{ id_mod_first.cpd_url }}" target="_blank">{{ id_mod_first.cpd_url }}</a>){% endif %}<br>
+          <span id="memberNumber{{ id_mod_first.id  }}" style="background-color:#ddd;font-size: large;color:blue"></span><br>
+      </div>
+      <div class="modal-footer">
+        <button type="button" id = "submit_ini" class="btn btn-primary" disabled=True
+        data-target="#staticBackdrop{{ id_mod_list[0].id }}" data-toggle="modal" data-bs-dismiss="modal">Siguiente</button>
+      </div>
+    </div>
+  </div>
+</div>
+{% endif %}
+
+{% for aviso in id_mod_list if aviso.check_estatus_user(current_user.id|int) != True  or current_user.ceal_usuario_pgus.ceal_inscripcion_ini %}
+<div class="modal modal-dialog modal-xl" id="staticBackdrop{{ aviso.id }}" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content modal-dialog modal-xl">
+      <div class="modal-header">
+        <h3 class="modal-title" id="staticBackdropLabel">Condiciones de uso, privacidad y derechos de usuarios {% set nest_index =  loop.index0|int + 1 %}</h3>
+        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">x</span></button>
+      </div>
+      <div class="modal-body">&nbsp;&nbsp;
+          <input type="checkbox" value = {{aviso.check_estatus_user(current_user.id|int)}} 
+                 class="form-check-input btn-primary updateButton" id="dictamenInput{{ aviso.id }}"
+                 member_id="{{ aviso.id }}" revisor_id="{{ current_user.id }}" plan_id="{{ aviso.id }}"
+                 onClick="add_submit('dictamenInput{{ aviso.id }}', 'submit')"
+          >
+          &nbsp;&nbsp;&nbsp;&nbsp;
+          {{ aviso.cpd_titulo }}{% if aviso.cpd_url %}(Enlace: <a href="{{ aviso.cpd_url }}" target="_blank">{{ aviso.cpd_url }}</a>){% endif %}<br>
+          <span id="memberNumber{{ aviso.id }}" style="background-color:#ddd;font-size: large;color:blue"></span><br>
+      </div>
+      <div class="modal-footer">
+        {% if id_mod_list[nest_index] %} 
+        <button type="button" id = "submit" class="btn btn-primary" 
+        data-target="#staticBackdrop{{ id_mod_list[nest_index].id }}" data-toggle="modal" data-dismiss="modal">Siguiente</button>
+        {% else %}
+        <button type="button" id = "submit" class="btn btn-primary" 
+        data-target="#modalIniInfoCEAL" data-toggle="modal" data-dismiss="modal">Siguiente</button>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endfor %}
+
+{% for field, errors in form_ini_ceal.errors.items() %}
+    <div class="alert alert-danger">
+      {{ form_ini_ceal[field].label }}: {{ ', '.join(errors) }}
+    </div>
+  {% endfor %}
+    <form class="form-horizontal" method="post" enctype="multipart/form-data">
+      <div class="form-group">
+        {{ form_ini_ceal.csrf_token }}
+      </div>
+
+
+<div class="modal" id="modalIniInfoCEAL" data-backdrop="static" data-keyboard="false" tabindex="-1"aria-labelledby="modalIniInfoCEAL" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title" id="modalIniInfoCEAL">Información Personal</h3>
+        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">x</span></button>
+      </div>
+      <div class="modal-body">
+        {{form_ini_ceal.ceal_papellido.label() }}<br/>{{form_ini_ceal.ceal_papellido(rows="20",cols="60",class="form-control")}}<br/>
+        {{form_ini_ceal.ceal_sapellido.label() }}{{form_ini_ceal.ceal_sapellido(rows="20",cols="60",class="form-control")}}<br/>
+        {{form_ini_ceal.ceal_nombre.label() }}<br/>{{form_ini_ceal.ceal_nombre(rows="20",cols="60",class="form-control")}}<br/>
+        {{form_ini_ceal.ceal_calle.label() }}<br/>{{form_ini_ceal.ceal_calle(rows="20",cols="60",class="form-control")}}<br/>
+        {{form_ini_ceal.ceal_colonia.label() }}<br/>{{form_ini_ceal.ceal_colonia(rows="20",cols="60",class="form-control")}}<br/>
+        {{form_ini_ceal.ceal_municipio.label() }}<br/>{{form_ini_ceal.ceal_municipio(rows="20",cols="60",class="form-control")}}<br/>
+        {{form_ini_ceal.ceal_estado.label() }}<br/>{{form_ini_ceal.ceal_estado(rows="20",cols="60",class="form-control")}}<br/>
+        {{form_ini_ceal.ceal_cp.label() }}<br/>{{form_ini_ceal.ceal_cp(rows="20",cols="60",class="form-control")}}<br/>
+        {{form_ini_ceal.ceal_telefono.label() }}<br/>{{form_ini_ceal.ceal_telefono(rows="20",cols="60",class="form-control")}}<br/>
+        {{form_ini_ceal.ceal_email.label() }}<br/>{{form_ini_ceal.ceal_email(rows="20",cols="60",class="form-control")}}<br/>
+        {{form_ini_ceal.ceal_sexo.label() }}<br/>{{form_ini_ceal.ceal_sexo(rows="20",cols="60",class="form-control", required=True)}}<br/>
+        {{form_ini_ceal.ceal_nacimiento.label() }}<br/>{{form_ini_ceal.ceal_nacimiento(rows="20",cols="60",class="form-control")}}
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-primary" data-target="#modalIniInfoCE" data-toggle="modal" data-dismiss="modal">Siguiente</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<div class="modal " id="modalIniInfoCE" data-backdrop="static" data-keyboard="false" tabindex="-1"aria-labelledby="modalIniInfoCE" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content modal-dialog modal-xl">
+      <div class="modal-header modal-xl">
+        <h4 class="modal-title" id="modalIniInfoCE">Revisión y actualización de contactos de emergencia</h4>
+        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">x</span></button>
+      </div>
+      <div class="modal-body modal-xl">
+          {{form_ini_ceal.ceal_c1nombre.label() }}{{form_ini_ceal.ceal_c1nombre(class="form-control")}}<br/>
+          {{form_ini_ceal.ceal_c1dirección.label() }}{{form_ini_ceal.ceal_c1dirección(class="form-control")}}<br/>
+          {{form_ini_ceal.ceal_c1telefono.label() }}{{form_ini_ceal.ceal_c1telefono(class="form-control")}}<br/>
+          {{form_ini_ceal.ceal_c1email.label() }}{{form_ini_ceal.ceal_c1email(class="form-control")}}<br/>
+          {{form_ini_ceal.ceal_c1parentesco.label() }}{{form_ini_ceal.ceal_c1parentesco(class="form-control")}}
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-primary" data-target="#modalIniInfoCEAL" data-toggle="modal" data-dismiss="modal">Anterior</button>
+        {{form_ini_ceal.submit_ini_p(class="btn btn-success")}}
+      </div>
+
+    </div>
+  </div>
+</div>
+</form>
+
+
+    <div class="row">
+        <div class="col-lg-12 col-md-12 mb-3">
+            <h4 class="estilo__text-usuario">Hola {{ current_user.pgus_username }}</h4>
+        </div>
+    </div>
+
+
+
+    <div class="row">
+
+        {% if alumno.ceal_semestre != 1 %}
+        <div class="col-lg-8 col-md-12 estilo__cards ">
+            <div class="card text-center align-content-center ">
+                <div class="card-header">
+                    <h6>INSTRUCCIONES - Proceso de Re-inscripción semestre {{ semestre.cese_ciclo }}</h6>
+                </div>
+                <div class="card-body">
+                    <ol class="justificar__cards contenido__texto ">
+                        <li> Selecciona la opción de “Perfil”. Actualiza tu información personal y verifica que sea correcta.</li>
+                        <li> Selecciona la opción de “Perfil”. Actualiza tu información complementaria y verifica que sea correcta.</li>
+                        <li> Para continuar con tu inscripción, en la opción Permisos es obligatorio aceptar los términos del Aviso de Privacidad Integral, autorización de Uso de imagen personal y del Circuito Cerrado de Televisión (CCTV).</li>
+                        <li>Del menú “Materias” elige la opción “Oferta de materias”. Da clic en la opción “Inscribir” en cada una de las asignaturas que vas a cursar. Asegurarse de seleccionar las materias que deseas cursar. Ya que seleccionaron todas las materias, elige la opción de “Enviar”, y con esto has terminado el primer paso de tu reinscripción. Puedes solicitar modificaciones a tu inscripción durante el periodo que estará abierto el sistema del 
+                        {% if semestre.cese_inicioOfertaMaterias and semestre.cese_finalOfertaMaterias %} 
+                            del {{ semestre.cese_inicioOfertaMaterias.strftime('%d-%m-%Y')  }} al {{ semestre.cese_finalOfertaMaterias.strftime('%d-%m-%Y')  }}
+                        {% else %}
+                            con base en las indicaciones del área de Servicios Escolares
+                        {% endif %}.
+                        </li>
+                        <li>El área de Servicios Escolares revisará tu propuesta y si no hay ningún conflicto será aprobada; en caso de que Servicios Escolares lo requiera, se realizarán los cambios pertinentes. En ambos casos te será notificado.</li>
+                        <li>En caso de que se realicen cambios deberás aceptar las modificaciones en el apartado “Materias” elige la opción “Oferta de materias” deberás dar clic en el botón “Confirmar modificaciones”. Se enviará un comprobante de las materias a tu correo electrónico.</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+        <div class="col-lg-4 col-md-12 estilo__cards">
+            <div class="card text-center ">
+                <div class="card-header">
+                    <h6>Avisos</h6>
+                </div>
+                <div class="card-body">
+                    <p class="card-text justificar__cards contenido__texto">
+                        Cualquier problema con el sistema de inscripción debes reportarlo a amartinezm@unam.mx
+                    </p>
+                </div>
+            </div>
+            <div class="card text-center mt-4 ">
+                <div class="card-header">
+                    <h6>Calendario de Actividades</h6>
+                </div>
+                <div class="card-body contenido__texto">
+
+                    {% if semestre.cese_inicioOfertaMaterias and semestre.cese_finalOfertaMaterias %}
+                    <p class="card-text justificar__cards">
+                        Inscripción de materias curriculares: 
+                        <br><b>{{ semestre.cese_inicioOfertaMaterias.strftime('%d-%m-%Y')  }} al {{ semestre.cese_finalOfertaMaterias.strftime('%d-%m-%Y')  }}</b>
+                    </p>
+                    {% endif %}
+                    {% if semestre.cese_inicioBajaMaterias and semestre.cese_finalBajaMaterias %}
+                    <p class="card-text justificar__cards">
+                        Altas/bajas de materias curriculares:
+                        <br><b>{{ semestre.cese_inicioBajaMaterias.strftime('%d-%m-%Y')  }} al {{ semestre.cese_finalBajaMaterias.strftime('%d-%m-%Y')  }}</b>
+                    </p>
+                    {% endif %}
+                    {% if semestre.cese_inicioBajaMaterias and semestre.cese_finalBajaMaterias %}
+                        <p class="card-text justificar__cards">
+                        Inscripción de materias complementarias:
+                        <br><b>{{ semestre.cese_inicioComplemenariasMaterias.strftime('%d-%m-%Y')  }} al {{ semestre.cese_finalComplemenariasMaterias.strftime('%d-%m-%Y')  }}</b>
+                    </p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-8 col-md-12 estilo__cards ">
+            <div class="card text-center">
+                <div class="card-header">
+                    <h6>INSTRUCCIONES - Proceso de Re-inscripción semestre {{ semestre.cese_ciclo }}</h6>
+                </div>
+                <div class="card-body">
+
+                    <ol class="justificar__cards contenido__texto">
+                        <li> Selecciona la opción de “Altas y Bajas”. Se desplegarán todas las asignaturas disponibles para ti de tu actual Plan de Estudios.
+                        </li>
+                        <li> Las asignaturas inscritas aparecerán en color verde. Si quieres dar de baja una asignatura, deberás dar clic en la opción Inscrito (Dar de baja).
+                        </li>
+                        <li> Las asignaturas que puedes dar de alta aparecerán en color amarillo. Si quieres dar de alta una asignatura, deberás dar clic en la opción No inscrito (Dar de alta).
+                        </li>
+                        <li> No podrás dar de alta más de 60 cŕeditos en total por semestre.
+                        </li>
+                        <li> El botón Vista Previa del Comprobante de Inscripción te permite ver una versión no oficial de tus movimientos.
+                        </li>
+                        <li> Ya que se realizarón todos los movimientos deseados, elige la opción de “Enviar movimiento de altas y bajas” y confirma tus movimientos. Con esto has terminado tu proceso de altas y bajas.</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-12 estilo__cards">
+            <div class="card text-center ">
+                <div class="card-header carrera">
+                    <h6>Horario de Materias</h6>
+                </div>
+                <div class="card-body">
+
+                    <ul class="list-unstyled contenido__texto">
+                        {% for sem in semActivo %}
+                        <li>
+                            <a href="{{url_for('horarios_coordinador_ceal', id_plan = trayectoria.ceal_hist_plan, id_ciclo = semestre.cese_ciclo, semestre = sem)}}" class="nav__enlace-dark"> Semestre {{ sem }} - {{carrera.ceca_nombre}}</a>
+                        </li>
+                      {% endfor %}
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+{% block scripts %}
+<script src="http://code.jquery.com/jquery.js"></script>
+<script src="{{ url_for('static', filename='update_act/app_ceal_cpd_answer.js') }}"></script>
+{{ super() }}
+
+<script>
+$(document).ready(function() {
+    $('#staticBackdrop{{id_mod_first.id}}').modal('show');
+});
+</script>
+
+
+<script>
+  function add_submit(checkbox_id, submit_id) {
+     var checkbox = document.getElementById(checkbox_id);
+     var ceprID = document.getElementById(submit_id);
+     updateToggle = checkbox.checked ? ceprID.disabled=false : ceprID.disabled=true;
+    }      
+</script>
+{% endblock %}

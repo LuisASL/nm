@@ -1,0 +1,68 @@
+{% extends base %} 
+{% import 'bootstrap/wtf.html' as wtf %}
+
+{% block css %}
+<link type="text/css" href="{{url_for('static',filename='nmaquetado/css/inicio.css')}}" rel="stylesheet">
+{% endblock %} 
+{% block title %}{{title}}{% endblock %} 
+
+
+{% block app_content %}
+<div class="container acomodar">
+    <div class=" row">
+        <div class="col-lg-12 col-md-12">
+            <!-- Se ocupa el estilo del stylesheet inicio.css, -->
+            <div class="card card--modificado ">
+                <div class="card-header card-header--modificado">
+                    <h6>Histórico de Materias Cursadas</h6>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                      <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                              <th>Clave</th>
+                              <th>Materia</th> 
+                              <th>Plan</th>
+                              <th>Semestre</th>
+                              <th>Plantel</th>
+                              <th>Profesor</th>
+                            </tr>
+                        </thead>
+                        <tfoot>
+                          <tr>
+                              <th>Clave</th>
+                              <th>Materia</th> 
+                              <th>Plan</th>
+                              <th>Semestre</th>
+                              <th>Plantel</th>
+                              <th>Profesor</th>
+                          </tr>
+                        </tfoot>
+                        <tbody> 
+
+                            {% for p in alumno.ceal_clases_ceom %}
+                            <tr>
+
+                              <td>{{p.ceom_materia_cema}}</td>
+                              <td>{{p.ceom_nombre}}
+                              <td>{{p.ceom_plan_cepe}}</td> 
+                              <td>{{p.ceom_ciclo_cese}}</td> 
+                              <td>{{p.ceom_plantel_cepl}}</td>
+                              <td>{% for pr in p.cesr_cepr_ceom %}
+                                      {{ pr.cepr_nombre }} {{ pr.cepr_papellido }} {{ pr.cepr_sapellido }} <br>
+                                  {% endfor %}
+                              </td>
+                            {% endfor %}
+                      </tr>
+                    </table>
+                  </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+{% endblock %}

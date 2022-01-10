@@ -1,0 +1,27 @@
+{% extends "base.html" %} {% block css %}
+<link type="text/css" href="{{url_for('static',filename='css/perfil.css')}}" rel="stylesheet">
+<link type="text/css" href="{{url_for('static',filename='css/inicio.css')}}" rel="stylesheet">{% endblock %} {% block title %}Comprobantes{% endblock %} {% block content %}
+<div class="container acomodar">
+    <div class="row">
+
+        <div class="col-12 mb-5 ">
+            <div class="container formulario ">
+                <div class="formulario__titulo ">
+                    <h6>Cambiar contraseña</h6>
+                </div>
+                <form class="formu mt-5" action method="POST ">
+                    <div class="form-group required ">
+                        <label for="password "><span class="formulario_label ">NUEVA CONTRASEÑA <i class="fas fa-question-circle interrogatorio" ></i></span></label>
+                        <input class="form-control" id="password" name="password" required size="100" type="password" value="">
+                    </div>
+
+                    <button class="formulario__boton " type="button ">Actualizar</button>
+
+                </form>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}

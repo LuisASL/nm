@@ -1,0 +1,141 @@
+{% extends base %} 
+{% import 'bootstrap/wtf.html' as wtf %}
+
+{% block css %}
+<link type="text/css" href="{{url_for('static',filename='nmaquetado/css/perfil.css')}}" rel="stylesheet">
+{% endblock %} 
+{% block title %}{{title}}{% endblock %} 
+{% block app_content %}
+<div class="container acomodar">
+    <div class="row">
+        <div class="col-lg-4 col-md-12 usuario">
+            <div class="usuario-top">
+                <div class="usuario-top__mascara">
+                    <img class="mascara__img" src="{{url_for('static',filename='upload/')}}{{current_user.pgus_image}}" alt="Img- Alumno ENES JURIQUILLA ">
+                </div>
+
+                <h5 class="usuario-top__nombre ">{{ current_user.pgus_username }}</h5>
+            </div>
+
+            <div class="card usuario-down">
+                <ul class="list-group list-group-flush ">
+                    <li class="list-group-item color-default"><a class="nav__enlace-dark--modificado" href="{{url_for('ceal_p', id=current_user.pgus_alumno_ceal)}}">Información Personal</a>
+                    <li class="list-group-item {{status_2}} "><a class="nav__enlace" href="{{url_for('ceal_complemento', id=current_user.pgus_alumno_ceal)}}">Información Complementaria</a>
+                    <li class="list-group-item {{status_3}} color-default"><a class="nav__enlace-dark--modificado" href="{{url_for('ceal_a', id=current_user.pgus_alumno_ceal) }}">Información Académica</a>
+                    <li class="list-group-item {{status_4}} color-default"><a class="nav__enlace-dark--modificado" href="{{url_for('ceal_pe', id=current_user.pgus_alumno_ceal) }}">Plan de Estudios</a>
+                    <li class="list-group-item {{status_5}} color-default"><a class="nav__enlace-dark--modificado" href="{{url_for('ceal_ce', id=current_user.pgus_alumno_ceal) }}">Contacto de Emergencia</a>
+                    <li class="list-group-item {{status_6}} color-default"><a class="nav__enlace-dark--modificado" href="{{url_for('pgus_ceal_m', id=current_user.id) }}">Configuración de Cuenta</a>
+                </ul>
+            </div>
+
+        </div>
+
+        <div class="col-lg-8 col-md-12">
+            <div class="container formulario">
+                <div class="formulario__titulo">
+                    <h6>Información Complementaria</h6>
+                </div>
+                    {% for field, errors in form.errors.items() %}
+                      <div class="alert alert-danger">
+                        {{ form[field].label }}: {{ ', '.join(errors) }}
+                      </div>
+                    {% endfor %}
+
+                    {% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                        {% for message in messages %}
+                        <div class="alert alert-info" role="alert">{{ message }}</div>
+                        {% endfor %}
+                    {% endif %}
+                    {% endwith %}
+
+                    <form class="form-horizontal" method="post" enctype="multipart/form-data">
+                    <div class="form-group">
+                      {{ form.csrf_token }}
+                    </div>
+
+                    <div class="form-group  required">
+                        <label for="ceal_fnacimiento"><span class="formulario_label">FECHA DE NACIMIENTO</span></label>
+                        <br/>{{form.ceal_fnacimiento(rows="20",cols="60", class="form-control")}}
+                    </div>
+                    <div class="form-group  required">
+                        <label for="ceal_lnacimiento"><span class="formulario_label">MUNICIPIO DE NACIMIENTO</span></label>
+                        <br/>{{form.ceal_lnacimiento(rows="20",cols="60", class="form-control")}}
+                    </div>
+                    <div class="form-group  required">
+                        <label for="ceal_enacimiento"><span class="formulario_label">ESTADO DE NACIMIENTO</span></label>
+                        <br/>{{form.ceal_enacimiento(rows="20",cols="60", class="form-control")}}
+
+                    </div>
+                    <div class="form-group  required">
+                        <label for="ceal_municipio_proc"><span class="formulario_label">MUNICIPIO DE PROCEDENCIA</span></label>
+                        <br/>{{form.ceal_municipio_proc(rows="20",cols="60",class="form-control")}}
+                    </div>
+                    <div class="form-group  required">
+                        <label for="ceal_estado_proc"><span class="formulario_label">ESTADO DE PROCEDENCIA</span></label>
+                        <br/>{{form.ceal_estado_proc(rows="20",cols="60",class="form-control")}}
+                    </div>
+                    <div class="form-group  required">
+                        <label for="ceal_lengua"><span class="formulario_label">¿HABLAS ALGUNA LENGUA INDÍGENA</span></label>
+                        <br/>{{form.ceal_lengua(rows="20",cols="60",class="form-control")}}
+                    </div>
+                    <div class="form-group ">
+                        <label for="ceal_lengua_descr"><span class="formulario_label">AGREGAR EN CASO DE QUE LA RESPUESTA SEA SÍ</span></label>
+                        <br/>{{form.ceal_lengua_descr(rows="20",cols="60",class="form-control")}}
+                    </div>
+                    <div class="form-group  required">
+                        <label for="ceal_discapacidad"><span class="formulario_label">¿TIENES ALGUNA DISCAPACIDAD?</span></label>
+                        <br/>{{form.ceal_discapacidad(rows="20",cols="60",class="form-control")}}
+                    </div>
+                    <div class="form-group ">
+                        <label for="ceal_discapacidad_descr"><span class="formulario_label">DESCRIBIR EN CASO QUE LA RESPUESTA SEA "SÍ"</span></label>
+                        <br/>{{form.ceal_discapacidad_descr(rows="20",cols="60",class="form-control")}}
+                    </div>
+                    <div class="form-group  required">
+                        <label for="ceal_bachillerato"><span class="formulario_label">NOMBRE DE LA INSTITUCIÓN DÓNDE REALIZASTE EL BACHILLERATO</span></label>
+                        <br/>{{form.ceal_bachillerato(rows="20",cols="60",class="form-control")}}
+                    </div>
+                    <div class="form-group  required">
+                        <label for="ceal_lugarbachiller"><span class="formulario_label">CIUDAD EN DONDE REALIZASTE EL BACHILLERATO</span></label>
+                        <br/>{{form.ceal_lugarbachiller(rows="20",cols="60",class="form-control")}}
+                    </div>
+                    <div class="form-group  required">
+                        <label for="ceal_promedio"><span class="formulario_label">PROMEDIO DEL BACHILLERATO (CALIFICACIÓN DE 0 A 10 CON OPCIÓN MÁXIMA DE DOS DECIMALES)</span></label>
+                        <br/>{{form.ceal_lugarbachiller(rows="20",cols="60",class="form-control")}}
+                    </div>
+                    <div class="form-group  required">
+                        <label for="ceal_tipo_ingreso"><span class="formulario_label">TIPO DE INGRESO</span></label>
+                        <br/>{{form.ceal_tipo_ingreso(rows="20",cols="60",class="form-control")}}
+                    </div>
+                    <div class="form-group  required">
+                        <label for="ceal_lic_ingreso"><span class="formulario_label">LICENCIATURA DE INGRESO DIRECTO</span></label>
+                        <br/>{{form.ceal_lic_ingreso(rows="20",cols="60",class="form-control")}}
+                    </div>
+                    <div class="form-group  required">
+                        <label for="ceal_fac_ingreso"><span class="formulario_label">ESCUELA O FACULTAD DE INGRESO DIRECTO</span></label>
+                        <br/>{{form.ceal_fac_ingreso(rows="20",cols="60",class="form-control")}}
+                    </div>
+                    <div class="form-group ">
+                        <label for="ceal_lic_indirecto"><span class="formulario_label">LICENCIATURA DE INGRESO INDIRECTO</span></label>
+                        <br/>{{form.ceal_lic_indirecto(rows="20",cols="60",class="form-control")}}
+                    </div>
+
+                    {{form.submit(class="formulario__boton")}}
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+
+{% block scripts %}
+    {{ super() }}
+<script>
+  $(document).ready(function() {
+    $('.js-example-basic-single').select2();
+});
+</script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
+
+{% endblock %}

@@ -1,0 +1,395 @@
+{% extends base %} 
+{% import 'bootstrap/wtf.html' as wtf %}
+
+{% block css %}
+<link type="text/css" href="{{url_for('static',filename='nmaquetado/css/perfil.css')}}" rel="stylesheet">
+{% endblock %} 
+{% block title %}{{title}}{% endblock %} 
+
+
+{% block app_content %}
+
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+    {% for message in messages %}
+    <div class="alert alert-info" role="alert">{{ message }}</div>
+    {% endfor %}
+{% endif %}
+{% endwith %}
+
+
+
+{% if (currentDate >= semestre.cese_inicioBajaMaterias and currentDate <= semestre.cese_finalBajaMaterias) or user.ceal_permitir_insc == True %}
+
+
+
+
+{% for cp in cpdList if cp.check_estatus_user(current_user.id|int) != True %}
+
+ <div class = 'row'>
+  <div class="col-xl-2 col-lg-12"></div>
+  <div class="col-xl-8 col-lg-12">
+      <div class="card shadow mb-4">
+        <div class="card-header py-3">
+          <h4 class="m-0 font-weight-bold text-primary">
+           Condiciones de uso, privacidad y derechos de usuarios
+
+          </h4>            
+        </div>
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table" id="dataTable" width="100%" cellspacing="0">
+              <div class="form-group">
+
+                Para continuar con tu inscripción, es obligatorio aceptar los términos del aviso de privacidad y la autorización de uso de la imagen personal. Para el Aviso de Privacidad Integral del Circuito Cerrado de Televisión (CCTV), lee el aviso y da clic en Aceptar si estás de acuerdo.<br>
+                Pendiente de aprobar:<br>
+                <br>
+              <b>{{ cp.cpd_titulo }}</b><br>
+              <br>
+
+              </div>
+            </table>
+          </div>
+        </div>
+      </div>
+  </div>
+</div>
+
+
+
+  {% else %}
+
+    {% if user.ceal_cese_registro() and user.ceal_cese_registro().ceal_ce_approve_complete == True %}
+
+
+
+<div class="container acomodar">
+    <div class="row">
+        <div class="col-lg-3 col-md-12 estilo__cards">
+            <div class="card card--modificado">
+                <div class="card-header card-header--modificado">
+                    <h6>Información Académica</h6>
+                </div>
+                <div class="card-body">
+                    <ul class="justificar__cards contenido__texto card__listas">                      
+                      Nombre: {{user.ceal_papellido}} {{user.ceal_sapellido}} {{user.ceal_nombre}}<br>
+                      Número de alumno: {{user.ceal_cuenta}}<br>
+                      Plantel: {{plan.ceal_hist_plantel}}<br>
+                      Carrera: {{plan.ceal_hist_carrera}}<br>
+                      Plan: {{plan.ceal_hist_plan}}<br>
+                      Fecha de creación: {% if alumno_sem.ceal_sem_fcreacion %} 
+                                          {{alumno_sem.ceal_sem_fcreacion.strftime('%d-%m-%Y %H:%M:%S')}}
+                                          {% endif %}<br>
+                      {% if alumno_sem.ceal_al_approve_conf %}
+                      Confirmación: {% if alumno_sem.ceal_al_approve_conf %} Aprobado {% endif %}<br>
+                      Fecha de confirmación: {% if alumno_sem.ceal_al_approve_date %} 
+                                          {{alumno_sem.ceal_al_approve_date.strftime('%d-%m-%Y %H:%M:%S')}}
+                                          {% endif %}<br>
+                      {% endif %}                        
+                      <br>    
+                      {% if alumno_sem.ceal_ce_approve_b %} 
+                      Confirmación de altas y bajas:  Aprobado <br>
+                      Fecha de confirmación altas y bajas: {{alumno_sem.ceal_ce_approve_date_b.strftime('%d-%m-%Y %H:%M:%S')}}<br>
+                      {% endif %}
+
+
+                      <hr>
+                      Semestre: {{user.ceal_semestre}}<br>
+                      Ciclo: {{semestre.cese_ciclo}}<br>
+                      Archivo: {% if alumno_sem.ceal_sem_archivo %} <a href="{{url_for('download_ri', id=user.ceal_cuenta, fname=alumno_sem.ceal_sem_archivo|string)}}">{{alumno_sem.ceal_sem_archivo [0:36]}} {% endif %}</a><br>
+
+                      <hr>
+                      Revisión<br>
+                      Revisor:  {% if alumno_sem.ceal_ce_approve %} {{alumno_sem.materias_confirmadas.cead_nombre}} {{alumno_sem.materias_confirmadas.cead_papellido}} 
+                      {{alumno_sem.materias_confirmadas.cead_sapellido}} {% endif %}<br>
+                      Respuesta: {% if alumno_sem.ceal_ce_approve %} Aprobado {% endif %}<br>
+                      Fecha:  {% if alumno_sem.ceal_ce_approve %} {{alumno_sem.ceal_ce_approve_date.strftime('%d-%m-%Y %H:%M:%S')}} {% endif %}<br>
+                      {% if alumno_sem.ceal_ce_approve_b %} 
+                      <hr>
+                      Altas y Bajas<br>
+                      Revisor:  {{alumno_sem.materias_confirmadas.cead_nombre}} {{alumno_sem.materias_confirmadas.cead_papellido}} 
+                      {{alumno_sem.materias_confirmadas.cead_sapellido}} <br>
+                      Respuesta: {% if alumno_sem.ceal_ce_approve_b %} Aprobado {% endif %}<br>
+                      Fecha:  {% if alumno_sem.ceal_ce_approve_b %} {{alumno_sem.ceal_ce_approve_date_b.strftime('%d-%m-%Y %H:%M:%S')}} {% endif %}<br>
+                      {% endif %}
+                      <hr>
+                      Token: {{ alumno_sem.ceal_sem_token }}
+                      <br>
+                      <hr>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-9 col-md-12 estilo__cards ">
+            <div class="card text-center card--modificado">
+                <div class="card-header card-header--modificado">
+                    <h6>Lista de Materias disponibles</h6>
+                </div>
+                <div class="card-body">
+
+    <a class="formulario__boton btn-info" href="{{url_for('pdf_create_ab_propuesta_vp', id_al = user.ceal_cuenta, id_sem = semestre.cese_ciclo )}}" type="button">
+      <span class="formulario__boton"></span> Vista Previa del Comprobante de Inscripción</a> 
+      <br>
+    <a class="formulario__boton btn-success" data-toggle="modal" data-target="#modalConfEnvio" type="button">
+    <span class="glyphicon glyphicon-send"></span> Enviar movimiento de altas y bajas</a>
+    <br>
+
+        <div class="table-responsive">
+          <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+            <thead>
+              <tr>
+                <th>Aplicar</th>
+                <th>Profesor</th>
+                <th>Materia</th>
+                <th>Semestre</th> 
+                <th>Inscritos</th>
+                <th>Lunes</th>
+                <th>Martes</th>
+                <th>Miércoles</th>
+                <th>Jueves</th>
+                <th>Viernes</th>
+              </tr>
+            </thead>
+            <tfoot>
+              <tr>
+                <th>Aplicar</th>
+                <th>Profesor</th>
+                <th>Materia</th>
+                <th>Semestre</th> 
+                <th>Inscritos</th>
+                <th>Lunes</th>
+                <th>Martes</th>
+                <th>Miércoles</th>
+                <th>Jueves</th>
+                <th>Viernes</th>
+              </tr>
+            </tfoot>
+            <tbody> 
+              {% for o in omateria %}
+                    {% if o.ceom_ciclo_cese == semestre.cese_ciclo and o.ceca_in_ceom().ceca_clave == plan.ceal_hist_carrera and user.ceal_ceom_ab_complete != True %}    
+                    
+
+                        {% for al in user.ceal_clases_ceom  if (al.ceom_plan_cepe == plan.ceal_hist_plan and al.ceom_clave == o.ceom_clave) %}
+                          <tr class="success">
+                          <td width="8%" class="nav__enlace-om-modificado">
+                        <a class="list-group-item list-group-item-success" href="{{url_for('ceom_ceal_mov_baja', id=o.ceom_clave)}}"><span class="glyphicon glyphicon-remove"></span> Inscrito (dar de Baja)</a>
+                          </td>
+                          {% else %}
+                          <tr class="warning">
+                            <td width="8%" class="nav__enlace">
+                        <a class="list-group-item list-group-item-warning" href="{{url_for('ceom_ceal_ab_mov_alta', ceal_id=current_user.pgus_alumno_ceal, ceom_id = o.ceom_clave)}}"><span class="glyphicon glyphicon-ok"></span>No inscrito (dar de alta)</a>
+                          </td>
+                        
+                        {% endfor %}
+                    {% else %}
+                      <tr>
+                              {% for al in user.ceal_clases_ceom  if (al.ceom_plan_cepe == plan.ceal_hist_plan and 
+                                     al.ceom_ciclo_cese == semestre.cese_ciclo and 
+                                     al.ceom_clave == o.ceom_clave) %}
+                              <td class="nav__enlace-dark--modificado"> <a class="list-group-item list-group-item-success" href="#">Inscrito</td>
+                              {% else %}
+                              <td class="nav__enlace-dark--modificado"> <a class="list-group-item list-group-item-warning" href="#">No Inscrito</td>
+                              {% endfor %}
+
+                          </td>
+                    {% endif %}
+                <td>
+                      {% for pr in o.cesr_cepr_ceom %}
+                          {{ pr.cepr_nombre }} {{ pr.cepr_papellido }} {{ pr.cepr_sapellido }} <br>
+                      {% endfor %}
+                </td>
+                <td>{{o.ceom_nombre}} (Clave {{o.ceom_clave_str()}})
+                  Creditos {{ o.cema_omateria_ceom.cema_creditos }}
+                </td>
+                <td>{{o.ceom_semestre}}</td>  
+                <td>{{o.ceom_cupoact}} / {{o.ceom_cupomax}}</td>                
+                {% if o.ceom_ilunes != None %}
+                <td>{{o.ceom_ilunes.strftime('%H:%M')}} / {{o.ceom_flunes.strftime('%H:%M')}}</td>  
+                {% else %}
+                <td>--:-- </td>
+                {% endif %}
+                {% if o.ceom_imartes != None %}
+                <td>{{o.ceom_imartes.strftime('%H:%M')}} / {{o.ceom_fmartes.strftime('%H:%M')}}</td>
+                {% else %}
+                <td>--:-- </td>
+                {% endif %}                
+                {% if o.ceom_imiercoles != None %}
+                <td>{{o.ceom_imiercoles.strftime('%H:%M')}} / {{o.ceom_fmiercoles.strftime('%H:%M')}}</td>
+                {% else %}
+                <td>--:-- </td>
+                {% endif %} 
+                {% if o.ceom_ijueves != None %}
+                <td>{{o.ceom_ijueves.strftime('%H:%M')}} / {{o.ceom_fjueves.strftime('%H:%M')}}</td>
+                {% else %}
+                <td>--:-- </td>
+                {% endif %}             
+                {% if o.ceom_iviernes != None %}
+                <td>{{o.ceom_iviernes.strftime('%H:%M')}} / {{o.ceom_fviernes.strftime('%H:%M')}}</td>
+                {% else %}
+                <td>--:-- </td>
+                {% endif %}           
+              </tr>
+              {% endfor %}
+
+            </table>
+          </span>
+          </div>
+          </div>
+</div>
+
+</center>
+<br>
+<div class="container">
+<div class="row">
+<div class="col-md-2"></div>
+<div class="col-md-6">
+
+
+    <a class="formulario__boton btn-info" href="{{url_for('pdf_create_ab_propuesta_vp', id_al = user.ceal_cuenta, id_sem = semestre.cese_ciclo )}}" type="button">
+      <span class="formulario__boton"></span> Vista Previa del Comprobante de Inscripción</a> 
+      <br>
+    <a class="formulario__boton btn-success" data-toggle="modal" data-target="#modalConfEnvio" type="button">
+    <span class="glyphicon glyphicon-send"></span> Enviar movimiento de altas y bajas</a>
+
+
+
+<!-- Modal -->
+<div class="modal" id="modalConfEnvio" tabindex="-1" role="dialog" aria-labelledby="modalConfEnvio" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Confirmar envío</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">x</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Si confirmas el envío ya no podras dar de alta o baja asignaturas curriculares.<br>
+        Cualquier problema o duda con el sistema de inscripción debes reportarlo a amartinezm@unam.mx.<br>
+        <center><caption>Movimientos realizados</caption></center>
+
+        <span style="font-size: small;">
+        <table class = "table tablem"  style="width:100%" border ="2" cellspacing="0" cellpadding="5">
+          <tr>
+            <th>Clave</th>
+            <th>Grupo</th>
+            <th>Asignatura</th>
+            <th>Movimiento</th>
+          </tr>
+
+          {% for p in user.ceal_ceom_ab_om if p.ceal_ceom_ab_sem == semestre.cese_ciclo  %}
+          {% if p.ceom_mov_ab.ceom_ciclo_cese == semestre.cese_ciclo and p.ceom_mov_ab.ceca_in_ceom().ceca_clave == plan.ceal_hist_carrera %}
+              <tr>
+            <td width="7%">
+              <span style="font-size: small;">
+                  {{ p.ceom_mov_ab.ceom_clave_str() }}</td>
+              </span>
+            <td width="7%">
+              <span style="font-size: small;">
+                  {{p.ceom_mov_ab.ceom_grupo}}</td>
+            <td width="55%">
+              <span style="font-size: small;">
+                  {{p.ceom_mov_ab.ceom_nombre}}</td>
+              </span>
+            <td width="12%">
+                <span style="font-size: small;">
+                 {{ p.ab_movimiento()}}
+                </span>
+            </td>
+          </tr>
+          {% endif %}
+          {% endfor %}  
+        </table>
+        </span>
+
+        </table>   
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+        <a role="button" class="btn btn-primary" href="{{url_for('pdf_inscripcion_ab_completa', id_al = user.ceal_cuenta, id_sem = semestre.cese_ciclo )}}">Confirmar</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+</div>
+</div>
+</div>
+
+</center>
+<br>
+<br>
+<br>
+<br>
+
+{% else %}
+
+<div class = 'row'>
+  <div class="col-xl-2 col-lg-12"></div>
+  <div class="col-xl-8 col-lg-12">
+      <div class="card shadow mb-4">
+        <div class="card-header py-3">
+          <h4 class="m-0 font-weight-bold text-primary">
+            Proceso de Altas y Bajas semestre {{ semestre.cese_ciclo }}
+          </h4>            
+        </div>
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table" id="dataTable" width="100%" cellspacing="0">
+              <div class="form-group">
+                El proceso de inscripción no esta habilitado en este momento.<br>
+                {% if semestre.cese_inicioOfertaMaterias and semestre.cese_finalOfertaMaterias %} 
+                    Inscripción de materias curriculares: 
+                    <br><b>{{ semestre.cese_inicioOfertaMaterias.strftime('%d-%m-%Y')  }} al {{ semestre.cese_finalOfertaMaterias.strftime('%d-%m-%Y')  }}</b><br><br>
+                {% endif %}
+
+                Si tienes alguna duda por favor escribe a la dirección de correo electrónico <b>amartinezm@unam.mx</b>
+              </div>
+            </table>
+          </div>
+        </div>
+      </div>
+  </div>
+</div>
+
+{% endif %}
+{% endfor %} 
+
+{% else %}
+<div class = 'row'>
+  <div class="col-xl-2 col-lg-12"></div>
+  <div class="col-xl-8 col-lg-12">
+      <div class="card shadow mb-4">
+        <div class="card-header py-3">
+          <h4 class="m-0 font-weight-bold text-primary">
+           Proceso de Altas y Bajas
+          </h4>            
+        </div>
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table" id="dataTable" width="100%" cellspacing="0">
+              <div class="form-group">
+                El proceso de altas y bajas no esta habilitado en este momento.<br>
+                {% if semestre.cese_inicioBajaMaterias and semestre.cese_finalBajaMaterias %} 
+                    Altas y bajas de asignaturas curriculares: 
+                    <br><b>{{ semestre.cese_inicioBajaMaterias.strftime('%d-%m-%Y')  }} al {{ semestre.cese_finalBajaMaterias.strftime('%d-%m-%Y')  }}</b><br><br>
+                {% endif %}
+
+                Si tienes alguan duda por favor escribe a la dirección de correo electrónico <b>amartinezm@unam.mx</b>
+              </div>
+            </table>
+          </div>
+        </div>
+      </div>
+  </div>
+</div>
+
+{% endif %}
+
+
+
+{% endblock %}

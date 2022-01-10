@@ -1,0 +1,94 @@
+{% extends base %} 
+{% import 'bootstrap/wtf.html' as wtf %}
+
+{% block css %}
+<link type="text/css" href="{{url_for('static',filename='nmaquetado/css/perfil.css')}}" rel="stylesheet">
+<link type="text/css" href="{{url_for('static',filename='nmaquetado/css/inicio.css')}}" rel="stylesheet">
+{% endblock %} 
+{% block title %}{{title}}{% endblock %} 
+
+
+{% block app_content %}
+<!-- Bloque del body -> main -->
+<div class="container acomodar">
+    <div class="row">
+        <div class="col-lg-4 col-md-12 usuario">
+            <div class="usuario-top">
+                <div class="usuario-top__mascara">
+                    <img class="mascara__img" src="{{url_for('static',filename='upload/')}}{{current_user.pgus_image}}" alt="Img- Alumno ENES JURIQUILLA ">
+                </div>
+
+                <h5 class="usuario-top__nombre ">{{ current_user.pgus_username }}</h5>
+            </div>
+
+            <div class="card usuario-down ">
+                <ul class="list-group list-group-flush ">
+                    <li class="list-group-item {{status_1}} color-default"><a class="nav__enlace-dark--modificado" href="{{url_for('ceal_p', id=current_user.pgus_alumno_ceal)}}">Información Personal</a>
+                    <li class="list-group-item {{status_2}} color-default"><a class="nav__enlace-dark--modificado" href="{{url_for('ceal_complemento', id=current_user.pgus_alumno_ceal)}}">Información Complementaria</a>
+                    <li class="list-group-item {{status_3}} color-default"><a class="nav__enlace-dark--modificado" href="{{url_for('ceal_a', id=current_user.pgus_alumno_ceal) }}">Información Académica</a>
+                    <li class="list-group-item active"><a class="nav__enlace" href="{{url_for('ceal_pe', id=current_user.pgus_alumno_ceal) }}">Plan de Estudios</a>
+                    <li class="list-group-item {{status_5}} color-default"><a class="nav__enlace-dark--modificado" href="{{url_for('ceal_ce', id=current_user.pgus_alumno_ceal) }}">Contacto de Emergencia</a>
+                    <li class="list-group-item {{status_6}} color-default"><a class="nav__enlace-dark--modificado" href="{{url_for('pgus_ceal_m', id=current_user.id) }}">Configuración de Cuenta</a>
+                </ul>
+            </div>
+
+        </div>
+
+        <div class="col-lg-8 col-md-12 ">
+
+
+            <!-- Se ocupa el estilo del stylesheet inicio.css, -->
+
+            <div class="card card--modificado">
+                <div class="card-header card-header--modificado">
+                    <h6>Plan de Estudios en Activo</h6>
+                </div>
+                <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                  <tr>
+                    <th>Clave</th>
+                    <th>Materia</th> 
+                    <th>Carrera</th>
+                    <th>Plantel</th> 
+                    <th>Curricular</th>
+                    <th>Créditos</th>
+                    <th>Seriación</th>
+                  </tr>
+                </thead>
+                <tfoot>
+                  <tr>
+                    <th>Clave</th>
+                    <th>Materia</th> 
+                    <th>Carrera</th>
+                    <th>Plantel</th> 
+                    <th>Curricular</th>
+                    <th>Créditos</th>
+                    <th>Seriación</th>
+                  </tr>
+                </tfoot>
+                {% for p in curricula.cepe_materia_cema %}
+                <tr>
+                  <td>{{p.cema_clave_str()}}</td>
+                  <td>{{p.cema_nombre}}</td>
+                  <td>{{p.cema_carrera_ceca}}</td> 
+                  <td>{{p.cema_plantel_cepl}}</td> 
+                  <td>{{p.cema_curricular}}</td>
+                  <td>{{p.cema_creditos}}</td>
+                  <td>{{p.cema_seriacion}}</td>
+                </tr>
+                {% endfor %}
+
+              </div>
+          </table>
+        </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}

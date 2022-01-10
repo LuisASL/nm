@@ -1,0 +1,132 @@
+{% extends base %} 
+{% import 'bootstrap/wtf.html' as wtf %}
+
+{% block css %}
+<link type="text/css" href="{{url_for('static',filename='nmaquetado/css/perfil.css')}}" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+{% endblock %} 
+{% block title %}{{title}}{% endblock %} 
+
+
+{% block app_content %}
+
+
+
+<!-- Bloque del body -> main -->
+<div class="container acomodar">
+    <div class="row">
+        <div class="col-lg-4 col-md-12 usuario">
+            <div class="usuario-top">
+                <div class="usuario-top__mascara">
+                    <img class="mascara__img" src="{{url_for('static',filename='upload/')}}{{current_user.pgus_image}}" alt="Img- Alumno ENES JURIQUILLA ">
+                </div>
+
+                <h5 class="usuario-top__nombre ">{{ current_user.pgus_username }}</h5>
+            </div>
+
+            <div class="card usuario-down ">
+                <ul class="list-group list-group-flush ">
+                    <li class="list-group-item {{status_1}}"><a class="nav__enlace" href="{{url_for('ceal_p', id=current_user.pgus_alumno_ceal)}}">Información Personal</a>
+                    <li class="list-group-item {{status_2}} color-default"><a class="nav__enlace-dark--modificado" href="{{url_for('ceal_complemento', id=current_user.pgus_alumno_ceal)}}">Información Complementaria</a>
+                    <li class="list-group-item {{status_3}} color-default"><a class="nav__enlace-dark--modificado" href="{{url_for('ceal_a', id=current_user.pgus_alumno_ceal) }}">Información Académica</a>
+                    <li class="list-group-item {{status_4}} color-default"><a class="nav__enlace-dark--modificado" href="{{url_for('ceal_pe', id=current_user.pgus_alumno_ceal) }}">Plan de Estudios</a>
+                    <li class="list-group-item {{status_5}} color-default"><a class="nav__enlace-dark--modificado" href="{{url_for('ceal_ce', id=current_user.pgus_alumno_ceal) }}">Contacto de Emergencia</a>
+                    <li class="list-group-item {{status_6}} color-default"><a class="nav__enlace-dark--modificado" href="{{url_for('pgus_ceal_m', id=current_user.id) }}">Configuración de Cuenta</a>
+                </ul>
+            </div>
+
+        </div>
+
+        <div class="col-lg-8 col-md-12 ">
+            <div class="container formulario ">
+                <div class="formulario__titulo ">
+                    <h6>Información Personal</h6>
+                </div>
+            {% for field, errors in form.errors.items() %}
+              <div class="alert alert-danger">
+                {{ form[field].label }}: {{ ', '.join(errors) }}
+              </div>
+            {% endfor %}
+
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+            <div class="alert alert-info" role="alert">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+        {% endwith %}
+
+        
+
+                <form class="form-horizontal" method="post" enctype="multipart/form-data">
+                    <div class="form-group">
+                      {{ form.csrf_token }}
+                    </div>
+                    <div class="form-group required ">
+                        <label for="ceal_papellido "><span class="formulario_label ">PRIMER APELLIDO</span></label>
+                        <br/>{{form.ceal_papellido(rows="20",cols="60",class="form-control")}}
+                    </div>
+                    <div class="form-group ">
+                        <label for="ceal_sapellido "><span class="formulario_label ">SEGUNDO APELLIDO</span></label>
+                        <br/>{{form.ceal_sapellido(rows="20",cols="60",class="form-control")}}
+                    </div>
+                    <div class="form-group required ">
+                        <label for="ceal_nombre "><span class="formulario_label ">NOMBRE</span></label>
+                        <br/>{{form.ceal_nombre(rows="20",cols="60",class="form-control")}}
+                    </div>
+                    <div class="form-group required ">
+                        <label for="ceal_curp "><span class="formulario_label ">CURP</span></label>
+                        <br/>{{form.ceal_curp(rows="20",cols="60",class="form-control")}}
+                    </div>
+                    <div class="form-group required ">
+                        <label for="ceal_nacimiento "><span class="formulario_label ">FECHA DE NACIMIENTO</span></label>
+                        <br/>{{form.ceal_nacimiento(rows="20",cols="60",class="form-control")}}
+                    </div>
+                    <div class="form-group required ">
+                        <label for="ceal_nacionalidad "><span class="formulario_label ">NACIONALIDAD</span></label>
+                        <br/>{{form.ceal_nacionalidad(rows="20",cols="60",class="form-control")}}
+                    </div>
+                    <div class="form-group required ">
+                        <label for="ceal_sexo "><span class="formulario_label ">SEXO</span></label>
+                        <br/>{{form.ceal_sexo(rows="20",cols="60",class="form-control")}}
+                    </div>
+                    <div class="form-group required ">
+                        <label for="ceal_calle "><span class="formulario_label ">CALLE Y NÚMERO</span></label>
+                        <br/>{{form.ceal_calle(rows="20",cols="60",class="form-control")}}
+                    </div>
+                    <div class="form-group required ">
+                        <label for="ceal_colonia "><span class="formulario_label ">COLONIA</span></label>
+                        <br/>{{form.ceal_colonia(rows="20",cols="60",class="form-control")}}
+                    </div>
+
+                    <div class="form-group required ">
+                        <label for="ceal_municipio "><span class="formulario_label ">MUNICIPIO</span></label>
+                        <br/>{{form.ceal_municipio(rows="20",cols="60",class="form-control")}}
+                    </div>
+                    <div class="form-group required ">
+                        <label for="ceal_estado "><span class="formulario_label ">ESTADO</span></label>
+                        <br/>{{form.ceal_estado(rows="20",cols="60",class="form-control")}}
+                    </div>
+                    <div class="form-group required ">
+                        <label for="ceal_cp "><span class="formulario_label ">CÓDIGO POSTAL</span></label>
+                        <br/>{{form.ceal_cp(rows="20",cols="60",class="form-control")}}
+                    </div>
+                    <div class="form-group required ">
+                        <label for="ceal_celular "><span class="formulario_label ">NÚMERO CELULAR</span></label>
+                        <br/>{{form.ceal_celular(rows="20",cols="60",class="form-control")}}
+                    </div>
+                    <div class="form-group required ">
+                        <label for="ceal_telefono "><span class="formulario_label ">NÚMERO TELEFÓNICO</span></label>
+                        <br/>{{form.ceal_telefono(rows="20",cols="60",class="form-control")}}
+                    </div>
+                    <div class="form-group required ">
+                        <label for="ceal_email "><span class="formulario_label ">DIRECCIÓN DE CORREO ELECTRÓNICO</span></label>
+                        <br/>{{form.ceal_email(rows="20",cols="60",class="form-control")}}<br>
+                    </div>
+                    {{form.submit(class="formulario__boton")}}
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

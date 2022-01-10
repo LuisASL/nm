@@ -1,0 +1,859 @@
+{% extends 'base.html' %}
+{% import 'bootstrap/wtf.html' as wtf %}
+
+{% block app_content %}
+<div class="row">
+    <div class="col-md-12">
+      <ul class="breadcrumb">
+        <li><a href="{{url_for('rev_ceom_ceal_l')}}">TODAS</a></li>
+        <li><a href="{{url_for('rev_ceom_ceal_l', id_ceca = trayectoria.ceal_hist_carrera, id_cepe= trayectoria.ceal_hist_plan, id_sem = alumno.ceal_semestre)}}">{{ carrera.ceca_nombre }}</a></li>
+        <li> {{alumno.ceal_cuenta}}</li>
+      </ul>
+    </div>
+</div>
+<br>
+<br>
+
+<div class="row">
+  <div class="col-md-12">
+
+    <a class="list-group-item active" data-toggle="collapse" href="#collapseInfoP" role="button" aria-expanded="true" aria-controls="collapseInfoP">
+    <b>INFORMACIÓN GENERAL </b>
+    </a>
+    <br>
+    <div id="collapseInfoP" class="collapse">
+      <div class="card card-body">
+        <div class="form-group">
+        Nombre: {{alumno.ceal_papellido}} {{alumno.ceal_sapellido}} {{alumno.ceal_nombre}}  <a class="btn-sm btn-success" role="button" href="{{url_for('ceal_m', id=alumno.ceal_cuenta)}}" target = "_blank"> Información</a><br>
+        Número de alumno: {{alumno.ceal_cuenta}}<br>
+        Plantel: {{trayectoria.ceal_hist_plantel}}<br>
+        Carrera: {{trayectoria.ceal_hist_carrera}}<br>
+        Plan: {{trayectoria.ceal_hist_plan}}
+        <a class = "btn-m btn-warning" data-toggle="collapse" href="#collapseHADGAE" role="button" aria-expanded="true" aria-controls="collapseHADGAE">
+            <b>Historial académico DGAE</b> 
+        </a>
+        <div id="collapseHADGAE" class="collapse">
+        <br>
+        <table class="table table-bordered" width="100%" cellspacing="0">
+          <thead>
+            <tr>
+              <th>Asignatura</th>
+              <th>Plan de Estudios</th>
+              <th>Ciclo DGAE</th>
+              <th>Semestre ENESJ</th>
+              <th>Período</th>
+              <th>Folio</th>
+              <th>Tipo</th>
+              <th>Calificación</th>
+            </tr>
+          </thead>
+          {% for plan in alumno.cepe_in_ceca()|sort(attribute="cepe_clave", reverse = False)  %}
+          {% for mat in plan.cepe_materia_cema|sort(attribute="ceman_semestre_currrilar", reverse = False)  %}
+            <tr>
+              <td>{{mat.cema_nombre}}</td>
+              <td>{{mat.cema_clave_plan_str()}}</td>
+              <td>{{mat.ceman_semestre_currrilar}}</td>
+              {% for mat in alumno.calificacion_bmovil(trayectoria.ceal_hist_plantel, trayectoria.ceal_hist_carrera, trayectoria.ceal_hist_plan, mat.cema_clave_u) %}
+              <td>
+                {{ ceal_sem.semestre_imparticion(alumno.ceal_cuenta, mat.ceal_ha_periodo) }}
+              </td>
+              <td>
+                {{ mat.ceal_ha_periodo }}
+              </td>
+              <td>
+                {{ mat.ceal_ha_folio }}
+              </td>
+              <td>
+                {{ mat.ceal_ha_tipo }}
+              </td>
+              <td>
+                {{ mat.ceal_ha_calificacion }}
+              </td>
+            {% else %}
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              {% endfor %}
+            </tr>
+
+          {% endfor %}
+          {% endfor %}
+        </table>
+        </div>
+
+
+
+        {% if plan.cepe_bmovil %} 
+        <a class = "btn-m btn-info" data-toggle="collapse" href="#collapseBMovil" role="button" aria-expanded="true" aria-controls="collapseBMovil">
+            <b>(Bloque móvil activo)</b> 
+        </a>
+        {% endif %}
+        <div id="collapseBMovil" class="collapse">
+        <br>
+        <table class="table table-bordered" width="100%" cellspacing="0">
+          <thead>
+            <tr>
+              <th>Asignatura</th>
+              <th>Ciclo DGAE</th>
+              <th>Semestre ENESJ</th>
+              <th>Período</th>
+              <th>Folio</th>
+              <th>Tipo</th>
+              <th>Calificación</th>
+            </tr>
+          </thead>
+
+          {% for mat in plan.asignaturas_bmovil(alumno.ceal_semestre)|sort(attribute="ceman_semestre_currrilar", reverse = False)  %}
+            <tr>
+              <td>{{mat.cema_nombre}}</td>
+              <td>{{mat.ceman_semestre_currrilar}}</td>
+              {% for mat in alumno.calificacion_bmovil(trayectoria.ceal_hist_plantel, trayectoria.ceal_hist_carrera, trayectoria.ceal_hist_plan, mat.cema_clave_u) %}
+              <td>
+                {{ ceal_sem.semestre_imparticion(alumno.ceal_cuenta, mat.ceal_ha_periodo) }}
+              </td>
+              <td>
+                {{ mat.ceal_ha_periodo }}
+              </td>
+              <td>
+                {{ mat.ceal_ha_folio }}
+              </td>
+              <td>
+                {{ mat.ceal_ha_tipo }}
+              </td>
+              <td>
+                {{ mat.ceal_ha_calificacion }}
+              </td>
+            {% else %}
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              {% endfor %}
+            </tr>
+          {% endfor %}
+        </table>
+        </div>
+
+        <br>
+        Fecha de creación: {% if alumno_sem.ceal_sem_fcreacion %} 
+                            {{alumno_sem.ceal_sem_fcreacion.strftime('%d-%m-%Y %H:%M:%S')}}
+                            {% endif %}<br>
+        Confirmación: {% if alumno_sem.ceal_al_approve_conf %} Aprobado {% endif %}<br>
+        Fecha de confirmación: {% if alumno_sem.ceal_al_approve_date %} 
+                            {{alumno_sem.ceal_al_approve_date.strftime('%d-%m-%Y %H:%M:%S')}}
+                            {% endif %}<br>
+        
+        <br>    
+        {% if alumno_sem.ceal_ce_approve_b %} 
+        Confirmación de altas y bajas:  Aprobado <br>
+        Fecha de confirmación altas y bajas: {{alumno_sem.ceal_ce_approve_date_b.strftime('%d-%m-%Y %H:%M:%S')}}<br>
+        {% endif %}
+
+        <hr>
+        Semestre: {{alumno.ceal_semestre}}<br>
+        Ciclo: {{semestre.cese_ciclo}}<br>
+        Archivo: {% if alumno_sem.ceal_sem_archivo %} <a href="{{url_for('download_ri', id=alumno.ceal_cuenta, fname=alumno_sem.ceal_sem_archivo|string)}}">{{alumno_sem.ceal_sem_archivo [0:36]}} {% endif %}</a><br>
+
+        <hr>
+        Revisión<br>
+        Revisor:  {% if alumno_sem.ceal_ce_approve %} {{alumno_sem.materias_confirmadas.cead_nombre}} {{alumno_sem.materias_confirmadas.cead_papellido}} 
+        {{alumno_sem.materias_confirmadas.cead_sapellido}} {% endif %}<br>
+        Respuesta: {% if alumno_sem.ceal_ce_approve %} Aprobado {% endif %}<br>
+        Fecha:  {% if alumno_sem.ceal_ce_approve %} {{alumno_sem.ceal_ce_approve_date.strftime('%d-%m-%Y %H:%M:%S')}} {% endif %}<br>
+        {% if alumno_sem.ceal_ce_approve_b %} 
+        <hr>
+        Altas y Bajas<br>
+        Revisor:  {{alumno_sem.materias_confirmadas.cead_nombre}} {{alumno_sem.materias_confirmadas.cead_papellido}} 
+        {{alumno_sem.materias_confirmadas.cead_sapellido}} <br>
+        Respuesta: {% if alumno_sem.ceal_ce_approve_b %} Aprobado {% endif %}<br>
+        Fecha:  {% if alumno_sem.ceal_ce_approve_b %} {{alumno_sem.ceal_ce_approve_date_b.strftime('%d-%m-%Y %H:%M:%S')}} {% endif %}<br>
+        {% endif %}
+        <hr>
+        Token: {{ alumno_sem.ceal_sem_token }}<br>
+        <br>
+        <button type="button" class="list-group-item" data-toggle="modal" data-target="#exampleModal" data-whatever="@getbootstrap">Verificar token</button>
+        <br>
+
+        {%if alumno.ceal_permitir_insc == True %}
+        <a role="button" class="list-group-item list-group-item-danger" href="{{ url_for('ceal_allow_access', id_ceal = alumno.ceal_cuenta) }}">Acceso permitido</a>
+        {% else %}
+        <a role="button" class="list-group-item" href="{{ url_for('ceal_allow_access', id_ceal = alumno.ceal_cuenta) }}">Permitir cambios</a>
+        {% endif %}
+        <br>
+
+<hr>
+
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+              <h4 class="m-0 font-weight-bold text-primary">Lista de documentos que deberá adjuntar el alumno</h4>
+            </div>
+          <div class="card-body">
+              <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                  <thead>
+                    <tr>
+                      <th>Título</th>
+                      <th>Descripción</th>
+                      <th>Actualizar</th>
+                      <th>Solicitar cambio</th>
+                    </tr>
+                  </thead>
+                  <tfoot>
+                    <tr>
+                      <th>Título</th>
+                      <th>Descripción</th>
+                      <th>Actualizar</th>
+                      <th>Solicitar cambio</th>
+                    </tr>
+                  </tfoot>
+                  <tbody>
+
+                  {% for a in alumno.associations_alumnos if a.cese_ceal_file_ciclo == semestre.cese_ciclo %}
+                    {% if a.cese_ceal_observaciones_compl == True and a.cese_ceal_observaciones_realizada == False %}
+                      <tr class = 'warning'>
+                    {% elif a.cese_ceal_observaciones_realizada == True %}
+                      <tr class = 'success'>
+                    {% else %}
+                      <tr>
+                    {% endif %}
+                      <td>{{a.child_file_cese.reingreso_file_nombre}}</td>          
+                      <td>{{a.child_file_cese.reingreso_file_descripcion}}<br>
+                          {% if a.cese_ceal_file_nombre %}
+                          <a class="btn btn-info" type="submit" href="{{url_for('download_file_ceal', id=alumno.ceal_cuenta, fname=a.cese_ceal_file_nombre|string)}}"><i class="far fa-file-pdf"></i> <span class="glyphicon glyphicon-download-alt"></span> DESCARGAR PAGO</a>
+
+                          <a  class="btn btn-success active" type="submit" data-toggle="modal" data-target="#modalFile{{a.child_file_cese.reingreso_id}}" >
+                            <span class="glyphicon glyphicon-search"></span> VISUALIZAR
+                          </a>
+                          <div class="modal fade" id="modalFile{{a.child_file_cese.reingreso_id}}" tabindex="-1" role="dialog" aria-labelledby="modalFile{{a.child_file_cese.reingreso_id}}" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <h5 class="modal-title" id="exampleModalLabel">Completar revisión</h5>
+                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                  </button>
+                                </div>
+                                <div class="modal-body">
+                                    <iframe src="{{url_for('static',filename='ceal_files/')}}{{a.cese_ceal_file_ciclo}}/{{alumno.ceal_cuenta}}/{{a.cese_ceal_file_nombre|string}}" width="100%" height="800px"></iframe>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          {% endif %}
+                      </td>
+                      <td>
+                      <div class="form-group">
+                          <form action="{{url_for('cead_ceom_ceal_m', id=alumno.ceal_cuenta, id_file=a.child_file_cese.reingreso_id)}}" method="POST" enctype="multipart/form-data">
+                          {{ form.csrf_token }}
+                          <div class="form-group">
+                            {{form.reingreso_file_nombre()}}
+                          </div>
+                          <div class="form-group">
+                            {{form.submit(class="btn btn-success")}}
+                          </div>
+                          </form>
+                      </div>
+                      </td>
+                      <td>
+                        <button type="button" class="list-group-item list-group-item-info" data-toggle="modal" data-target="#cambiarModal">
+                        Solicitar cambios</button>
+                      </td>
+                    </tr>
+                      <div class="modal fade" id="cambiarModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title" id="exampleModalLabel">Solicitar modificación del archivo seleccionado</h5>
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                            </div>
+                            <div class="modal-body">
+
+                              <form action="{{url_for('cead_ceal_file_update', id_alumno = alumno.ceal_cuenta, id_file = a.cese_ceal_file_id, msn = 'hola')}}" method="POST" enctype="multipart/form-data">
+                                <div class="form-group">
+                                  <label for="message-text" class="col-form-label", rows='6'>Mensaje:</label>
+                                  <textarea type="text" class="form-control" id="rev_comentarios_id" name="rev_comentarios_id" rows='6'></textarea>
+                                </div>
+                               <div class="modal-footer">
+                                  <button class="list-group-item" data-dismiss="modal">Regresar</button>
+                                  <button type="submit" class="list-group-item active">Enviar</button>
+                               </div>
+                              </form>
+                            </div>
+                          </div>
+                        </div>
+                      </div>                  
+                  {% endfor %}  
+                  </tbody>
+                </table>
+            </div>
+          </div>
+        </div>
+
+
+<hr>
+
+        </div>
+      </div>
+    <!-- termina el collapseInfoP de informacion general -->
+    </div>
+
+  <!-- termina el col de informacion general -->
+  </div>
+<!-- termina el row de informacion general -->
+</div>
+
+
+    
+  
+
+
+
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Confirmación</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+
+            <form action="{{url_for('cead_ceom_ceal_m', id = alumno.ceal_cuenta)}}" method="POST" enctype="multipart/form-data">
+
+              <div class="form-group">
+                <label for="recipient-name" class="col-form-label">Token:</label>
+                {{form_token.ceal_sem_token(class="form-control", id="message-token", rows='5')}}
+              </div>
+              <div class="form-group">
+                <label for="message-text" class="col-form-label", rows='6'>Mensaje:</label>
+                <textarea type="text" class="form-control" id="recipient-name" rows='6'>{% if mensaje.alumno %}Alumno: {{ mensaje.alumno }}
+No. Cuenta: {{ mensaje.cuenta }}
+Revisor: {{ mensaje.revisor }}
+Clave: {{ mensaje.ntrabajador }}
+Fecha y Hora: {{ mensaje.fecha }}
+{% else %}{{ mensaje }}{% endif %}</textarea>
+              </div>
+            <div class="modal-footer">
+            <a role="button" class="list-group-item" data-dismiss="modal">Salir</a>
+           </div>
+
+
+            </form>
+
+          </div>
+
+
+
+
+        </div>
+      </div>
+
+    </div>
+
+
+
+
+
+
+
+
+
+<br>
+  
+<br>
+<br>
+<center>
+  <div class="row">
+    <div class="col-md-12">
+        <div class="table-responsive"> 
+        <span style="font-size: small;"> 
+        <table width="100" class="table table-striped table-responsive">
+              <tr>
+                  <th colspan="14"><center> OFERTA: Plan {{trayectoria.ceal_hist_plan}}, Ciclo {{semestre.cese_ciclo}}, Semestre {{alumno.ceal_semestre}}</center></th>     
+              </tr> 
+              <tr>
+                <th>Aplicar</th>          
+                <th>Profesor</th>
+                <th>Materia</th>
+                <th>Clave</th>          
+                <th>Semestre</th> 
+                <th>Inscritos</th>                 
+                <th>Lunes</th>
+                <th>Martes</th>
+                <th>Miércoles</th>             
+                <th>Jueves</th>
+                <th>Viernes</th>
+                <th>Seríada</th>
+              </tr>
+              {% for o in omateria if o.ceom_semestre == alumno.ceal_semestre %}
+              </tr>
+                    {% for al in alumno.ceal_clases_ceom  if (al.ceom_plan_cepe == trayectoria.ceal_hist_plan and 
+                           al.ceom_ciclo_cese == semestre.cese_ciclo and 
+                           al.ceom_semestre == alumno.ceal_semestre and  
+                           al.ceom_clave == o.ceom_clave) %}
+                      <tr class="success">
+                      <td width="8%">
+                        <a href="{{url_for('cead_ceom_ceal_des', id_materia=o.ceom_clave, id_alumno=alumno.ceal_cuenta)}}"><span class="glyphicon glyphicon-remove"></span> Cancelar</a>
+
+                      </td>
+                      {% else %}
+                      <tr class="warning">
+                        <td width="8%">
+                        <a href="{{url_for('ceom_ceal_cursar_admin', ceal_id=alumno.ceal_cuenta, ceom_id = o.ceom_clave)}}"><span class="glyphicon glyphicon-ok"></span>Inscribir</a>
+                      </td>
+                    
+                    {% endfor %}
+
+                <td>
+                    {% for pr in o.cesr_cepr_ceom %}
+                          {{ pr.cepr_nombre }} {{ pr.cepr_papellido }} {{ pr.cepr_sapellido }} <br>
+                    {% endfor %}
+                </td>
+                <td>{{o.ceom_nombre}}</td>
+                <td>{{o.cema_omateria_ceom.cema_clave_u}}</td>
+                <td>{{o.ceom_semestre}}</td>  
+                <td>{{o.ceom_cupoact}} / {{o.ceom_cupomax}}</td>                
+                {% if o.ceom_ilunes != None %}
+                <td>{{o.ceom_ilunes.strftime('%H:%M')}} / {{o.ceom_flunes.strftime('%H:%M')}}</td>  
+                {% else %}
+                <td>--:-- </td>
+                {% endif %}
+                {% if o.ceom_imartes != None %}
+                <td>{{o.ceom_imartes.strftime('%H:%M')}} / {{o.ceom_fmartes.strftime('%H:%M')}}</td>
+                {% else %}
+                <td>--:-- </td>
+                {% endif %}                
+                {% if o.ceom_imiercoles != None %}
+                <td>{{o.ceom_imiercoles.strftime('%H:%M')}} / {{o.ceom_fmiercoles.strftime('%H:%M')}}</td>
+                {% else %}
+                <td>--:-- </td>
+                {% endif %} 
+                {% if o.ceom_ijueves != None %}
+                <td>{{o.ceom_ijueves.strftime('%H:%M')}} / {{o.ceom_fjueves.strftime('%H:%M')}}</td>
+                {% else %}
+                <td>--:-- </td>
+                {% endif %}             
+                {% if o.ceom_iviernes != None %}
+                <td>{{o.ceom_iviernes.strftime('%H:%M')}} / {{o.ceom_fviernes.strftime('%H:%M')}}</td>
+                {% else %}
+                <td>--:-- </td>
+                {% endif %}
+                {% if o.cema_omateria_ceom.cema_seriacion %}
+                <td>
+                    <button type="button" class="list-group-item list-group-item-danger" data-toggle="modal" data-target="#seriacionModal{{o.ceom_clave}}">
+                    Sí </button>
+
+                      <div class="modal fade" id="seriacionModal{{o.ceom_clave}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title" id="exampleModalLabel">Requisitos para cursar asignatura seriada</h5>
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                            </div>
+                            <div class="modal-body">
+                                <table class="table table-bordered" width="100%" cellspacing="0">
+                                <thead>
+                                  <tr>
+                                    <th>Asignatura</th>
+                                    <th>Período</th>
+                                    <th>Folio</th>
+                                    <th>Tipo</th>
+                                    <th>Calificación</th>
+                                  </tr>
+                                </thead>
+
+                                {% for mat in o.cema_omateria_ceom.cesr_cema_requisito %}
+                                  <tr>
+                                    <td>{{mat.cema_nombre}}</td>
+                                    {% for mat in alumno.calificacion_bmovil(trayectoria.ceal_hist_plantel, trayectoria.ceal_hist_carrera, trayectoria.ceal_hist_plan, mat.cema_clave_u) %}
+                                    <td>
+                                      {{ mat.ceal_ha_periodo }}
+                                    </td>
+                                    <td>
+                                      {{ mat.ceal_ha_folio }}
+                                    </td>
+                                    <td>
+                                      {{ mat.ceal_ha_tipo }}
+                                    </td>
+                                    <td>
+                                      {{ mat.ceal_ha_calificacion }}
+                                    </td>
+                                    {% endfor %}
+                                  </tr>
+                                {% endfor %}
+                               </table>
+
+                               <div class="modal-footer">
+                                  <button class="list-group-item" data-dismiss="modal">Regresar</button>
+                               </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+
+                </td>
+                {% else %}
+                <td>
+                  NO
+                </td>
+                {% endif %}
+              </tr>
+              {% endfor %}
+
+
+        </table>
+        </span>
+        </div>
+    </div>
+  </div>
+
+<hr>
+
+
+<div class = "row" >
+<div class="col-md-12">
+  <div id="accordion">
+    <div class="card">
+      <div class="card-header" id="headingOne">
+        <h5 class="mb-0">
+          <button class="btn btn-outline-info active btn-lg btn-block" data-toggle="collapse" data-target="#collapseOMInscritas" aria-expanded="true" aria-controls="collapseOMInscritas">
+            Asignaturas inscritas en el ciclo actual
+          </button>
+        </h5>
+      </div>
+
+      <div id="collapseOMInscritas" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+        <div class="card-body">
+
+        <table class="table table-hover">
+          <tr>
+            <th>Acción</th>
+            <th>Clave</th>
+            <th>Nombre</th>
+            <th>Plan</th>
+            <th>Ciclo</th>
+            <th>Sem</th>
+            <th>Profesor</th>
+            <th>Estandar Reinsc.</th>
+          </tr>
+          {% for p in alumno.ceal_clases_ceom %}
+          {% if p.ceom_ciclo_cese == semestre.cese_ciclo %}
+
+            {% for al in alumno.ceal_clases_ceom  if ( al.ceom_clave == p.ceom_clave) %}
+              <tr class="success">
+              <td width="8%">
+                <a href="{{url_for('cead_ceom_ceal_des', id_materia=p.ceom_clave, id_alumno=alumno.ceal_cuenta)}}"><span class="glyphicon glyphicon-remove"></span> Cancelar</a>
+
+              </td>
+              {% else %}
+              <tr class="warning">
+                <td width="8%">
+                <a href="{{url_for('ceom_ceal_cursar_admin', ceal_id=alumno.ceal_cuenta, ceom_id = p.ceom_clave)}}"><span class="glyphicon glyphicon-ok"></span>Inscribir</a>
+              </td>
+            
+            {% endfor %}
+            <td>{{p.ceom_clave_str()}}</td>
+            <td>{{p.ceom_nombre}}
+            <td>{{p.ceom_plan_cepe}}</td> 
+            <td>{{p.ceom_ciclo_cese}}</td> 
+            <td>{{p.ceom_semestre}}</td> 
+            <td>
+                {% for pr in p.cesr_cepr_ceom %}
+                    {{ pr.cepr_nombre }} {{ pr.cepr_papellido }} {{ pr.cepr_sapellido }} <br>
+                {% endfor %}
+            </td>
+            {% set estandar = alumno.ceal_cuenta|string + p.cepe_omateria_ceom.cepe_clave|string +  p.ceom_clave_str()|string + p.ceom_grupo|string + "A" %}
+            <td>{{estandar}}</td>
+          </tr>
+          {% endif %}
+          {% endfor %}
+        </table>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header" id="headingTwo">
+        <h5 class="mb-0">
+          <button class="btn btn-outline-info active btn-lg btn-block collapsed" data-toggle="collapse" data-target="#collapseOMSemestre" aria-expanded="false" aria-controls="collapseOMSemestre">
+            Asignaturas ofertadas al semestre y ciclo actuales del alumno
+          </button>
+        </h5>
+      </div>
+      <div id="collapseOMSemestre" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+        <div class="card-body">
+
+        <table class="table table-hover">
+          <tr>
+            <th>Acción</th>
+            <th>Clave</th>
+            <th>Nombre</th>
+            <th>Plan</th>
+            <th>Ciclo</th>
+            <th>Sem</th>
+            <th>Profesor</th>
+            <th>Estandar Reinsc.</th>
+          </tr>
+          {% for p in omateria if p.ceom_semestre == alumno.ceal_semestre %}
+          {% if p.ceom_ciclo_cese == semestre.cese_ciclo and p.ceom_plan_cepe == trayectoria.ceal_hist_plan %}
+
+            {% for al in alumno.ceal_clases_ceom  if (al.ceom_plan_cepe == trayectoria.ceal_hist_plan and 
+                   al.ceom_ciclo_cese == semestre.cese_ciclo and 
+                   al.ceom_semestre == alumno.ceal_semestre and  
+                   al.ceom_clave == p.ceom_clave) %}
+              <tr class="success">
+              <td width="8%">
+                <a href="{{url_for('cead_ceom_ceal_des', id_materia=p.ceom_clave, id_alumno=alumno.ceal_cuenta)}}"><span class="glyphicon glyphicon-remove"></span> Cancelar</a>
+
+              </td>
+              {% else %}
+              <tr class="warning">
+                <td width="8%">
+                <a href="{{url_for('ceom_ceal_cursar_admin', ceal_id=alumno.ceal_cuenta, ceom_id = p.ceom_clave)}}"><span class="glyphicon glyphicon-ok"></span>Inscribir</a>
+              </td>
+            
+            {% endfor %}
+            
+            <td>{{p.ceom_clave_str()}}</td>
+            <td>{{p.ceom_nombre}}
+            <td>{{p.ceom_plan_cepe}}</td> 
+            <td>{{p.ceom_ciclo_cese}}</td> 
+            <td>{{p.ceom_semestre}}</td> 
+            <td>
+                {% for pr in p.cesr_cepr_ceom %}
+                    {{ pr.cepr_nombre }} {{ pr.cepr_papellido }} {{ pr.cepr_sapellido }} <br>
+                {% endfor %}
+            </td>
+            {% set estandar = alumno.ceal_cuenta|string + p.cepe_omateria_ceom.cepe_clave|string +  p.ceom_clave_str()|string + p.ceom_grupo|string + "A" %}
+            <td>{{estandar}}</td>
+          </tr>
+          {% endif %}
+          {% endfor %}
+        </table>
+
+
+
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header" id="headingThree">
+        <h5 class="mb-0">
+          <button class="btn btn-outline-info active btn-lg btn-block collapsed" data-toggle="collapse" data-target="#collapseOMCiclo" aria-expanded="false" aria-controls="collapseOMCiclo">
+            Asignaturas ofertadas al plan de estudios del alumno en el ciclo actual
+          </button>
+        </h5>
+      </div>
+      <div id="collapseOMCiclo" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+        <div class="card-body">
+
+        <table class="table table-hover">
+          <tr>
+            <th>Acción</th>
+            <th>Clave</th>
+            <th>Nombre</th>
+            <th>Plan</th>
+            <th>Ciclo</th>
+            <th>Sem</th>
+            <th>Profesor</th>
+            <th>Estandar Reinsc.</th>
+          </tr>
+          {% for p in omateria|sort(attribute="ceom_semestre", reverse = False) %}
+          {% if p.ceom_ciclo_cese == semestre.cese_ciclo and p.ceom_plan_cepe == trayectoria.ceal_hist_plan %}
+
+            {% for al in alumno.ceal_clases_ceom  if (al.ceom_plan_cepe == trayectoria.ceal_hist_plan and 
+                   al.ceom_ciclo_cese == semestre.cese_ciclo and 
+                   al.ceom_clave == p.ceom_clave) %}
+              <tr class="success">
+              <td width="8%">
+                <a href="{{url_for('cead_ceom_ceal_des', id_materia=p.ceom_clave, id_alumno=alumno.ceal_cuenta)}}"><span class="glyphicon glyphicon-remove"></span> Cancelar</a>
+
+              </td>
+              {% else %}
+              <tr class="warning">
+                <td width="8%">
+                <a href="{{url_for('ceom_ceal_cursar_admin', ceal_id=alumno.ceal_cuenta, ceom_id = p.ceom_clave)}}"><span class="glyphicon glyphicon-ok"></span>Inscribir</a>
+              </td>
+            
+            {% endfor %}            
+            <td>{{p.ceom_clave_str()}}</td>
+            <td>{{p.ceom_nombre}}
+            <td>{{p.ceom_plan_cepe}}</td> 
+            <td>{{p.ceom_ciclo_cese}}</td> 
+            <td>{{p.ceom_semestre}}</td> 
+            <td>
+                {% for pr in p.cesr_cepr_ceom %}
+                    {{ pr.cepr_nombre }} {{ pr.cepr_papellido }} {{ pr.cepr_sapellido }} <br>
+                {% endfor %}
+            </td>
+            {% set estandar = alumno.ceal_cuenta|string + p.cepe_omateria_ceom.cepe_clave|string +  p.ceom_clave_str()|string + p.ceom_grupo|string + "A" %}
+            <td>{{estandar}}</td>
+          </tr>
+          {% endif %}
+          {% endfor %}
+        </table>
+
+
+
+
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header" id="headingThree">
+        <h5 class="mb-0">
+          <button class="btn btn-outline-info active btn-lg btn-block collapsed" data-toggle="collapse" data-target="#collapseOMLic" aria-expanded="false" aria-controls="collapseOMLic">
+            Asignaturas ofertadas a la licenciatura del alumno en el ciclo actual
+          </button>
+        </h5>
+      </div>
+      <div id="collapseOMLic" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+        <div class="card-body">
+
+        <table class="table table-hover">
+          <tr>
+            <th>Acción</th>
+            <th>Clave</th>
+            <th>Nombre</th>
+            <th>Plan</th>
+            <th>Ciclo</th>
+            <th>Sem</th>
+            <th>Profesor</th>
+            <th>Estandar Reinsc.</th>
+          </tr>
+          {% for p in carrera.om_ceca(semestre.cese_ciclo)|sort(attribute="ceom_semestre", reverse = False) %}
+
+            {% for al in alumno.ceal_clases_ceom  if (al.ceom_plan_cepe == trayectoria.ceal_hist_plan and 
+                   al.ceom_ciclo_cese == semestre.cese_ciclo and 
+                   al.ceom_clave == p.ceom_clave) %}
+              <tr class="success">
+              <td width="8%">
+                <a href="{{url_for('cead_ceom_ceal_des', id_materia=p.ceom_clave, id_alumno=alumno.ceal_cuenta)}}"><span class="glyphicon glyphicon-remove"></span> Cancelar</a>
+
+              </td>
+              {% else %}
+              <tr class="warning">
+                <td width="8%">
+                <a href="{{url_for('ceom_ceal_cursar_admin', ceal_id=alumno.ceal_cuenta, ceom_id = p.ceom_clave)}}"><span class="glyphicon glyphicon-ok"></span>Inscribir</a>
+              </td>
+            
+            {% endfor %}            
+            <td>{{p.ceom_clave_str()}}</td>
+            <td>{{p.ceom_nombre}}
+            <td>{{p.ceom_plan_cepe}}</td> 
+            <td>{{p.ceom_ciclo_cese}}</td> 
+            <td>{{p.ceom_semestre}}</td> 
+            <td>
+                {% for pr in p.cesr_cepr_ceom %}
+                    {{ pr.cepr_nombre }} {{ pr.cepr_papellido }} {{ pr.cepr_sapellido }} <br>
+                {% endfor %}
+            </td>
+            {% set estandar = alumno.ceal_cuenta|string + p.cepe_omateria_ceom.cepe_clave|string +  p.ceom_clave_str()|string + p.ceom_grupo|string + "A" %}
+            <td>{{estandar}}</td>
+          </tr>
+          {% endfor %}
+        </table>
+        </div>
+      </div>
+    </div>
+
+
+
+
+  </div>
+</div>
+</td></tr></tr></table></div></div></div>
+<br>
+
+<div class="row">
+  <div class="col-md-2"></div>
+    <div class="col-md-3">
+      <a class="list-group-item list-group-item" href="{{url_for('ceal_ceom_revision_inscripcion', id_ceal = alumno.ceal_cuenta)}}" role="button">Marcar como revisado</a>
+      <br>
+  </div>
+  <div class="col-md-3">
+      <a type="button" class="list-group-item list-group-item" data-toggle="modal" data-target="#solicitarCambiosModal">Solicitar confirmación de cambios al alumno</a>
+      <br>
+  </div>
+  <div class="col-md-3">
+      <a class="list-group-item list-group-item" href="{{url_for('pdf_inscripcion_completa', id = alumno.ceal_cuenta)}}" role="button">Completar proceso</a>
+      <br>
+  </div>
+  <div class="col-md-1"></div>
+
+          <div class="modal fade" id="solicitarCambiosModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Solicitar confirmación de cambios realizados</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+
+                  <form action="{{url_for('ceal_ceom_confirmacion_inscripcion', id = alumno.ceal_cuenta)}}" method="POST" enctype="multipart/form-data">
+                    <div class="form-group">
+                      <label for="message-text" class="col-form-label", rows='6'>Mensaje:</label>
+                      <textarea type="text" class="form-control" id="rev_comentarios_id" name="rev_comentarios_id" rows='6'></textarea>
+                    </div>
+                   <div class="modal-footer">
+                      <button class="list-group-item" data-dismiss="modal">Regresar</button>
+                      <button type="submit" class="list-group-item active">Enviar</button>
+                   </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div> 
+
+</div>
+
+<div class="row">
+  <div class="col-md-4"></div>
+  <div class="col-md-4">
+   
+      Período de alta-bajas activo
+      <a class="list-group-item active" href="{{url_for('pdf_altas_bajas', id = alumno.ceal_cuenta)}}" role="button">Confirmar Modificación</a>
+      <br>
+
+
+  </div>
+</div>
+
+
+<div class="row">
+  <div class="col-md-4"></div>
+  <div class="col-md-4">  <center>
+  <form action="{{ url_for('get_estandar_com_ceal', id_ceal = alumno.ceal_cuenta, id_ciclo = semestre.cese_ciclo) }}" method="post">
+      <button name="escom" type="text" class="list-group-item active" href="#" role="button" value= "{{est|join(',')}}">Generar Estandar</a>
+      <br>
+    </form>
+    </center>
+  </div>
+</div>
+<br>
+<br>
+
+<div class="row">
+  <div class="col-md-4"></div>
+  <div class="col-md-4">
+      Permitir a los alumnos hacer el proceso nuevamente
+      <a class="list-group-item active" href="{{url_for('delete_ins_ceal_sem', id = alumno.ceal_cuenta)}}" role="button">Reiniciar registro</a>
+      <br>
+  </div>
+</div>
+
+
+
+{% endblock %}

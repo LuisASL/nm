@@ -1,0 +1,129 @@
+{% extends base %} 
+{% import 'bootstrap/wtf.html' as wtf %}
+
+{% block css %}
+<link type="text/css" href="{{url_for('static',filename='nmaquetado/css/inicio.css')}}" rel="stylesheet">
+{% endblock %} 
+{% block title %}{{title}}{% endblock %} 
+
+
+{% block app_content %}
+
+{% if semestre.cese_percepcion_docencia_estado == True %}
+<div class="container acomodar">
+    <div class=" row">
+        <div class="col-lg-12 col-md-12">
+            <!-- Se ocupa el estilo del stylesheet inicio.css, -->
+            <div class="card card--modificado ">
+                <div class="card-header card-header--modificado">
+                    <h6>Materias Actuales</h6>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                      <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">  
+                        <thead>              
+                          <tr>
+                            <th>Clave</th>          
+                            <th>Materia</th> 
+                            <th>Plan</th>
+                            <th>Ciclo</th>
+                            <th>Profesor</th>
+                            <th>Percepción</th>
+                          </tr>
+                        </thead>
+                        {% for pd in alumno.ceal_percepcion_ceom  if pd.ceal_docencia_se == semestre.cese_ciclo %}
+                            <tr>
+                              <td>{{pd.omateria_percepcion_ceal.ceom_materia_cema}}</td>
+                              <td>{{pd.omateria_percepcion_ceal.ceom_nombre}}</td>
+                              <td>{{pd.omateria_percepcion_ceal.ceom_plan_cepe}}</td>
+                              <td>{{pd.omateria_percepcion_ceal.ceom_ciclo_cese}}</td>
+                              <td>{{pd.profesor_percepcion_ceom.cepr_nombre}}
+                                  {{pd.profesor_percepcion_ceom.cepr_papellido}}
+                                  {{pd.profesor_percepcion_ceom.cepr_sapellido}}
+                              </td>
+                              {%if pd.ceal_docencia_pendiente == True and pd.ceal_docencia_inicio == False and pd.ceal_docencia_completado == False %} 
+                                <td class='table-warning'><a href="{{url_for('sac_ceal_dp_edit_om_p_1', id_om = pd.omateria_percepcion_ceal.ceom_clave, id_pr = pd.profesor_percepcion_ceom.cepr_ntrabajador, id_se = pd.omateria_percepcion_ceal.ceom_ciclo_cese, id_al = alumno.ceal_cuenta )}}"> Evaluación -<br> Percepción de la docencia</a></td> 
+                                {% elif pd.ceal_docencia_inicio == True and pd.ceal_docencia_completado == False %} 
+                                <td class='table-info'><a href="{{url_for('sac_ceal_dp_edit_om_p_1', id_om = pd.omateria_percepcion_ceal.ceom_clave, id_pr = pd.profesor_percepcion_ceom.cepr_ntrabajador, id_se = pd.omateria_percepcion_ceal.ceom_ciclo_cese, id_al = alumno.ceal_cuenta )}}"> Evaluación -<br> Percepción de la docencia</a></td> 
+                                {% elif pd.ceal_docencia_completado == True %} 
+                                <td class='table-success'><a href="{{url_for('sac_ceal_dp_edit_om_p_1', id_om = pd.omateria_percepcion_ceal.ceom_clave, id_pr = pd.profesor_percepcion_ceom.cepr_ntrabajador, id_se = pd.omateria_percepcion_ceal.ceom_ciclo_cese, id_al = alumno.ceal_cuenta )}}"> Evaluación -<br> Percepción de la docencia</a></td> 
+                              {% endif %}
+
+                            </tr>
+                              
+
+                        {% endfor %}
+
+                        </table>
+                      </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% else %}
+
+<div class="container acomodar">
+    <div class=" row">
+        <div class="col-lg-12 col-md-12">
+            <!-- Se ocupa el estilo del stylesheet inicio.css, -->
+            <div class="card card--modificado ">
+                <div class="card-header card-header--modificado">
+                    <h6>Materias Actuales</h6>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                      <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">  
+                        <thead>              
+                          <tr>
+                            <th>Clave</th>          
+                            <th>Materia</th> 
+                            <th>Plan</th>
+                            <th>Semestre</th>
+                            <th>Plantel</th>
+                            <th>Salón</th>
+                            <th>Profesor</th>
+                          </tr>
+                        </thead>
+                          {% for p in alumno.ceal_clases_ceom %}
+                          {% if p.ceom_ciclo_cese == semestre.cese_ciclo %}
+
+                          <tr>
+
+                            <td>{{p.ceom_materia_cema}}</td>
+                            <td>{{p.ceom_nombre}}
+                            <td>{{p.ceom_plan_cepe}}</td> 
+                            <td>{{p.ceom_ciclo_cese}}</td> 
+                            <td>{{p.ceom_plantel_cepl}}</td>
+                            <td>{{p.ceom_salon_cesa}}</td>
+                            <td><span class="glyphicon glyphicon-user"></span>
+                                <a href="#">{{p.ceom_profesor_nombre}}</a>
+                                {% if p.ceom_profesor2_add %}
+                            / <a href="#">{{p.ceom_profesor2_nombre}}</a>
+                            {% endif %}
+                            </td>
+
+                          </tr>
+                          {% endif %}
+                          {% endfor %}
+
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+
+{% endblock %}
+{% block scripts %}
+    {{ super() }}
+  <script src="/static/admin/vendor/datatables/jquery.dataTables.min.js"></script>
+  <script src="/static/admin/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+  <!-- Page level custom scripts -->
+  <script src="/static/admin/js/demo/datatables-demo.js"></script>
+{% endblock %} 

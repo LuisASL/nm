@@ -1,0 +1,104 @@
+{% extends "base.html" %}
+{% import 'bootstrap/wtf.html' as wtf %}
+
+{% block app_content %}
+<br>
+<br>
+       <!-- Begin Page Content -->
+        <div class="container-fluid">
+
+          <!-- Page Heading -->
+          <h1 class="h3 mb-2 text-gray-800">Archivos solicitados</h1>
+          <!-- DataTales Example -->
+          <div class="card shadow mb-4">
+            <div class="card-header py-3">
+              <h6 class="m-0 font-weight-bold text-primary">Lista de documentos que deberá adjuntar el alumno</h6>
+            </div>
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                  <thead>
+                    <tr>
+                      <th>Título</th>
+                      <th>Descripción</th>
+                      <th>Actualizar</th>
+                    </tr>
+                  </thead>
+                  <tfoot>
+                    <tr>
+                      <th>Título</th>
+                      <th>Descripción</th>
+                      <th>Actualizar</th>
+                    </tr>
+                  </tfoot>
+                  <tbody>
+
+                  {% for a in alumno.associations_alumnos if a.cese_ceal_file_ciclo == semestre.cese_ciclo %}
+                  {% if a.cese_ceal_observaciones_compl == True and a.cese_ceal_observaciones_realizada == False %}
+                      <tr class = 'warning'>
+                    {% elif a.cese_ceal_observaciones_realizada == True %}
+                      <tr class = 'success'>
+                  {% else %}
+                    <tr>
+                  {% endif %}
+
+                      <td>{{a.child_file_cese.reingreso_file_nombre}} <br>
+                          {% if a.cese_ceal_observaciones_compl == True %}
+                          <b>Observaciones de Servicios Escolares</b>:<br>
+                          {{ a. cese_ceal_observaciones }}
+                          {% endif %}
+                      </td>          
+                      <td>{{a.child_file_cese.reingreso_file_descripcion}}<br>
+                          {% if a.cese_ceal_file_nombre %}
+                          <a class="btn btn-info" type="submit" href="{{url_for('download_file_ceal', id=alumno.ceal_cuenta, fname=a.cese_ceal_file_nombre|string)}}"><i class="far fa-file-pdf"></i> <span class="glyphicon glyphicon-download-alt"></span> DESCARGAR PAGO</a>
+
+                          <a  class="btn btn-success active" type="submit" data-toggle="modal" data-target="#modalFile{{a.child_file_cese.reingreso_id}}" >
+                            <span class="glyphicon glyphicon-search"></span> VISUALIZAR
+                          </a>
+                          <div class="modal fade" id="modalFile{{a.child_file_cese.reingreso_id}}" tabindex="-1" role="dialog" aria-labelledby="modalFile{{a.child_file_cese.reingreso_id}}" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <h5 class="modal-title" id="exampleModalLabel">Completar revisión</h5>
+                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                  </button>
+                                </div>
+                                <div class="modal-body">
+                                    <iframe src="{{url_for('static',filename='ceal_files/')}}{{a.cese_ceal_file_ciclo}}/{{alumno.ceal_cuenta}}/{{a.cese_ceal_file_nombre|string}}" width="100%" height="800px"></iframe>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
+
+                          {% endif %}
+
+                      </td>
+                      <td>
+                    <div class="form-group">
+                        <form action="{{url_for('ceal_cese_files_l', id_ceal=alumno.ceal_cuenta, id_file=a.child_file_cese.reingreso_id)}}" method="POST" enctype="multipart/form-data">
+                        {{ form.csrf_token }}
+                        <div class="form-group">
+                          {{form.reingreso_file_nombre()}}
+                        </div>
+                        <div class="form-group">
+                          {{form.submit(class="btn btn-success")}}
+                        </div>
+                        </form>
+                    </div>
+                    </td>
+                  </tr>
+
+                  
+                  {% endfor %}  
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <!-- /.container-fluid -->
+
+{% endblock %}                
