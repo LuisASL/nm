@@ -1,0 +1,171 @@
+/************************************USUARIO******************************/
+
+.usuario {
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+}
+
+
+/*usuario-top*/
+
+.usuario-top {
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+}
+
+.usuario-top__mascara {
+    /* Estos son los valores de recorte para la imagen de perfil */
+    width: 175px;
+    height: 175px;
+    overflow: hidden;
+    border-radius: 50%;
+    display: flex;
+}
+
+.mascara__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    /*Para que no se deforme la imagen, cubrirá todo*/
+    object-position: center;
+}
+
+
+/*usuario-down*/
+
+.card {
+    margin-top: 20px;
+    width: 18rem;
+    margin-bottom: 20px;
+}
+
+.list-group-item {
+    padding-left: 2.1rem !important;
+    border-color: var(--secondary-color)!important;
+    font-weight: 500;
+}
+
+.list-group-item-warning{
+    padding-left: 2.1rem !important;
+    border-color: var(--color-warning)!important;
+    font-weight: 500;
+}
+
+.active {
+    /*Página seleccionada*/
+    background-color: var(--primary-color)!important;
+}
+
+
+.list-group-item-success{
+    padding-left: 2.1rem !important;
+    border-color: var(--color-success)!important;
+    font-weight: 500;
+}
+
+
+
+.color-default {
+    background-color: rgba(0, 43, 122, .26)!important;
+}
+
+.color-default:hover {
+    background-color: rgba(0, 43, 122, .46)!important;
+}
+
+.nav__enlace-dark--modificado {
+    color: var(--text-color-n);
+    text-decoration: none;
+}
+
+.nav__enlace-dark--modificado:hover {
+    color: var(--text-color-n);
+    text-decoration: none;
+}
+
+
+/************************************USUARIO TERMINA******************************/
+
+
+/************************************FORMULARIO******************************/
+
+.formulario__titulo {
+    background-color: var(--primary-color);
+    height: 50px;
+    color: var(--text-color-b);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.form-group {
+    margin-top: 10px;
+}
+
+.formulario_label {
+    font-size: .80rem;
+    letter-spacing: 2px;
+}
+
+.formu .form-control {
+    border-radius: 0;
+    border: 2px solid rgb(75, 75, 75);
+    font-size: 14px;
+    width: 100%;
+}
+
+.formulario__boton {
+    margin-top: 20px;
+    font-weight: 500;
+    font-size: 1.1rem;
+    height: 48px;
+    border: 0;
+    color: var(--text-color-b);
+    background-color: var(--primary-color);
+    width: 100%;
+}
+
+.formulario__boton:hover {
+    color: var(--text-color-b);
+    background-color: var(--secondary-color)
+}
+
+
+/************************************FORMULARIO TERMINA******************************/
+
+
+/************************************CARDS******************************/
+
+.card--modificado {
+    width: 100%;
+    margin-top: 0;
+}
+
+.card-header--modificado {
+    min-height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.card__listas {
+    list-style: none;
+    margin-top: 10px;
+    margin-left: 20px;
+}
+
+
+/************************************CARDS TERMINA******************************/
+
+
+/************************************INTERROGATORIO******************************/
+
+.interrogatorio {
+    color: green;
+    font-size: 21px;
+}
+
+
+/************************************INTERROGATORIO TERMINA******************************/

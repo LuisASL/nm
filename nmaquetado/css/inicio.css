@@ -1,0 +1,34 @@
+/*Nombre del usuario estilizado*/
+
+.estilo__text-usuario {
+    text-align: center;
+    text-decoration-line: underline;
+    text-decoration-color: var(--secondary-color);
+    /*Define el grosor de la linea del texto usuario*/
+    text-decoration-thickness: 4px;
+}
+
+.card-header {
+    background-color: var(--primary-color) !important;
+    border-radius: 0;
+    color: var(--text-color-b);
+}
+
+.justificar__cards {
+    text-align: justify;
+    padding-right: 16px;
+}
+
+.estilo__cards {
+    /*Maneja todos los espaciados de los margin de las card => mt=4*/
+    margin-bottom: 1.5rem;
+    /*Proporcion verticalmente del contenido de las tarjetas pequeñas*/
+    display: flex;
+    flex: 1 1 auto;
+    flex-flow: column;
+    justify-content: space-evenly;
+}
+
+.carrera {
+    background-color: var(--color-t) !important;
+}
