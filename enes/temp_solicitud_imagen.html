@@ -1,0 +1,115 @@
+<head>
+<style>
+table, th, td {
+  border-collapse: collapse;
+}
+
+@page {
+    size: letter landscape;
+    margin: 2cm;
+}
+
+.tablem .tbodym .trm .tdm {
+  font-size: 5px;
+}
+       
+/***Always insert a page break before the element***/
+       .pb_before {
+           page-break-before: always !important;
+       }
+
+/***Always insert a page break after the element***/
+       .pb_after {
+           page-break-after: always !important;
+       }
+
+/***Avoid page break before the element (if possible)***/
+       .pb_before_avoid {
+           page-break-before: avoid !important;
+       }
+
+/***Avoid page break after the element (if possible)***/
+       .pb_after_avoid {
+           page-break-after: avoid !important;
+       }
+
+/* Avoid page break inside the element (if possible) */
+       .pbi_avoid {
+           page-break-inside: avoid !important;
+       }
+
+
+#toc_container {
+    background: #f9f9f9 none repeat scroll 0 0;
+    border: 1px solid #aaa;
+    display: table;
+    font-size: 95%;
+    margin-bottom: 1em;
+    padding: 20px;
+    width: auto;
+}
+
+.toc_title {
+    font-weight: 700;
+    text-align: center;
+}
+
+#toc_container li, #toc_container ul, #toc_container ul li{
+    list-style: outside none none !important;
+}
+div_m {
+  margin-top: 155px;
+  margin-bottom: 155px;
+  margin-right: 155px;
+  margin-left: 155px;
+}
+
+</style>
+</head>
+<body>
+  <table style="width: 100%;" cellspacing="0" cellpadding="4">
+    <tbody>
+    <tr valign="top">
+    <td style="width: 20%;" rowspan="2">
+    <p class="western" lang="es-ES" style="text-align: center;" align="left"><img src="/var/www/NuevoIngreso/app/static/imgs/escudo_unam.png" width="100%" height="220" /></p>
+    </td>
+    <td style="width: 60%;">
+    <p class="western" lang="es-ES" style="text-align: center;"><img src="/var/www/NuevoIngreso/app/static/imgs/nombre_unam.png" width="100%" height="120" /></p>
+    </td>
+    <td style="width: 20%;" rowspan="2">
+    <p class="western" lang="es-ES" style="text-align: center;"><img src="/var/www/NuevoIngreso/app/static/imgs/escudo_enes_plan.png" width="100%" height="220" /></p>
+    </td>
+    </tr>
+    <tr valign="top">
+    <td style="width: 60%;">
+    <p class="western" lang="es-ES" style="text-align: center;" align="center">&nbsp;</p>
+    <p class="western" lang="es-ES" style="text-align: center;" align="center"><span style="font-size: x-large;"><span><strong> Consentimiento de evaluación y entrevista <br> Proceso Interno de Selección 2022</strong></span></span></p>
+    </td>
+    </tr>
+    </tbody>
+  </table>
+
+<p style="text-align: right;">Fecha: {{ fecha }}</p>
+
+<p><span style="font-family: Arial, serif;">Escuela Nacional de Estudios Superiores Juriquilla<br>
+UNIVERSIDAD NACIONAL AUT&Oacute;NOMA DE M&Eacute;XICO <br>
+P R E S E N T E</span></p>
+
+<p align="justify"><span style="font-family: Arial, serif;">
+Por medio de la presente yo <b>{{aspirante.saas_nombre}} {{aspirante.saas_papellido}} {{aspirante.saas_sapellido}}</b>, estoy de acuerdo en participar en el proceso interno de selección que incluye presentar una evaluación y en su caso la entrevista de selección, a través de cualquier medio de tecnologías de información y comunicación y acepto también que la evaluación y la entrevista sean grabadas.<br>
+<br>
+Asimismo, declaro contar con los elementos necesarios (equipo de cómputo, conexión a internet, software) y encontrarme en plenas condiciones para la aplicación de dicha evaluación y/o entrevista, por lo que el resultado obtenido no podrá ser impugnado debido a estos motivos.<br>
+<br>
+Es de mi conocimiento que, en caso de no presentarme a la hora convenida a la evaluación o entrevista, estas se darán por canceladas a los quince minutos sin excepción alguna.<br>
+<br>
+
+Finalmente, el presente consentimiento y autorizaci&oacute;n no est&aacute; sometido a plazo temporal o restringido a alg&uacute;n &aacute;mbito geogr&aacute;fico; no obstante, me hago sabedor de que puedo ejercer mis derechos ARCO, particularmente a oponerme o cancelarlo cuando as&iacute; convenga a mis intereses, a trav&eacute;s de</span><span style="font-family: Arial, serif;"><span style="font-size: medium;"> la Unidad de Transparencia de la Universidad Nacional Aut&oacute;noma de M&eacute;xico, con domicilio en lado Norponiente del Circuito Estadio Ol&iacute;mpico sin n&uacute;mero, a un costado del Anexo de la Facultad de Filosof&iacute;a y Letras, Ciudad Universitaria, Alcald&iacute;a Coyoac&aacute;n, C.P. 04510, Ciudad de M&eacute;xico, o bien por medio de la Plataforma Nacional de Transparencia (<a href="http://www.plataformadetransparencia.org.mx/" target="_blank" rel="noopener">http://www.plataformadetransparencia.org.mx</a>).</span></span>
+</p>
+<br>
+
+
+<p align="center"><br /> <span style="font-family: Arial, serif;">A T E N T A M E N T E</span></p>
+<p align="center"><span style="font-family: Arial, serif;"><img src="{{ qrcode((mensaje_simple), error_correction='H',  icon_img='/var/www/NuevoIngreso/app/static/imgs/escudo_enes_plan.png', factor=3)  }}" width="200" height="200"></span></p>
+<p><span style="font-family: Arial, serif;">Nombre(s) y Apellidos: {{aspirante.saas_nombre}} {{aspirante.saas_papellido}} {{aspirante.saas_sapellido}} </span></p>
+<p align="justify"><span style="font-family: Arial, serif;">CURP: {{aspirante.saas_curp}}</span></p>
+<p align="justify"><span style="font-family: Arial, serif;">Correo electr&oacute;nico: {{aspirante.saas_email}}</span></p>

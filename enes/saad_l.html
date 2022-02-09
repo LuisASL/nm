@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+{% import 'bootstrap/wtf.html' as wtf %}
+
+{% block app_content %}
+<br>
+<br>
+<div class="row">
+    <div class="col-md-4">
+       <a class="list-group-item active" href="{{url_for('saad_admin_c')}}" role="button">Agregar nuevo administrador</a>
+    </div>
+
+</div>
+
+        <!-- Begin Page Content -->
+        <div class="container-fluid">
+
+          <!-- Page Heading -->
+          <h1 class="h3 mb-2 text-gray-800">Administrador</h1>
+          <!-- DataTales Example -->
+          <div class="card shadow mb-4">
+            <div class="card-header py-3">
+              <h6 class="m-0 font-weight-bold text-primary">Administrador</h6>
+            </div>
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                  <thead>
+                    <tr>
+                      <th>Cuenta</th>
+                      <th>Nombre</th>
+                      <th>Correo</th>
+                      <th>Plantel</th>
+                      <th>Teléfono</th>
+                      <th>Usuario</th>
+                      <th>Modificar</th>
+                      <th>Borrar</th>
+                      <th>Estado</th>
+                    </tr>
+                  </thead>
+                  <tfoot>
+                    <tr>
+                      <th>Cuenta</th>
+                      <th>Nombre</th>
+                      <th>Correo</th>
+                      <th>Plantel</th>
+                      <th>Teléfono</th>
+                      <th>Usuario</th>
+                      <th>Modificar</th>
+                      <th>Borrar</th>
+                      <th>Estado</th>
+                    </tr>
+                  </tfoot>
+                  <tbody>
+          {% for a in administradores %}
+          <tr>
+            <td><a herf="#">{{a.saad_ntrabajador}}</a></td>
+            <td>{{a.saad_nombre}}</td>          
+            <td>{{a.saad_email}}</td>  
+            <td>{{a.saad_plantel_cepl}}</td>           
+            <td>{{a.saad_telefono}}</td>  
+            <td><a href="#"><span class="glyphicon glyphicon-user"></span> Crear</a></td>            
+            <td><a href="#"><span class="glyphicon glyphicon-pencil"></span> Modificar</a></td>
+            <td><a href="#"><span class="glyphicon glyphicon-trash"></span> Borrar</a></td>
+            <td>Activo/Baja</td>
+          </tr>
+          {% endfor %}	        
+        </table>
+      </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-11">
+    <nav aria-label="...">
+        <ul class="pager">
+            <li class="previous{% if not prev_url %} disabled{% endif %}">
+                <a href="{{ prev_url or '#' }}">
+                    <span aria-hidden="true">&larr;</span> Anterior
+                </a>
+            </li>
+            <li class="next{% if not next_url %} disabled{% endif %}">
+                <a href="{{ next_url or '#' }}">
+                    Siguiente <span aria-hidden="true">&rarr;</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    </div>
+  </div>
+</div> 
+{% endblock %}              	

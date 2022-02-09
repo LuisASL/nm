@@ -1,0 +1,178 @@
+{% extends 'saas/base.html' %}
+{% import 'bootstrap/wtf.html' as wtf %}
+
+
+ 
+{% block title %}{{title}}{% endblock %} 
+
+
+{% block app_content %}
+<div class="container acomodar">
+<div class="row">
+    <div class="col-lg-4 col-md-12 usuario">
+        <div class="usuario-top">
+            <div class="usuario-top__mascara">
+              {% if current_user.pgus_image %}
+              <img src="{{url_for('static',filename='upload/')}}{{current_user.pgus_image}}" style="width:100%"/>
+              {% else %}
+              <img src="{{url_for('static',filename='upload/not-found.png')}}" style="width:100%"/>
+              {% endif %}
+            </div>
+            <h5 class="usuario-top__nombre ">{{ current_user.pgus_username }}</h5>
+        </div>
+
+         {% if current_user.is_active and current_user.pgus_usaas == True %}      
+            <div class="card usuario-down ">
+                <ul class="list-group list-group-flush ">
+                    <li class="list-group-item color-default"><a class="nav__enlace-dark--modificado" href="{{url_for('saas_p') }}">Información Personal</a></li>
+                    <li class="list-group-item active"><a class="nav__enlace" href="{{url_for('saas_complemento')}}">Información Complementaria</a></li>
+                    <li class="list-group-item color-default"><a class="nav__enlace-dark--modificado" href="{{url_for('pgus_saas_m', id=current_user.id) }}">Configuración de Cuenta</a></li>
+                </ul>
+            </div>
+        {% endif %}
+    </div>
+
+
+
+
+        <div class="col-lg-8 col-md-12 ">
+            <div class="container formulario ">
+                <div class="formulario__titulo ">
+                    <h6>Información Complementaria</h6>
+                </div>
+
+              {% for field, errors in form.errors.items() %}
+                <div class="alert alert-danger">
+                  {{ form[field].label }}: {{ ', '.join(errors) }}
+                </div>
+              {% endfor %}
+                <form method="post" enctype="multipart/form-data">
+                    <div class="form-group">
+                    {{ form.csrf_token }}
+                    </div>
+                    <div class="form-group">
+                      {{form.saas_curp.label(class="formulario_label") }}{{form.saas_curp(rows="20",cols="60",class="form-control")}}
+                    </div>
+                    <div class="form-group">
+                      {{form.saas_fnacimiento.label(class="formulario_label") }}{{form.saas_fnacimiento(cols="60", class="form-control")}}
+                    </div>
+                    <div class="form-group">
+                      {{form.saas_enacimiento.label(class="formulario_label") }}{{form.saas_enacimiento(class="form-control")}}
+                    </div>
+                    <div class="form-group">
+                      {{form.saas_lnacimiento.label(class="formulario_label") }}{{form.saas_lnacimiento(class="form-control")}}
+                    </div>
+
+                    
+                    <div class="form-group">
+                      {{form.saas_lengua.label(class="formulario_label") }}{{form.saas_lengua(rows="20",cols="60",class="form-control")}}
+                    </div>  
+                    <div class="form-group">
+                      {{form.saas_lengua_descr.label(class="formulario_label") }}{{form.saas_lengua_descr(rows="40",cols="60",class="form-control")}}
+                    </div>
+                    <div class="form-group">
+                      {{form.saas_discapacidad.label(class="formulario_label") }}{{form.saas_discapacidad(rows="20",cols="60",class="form-control")}}
+                    </div>  
+                    <div class="form-group">
+                      {{form.saas_discapacidad_descr.label(class="formulario_label") }}{{form.saas_discapacidad_descr(rows="40",cols="60",class="form-control")}}
+                    </div>
+
+                    <hr>
+                    <div class="form-group">
+                      {{form.saas_bachillerato.label(class="formulario_label") }}{{form.saas_bachillerato(rows="20",cols="60",class="form-control")}}
+                    </div>
+                    <div class="form-group">
+                      {{form.saas_promedio.label(class="formulario_label") }}{{form.saas_promedio(rows="20",cols="60",class="form-control")}}
+                    </div>
+                    <div class="form-group">
+                      {{form.saas_tiempobachiller.label(class="formulario_label") }}{{form.saas_tiempobachiller(rows="20",cols="60",class="form-control")}}
+                    </div> 
+                    <div class="form-group">
+                      {{form.saas_ebachiller.label(class="formulario_label") }}{{form.saas_ebachiller(rows="20",cols="60",class="form-control", id = "estado_bach")}}
+                    </div> 
+                    <div class="form-group">
+                      {{form.saas_lbachiller.label(class="formulario_label") }}{{form.saas_lbachiller(rows="20",cols="60",class="form-control", id = "municipio_bach")}}
+                    </div> 
+                    <hr>
+                         
+                    <br>
+                    {{form.submit(class="formulario__boton")}}<br>
+           
+                  </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+      
+{% endblock %}
+
+
+{% block scripts %}
+    {{ super() }}
+<script>
+
+    estado_select_nac = document.getElementById("saas_enacimiento");
+    municipio_select_nac = document.getElementById("saas_lnacimiento");
+
+    estado_select_nac.onchange = function()  {
+      estado_nac = estado_select_nac.value;
+
+        fetch('/mun_entidad/' + estado_nac).then(function(response) {
+            response.json().then(function(data) {
+              var optionHTML = '';
+
+                for (var municipio of data.municipios) {
+                    optionHTML += '<option  value=' +  municipio.cve_mun + '>' + municipio.nom_cab + '</option>';
+                }
+
+                municipio_select_nac.innerHTML = optionHTML;
+                console.table(data)
+
+            });
+         //alert(estado_nac)                
+        });
+      }
+
+</script>
+
+
+
+<script>
+
+    estado_select_bach = document.getElementById("estado_bach");
+    municipio_select_bach = document.getElementById("municipio_bach");
+
+    estado_select_bach.onchange = function()  {
+      estado_bach = estado_select_bach.value;
+
+        fetch('/mun_entidad/' + estado_bach).then(function(response) {
+            response.json().then(function(data) {
+              var optionHTML = '';
+
+                for (var municipio of data.municipios) {
+                    optionHTML += '<option  value=' +  municipio.cve_mun + '>' + municipio.nom_cab + '</option>';
+                }
+
+                municipio_select_bach.innerHTML = optionHTML;
+                console.table(data)
+
+            });
+         //alert(estado_bach)
+        });
+      }
+
+</script>
+
+
+
+{% endblock %}
+
+

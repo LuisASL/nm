@@ -1,0 +1,165 @@
+{% extends "base.html" %}
+{% import 'bootstrap/wtf.html' as wtf %}
+
+{% block app_content %}
+<br>
+<br>
+  <!-- Begin Page Content -->
+  <div class="container-fluid">
+
+<div class="row">
+  <div class="col-md-6">
+            {{ wtf.quick_form(form, button_map={'submit':'success', 'download':'info'}, horizontal_columns=('lg', 2, 10) )}}
+   </div>
+</div>
+
+
+          <!-- Page Heading -->
+          <h1 class="h3 mb-2 text-gray-800">Solicitudes</h1>
+          <!-- DataTales Example -->
+          <div class="card shadow mb-4">
+            <div class="card-header py-3">
+              <h6 class="m-0 font-weight-bold text-primary">Solicitudes de nuevo ingreso</h6>
+            </div>
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                  <thead>
+                    <tr>
+                      <th>Imagen</th>
+                      <th>Folio</th>                      
+                      <th>Nombre</th>
+                      <th>Carrera</th>
+                      <th>Correo</th>
+                      <th>Teléfono</th>
+                      <th>Solicitud</th>
+                      <th>Comprobante</th>                                            
+                    </tr>
+                  </thead>
+                  <tfoot>
+                    <tr>
+                      <th>Imagen</th>                      
+                      <th>Folio</th>
+                      <th>Nombre</th>
+                      <th>Carrera</th>
+                      <th>Correo</th>
+                      <th>Teléfono</th>
+                      <th>Solicitud</th>
+                      <th>Comprobante</th>
+                    </tr>
+                  </tfoot>
+                  <tbody>
+          {% set solid = [] %}
+          {% for a in aula.saso_eval_solicitudes %}
+          <tr>
+            {% if a.saso_imagen %}
+            <td><img src="{{url_for('static',filename='solicitudes/20222/')}}{{a.aspirantesolicitud.saas_curp}}/{{a.saso_imagen}}" width="100" height="110"/> </td>
+            {% else %}
+            <td>{{a.saso_imagen}}</td>
+            {% endif %}
+            <td>
+              {{a.saso_folio}} <br>
+              <a href="{{url_for('saso_remove_aula', id_aula = aula.saso_eval_id, id_sol = a.saso_id )}}" class="btn-sm btn-danger" role="button">Remover</a>
+            </td>
+            <td>{{ a.aspirantesolicitud.saas_nombre }} {{ a.aspirantesolicitud.saas_papellido }} {{ a.aspirantesolicitud.saas_sapellido }}</td>          
+            <td>{{a.saso_carrera_ceco}}</td>  
+            <td>{{a.aspirantesolicitud.saas_email}}</td>           
+            <td>{{a.aspirantesolicitud.saas_celular}}</td>  
+            <td><a href="{{ url_for('download_sol', id = a.saso_id) }}">Registro</a></td>
+            <td><a href="{{ url_for('saso_eval_comp', id_aula = aula.saso_eval_id, id_sol = a.saso_id) }}">Enviar</a></td>
+          </tr>
+          {% set estandar = a.saso_id | int  %}
+          {{ solid.append(estandar) }} 
+          {% endfor %}          
+        </table>
+      </div>
+</div>
+</tbody></table></div></div>
+
+<div class="row">
+<div class="col-md-4"></div>
+<div class="col-md-3">
+  <center>
+    <div class="list-group">   
+        <a class="list-group-item btn-info active" href="{{url_for('saso_eval_comp_aula_all', id_aula = aula.saso_eval_id)}}">Enviar comprobante a todos</a>
+    </div>
+</div>
+</div>
+</div>
+<br>
+
+<div class="row">
+<div class="col-md-4"></div>
+<div class="col-md-3">
+  <center>
+
+          <div class="list-group"> 
+              <a class="list-group-item btn-danger active" href="#rev_1_1" data-toggle="modal"  >
+              Enviar enlace para la evaluación</a>
+          </div>
+    </center>
+</div>
+</div>
+</div>
+<br>
+<br>
+<br>
+<br>
+
+<div class="modal fade" id="rev_1_1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Enviar URL</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">x</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <div class="modal-body">
+                            <p><b>ADVERTENCIA</b></p>
+                            <p>Esta opción permite enviar el enlace para la evaluación. <br>
+                               Los aspirantes deben recibir esta información 15 minutos antes de la evaluación. <br>
+                               <br>
+                               Información del aula:<br>
+                              <p><strong>Modalidad:</strong> En l&iacute;nea<br>
+                                 <strong>Licenciatura:</strong>&nbsp;{{ aula.carreraevaluacion.saca_nombre }}<br>
+                                 <strong>Fecha:</strong>&nbsp;{{ aula.saso_eval_dia}}<br>
+                                 <strong>Hora:</strong>&nbsp;{{ aula.saso_eval_inicio}} -  {{ aula.saso_eval_fin }}<br>
+                                 <strong>URL:</strong>&nbsp;{{ aula.saso_eval_url}}<br>
+                                 <strong>Id de reunión:</strong>&nbsp;{{ aula.saso_eval_id_reunion}}<br>
+                                 <strong>Código de acceso:</strong>&nbsp;{{ aula.saso_eval_code_acceso}}<br>
+                             </p>
+                        </div>
+
+
+                        <div class="modal-footer">
+                            <a class="list-group-item" data-dismiss="modal">Regresar</a>
+                            <a class="list-group-item btn-info active" href="{{url_for('saso_eval_comp_aula_url_all', id_aula = aula.saso_eval_id)}}">Enviar</a>
+                        </div>
+
+
+                        </form>
+                    </div>
+                </div>
+              </div>
+            </div>
+</div>
+
+
+
+
+<br>
+<br>
+<br>
+{% endblock %}
+{% block scripts %}
+    {{ super() }}
+  <script>
+  $('#rev_1_1').on('show.bs.modal', function(e) {
+      var rp_1_1 = $(e.relatedTarget).data('id');
+      $(e.currentTarget).find('input[name="rp_1_1"]').val(rp_1_1);
+  });
+  </script>
+{% endblock %}

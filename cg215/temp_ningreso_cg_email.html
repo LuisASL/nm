@@ -1,0 +1,41 @@
+<p>Hola&nbsp;<strong>{{aspirante.saas_nombre}} {{aspirante.saas_papellido}} {{aspirante.saas_sapellido}}</strong>,
+</p>
+<p>
+Has completado tu registro para Ciencias Genómicas, una vez que tus documentos hayan sido revisados y aceptados por el área de Servicios Escolares recibirás una notificación a tu dirección de correo electrónico. Adicionalmente, debes estar atento a la información que se publique en la página <a href="www.lcgej.unam.mx">www.lcgej.unam.mx</a>.<br>
+<br>
+Te recordamos que debes enviar tu ensayo y tu carta de presentación al siguiente correo: contact@lcgej.unam.mx <br>
+<br>
+Tu folio es: <b>{{ solicitud.saso_folio }}</b>.
+</p>
+
+<h3 style="text-align: center;"><span style="color: #ff0000;">
+Debido a la contingencia por COVID-19, las fechas en las convocatorias pueden cambiar. Está atento de la página y de tu cuenta de correo registrada.
+</span></h3>
+<br>
+<br>
+{% if file_all == True %}
+Adicionalmente, inspecciona que tu expediente esté correctamente compuesto. Descarga el archivo adjunto en este correo y verifica la integridad de la información que será evaluada. 
+{% elif file_all == False %}
+{{ mensaje }}<br>
+{% endif %}
+<br>
+<br>
+{% for msn in mensaje_error if msn %}
+	{% if loop.first %}
+	<b>Observaciones</b>:<br>
+	{% endif %}
+	{{msn}}<br>
+Por favor, ponte en contacto a la dirección LSalazarLicea@unam.mx.
+{% endfor %}
+<br>
+<div>
+<div>&nbsp;</div>
+<div><strong>Licenciatura en Ciencias Genómicas</strong></div>
+<div><strong>Escuela Nacional de Estudios Superiores</strong></div>
+<div><strong>Unidad Juriquilla.</strong></div>
+<div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div><strong>No respondas a este correo, es un envío automático, si tienes alguna duda respecto a este correo, la licenciatura o el proceso de selección interno envía un mensaje a contact@lcgej.unam.mx</div>
+</div>
+</div>

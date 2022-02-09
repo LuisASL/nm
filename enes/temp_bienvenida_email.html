@@ -1,0 +1,30 @@
+<p class="western">Hola <strong>{{ aspirante.saas_nombre }} {{ aspirante.saas_papellido }}</strong>,
+<br/> 
+<br/> 
+<strong>La creaci&oacute;n de su usuario y contrase&ntilde;a ha sido satisfactorio.</strong>
+</p>
+
+
+<p>
+    Para validar tu dirección de correo electrónico 
+    <a href="{{ url_for('verify_email', token=token, _external=True) }}">
+        abre este enlace
+    </a>.<br>
+    <br>
+    Este enlace caduca en 60 minutos.
+</p>
+
+
+<p class="western"><strong>Después de validar el enlace deberás ingresar al sistema y realizar los siguientes pasos:</strong></p>
+
+
+<div>
+<div>&nbsp;</div>
+<div><strong>Escuela Nacional de Estudios Superiores</strong></div>
+<div><strong>Unidad Juriquilla</strong></div>
+<div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div><strong>No respondas a este correo, es un envío automático, si tienes alguna duda respecto a este correo, la licenciatura o el Proceso Interno de Selección envía un mensaje a amartinezm@unam.mx</div>
+</div>
+</div>

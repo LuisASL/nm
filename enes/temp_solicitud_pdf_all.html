@@ -1,0 +1,224 @@
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<style>
+table, th, td {
+  border-collapse: collapse;
+}
+
+@page {
+    size: letter;
+    margin: 4cm;
+}
+@page {
+  background: white;
+  display: block;
+  margin: 0 auto;
+  margin-bottom: 0.5cm;
+  box-shadow: 0 0 0.5cm rgba(0,0,0,0.5);
+}
+
+page[size="A4"] {  
+  width: 21cm;
+  height: 29.7cm; 
+}
+page[size="A4"][layout="portrait"] {
+  width: 29.7cm;
+  height: 21cm;  
+}
+@media print {
+  body, page {
+    margin: 0;
+    box-shadow: 0;
+  }
+}
+
+</style>
+</head>
+<body>
+
+  <table style="width: 100%;" cellspacing="0" cellpadding="4">
+    <tbody>
+    <tr valign="top">
+    <td style="width: 20%;" rowspan="2">
+    <p class="western" lang="es-ES" style="text-align: center;" align="left"><img src="/var/www/NuevoIngreso/app/static/imgs/escudo_unam.png" width="100%" height="220" /></p>
+    </td>
+    <td style="width: 60%;">
+    <p class="western" lang="es-ES" style="text-align: center;"><img src="/var/www/NuevoIngreso/app/static/imgs/nombre_unam.png" width="100%" height="120" /></p>
+    </td>
+    <td style="width: 20%;" rowspan="2">
+    <p class="western" lang="es-ES" style="text-align: center;"><img src="/home/luisasl/Documentos/Py3/NuevoIngreso/app/static/solicitudes/20212/{{solicitud.aspirantesolicitud.saas_curp}}/{{solicitud.saso_imagen}}" width="100%" height="220" /></p>
+    </td>
+    </tr>
+    <tr valign="top">
+    <td style="width: 60%;">
+    <p class="western" lang="es-ES" style="text-align: center;" align="center">&nbsp;</p>
+    <p class="western" lang="es-ES" style="text-align: center;" align="center">&nbsp;</p>
+    </td>
+    </tr>
+    </tbody>
+  </table>
+
+
+
+<table style="height: 18px; background-color: gray; border-color: white;" width="800">
+<tbody>
+<tr>
+<td style="width: 757px; text-align: center;"><span style="color: #ffffff;">&nbsp;REGISTRO PARA EL PROCESO INTERNO DE SELECCI&Oacute;N DE<br /> {{ carrera.saca_nombre }}</span></td>
+</tr>
+</tbody>
+</table>
+<p style="padding-left: 540px;height: 1px;">&nbsp;</p>
+<table style="margin-left: 470px; height: 25px; border-color: black; width: 294px;" border="black" cellspacing="0">
+<tbody style="padding-left: 300px;">
+<tr style="padding-left: 520px; border-color: black;">
+<td style="height: 18px; background-color: gray; border-color: white; padding-left: 50px; width: 31px; text-align: center;"><span style="color: #ffffff;">Folio</span></td>
+<td style="padding-left: 50px; width: 19px; border-color: black;">&nbsp;{{solicitud.saso_folio}}</td>
+</tr>
+</tbody>
+</table>
+<p style="padding-left: 540px;height: 1px;">&nbsp;</p>
+<table style="margin-left: 470px; height: 25px; border-color: black; width: 294px;" border="black" cellspacing="0">
+<tbody style="padding-left: 300px;">
+<tr style="padding-left: 520px; border-color: black;">
+<td style="height: 18px; background-color: gray; border-color: white; padding-left: 50px; width: 31px; text-align: center;"><span style="color: #ffffff;">Fecha</span></td>
+<td style="padding-left: 50px; width: 19px; border-color: black;">&nbsp;{{ fecha }}</td>
+</tr>
+</tbody>
+</table>
+<p style="padding-left: 540px;height: 1px;">&nbsp;</p>
+
+<table style="background-color: gray;" width="800">
+<tbody>
+<tr>
+<td style="text-align: center;"><span style="color: #ffffff;">INFORMACI&Oacute;N GENERAL</span></td>
+</tr>
+</tbody>
+</table>
+<p style="padding-left: 540px;height: 1px;">&nbsp;</p>
+<table style="width: 760px; border-color: black; height: 24px;" border="black" cellspacing="0" cellpadding="0">
+<tbody>
+<tr style="height: 19px;">
+<td style="height: 19px; background-color: gray; border-color: white; width: 210px; text-align: center;"><span style="color: #ffffff; width: 210px;">NOMBRE COMPLETO</span></td>
+<td style="width: 615px; border-color: black; height: 19px;">&nbsp;{{ aspirante.saas_nombre }} {{ aspirante.saas_papellido }} {{ aspirante.saas_sapellido }}</td>
+</tr>
+</tbody>
+</table>
+<p style="padding-left: 540px;height: 1px;">&nbsp;</p>
+<table style="width: 405px; border-color: black; height: 24px;" border="black" cellspacing="0" cellpadding="0">
+<tbody>
+<tr style="height: 19px;">
+<td style="height: 19px; background-color: gray; border-color: white; width: 210px; text-align: center;"><span style="color: #ffffff;">CURP</span></td>
+<td style="width: 306px; border-color: black; height: 19px;">&nbsp;{{ aspirante.saas_curp }}</td>
+</tr>
+</tbody>
+</table>
+<p style="padding-left: 540px;height: 1px;">&nbsp;</p>
+
+<table style="width: 743px; border-color: black; height: 24px;" border="black" cellspacing="0" cellpadding="0">
+<tbody>
+<tr style="height: 19px;">
+<td style="width: 210px; height: 19px; background-color: gray; border-color: white; text-align: center;"><span style="color: #ffffff;">LUGAR DE NACIMIENTO</span></td>
+<td style="border-color: black; height: 19px;">&nbsp;{{aspirante.saas_lnacimiento}}</td>
+<td style="width: 210px; height: 19px; background-color: gray; border-color: white; text-align: center;"><span style="color: #ffffff;">&nbsp;FECHA DE NACIMIENTO</span></td>
+<td style="border-color: black; height: 19px;">&nbsp;{{aspirante.saas_fnacimiento}}</td>
+</tr>
+</tbody>
+</table>
+<p style="padding-left: 540px;height: 1px;">&nbsp;</p>
+<table style="width: 754px;" border="black" cellspacing="0" cellpadding="0">
+<tbody>
+<tr>
+<td style="height: 19px; background-color: gray; border-color: white; width: 187px; text-align: center;"><span style="color: #ffffff;">DOMICILIO</span></td>
+<td style="height: 19px; width: 600px;">&nbsp;{{ aspirante.saas_callen }}, {{aspirante.saas_colonia}}, {{aspirante.saas_municipio}}, {{aspirante.saas_estado}}, C.P. {{aspirante.saas_cp}}</td>
+</tr>
+</tbody>
+</table>
+
+<p style="padding-left: 540px;height: 1px;">&nbsp;</p>
+
+<table style="width: 743px; border-color: black; height: 24px;" border="black" cellspacing="0" cellpadding="0">
+<tbody>
+<tr style="height: 19px;">
+<td style="width: 210px; height: 19px; background-color: gray; border-color: white; text-align: center;"><span style="color: #ffffff;">TEL. DE CASA</span></td>
+<td style="border-color: black; height: 19px;">&nbsp;{{aspirante.saas_telefono}}</td>
+<td style="width: 200px; height: 19px; background-color: gray; border-color: white; text-align: center;"><span style="color: #ffffff;">&nbsp;TEL. CELULAR</span></td>
+<td style="border-color: black; height: 19px;">&nbsp;{{aspirante.saas_celular}}</td>
+</tr>
+</tbody>
+</table>
+<p style="padding-left: 540px;height: 1px;">&nbsp;</p>
+<table style="width: 525px;" border="black" cellspacing="0" cellpadding="0">
+<tbody>
+<tr>
+<td style="height: 19px; background-color: gray; border-color: white; width: 210px; text-align: center;"><span style="color: #ffffff;">CORREO</span></td>
+<td style="width: 465px;">&nbsp;{{ aspirante.saas_email }}</td>
+</tr>
+</tbody>
+</table>
+<p style="padding-left: 540px;height: 1px;">&nbsp;</p>
+<table style="width: 524px;" border="black" cellspacing="0" cellpadding="0">
+<tbody>
+<tr>
+<td style="height: 19px; background-color: gray; border-color: white; width: 210px; text-align: center;"><span style="color: #ffffff;">OCUPACI&Oacute;N ACTUAL</span></td>
+<td style="width: 462px;">&nbsp;{{ aspirante.saas_ocupacion }}</td>
+</tr>
+</tbody>
+</table>
+<p style="padding-left: 540px;height: 1px;">&nbsp;</p>
+<table style="background-color: gray;" width="800">
+<tbody>
+<tr>
+<td style="text-align: center;"><span style="color: #ffffff;">ANTECEDENTES DE BACHILLERATO</span></td>
+</tr>
+</tbody>
+</table>
+<p style="padding-left: 540px;height: 1px;">&nbsp;</p>
+<table style="width: 760px;" border="black" cellspacing="0" cellpadding="0">
+<tbody>
+<tr>
+<td style="height: 19px; background-color: gray; border-color: white; text-align: center; width: 308px;"><span style="color: #ffffff;">BACHILLERATO</span></td>
+<td style="width: 450px;">&nbsp;{{ solicitud.saso_bachillerato }}</td>
+</tr>
+</tbody>
+</table>
+<p style="padding-left: 540px;height: 1px;">&nbsp;</p>
+<table style="width: 760px;" border="black" cellspacing="0" cellpadding="0">
+<tbody>
+<tr>
+<td style="height: 19px; background-color: gray; border-color: white; text-align: center; width: 308px;"><span style="color: #ffffff;">PROMEDIO</span></td>
+<td style="width: 450px;">&nbsp;{{ solicitud.saso_promedio }}</td>
+</tr>
+</tbody>
+</table>
+<p style="padding-left: 540px;height: 1px;">&nbsp;</p>
+<table style="width: 760px;" border="black" cellspacing="0" cellpadding="0">
+<tbody>
+<tr>
+<td style="height: 19px; background-color: gray; border-color: white; text-align: center; width: 308px;"><span style="color: #ffffff;">PERÍODO</span></td>
+<td style="width: 450px;">&nbsp;{{ solicitud.saso_tiempobachiller }}</td>
+</tr>
+</tbody>
+</table>
+<p style="padding-left: 540px;height: 1px;">&nbsp;</p>
+<table style="width: 760px;" border="black" cellspacing="0" cellpadding="0">
+<tbody>
+<tr>
+<td style="height: 19px; background-color: gray; border-color: white; text-align: center; width: 308px;"><span style="color: #ffffff;">ANTES DE ESTE PROCESO, &iquest;HAS CURSADO OTRA CARRERA?</span></td>
+<td style="width: 450px;">&nbsp;{% if solicitud.saso_otroproceso == 'No' %}
+                                    {{ solicitud.saso_otroproceso }}
+                                {% elif solicitud.saso_otroproceso == 'Si' %}
+                                    {{ solicitud.saso_otroproceso }} (Licenciatura {{ solicitud.saso_otroproceso_lic }})
+                                {% endif %}
+</td>
+</tr>
+</tbody>
+</table>
+<p style="padding-left: 540px;height: 1px;">&nbsp;</p>
+<table style="width: 760px;" border="black" cellspacing="0" cellpadding="0">
+<tbody>
+<tr>
+<td style="height: 19px; background-color: gray; border-color: white; text-align: center; width: 608px;"><span style="color: #ffffff;"> LICENCIATURA Y FACULTAD PARA PARTICIPAR EN ESTE PROCESO DE SELECCI&Oacute;N</span></td>
+<td style="width: 500px;">&nbsp;{{ solicitud.saso_lic_aceptado }}</td>
+</tr>
+</tbody>
+</table>

@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+{% import 'bootstrap/wtf.html' as wtf %}
+
+{% block app_content %}
+<br>
+<br>
+  <!-- Begin Page Content -->
+  <div class="container-fluid">
+
+
+          <!-- Page Heading -->
+          <h1 class="h3 mb-2 text-gray-800">Solicitudes</h1>
+          <!-- DataTales Example -->
+          <div class="card shadow mb-4">
+            <div class="card-header py-3">
+              <h6 class="m-0 font-weight-bold text-primary">Solicitudes de nuevo ingreso</h6>
+            </div>
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                  <thead>
+                    <tr>
+                      <th>Imagen</th>
+                      <th>Folio</th>                      
+                      <th>Nombre</th>
+                      <th>Carrera</th>
+                      <th>Correo</th>
+                      <th>Teléfono</th>
+                      <th>CURP</th>
+                      <th>Solicitud</th>
+                      <th>Comite</th>
+                      <th>Comprobante</th>                                            
+                    </tr>
+                  </thead>
+                  <tfoot>
+                    <tr>
+                      <th>Imagen</th>                      
+                      <th>Folio</th>
+                      <th>Nombre</th>
+                      <th>Carrera</th>
+                      <th>Correo</th>
+                      <th>Teléfono</th>
+                      <th>CURP</th>
+                      <th>Solicitud</th>
+                      <th>Comite</th>
+                      <th>Comprobante</th>                      
+                    </tr>
+                  </tfoot>
+                  <tbody>
+          {% set solid = [] %}
+          {% for a in aula.saef_solicitud_saso %}
+          <tr>
+            {% if a.saso_imagen %}
+            <td><img src="{{url_for('static',filename='solicitudes/')}}{{a.aspirantesolicitud.saas_curp}}/{{a.saso_imagen}}" width="100" height="110"/>            
+            {% else %}
+            <td>{{a.saso_imagen}}</td>
+            {% endif %}
+            <td>{{a.saso_folio}}</td>
+            <td>{{ a.aspirantesolicitud.saas_nombre }} {{ a.aspirantesolicitud.saas_papellido }} {{ a.aspirantesolicitud.saas_sapellido }}</td>          
+            <td>{{a.saso_carrera_ceco}}</td>  
+            <td>{{a.aspirantesolicitud.saas_email}}</td>           
+            <td>{{a.aspirantesolicitud.saas_celular}}</td>  
+            <td>{{a.aspirantesolicitud.saas_curp}}</td>
+            <td><a href="{{ url_for('download_sol', id = a.saso_id) }}">Registro</a></td>
+            <td><a href="{{ url_for('saco_add_sapr', id = a.saso_comite_ceco) }}">{{a.comitesolicitud.saco_nombre}}</a></td>
+            <td><a href="{{ url_for('saso_comp', id = a.saso_id) }}">Enviar</a></td>
+          </tr>
+          {% set estandar = a.saso_id | int  %}
+          {{ solid.append(estandar) }} 
+          {% endfor %}          
+        </table>
+      </div>
+</div>
+</tbody></table></div></div>
+
+<div class="row">
+<div class="col-md-4"></div>
+<div class="col-md-3">
+  <center>
+  <form action="{{ url_for('get_saso_id') }}" method="post">
+      <button name="solid" type="text" class="list-group-item active" href="#" role="button" value= "{{solid|join(',')}}">Enviar comprobante a todos</a>
+      <br>
+    </form>
+    </center>
+</div>
+</div></div>
+<br>
+<br>
+<br>
+{% endblock %}

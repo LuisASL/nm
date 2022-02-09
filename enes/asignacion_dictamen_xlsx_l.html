@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+{% import 'bootstrap/wtf.html' as wtf %}
+
+{% block app_content %}
+<div class="row">
+    <div class="col-md-12">
+      <ul class="breadcrumb">
+        <li><a href="{{url_for('saso_rev_equipos_l')}}">Lista</a></li>
+        <li> Archivo</li>
+      </ul>
+    </div>
+</div>
+
+  <!-- Begin Page Content -->
+  <div class="container-fluid">
+
+
+
+          <!-- Page Heading -->
+          <h1 class="h3 mb-2 text-gray-800">Solicitudes</h1>
+          <!-- DataTales Example -->
+          <div class="card shadow mb-4">
+            <div class="card-header py-3">
+              <h6 class="m-0 font-weight-bold text-primary">Solicitudes de nuevo ingreso</h6>
+            </div>
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                  <thead>
+                    <tr>
+                      <th>Primer apellido</th>
+                      <th>Segundo apellido</th>
+                      <th>Nombre</th>
+                      <th>Mail</th>
+                      <th>Folio</th>
+                      <th>Horario</th>
+                      <th>Dictamen</th>
+                      <th>Obervaciones</th>
+                    </tr>
+                  </thead>
+                  <tfoot>
+                    <tr>
+                      <th>Primer apellido</th>
+                      <th>Segundo apellido</th>
+                      <th>Nombre</th>
+                      <th>Mail</th>
+                      <th>Folio</th>
+                      <th>Horario</th>
+                      <th>Dictamen</th>
+                      <th>Obervaciones</th>
+                    </tr>
+                  </tfoot>
+                  <tbody>
+          {% for a in folios %}
+            {% for l in a[1:] %}
+          <tr>
+            <td>{{  l[0]  }}</td>
+            <td>{{  l[1]  }}</td>
+            <td>{{  l[2]  }}</td>
+            <td>{{  l[3]  }}</td>
+            <td>{{  l[4]  }}</td>
+            <td>{{  l[5]  }}</td>
+            <td>{{  l[6]  }}</td>
+            <td>{{  l[7]  }}</td>
+          </tr>
+          {% endfor %}  
+          {% endfor %}          
+        </table>
+      </div>
+</div>
+
+
+</div>
+</div></div>
+<div class = "row">
+  <div class="col-md-3">
+      <div class="list-group">   
+          <a class="list-group-item active" href="#">Descargar calendario</a>
+          <br>
+      </div>
+  </div>
+</div>
+
+
+{% endblock %}
+
+{% block scripts %}
+    {{ super() }}
+  <script>
+  $('#rev_1_1').on('show.bs.modal', function(e) {
+      var rp_1_1 = $(e.relatedTarget).data('id');
+      $(e.currentTarget).find('input[name="rp_1_1"]').val(rp_1_1);
+  });
+  </script>
+{% endblock %}

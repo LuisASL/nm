@@ -1,0 +1,145 @@
+{% extends 'saas/base.html' %}
+{% import 'bootstrap/wtf.html' as wtf %}
+
+
+ 
+{% block title %}{{title}}{% endblock %} 
+
+
+{% block app_content %}
+<div class="container acomodar">
+<div class="row">
+    <div class="col-lg-4 col-md-12 usuario">
+        <div class="usuario-top">
+            <div class="usuario-top__mascara">
+              {% if current_user.pgus_image %}
+              <img src="{{url_for('static',filename='upload/')}}{{current_user.pgus_image}}" style="width:100%"/>
+              {% else %}
+              <img src="{{url_for('static',filename='upload/not-found.png')}}" style="width:100%"/>
+              {% endif %}
+            </div>
+            <h5 class="usuario-top__nombre ">{{ current_user.pgus_username }}</h5>
+        </div>
+
+         {% if current_user.is_active and current_user.pgus_usaas == True %}      
+            <div class="card usuario-down ">
+                <ul class="list-group list-group-flush ">
+                    <li class="list-group-item active"><a class="nav__enlace" href="{{url_for('saas_p') }}">Información Personal</a></li>
+                    <li class="list-group-item color-default"><a class="nav__enlace-dark--modificado" href="{{url_for('saas_complemento')}}">Información Complementaria</a></li>
+                    <li class="list-group-item color-default"><a class="nav__enlace-dark--modificado" href="{{url_for('pgus_saas_m', id=current_user.id) }}">Configuración de Cuenta</a></li>
+                </ul>
+            </div>
+        {% endif %}
+    </div>
+
+
+
+
+        <div class="col-lg-8 col-md-12 ">
+            <div class="container formulario ">
+                <div class="formulario__titulo ">
+                    <h6>Información Personal</h6>
+                </div>
+                <div class="modal-body">
+
+              {% for field, errors in form.errors.items() %}
+                <div class="alert alert-danger">
+                  {{ form[field].label }}: {{ ', '.join(errors) }}
+                </div>
+              {% endfor %}
+                <form method="post" enctype="multipart/form-data">
+                    <div class="form-group">
+                    {{ form.csrf_token }}
+                    </div>
+                    <div class="form-group">
+                      {{form.saas_papellido.label(class="formulario_label") }}{{form.saas_papellido(rows="20",cols="60",class="form-control")}}
+                    </div>
+                    <div class="form-group">
+                      {{form.saas_sapellido.label(class="formulario_label") }}{{form.saas_sapellido(rows="20",cols="60",class="form-control")}}
+                    </div>
+                    <div class="form-group">
+                      {{form.saas_nombre.label(class="formulario_label") }}{{form.saas_nombre(rows="20",cols="60",class="form-control")}}
+                    </div>
+                    <div class="form-group">
+                      {{form.saas_fnacimiento.label(class="formulario_label") }}{{form.saas_fnacimiento(cols="60", class="form-control")}}
+                    </div>
+                    <div class="form-group">
+                      {{form.saas_nacionalidad.label(class="formulario_label") }}{{form.saas_nacionalidad(rows="20",cols="60",class="form-control")}}
+                    </div>                         
+                    <div class="form-group">
+                      {{form.saas_sexo.label(class="formulario_label") }}{{form.saas_sexo(rows="20",cols="60",class="form-control")}}
+                    </div>
+                    <div class="form-group">
+                      {{form.saas_ecivil.label(class="formulario_label") }}{{form.saas_ecivil(rows="20",cols="60",class="form-control")}}
+                    </div>
+                    <div class="form-group">
+                      {{form.saas_estado.label(class="formulario_label") }}{{form.saas_estado(rows="20",cols="60",class="form-control", id = "estado_proc")}}
+                    </div> 
+                    <div class="form-group">
+                      {{form.saas_municipio.label(class="formulario_label") }}{{form.saas_municipio(rows="20",cols="60",class="form-control", id = "municipio_proc")}}
+                    </div> 
+                    <div class="form-group">
+                      {{form.saas_colonia.label(class="formulario_label") }}{{form.saas_colonia(rows="20",cols="60",class="form-control")}}
+                    </div>                        
+                    <div class="form-group">
+                      {{form.saas_callen.label(class="formulario_label") }}{{form.saas_callen(rows="20",cols="60",class="form-control")}}
+                    </div>
+                    <div class="form-group">
+                      {{form.saas_cp.label(class="formulario_label") }}{{form.saas_cp(rows="20",cols="60",class="form-control")}}
+                    </div> 
+                    <div class="form-group">
+                      {{form.saas_telefono.label(class="formulario_label") }}{{form.saas_telefono(rows="20",cols="60",class="form-control")}}
+                    </div>  
+                    <div class="form-group">
+                      {{form.saas_celular.label(class="formulario_label") }}{{form.saas_celular(rows="20",cols="60",class="form-control")}}
+                    </div>  
+                    <div class="form-group">
+                      {{form.saas_ocupacion.label(class="formulario_label") }}{{form.saas_ocupacion(rows="40",cols="60",class="form-control")}}
+                    </div>
+                    
+                    <div class="form-group">
+                      {{form.saas_email.label(class="formulario_label") }}{{form.saas_email(rows="20",cols="60",class="form-control")}}
+                    </div>                         
+                    <br>
+                    {{form.submit(class="formulario__boton")}}<br>                     
+                       </form>
+                      </div>
+                  </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
+{% endblock %}
+{% block scripts %}
+  {{ super() }}
+<script>
+
+    estado_select_proc = document.getElementById("estado_proc");
+    municipio_select_proc = document.getElementById("municipio_proc");
+
+    estado_select_proc.onchange = function()  {
+      estado_proc = estado_select_proc.value;
+
+        fetch('/mun_entidad/' + estado_proc).then(function(response) {
+            response.json().then(function(data) {
+              var optionHTML = '';
+
+                for (var municipio of data.municipios) {
+                    optionHTML += '<option  value=' +  municipio.cve_mun + '>' + municipio.nom_cab + '</option>';
+                }
+
+                municipio_select_proc.innerHTML = optionHTML;
+                console.table(data)
+
+            });
+         //alert(estado_proc)
+        });
+      }
+
+</script>
+  {% endblock %}

@@ -1,0 +1,163 @@
+{% extends base %}
+{% import 'bootstrap/wtf.html' as wtf %}
+
+{% block css %}
+{{ super()}}
+<link type="text/css" href="{{url_for('static',filename='nmaquetado/css/perfil.css')}}" rel="stylesheet">
+{% endblock %} 
+{% block title %}{{title}}{% endblock %} 
+{% block app_content %}
+<div class=" row">
+<br>
+<br>
+<br>
+<br>
+<br>
+</div>
+
+
+<div class=" row">
+    <div class="col-lg-1 col-md-12"></div>
+    <div class="col-lg-10 col-md-12">
+        <!-- Se ocupa el estilo del stylesheet inicio.css, -->
+        <div class="card card--modificado ">
+            <div class="card-header card-header--modificado">
+                <h6>Inicio/continuación del proceso de registro (3/4)</h6>
+            </div>
+            <div class="card-body">
+
+        {% for field, errors in form.errors.items() %}
+          <div class="alert alert-danger">
+            {{ form[field].label }}: {{ ', '.join(errors) }}
+          </div>
+        {% endfor %}
+        <form action="{{url_for('solicitud_cg_215_r', id_curp = solicitud.saasg_curp, id_sol = solicitud.saasg_id )}}" method="POST" enctype="multipart/form-data">                        <div class="form-group">
+
+
+        <div class="form-group">
+          {{ form.csrf_token }}
+          </div>
+
+
+        {{form.saasg_bachillerato.label(class="formulario_label") }}{{form.saasg_bachillerato(class="form-control" )}}<br>
+
+        {{form.saasg_estadobachiller.label(class="formulario_label") }}{{form.saasg_estadobachiller(class="form-control", id = "estado_proc")}}<br>
+        {{form.saasg_lugarbachiller.label(class="formulario_label") }}{{form.saasg_lugarbachiller(class="form-control", id = "municipio_proc")}}<br>
+
+        {{form.saasg_promedio.label(class="formulario_label") }}{{form.saasg_promedio(class="form-control")}}<br>
+
+        {{form.saasg_tiempobachiller.label(class="formulario_label") }}{{form.saasg_tiempobachiller(class="form-control")}}<br>      
+
+        {{form.saasg_tipo_ingreso.label(class="formulario_label") }}{{form.saasg_tipo_ingreso(class="form-control")}}<br>
+        {{form.saasg_lic_ingreso.label(class="formulario_label") }}{{form.saasg_lic_ingreso(class="form-control")}}<br>
+        {{form.saasg_fac_ingreso.label(class="formulario_label") }}{{form.saasg_fac_ingreso(class="form-control")}}<br>
+        {{form.saasg_lic_indirecto.label(class="formulario_label") }}{{form.saasg_lic_indirecto(class="form-control")}}<br>
+
+
+        {{form.saasg_otroproceso.label(class="formulario_label") }}{{form.saasg_otroproceso(class="form-control form-control-user", id="answ", onclick="disableTxt()")}}<br>
+
+        {{form.saasg_otroproceso_lic.label(class="formulario_label") }}{{form.saasg_otroproceso_lic(class="form-control form-control-user", id="answ1", disabled=true)}}<br>
+
+        {{form.saasg_otroproceso_acep.label(class="formulario_label") }}{{form.saasg_otroproceso_acep(class="form-control form-control-user", id="answ2", disabled=true)}}<br>
+
+
+        {{form.saasg_otroproceso_curs.label(class="formulario_label") }}{{form.saasg_otroproceso_curs(class="form-control form-control-user", id="answ3", disabled=true)}}<br>
+
+        
+        {{form.saasg_hiscer.label(class="formulario_label") }}
+        {{form.saasg_hiscer()}}<br><br>
+        <div class="form-group">
+        {{form.saasg_boleta.label(class="formulario_label") }}<a href="http://www.enesjuriquilla.unam.mx/wp-content/uploads/2020/04/COMPROMISO-DE-ENTREGA-DE-BOLETA-CREDENCIAL.pdf" target = "_blank"><span class="fas fa-info-circle"></span>ESTE ENLACE</a><br>
+        </div>
+        {{form.saasg_boleta()}}<br><br>
+
+        {{form.saasg_imagen.label(class="formulario_label") }}{{form.saasg_imagen()}} 
+
+        <br>        
+        <hr>
+        <div class="form-group">
+          Para completar el proceso de registro acepta el aviso de privacidad y el consentimiento de evaluación y entrivista.<br>
+          <br>
+
+          {{form.saasg_privacidad(class="form-control-user", id="privacidad", type="checkbox", onClick="aceptar_cpd('privacidad', 'imagen', 'button')" )}} {{form.saasg_privacidad.label(class="formulario_label") }} <a href="http://www.enesjuriquilla.unam.mx/wp-content/uploads/2019/10/Integral-ENESJ.pdf"> Enlace </a>
+        </div>
+        <div class="form-group">
+          {{form.saasg_consentimiento(class="form-control-user", id="imagen", type="checkbox", onClick="aceptar_cpd('privacidad', 'imagen', 'button')" )}} {{form.saasg_consentimiento.label(class="formulario_label") }} <a href="{{url_for('static',filename='upload/consentimiento.pdf')}}"  target = "_blank"> Enlace </a>
+        </div>
+        <hr>
+
+
+
+      {{form.submit(class="btn btn-success btn-block", id="button")}}<br>
+    </form>
+  </div>
+</div>
+
+
+
+
+
+
+
+ 			
+{% endblock %}
+
+
+{% block scripts %}
+    {{ super() }}
+	<script>
+function disableTxt() {
+  var ans = document.getElementById("answ").value;
+  if (ans == 'Si') {
+  	document.getElementById("answ3").selectedIndex = ans;
+  	document.getElementById("answ3").disabled = false;
+  	document.getElementById("answ1").disabled = false;
+  	document.getElementById("answ2").disabled = false;
+	}
+  if (ans == 'No') {
+  	document.getElementById("answ3").disabled = true;
+  	document.getElementById("answ1").disabled = true;
+  	document.getElementById("answ2").disabled = true;
+	}	
+}
+
+function undisableTxt() {
+  document.getElementById("answ1").disabled = false;
+}
+	</script>
+    <script>
+    function aceptar_cpd(privacidad, imagen, button) {
+       var checkbox = document.getElementById(privacidad);
+       var checkbox2 = document.getElementById(imagen);       
+       var button = document.getElementById(button);
+       updateToggle = checkbox.checked && checkbox2.checked ? button.disabled=false : button.disabled=true;
+      }      
+  </script>
+
+<script>
+    estado_select_proc = document.getElementById("estado_proc");
+    municipio_select_proc = document.getElementById("municipio_proc");
+
+    estado_select_proc.onchange = function()  {
+      estado_proc = estado_select_proc.value;
+
+        fetch('/mun_entidad/' + estado_proc).then(function(response) {
+            response.json().then(function(data) {
+              var optionHTML = '';
+
+                for (var municipio of data.municipios) {
+                    optionHTML += '<option  value=' +  municipio.cve_mun + '>' + municipio.nom_cab + '</option>';
+                }
+
+                municipio_select_proc.innerHTML = optionHTML;
+                console.table(data)
+
+            });
+         //alert(estado)
+        });
+      }
+
+</script>
+
+{% endblock %}
+

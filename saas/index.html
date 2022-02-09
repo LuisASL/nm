@@ -1,0 +1,354 @@
+{% extends 'saas/base.html' %}
+{% import 'bootstrap/wtf.html' as wtf %}
+
+
+ 
+{% block title %}{{title}}{% endblock %} 
+
+
+{% block app_content %}
+
+    <div class="row">
+        <div class="col-lg-12 col-md-12 mb-3">
+            <h4 class="estilo__text-usuario">Hola {{ current_user.pgus_nombre }}</h4>
+        </div>
+    </div>
+
+{% if current_user.is_authenticated and current_user.pgus_usapr == True  %}
+
+  INSTRUCCIONES PARA PROFESORES
+
+  <!-- Start Blog Area -->
+  <div id="blog" class="blog-area">
+    <div class="blog-inner area-padding">
+      <div class="blog-overly"></div>
+      <div class="container ">
+        <div class="row">
+          <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="section-headline text-center">
+              <h2>Avisos</h2>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          {% for post in posts %}
+          <!-- Start Right Blog-->
+          <div class="col-md-4 col-sm-4 col-xs-12">
+            <div class="single-blog">
+              <div class="single-blog-img">
+                  {% if post.pgus_image %}
+                    <img src="{{url_for('static',filename='posts/')}}{{post.pgus_image}}" style="width:100%"/>
+                  {% else %}
+                    <img src="{{url_for('static',filename='posts/not-found.png')}}"/>
+                  {% endif %}                  
+              </div>
+              <div class="blog-meta">
+                <span class="date-type">
+                    <i class="fa fa-calendar"></i>{{post.pgus_timestamp.strftime('%H:%M / %d-%m-%Y')}} (creado por {{ post.author.pgus_nombre }})
+                  </span>
+              </div>
+              <div class="blog-text">
+                <h4>
+                     {{ post.pgus_title }}
+                  </h4>
+                <p>
+                  {{ post.pgus_body }}
+                </p>
+              </div>
+              <span> 
+              </span>
+              <span> 
+              </span>
+            </div>
+          </div>
+          {% endfor %}
+          <!-- End Right Blog-->
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- End Blog -->
+
+      <nav aria-label="...">
+        <ul class="pager">
+            <li class="previous{% if not prev_url %} disabled{% endif %}">
+                <a href="{{ prev_url or '#' }}">
+                    <span aria-hidden="true">&larr;</span> Nuevas públicaciones
+                </a>
+            </li>
+            <li class="next{% if not next_url %} disabled{% endif %}">
+                <a href="{{ next_url or '#' }}">
+                    Públicaciones anteriores <span aria-hidden="true">&rarr;</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+        </div>
+    </div>
+</div>   
+
+{% endif %}
+
+
+
+
+{% if current_user.is_authenticated and current_user.pgus_usaas == True  %}
+<div class="row">
+  <div class="col-lg-8 col-md-12 estilo__cards ">
+    <div class="card text-center align-content-center ">
+        <div class="card-header">
+            <h6>INSTRUCCIONES - Proceso Interno de Selección</h6>
+        </div>
+        <div class="card-body">
+
+        <ol class="justificar__cards contenido__texto ">
+          <li> Selecciona la opción de “Perfil” y actualiza:</li>
+                            <ul>
+                            <li> Información Personal</li>
+                            <li> Información Complementaria</li>
+                            </ul>
+
+          <li class="western">Completa y verifica que tu informaci&oacute;n personal sea correcta. Si tienes alg&uacute;n error, env&iacute;a un mensaje con tu CURP como asunto al correo <u><a href="mailto:amartinezm@unam.mx">amartinezm@unam.mx</a></u>.</li>
+
+          <li class="western">En el men&uacute; <strong>"Solicitud"</strong>&nbsp;elige la opci&oacute;n&nbsp;<strong>"Crear nueva solicitud"</strong>. Si completaste tu informaci&oacute;n en <strong>"Perfil"</strong>, se desplegar&aacute;n las licenciaturas a las cu&aacute;les te puedes postular.</li>
+
+          <li class="western">Selecciona la carrera a la cu&aacute;l quieres aplicar.</li>
+
+          <li class="western">En la nueva ventana, contesta las preguntas y agrega los archivos que se te solicitan y confirma la opci&oacute;n&nbsp;<strong>"Crear solicitud"</strong>.<br>
+
+            <p class="western" style="padding-left: 60px;">Documentos solicitados:</p>
+            <p class="western" style="padding-left: 60px;">a) Historial Acad&eacute;mico o Certificado de Estudios (formato .pdf y no debe exceder de 2mb)&nbsp;</p>
+            <p class="western" style="padding-left: 60px;">b) Registro al concurso de selecci&oacute;n de la UNAM o Registro a Pase Reglamentado (formato .pdf y no debe exceder de 2MB)&nbsp;</p>
+            <p class="western" style="padding-left: 60px;">c) Carta de Motivos el formato de la carta de motivos se descarga de: http://www.enesjuriquilla.unam.mx (formato .pdf y no debe exceder de 2mb)&nbsp;</p>
+            <p class="western" style="padding-left: 60px;">d) Fotografía del aspirante en formato pasaporte (.JPG no debe exceder de 1mb)&nbsp;</p>
+
+          </li>
+
+          <li class="western">En la opción <strong>"Registro"</strong> del men&uacute; <strong>"Solicitud"</strong> podr&aacute;s verificar los documentos anexados, si hubiera alg&uacute;n problema y/o cambio, deber&aacute;s enviar un correo con tu CURP como asunto, al correo <u><a href="mailto:amartinezm@unam.mx">amartinezm@unam.mx</a></u></li>
+
+          <li class="western">Recibir&aacute;s un correo de confirmaci&oacute;n, que te indicar&aacute; las instrucciones para continuar con el Proceso Interno de Selección.</li>
+        </ol>
+        </div>
+      </div>
+    </div>
+
+
+    
+
+          <div class="col-lg-4 col-md-12 estilo__cards ">
+            <div class="card text-center align-content-center ">
+                <div class="card-header">
+                    <h6>Avisos</h6>
+                </div>
+                <div class="card-body">
+                    <p class="card-text justificar__cards contenido__texto">
+                        Cualquier problema con el sistema de inscripción debes reportarlo a amartinezm@unam.mx.
+                    </p>
+                </div>
+            </div>
+            <div class="card text-center mt-4 ">
+                <div class="card-header">
+                    <h6>Fechas Importantes</h6>
+                </div>
+                <div class="card-body contenido__texto">
+                    <p class="card-text justificar__cards"><strong>22 DE MARZO AL 18 DE ABRIL</strong><br>
+                    Período de registro.</p>
+
+                    <p class="card-text justificar__cards"><strong>25 AL 29 DE ABRIL</strong><br>
+                    Sesión de prueba para la evaluación.</p>
+
+                    <p class="card-text justificar__cards"><strong>2 AL 6 DE MAYO</strong><br>
+                    Evaluación en línea</p>
+
+                    <p class="card-text justificar__cards"><strong>30 DE MAYO</strong><br>
+                    Publicación de fecha y hora de entrevista</p>
+
+                    <p class="card-text justificar__cards"><strong>6 AL 24 DE JUNIO</strong><br>
+                    Entrevistas</p>
+
+                    <p class="card-text justificar__cards"><strong>26 DE JULIO</strong><br>
+                    Publicación de resultados del Proceso Interno de Selección</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+<br>
+
+  <!-- Start Blog Area -->
+  <div id="blog" class="blog-area">
+    <div class="blog-inner area-padding">
+      <div class="blog-overly"></div>
+      <div class="container ">
+        <div class="row">
+          <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="section-headline text-center">
+              <h2>Avisos</h2>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          {% for post in posts %}
+          <!-- Start Right Blog-->
+          <div class="col-md-4 col-sm-4 col-xs-12">
+            <div class="single-blog">
+              <div class="single-blog-img">
+                  {% if post.pgus_image %}
+                    <img src="{{url_for('static',filename='posts/')}}{{post.pgus_image}}" style="width:100%"/>
+                  {% else %}
+                    <img src="{{url_for('static',filename='posts/not-found.png')}}"/>
+                  {% endif %}                  
+              </div>
+              <div class="blog-meta">
+                <span class="date-type">
+                    <i class="fa fa-calendar"></i>{{post.pgus_timestamp.strftime('%H:%M / %d-%m-%Y')}} (creado por {{ post.author.pgus_nombre }})
+                  </span>
+              </div>
+              <div class="blog-text">
+                <h4>
+                     {{ post.pgus_title }}
+                  </h4>
+                <p>
+                  {{ post.pgus_body }}
+                </p>
+              </div>
+              <span> 
+              </span>
+              <span> 
+              </span>
+            </div>
+          </div>
+          {% endfor %}
+          <!-- End Right Blog-->
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- End Blog -->
+
+      <nav aria-label="...">
+        <ul class="pager">
+            <li class="previous{% if not prev_url %} disabled{% endif %}">
+                <a href="{{ prev_url or '#' }}">
+                    <span aria-hidden="true">&larr;</span> Nuevas públicaciones
+                </a>
+            </li>
+            <li class="next{% if not next_url %} disabled{% endif %}">
+                <a href="{{ next_url or '#' }}">
+                    Públicaciones anteriores <span aria-hidden="true">&rarr;</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+        </div>
+    </div>
+</div>   
+
+{% endif %}
+
+{% if current_user.is_authenticated and current_user.pgus_usaad == True  %}
+
+         <!-- Content Row -->
+
+<!--           <div class="row">
+            <div class="col-xl-5 col-lg-7">
+              <div class="card shadow mb-4">
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                  <h6 class="m-0 font-weight-bold text-primary">Publicar</h6>
+                </div>
+			    <br>
+			            {{ wtf.quick_form(form) }}
+			    <br>
+              </div>
+            </div> -->
+
+          <div class="row">
+            <!-- Area Chart -->
+            <div class="col-xl-5 col-lg-7">
+              <div class="card shadow mb-4">
+                <!-- Card Header - Dropdown -->
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                  <h6 class="m-0 font-weight-bold text-primary">Publicar</h6>
+                </div>
+                <!-- Card Body -->
+               	{% for field, errors in form.errors.items() %}
+				    <div class="alert alert-danger">
+					    {{ form[field].label }}: {{ ', '.join(errors) }}
+				    </div>
+				{% endfor %}
+				<div class="form-group">
+			    <form class="user" action="{{url_for('index')}}" method="POST" enctype="multipart/form-data">
+			      {{ form.csrf_token }}	      
+				<div class="form-group">			     
+			      {{form.title(class="form-control form-control-user", placeholder="Título")}}<br>
+                </div>
+				<div class="form-group">			      
+			      {{form.post(rows="5", class="form-control form-control-user", placeholder="Mensaje")}}<br>
+                </div>			      
+				<div class="form-group">			      
+			      {{form.pgus_image.label() }}{{form.pgus_image()}}<br/>
+                 </div>			      
+			      {{form.submit(class="btn btn-primary btn-block")}}<br>
+			    </form>
+              </div>
+            </div>
+        </div>
+
+
+              <!-- Area Chart -->
+              <div class="col-xl-7 col-lg-7">
+                <div class="card shadow mb-4">
+                  <!-- Card Header - Dropdown -->
+                  <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <h6 class="m-0 font-weight-bold text-primary">Publicaciones</h6>
+                  </div>
+
+                      {% for post in posts %}
+                      <table class="table table-hover" cellpadding="0">
+                          <tr>
+                              {% if post.author.pgus_image %}
+                                  <td><img src="{{url_for('static',filename='upload/')}}{{post.author.pgus_image}}" width="100" height="110"/></td>
+                              {% else %}
+                                  <td><img src="{{url_for('static',filename='upload/not-found.png')}}" width="100" height="110"/></td>
+                              {% endif %}  
+                              <td>
+                                  <p align="left">
+                                      <b>{{ post.pgus_title }}</b> (creado por {{ post.author.pgus_nombre }} {{ post.author.pgus_papellido }}):<br>{{ post.pgus_body }}
+                                  </p>
+                              </td>
+                          </tr>
+                      </table>
+                      {% endfor %}
+
+                      <nav aria-label="...">
+                          <ul class="pager">
+                              <li class="previous{% if not prev_url %} disabled{% endif %}">
+                                  <a href="{{ prev_url or '#' }}">
+                                      <span aria-hidden="true">&larr;</span> Nuevas públicaciones
+                                  </a>
+                              </li>
+                              <li class="next{% if not next_url %} disabled{% endif %}">
+                                  <a href="{{ next_url or '#' }}">
+                                      Públicaciones anteriores <span aria-hidden="true">&rarr;</span>
+                                  </a>
+                              </li>
+                          </ul>
+                      </nav>
+                  </div>
+      </div>
+
+  </div>    
+
+  <br>
+{% endif %} 
+
+  
+
+  <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
+
+
+
+
+{% endblock %}

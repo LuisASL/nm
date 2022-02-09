@@ -1,0 +1,133 @@
+{% extends "saas/base.html" %}
+{% import 'bootstrap/wtf.html' as wtf %}
+
+{% block app_content %}
+
+
+<div class="row">
+
+
+ <div class="col-md-2"></div>
+    <div class="col-md-8">
+            <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                    <h5 class="m-0 font-weight-bold text-primary" id="exampleModalLabel">Información de Solicitud</h5>
+                  </div>
+                  <div class="modal-body">
+
+    <h1> Registrar nueva solicitud - ENES J </h1>
+
+    {% for field, errors in form.errors.items() %}
+      <div class="alert alert-danger">
+        {{ form[field].label }}: {{ ', '.join(errors) }}
+      </div>
+    {% endfor %}
+
+    <form action="{{url_for('solicitud_c', id = carrera.saca_id)}}" method="POST" enctype="multipart/form-data">
+      {{ form.csrf_token }}
+      
+      {{form.saso_bachillerato.label() }}{{form.saso_bachillerato(class="form-control" )}}<br>
+
+      {{form.saso_lugarbachiller.label() }}
+      {{form.saso_lugarbachiller(class="form-control")}}<br>
+
+      {{form.saso_promedio.label() }}{{form.saso_promedio(class="form-control")}}<br>
+
+      {{form.saso_tiempobachiller.label() }}{{form.saso_tiempobachiller(class="form-control")}}<br>      
+
+      {{form.saso_lic_aceptado.label() }}{{form.saso_lic_aceptado(class="form-control")}}<br>
+
+
+       {{form.saso_otroproceso.label() }}{{form.saso_otroproceso(class="form-control form-control-user", id="answ", onclick="disableTxt()")}}<br>
+       
+        {{form.saso_otroproceso_lic.label() }}{{form.saso_otroproceso_lic(class="form-control form-control-user", id="answ1", disabled=true)}}<br>
+      
+        {{form.saso_otroproceso_acep.label()}}{{form.saso_otroproceso_acep(class="form-control form-control-user", id="answ2", disabled=true)}}<br>
+
+
+        {{form.saso_otroproceso_curs.label() }}{{form.saso_otroproceso_curs(class="form-control form-control-user", id="answ3", disabled=true)}}<br>
+
+      {{form.saso_hiscer.label() }}{{form.saso_hiscer()}}<br/>
+
+      {{form.saso_motivos.label() }} (<a href = "http://www.enesjuriquilla.unam.mx/wp-content/uploads/2021/02/Carta-de-motivos.pdf" target = "_blank"><b>FORMATO</b></a>)
+      {{form.saso_motivos()}}<br/>
+
+      {{form.saso_boleta.label() }} <a href = "http://www.enesjuriquilla.unam.mx/wp-content/uploads/2021/03/Copia-de-COMPROMISO-DE-ENTREGA-DE-BOLETA-CREDENCIAL_feb21_geno%CC%81micas.pdf" target = "_blank"><b>ESTE ENLACE</b></a>
+      {{form.saso_boleta()}}<br/>
+
+      {{form.saso_imagen.label() }}{{form.saso_imagen()}}<br/>
+
+      <div class="row">
+        <div class="col-xl-12 col-lg-12">   
+          <div class="list-group"> 
+              <a class="btn btn-primary btn-block" href="#rev_1_1" data-toggle="modal"  >
+              Crear solicitud</a>
+          </div>
+        </div>
+      </div> 
+  </div>
+</div>
+
+
+<br>
+<div class="modal fade" id="rev_1_1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">{{ mensaje.saas_titulo }}</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">x</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <div class="modal-body">
+                            <p>{{ mensaje.saas_descripcion }}</p>
+                        </div>
+
+
+                        <div class="modal-footer">
+                            <a class="list-group-item" data-dismiss="modal">Regresar</a>
+                             {{form.submit(class="list-group-item btn-primary active")}}<br>
+                        </div>
+
+
+                        </form>
+                    </div>
+                </div>
+              </div>
+            </div>
+</div>
+
+
+
+
+
+ 			
+{% endblock %}
+
+
+{% block scripts %}
+    {{ super() }}
+	<script>
+function disableTxt() {
+  var ans = document.getElementById("answ").value;
+  if (ans == 'Si') {
+  	document.getElementById("answ3").selectedIndex = ans;
+  	document.getElementById("answ3").disabled = false;
+  	document.getElementById("answ1").disabled = false;
+  	document.getElementById("answ2").disabled = false;
+	}
+  if (ans == 'No') {
+  	document.getElementById("answ3").disabled = true;
+  	document.getElementById("answ1").disabled = true;
+  	document.getElementById("answ2").disabled = true;
+	}	
+}
+
+function undisableTxt() {
+  document.getElementById("answ1").disabled = false;
+}
+	</script>
+
+{% endblock %}

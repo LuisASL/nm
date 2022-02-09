@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% import 'bootstrap/wtf.html' as wtf %}
+
+{% block app_content %}
+<div class="row">
+    <div class="col-md-12">
+      <ul class="breadcrumb">
+        <li><a href="{{url_for('saso_rev_equipos_l')}}">Lista</a></li>
+        <li> {{ equipo.saso_rev_dia }} - {{ equipo.saso_rev_revisor_1 }}</li>
+      </ul>
+    </div>
+</div>
+
+<br>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+    <center>
+    <h1> ENES - Proceso Interno de Selección </h1>
+    </center>
+    <br>
+        <div id="crearS1s1" >
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Nuevo equipo para revisión</h5>
+                  </div>
+                  <div class="modal-body">
+                      <div class="form-group">
+                        <b>Revisor(es)</b>: {{equipo.saso_rev_revisor_1}}<br>
+                        <b>Día</b>: {{equipo.saso_rev_dia}}<br>
+                        <b>Horario</b>: {{equipo.saso_rev_inicio}} a {{equipo.saso_rev_fin}} <br>
+                        <b>Duración de Prueba</b>: {{equipo.saso_rev_tot}} minutos<br>
+                        <br>
+                        <b>URL</b>: {{equipo.saso_rev_url}}<br>
+                        <b>Id de reunión</b>: {{equipo.saso_rev_id_reunion}}<br>
+                        <b>Código de acceso</b>: {{equipo.saso_rev_code_acceso}}<br>
+                        <br>
+                        <b>Pruebas estimadas</b>: {{equipo.saso_rev_asign}}<br>
+                        <b>Pruebas asignadas</b>: {{equipo.asignacion_status_assigned() }}<br>
+                        <b>Pruebas realizadas</b>: <br>
+                        <b>Pruebas aprobadas</b>: <br>
+                        <b>Pruebas no aprobadas</b>: <br>
+                      </div>
+                  </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+</div>
+
+   <div class="row">
+    <div class="col-2"></div>
+    <div class="col-4">   
+      <div class="list-group"> 
+          <a class="btn btn-lg btn-info btn-block"  href="{{ url_for('asignacion_rev_e', id = equipo.saso_rev_id) }}" role="button">
+            <i class="glyphicon glyphicon-edit"></i> Editar</a>
+      </div>
+    </div>
+
+    <div class="col-4">   
+      <div class="list-group"> 
+          <a class="btn btn-lg btn-warning btn-block" href="{{ url_for('asignacion_rev_update', id = equipo.saso_rev_id) }}" role="button">
+            <i class="glyphicon glyphicon-paste"></i> Actualizar sesiones</a>
+      </div>
+    </div>
+
+  </div> 
+
+
+{% endblock %}

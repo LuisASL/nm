@@ -1,0 +1,26 @@
+<p>Hola&nbsp;<strong>{{ solicitud.saasg_nombre }} {{ solicitud.saasg_papellido }} {{ solicitud.saasg_sapellido }},</strong>
+</p>
+<p>
+Tu registro al proceso interno de selección de la ENES Juriquilla para {{ solicitud.carrera_genomicas_solicitud.saca_nombre }} con folio {{ solicitud.saasg_folio }} ha sido <b>INVALIDADO</b> te pedimos vuelvas a realizar tu registro al Proceso Interno de Selección, la fecha límite es el 22 de mayo del año en curso.<br>
+<br>
+La información y los documentos anexados en tu solicitud no fueron aceptados por el área de Servicios Escolares debido a que {{ solicitud.saasg_observaciones }}.<br>
+<br>
+Si tienes alguna duda nos puedes contactar en las direcciones de correo electrónico contact@lcgej.unam.mx.<br>
+<br>
+{% if solicitud.saasg_fjoin %}
+Adjunto se encuentra el expediente de tu solicitud. <br>
+{% endif %}
+</p>
+
+
+<div>
+<div>&nbsp;</div>
+<div><strong>Licenciatura en Ciencias Genómicas</strong></div>
+<div><strong>Escuela Nacional de Estudios Superiores</strong></div>
+<div><strong>Unidad Juriquilla.</strong></div>
+<div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div><strong>No respondas a este correo, es un envío automático, si tienes alguna duda respecto a este correo, la licenciatura o el proceso de selección interno envía un mensaje a contact@lcgej.unam.mx</div>
+</div>
+</div>

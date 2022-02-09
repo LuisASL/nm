@@ -1,0 +1,57 @@
+
+{% extends "base.html" %}
+{% import 'bootstrap/wtf.html' as wtf %}
+
+{% block app_content %}
+
+  <!-- Begin Page Content -->
+  <div class="container-fluid">
+
+          <!-- Page Heading -->
+          <h1 class="h3 mb-2 text-gray-800">Aspirantes</h1>
+          <!-- DataTales Example -->
+          <div class="card shadow mb-4">
+            <div class="card-header py-3">
+              <h6 class="m-0 font-weight-bold text-primary">Aspirantes de nuevo ingreso</h6>
+            </div>
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                  <thead>
+                    <tr>
+                      <th>Nombre</th>
+                      <th>Teléfono</th>
+                      <th>CURP</th>
+                      <th>Email</th>
+                      <th>Detalle</th>
+                      <th>Solicitudes</th>
+                    </tr>
+                  </thead>
+                  <tfoot>
+                    <tr>
+                      <th>Nombre</th>
+                      <th>Teléfono</th>
+                      <th>CURP</th>
+                      <th>Email</th>
+                      <th>Detalle</th>
+                      <th>Solicitudes</th>
+                    </tr>
+                  </tfoot>
+                  <tbody>
+          {% for a in aspirantes %}
+          <tr>
+            <td>{{ a.saas_nombre }} {{ a.saas_papellido }} {{ a.saas_sapellido }}</td>
+            <td>{{a.saas_celular}}</td>
+            <td>{{a.saas_curp}}</td>
+            <td>{{a.saas_email}}</td>
+            <td><a href="{{ url_for('saas_e_saad', id = a.saas_id) }}">Detalle</a></td>
+            <td><a href="{{ url_for('saso_in_saas_l', id = a.saas_id) }}">Solicitudes</a></td>
+          </tr>
+          {% endfor %}          
+        </table>
+      </div>
+</div>
+
+
+
+{% endblock %}

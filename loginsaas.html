@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Definir siempre el normalize.css para que se vean bastante parecidos los estilos entre navegadores -->
+<link type="text/css" href="{{url_for('static',filename='nmaquetado/ini/css/main-seleccion.css')}}" rel="stylesheet">
+  <!-- Bootstrap-->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" rel="stylesheet">
+  <title>Login - Proceso de Selección</title>
+</head>
+
+<body>
+
+
+  <main class="body-fondo">
+
+    <div class="col-lg-12 acomodar fondo">
+      <div class="container ">
+        <div class="row">
+          <div class="col-md-6 correciones">
+            <div class="card card--modificada azul">
+              <img class="escudo" src="static/nmaquetado/ini/img/unamj2.png" alt="Escudo de la ENES - J">
+            </div>
+
+          </div>
+
+          <div class="col-md-6 correciones">
+            <div class="card card--modificada blanco">
+              <div class="card-header">
+                <h3 class="estilo__text-usuario">¡Bienvenidos aspirantes!</h3>
+              </div>
+              <div class="card-body tamanio-inputs">
+                  <form class="user"  method="post">
+                    {{ form.csrf_token }}
+                    {% for field, errors in form.errors.items() %}
+                    <div class="alert alert-danger">
+                        {{ form[field].label }}: {{ ', '.join(errors) }}
+                    </div>
+                    {% endfor %}
+                    <div class="form-group">
+                    <label for="ceal_sapellido"><span class="formulario_label">USUARIO</span></label>
+                      {{form.pgus_email(class="form-control form-control-user", placeholder="Dirección de correo electrónico")}}
+                  </div>
+                  <div class="form-group  required">
+                    <label for="ceal_nombre"><span class="formulario_label">CONTRASEÑA</span></label>
+                      {{form.password(class="form-control form-control-user", placeholder="Contraseña")}}
+                  </div>
+                  {{form.submit(class="formulario__boton")}}
+
+                  <div class="form-group alineacion-enlaces"><br>
+                    <a class="nav__enlace-dark" href="{{ url_for('reset_password_request') }}">¿Olvidaste tu contraseña?</a><br>
+                    <a class="nav__enlace-dark" href="{{ url_for('regsaas') }}">Solicitar cuenta</a>
+                  </div>
+
+                </form>
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+
+</body>
+
+</html>

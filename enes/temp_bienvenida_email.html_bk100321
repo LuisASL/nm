@@ -1,0 +1,73 @@
+<p class="western">Hola <strong>{{ aspirante.saas_nombre }} {{ aspirante.saas_papellido }}</strong><strong>,<br /> </strong><br /> <strong>La creaci&oacute;n de su usuario y contrase&ntilde;a ha sido satisfactorio.</strong></p>
+
+
+<p>
+    Para validar tu dirección de correo electrónico 
+    <a href="{{ url_for('verify_email', token=token, _external=True) }}">
+        abre este enlace
+    </a>.<br>
+    <br>
+    Este enlace caduca en 60 minutos.
+</p>
+
+
+<p class="western"><strong>Después de validar el enlace deberás ingresar al sistema y realizar los siguientes pasos:</strong></p>
+
+<ol>
+<li class="western">En el men&uacute; selecciona la opci&oacute;n de&nbsp;<strong>&ldquo;Perfil&rdquo;</strong>.</li>
+
+<li class="western">Completa y verifica que tu informaci&oacute;n personal sea correcta. Si tienes alg&uacute;n error, env&iacute;a un mensaje con tu CURP como asunto al correo <u><a href="mailto:amartinezm@unam.mx">amartinezm@unam.mx</a></u>&nbsp;</li>
+
+<li class="western">En el men&uacute; <strin>"Solicitud"</strong>&nbsp;elige la opci&oacute;n&nbsp;<strong>"Crear nueva solicitud"</strong>. Si completaste tu informaci&oacute;n en &ldquo;Perfil&rdquo;, se desplegar&aacute;n las licenciaturas a las cu&aacute;les te puedes postular.</li>
+
+<li class="western">Selecciona la carrera a la cu&aacute;l quieres aplicar.</li>
+
+<li class="western">En la nueva ventana, contesta las preguntas y agrega los archivos que se te solicitan y confirma la opci&oacute;n&nbsp;<strong>"Crear solicitud"</strong>.<br>
+
+	<p class="western" style="padding-left: 60px;">Documentos solicitados:</p>
+	<p class="western" style="padding-left: 60px;">a) Historial Acad&eacute;mico o Certificado de Estudios (formato .pdf y no debe exceder de 2mb)&nbsp;</p>
+	<p class="western" style="padding-left: 60px;">b) Registro al concurso de selecci&oacute;n de la UNAM o Registro a Pase Reglamentado o Resultado de Concurso de Selecci&oacute;n de Febrero o Carta Compromiso (formato .pdf y no debe exceder de 2MB)&nbsp;</p>
+	<p class="western" style="padding-left: 60px;">c) Carta de Motivos el formato de la carta de motivos se descarga de: http://www.enesjuriquilla.unam.mx (formato .pdf y no debe exceder de 2mb)&nbsp;</p>
+	<p class="western" style="padding-left: 60px;">d) Fotografía del aspirante en formato pasaporte (.JPG o .PNG no debe exceder de 1mb)&nbsp;</p>
+
+</li>
+
+<li class="western">En la opción <strong>"Registro"</strong> del men&uacute; <strong>"Solicitud"</strong> podr&aacute;s verificar los documentos anexados, si hubiera alg&uacute;n problema y/o cambio, deber&aacute;s enviar un correo con tu CURP como asunto, al correo <u><a href="mailto:amartinezm@unam.mx">amartinezm@unam.mx</a></u></li>
+
+<li class="western">Recibir&aacute;s un correo de confirmaci&oacute;n, que te indicar&aacute; las instrucciones para continuar con el Proceso Interno de Selección.</li>
+</ol>
+<p class="western">&nbsp;</p>
+<p class="western"><strong>FECHAS IMPORTANTES</strong></p>
+
+<p class="western"><strong>18 DE MARZO AL 11 DE ABRIL</strong><br>
+Período de registro.</p>
+
+<p class="western"><strong>26 AL 30 DE ABRIL</strong><br>
+Sesión de prueba para la evaluación.</p>
+
+<p class="western"><strong>3 AL 7 DE MAYO</strong><br>
+Evaluación en línea</p>
+
+<p class="western"><strong>14 DE MAYO</strong><br>
+Publicación de fecha y hora de entrevista</p>
+
+<p class="western"><strong>24 AL 28 DE MAYO</strong><br>
+Entrevistas</p>
+
+<p class="western"><strong>26 DE JULIO</strong><br>
+Publicación de resultados del Proceso Interno de Selección</p>
+
+<p class="western">&nbsp;</p>
+<p class="western" align="center"><strong>La decisión del Comité Académico es inapelable</strong>.</p>
+<p class="western">&nbsp;</p>
+
+<div>
+<div>&nbsp;</div>
+<div><strong>Escuela Nacional de Estudios Superiores</strong></div>
+<div><strong>Unidad Juriquilla</strong></div>
+<div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div><strong>No respondas a este correo, es un envío automático, si tienes alguna duda respecto a este correo, la licenciatura o el Proceso Interno de Selección envía un mensaje a amartinezm@unam.mx</div>
+</div>
+</div>

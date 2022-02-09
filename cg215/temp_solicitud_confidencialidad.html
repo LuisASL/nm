@@ -1,0 +1,167 @@
+<head>
+<style>
+table, th, td {
+  border-collapse: collapse;
+}
+
+@page {
+    size: letter landscape;
+    margin: 2cm;
+}
+
+.tablem .tbodym .trm .tdm {
+  font-size: 5px;
+}
+       
+/***Always insert a page break before the element***/
+       .pb_before {
+           page-break-before: always !important;
+       }
+
+/***Always insert a page break after the element***/
+       .pb_after {
+           page-break-after: always !important;
+       }
+
+/***Avoid page break before the element (if possible)***/
+       .pb_before_avoid {
+           page-break-before: avoid !important;
+       }
+
+/***Avoid page break after the element (if possible)***/
+       .pb_after_avoid {
+           page-break-after: avoid !important;
+       }
+
+/* Avoid page break inside the element (if possible) */
+       .pbi_avoid {
+           page-break-inside: avoid !important;
+       }
+
+
+#toc_container {
+    background: #f9f9f9 none repeat scroll 0 0;
+    border: 1px solid #aaa;
+    display: table;
+    font-size: 95%;
+    margin-bottom: 1em;
+    padding: 20px;
+    width: auto;
+}
+
+.toc_title {
+    font-weight: 700;
+    text-align: center;
+}
+
+#toc_container li, #toc_container ul, #toc_container ul li{
+    list-style: outside none none !important;
+}
+div_m {
+  margin-top: 155px;
+  margin-bottom: 155px;
+  margin-right: 155px;
+  margin-left: 155px;
+}
+
+</style>
+</head>
+<body>
+
+<div class="page1 pb_after">
+    <table style="width: 100%;" cellspacing="0" cellpadding="4">
+    <tbody>
+    <tr valign="top">
+    <td style="width: 20%;" rowspan="2">
+    <p class="western" lang="es-ES" style="text-align: center;" align="left"><img src="/var/www/NuevoIngreso/app/static/imgs/escudo_unam.png" width="100%" height="220" /></p>
+    </td>
+    <td style="width: 60%;">
+    <p class="western" lang="es-ES" style="text-align: center;"><img src="/var/www/NuevoIngreso/app/static/imgs/nombre_unam.png" width="100%" height="120" /></p>
+    </td>
+    <td style="width: 20%;" rowspan="2">
+    <p class="western" lang="es-ES" style="text-align: center;"><img src="/var/www/NuevoIngreso/app/static/imgs/escudo_enes_plan.png" width="100%" height="220" /></p>
+    </td>
+    </tr>
+    <tr valign="top">
+    <td style="width: 60%;">
+    <p class="western" lang="es-ES" style="text-align: center;" align="center">&nbsp;</p>
+    <p class="western" lang="es-ES" style="text-align: center;" align="center"><span style="font-size: x-large;"><span><strong> Carta compromiso del examinado</strong></span></span></p>
+    </td>
+    </tr>
+    </tbody>
+  </table>
+
+<p style="text-align: right;">Fecha: {{ fecha }}</p>
+
+<p><span style="font-family: Arial, serif;"><b>Escuela Nacional de Estudios Superiores Juriquilla<br>
+UNIVERSIDAD NACIONAL AUT&Oacute;NOMA DE M&Eacute;XICO <br>
+P R E S E N T E</b></span></p>
+
+<p align="justify"><span style="font-family: Arial, serif;">
+Por medio de la presente yo <b>{{aspirante.saas_nombre}} {{aspirante.saas_papellido}} {{aspirante.saas_sapellido}}</b> en mi carácter de examinado del proceso de selección para ingreso a <b> {{solicitud.carrera_solicitud.saca_nombre}} de la UNAM</b> con folio de registro <b>{{ solicitud.saso_folio }}</b> bajo la modalidad de la evaluación presencial o en línea con supervisión en la plataform Zoom, manifiesto lo siguiente:
+
+<ol>
+    <li>Me comprometo a guardar secrecía, por lo que me obligo a abstenerme de revelar, divulgar o reproducir verbalmente, por escrito o cualquier otro medio, la información relacionada con la evaluación total o parcialmente antes, durante o posterior a la evaluación. En caso de hacerlo, acepto que esto propiciaría la suspensión y/o anulación del registro, aplicación, calificación y evaluación para los efectos correspondientes.</li>
+
+    <li>Me comprometo a mostrar una conducta ética durante la aplicación de la evaluación y todos los procedimientos relacionados.</li>
+
+    <li>Asimismo, manifiesto mi consentimiento para ser videograbado durante la realización de la evaluación y todos los procesos relacionados con la misma, con la finalidad de que se verifique mi conducta.</li>
+
+    <li>Reconozco que está estrictamente prohibida la suplantación de identidad y que las personas involucradas en el acto se harán merecedoras a las sanciones que determine la autoridad correspondiente.</li>
+
+    <li>Me comprometo a resolver la evaluación sin recibir ayuda de terceras personas ni consultar algún material en físico y electrónico</li>
+
+    <li>Me comprometo a abstenerme de utilizar lentes oscuros o gorros, cachuchas, sombreros o cualquier otra prenda u objeto que impida la verificación de mi identidad ni a resolverlo en lugares públicos, ni dentro de vehículos, ya sea en movimiento o estacionados. Asimismo, me comprometo a no utilizar fondos virtuales ni audífonos durante el tiempo que dure la evaluación o procedimientos relacionados con este.</li>
+
+    <li>Manifiesto mi conocimiento sobre que durante la evaluación y todos los procesos relacionados con la misma, se realizará un monitoreo de la conexión en tiempo real al ingresar al sistema EXAL y me comprometo a tener un inicio único de sesión.</li>
+
+    <li>Soy conocedor de que se registrará el inicio y término de mi sesión con fecha y hora, además de que se habilitará un registro de reingreso al sistema y a la evaluación por mal cierre de sesión, desconexión, pérdida de electricidad, entre otras incidencias, que podré utilizar empleando el código único de desbloqueo, el cual me será proporcionado por el sistema.</li>
+
+    <li>Manifiesto mi conocimiento sobre la existencia de una notificación sobre los términos y condiciones de uso y monitoreo del sistema EXAL y que, en caso de no aceptarlos, no podré iniciar la resolución del examen.</li>
+
+    <li>Reconozco que se consideran incidentes durante la evaluación: avanzar demasiado rápidamente en el examen y sin responder, abandonar la pantalla del examen y utilizar el teclado, especialmente con combinaciones de teclas especiales para copiar, pegar, hacer captura de pantalla, entre otras.</li>
+</ol>
+
+</span>
+</p>
+</div>
+
+<div>
+    <table style="width: 100%;" cellspacing="0" cellpadding="4">
+    <tbody>
+    <tr valign="top">
+    <td style="width: 20%;" rowspan="2">
+    <p class="western" lang="es-ES" style="text-align: center;" align="left"><img src="/var/www/NuevoIngreso/app/static/imgs/escudo_unam.png" width="100%" height="220" /></p>
+    </td>
+    <td style="width: 60%;">
+    <p class="western" lang="es-ES" style="text-align: center;"><img src="/var/www/NuevoIngreso/app/static/imgs/nombre_unam.png" width="100%" height="120" /></p>
+    </td>
+    <td style="width: 20%;" rowspan="2">
+    <p class="western" lang="es-ES" style="text-align: center;"><img src="/var/www/NuevoIngreso/app/static/imgs/escudo_enes_plan.png" width="100%" height="220" /></p>
+    </td>
+    </tr>
+    <tr valign="top">
+    <td style="width: 60%;">
+    <p class="western" lang="es-ES" style="text-align: center;" align="center">&nbsp;</p>
+    <p class="western" lang="es-ES" style="text-align: center;" align="center"><span style="font-size: x-large;"><span><strong> Carta compromiso del examinado</strong></span></span></p>
+    </td>
+    </tr>
+    </tbody>
+  </table>
+
+<p style="text-align: right;">Fecha: {{ fecha }}</p>
+
+<p><span style="font-family: Arial, serif;"><b>Escuela Nacional de Estudios Superiores Juriquilla<br>
+UNIVERSIDAD NACIONAL AUT&Oacute;NOMA DE M&Eacute;XICO <br>
+P R E S E N T E</b></span></p>
+
+En caso de incumplir con lo estipulado en la presente carta, acepto mi responsabilidad y las sanciones a que me pudiera hacer acreedor, independientemente de las demás en las que pueda incurrir o que me correspondan.
+
+
+
+<p align="center"><span style="font-family: Arial, serif;">A T E N T A M E N T E</span></p>
+<p align="center"><span style="font-family: Arial, serif;"><img src="{{ qrcode((mensaje_conf), error_correction='H')  }}" width="220" height="220"></span></p>
+<p><span style="font-family: Arial, serif;">Nombre(s) y Apellidos: {{aspirante.saas_nombre}} {{aspirante.saas_papellido}}{{aspirante.saas_sapellido}} <br>
+No. de folio: {{solicitud.saso_folio}}<br>
+Correo electr&oacute;nico: {{aspirante.saas_email}}</span></p>
+</div></body>

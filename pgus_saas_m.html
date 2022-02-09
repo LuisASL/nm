@@ -1,0 +1,63 @@
+{% extends 'saas/base.html' %}
+{% import 'bootstrap/wtf.html' as wtf %}
+
+
+ 
+{% block title %}{{title}}{% endblock %} 
+
+
+{% block app_content %}
+<div class="container acomodar">
+<div class="row">
+    <div class="col-lg-4 col-md-12 usuario">
+        <div class="usuario-top">
+            <div class="usuario-top__mascara">
+              {% if current_user.pgus_image %}
+              <img src="{{url_for('static',filename='upload/')}}{{current_user.pgus_image}}" style="width:100%"/>
+              {% else %}
+              <img src="{{url_for('static',filename='upload/not-found.png')}}" style="width:100%"/>
+              {% endif %}
+            </div>
+            <h5 class="usuario-top__nombre ">{{ current_user.pgus_username }}</h5>
+        </div>
+
+         {% if current_user.is_active and current_user.pgus_usaas == True %}      
+            <div class="card usuario-down ">
+                <ul class="list-group list-group-flush ">
+                    <li class="list-group-item color-default"><a class="nav__enlace-dark--modificado" href="{{url_for('saas_p') }}">Información Personal</a></li>
+                    <li class="list-group-item color-default"><a class="nav__enlace-dark--modificado" href="{{url_for('saas_complemento')}}">Información Complementaria</a></li>
+                    <li class="list-group-item active"><a class="nav__enlace" href="{{url_for('pgus_saas_m', id=current_user.id) }}">Configuración de Cuenta</a></li>
+                </ul>
+            </div>
+        {% endif %}
+    </div>
+
+
+
+
+        <div class="col-lg-8 col-md-12 ">
+            <div class="container formulario ">
+                <div class="formulario__titulo ">
+                    <h6>Editar cuenta</h6>
+                </div>
+                <div class="modal-body">
+
+                    {% for field, errors in form.errors.items() %}
+                      <div class="alert alert-danger">
+                        {{ form[field].label }}: {{ ', '.join(errors) }}
+                      </div>
+                    {% endfor %}
+
+                  <div class="row">
+                         {{ wtf.quick_form(form, button_map={'submit':'success', 'subant':'success'}, horizontal_columns=('lg', 2, 10) ) }}
+                  </div>
+                  <br>
+                  <a class="list-group-item active" href="{{url_for('resetPassword',id=current_user.id)}}" role="button"><span class="glyphicon glyphicon-repeat"></span> Cambiar contraseña</a>
+
+                  <br>
+                </div>
+              </div>
+            </div>
+          </div>
+
+{% endblock %}

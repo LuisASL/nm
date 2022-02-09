@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+{% import 'bootstrap/wtf.html' as wtf %}
+
+{% block app_content %}
+
+  <!-- Begin Page Content -->
+  <div class="container-fluid">
+
+<div class="row">
+  <div class="col-md-6">
+    <div class="list-group">   
+        <a class="list-group-item active" href="{{url_for('saso_rev_equipo_c')}}">Crear equipo</a>
+    </div>
+  </div>
+</div>
+
+
+          <!-- Page Heading -->
+          <h1 class="h3 mb-2 text-gray-800">Equipos</h1>
+          <!-- DataTales Example -->
+          <div class="card shadow mb-4">
+            <div class="card-header py-3">
+              <h6 class="m-0 font-weight-bold text-primary">Solicitudes de nuevo ingreso</h6>
+            </div>
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                  <thead>
+                    <tr>
+                      <th>Equipo</th>
+                      <th>Revisores</th>
+                      <th>Día</th>
+                      <th>Período</th>
+                      <th>Cupo</th>
+                      <th>Calendario</th>                      
+                      <th>Información</th>
+                    </tr>
+                  </thead>
+                  <tfoot>
+                    <tr>
+                      <th>Equipo</th>
+                      <th>Revisores</th>
+                      <th>Día</th>
+                      <th>Período</th>
+                      <th>Cupo</th>
+                      <th>Calendario</th>
+                      <th>Información</th>
+                    </tr>
+                  </tfoot>
+                  <tbody>
+          {% for a in equipos |sort(attribute="saso_rev_id", reverse = False) %}
+          <tr>
+            <td>{{a.saso_rev_equipo}}</td>
+            <td>{{a.saso_rev_revisor_1}} <br> {{a.saso_rev_revisor_2}}</td>
+            <td>{{a.saso_rev_dia.strftime('%d-%m-%Y')}}</td>          
+            <td>{{a.saso_rev_inicio}} a {{a.saso_rev_fin}}</td>
+            <td>{{a.asignacion_status_assigned() }} / {{a.asignacion_status_creados() }}</td>
+            <td><a href="{{url_for('asignacion_rev_equipo_l', id = a.saso_rev_id)}}">Calendario</a></td>
+            <td><a href="{{url_for('asignacion_rev_m', id = a.saso_rev_id)}}">Información</a></td>
+
+          </tr>
+          {% endfor %}          
+        </table>
+      </div>
+</div>
+
+
+
+{% endblock %}
+{% block scripts %}
+    {{ super() }}
+  <script>
+    $('#dataTable').dataTable( {
+    "order": []
+      } );
+  </script>
+
+{% endblock %}

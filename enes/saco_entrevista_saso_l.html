@@ -1,0 +1,70 @@
+
+{% extends "base.html" %}
+{% import 'bootstrap/wtf.html' as wtf %}
+
+{% block app_content %}
+
+<!-- Begin Page Content -->
+<div class="container-fluid">
+
+<div class="row">
+  <div class="col-md-6">
+            {{ wtf.quick_form(form, button_map={'submit':'success', 'download':'info'}, horizontal_columns=('lg', 2, 10) )}}
+   </div>
+</div>
+          <!-- Page Heading -->
+          <h1 class="h3 mb-2 text-gray-800">Solicitudes</h1>
+          <!-- DataTales Example -->
+          <div class="card shadow mb-4">
+            <div class="card-header py-3">
+              <h6 class="m-0 font-weight-bold text-primary">Solicitudes de nuevo ingreso</h6>
+            </div>
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                  <thead>
+                    <tr>
+                      <th>Folio</th>
+                      <th>Nombre</th>
+                      <th>Carrera</th>
+                      <th>Correo</th>
+                      <th>Teléfono</th>
+                      <th>CURP</th>
+                      <th>Solicitud</th>
+                      <th>Comite</th>
+                    </tr>
+                  </thead>
+                  <tfoot>
+                    <tr>
+                      <th>Folio</th>
+                      <th>Nombre</th>
+                      <th>Carrera</th>
+                      <th>Correo</th>
+                      <th>Teléfono</th>
+                      <th>CURP</th>
+                      <th>Solicitud</th>
+                      <th>Comite</th>
+                    </tr>
+                  </tfoot>
+                  <tbody>
+          {% for a in comite.saco_solicitud_saso %}
+          <tr>
+            <td>{{a.saso_folio}}
+                 <a href="{{url_for('saso_remove_comite', id_comite = comite.saco_id, id_sol = a.saso_id )}}" class="btn-sm btn-danger" role="button">Remover</a>
+            </td>
+            <td>{{ a.aspirantesolicitud.saas_nombre }} {{ a.aspirantesolicitud.saas_papellido }} {{ a.aspirantesolicitud.saas_sapellido }}</td>          
+            <td>{{a.saso_carrera_ceco}}</td>  
+            <td>{{a.aspirantesolicitud.saas_email}}</td>           
+            <td>{{a.aspirantesolicitud.saas_celular}}</td>  
+            <td>{{a.aspirantesolicitud.saas_curp}}</td>
+            <td><a href="{{ url_for('download_sol', id = a.saso_id) }}">Registro</a></td>
+            <td><a href="{{ url_for('saco_add_sapr', id = a.saso_comite_ceco) }}">{{a.comitesolicitud.saco_nombre}}</a></td>
+          </tr>
+          {% endfor %}          
+        </table>
+      </div>
+</div>
+
+
+
+{% endblock %}

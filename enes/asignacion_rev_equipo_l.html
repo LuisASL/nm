@@ -1,0 +1,153 @@
+{% extends "base.html" %}
+{% import 'bootstrap/wtf.html' as wtf %}
+
+{% block app_content %}
+<div class="row">
+    <div class="col-md-12">
+      <ul class="breadcrumb">
+        <li><a href="{{url_for('saso_rev_equipos_l')}}">Lista</a></li>
+        <li> {{ equipo.saso_rev_dia }} - {{ equipo.saso_rev_revisor_1 }}</li>
+      </ul>
+    </div>
+</div>
+
+
+  <!-- Begin Page Content -->
+  <div class="container-fluid">
+
+
+
+          <!-- Page Heading -->
+          <h1 class="h3 mb-2 text-gray-800">Solicitudes</h1>
+          <!-- DataTales Example -->
+          <div class="card shadow mb-4">
+            <div class="card-header py-3">
+              <h6 class="m-0 font-weight-bold text-primary">Solicitudes de nuevo ingreso</h6>
+            </div>
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                  <thead>
+                    <tr>
+                      <th>Hora</th>
+                      <th>Aspirante</th>
+                      <th>Folio</th>
+                      <th>Estatus</th>
+                      <th>Solicitud</th>
+                      <th>Actualizar</th>
+                    </tr>
+                  </thead>
+                  <tfoot>
+                    <tr>
+                      <th>Hora</th>
+                      <th>Aspirante</th>
+                      <th>Folio</th>
+                      <th>Estatus</th>
+                      <th>Solicitud</th>
+                      <th>Actualizar</th>
+                    </tr>
+                  </tfoot>
+                  <tbody>
+          {% for a in solicitudes %}
+          <tr>
+            <td>{{a.asig_saso_rev_inicio}}</td>
+            <td>{{a.asignacion_status()}}</td>
+            <td>{{a.asignacion_status_folio()}}</td>
+            <td>{% if a.saso_rev_saso.saso_zoom_dictamen == True %}
+                  Aprobada 
+                {% elif a.saso_rev_saso.saso_zoom_dictamen == False %}
+                  Rechazada 
+                {% else %} 
+                  Pendiente  
+                {% endif %}
+            </td>
+            <td>{% if a.asignacion_status_folio()  != 'Pendiente' %}
+                    <a href="{{ url_for('download_sol', id = a.asig_saso_id) }}">Expediente</a>
+                {% else %}
+                  No disponible
+                {% endif %}
+            </td>
+            <td><a href="#rev_1_1" data-toggle="modal" data-id = {{ a.asig_id }}>Actualizar</a></td>
+
+          </tr>
+          {% endfor %}          
+        </table>
+      </div>
+</div>
+
+
+<div class="modal fade" id="rev_1_1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Revisión</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">x</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <form action="{{url_for('saso_zoom_response')}}" method="POST" enctype="multipart/form-data">
+
+                          <div class="form-group">
+                            <select class="custom-select" id="rev_estatus_id" name="rev_estatus_id">
+                              <option selected>Seleccionar opción</option>
+                              <option value="1">Aprobar</option>
+                              <option value="0">Rechazar</option>
+                            </select>
+                          </div>
+
+                          <div class="form-group">
+                            <label for="message-text" class="col-form-label", rows='6'>Observaciones:</label>
+                            <textarea type="text" class="form-control" id="rev_comentarios_id" name="rev_comentarios_id" rows='6'></textarea>
+                          </div>
+                          <div class="form-group form-check">
+                            <input type="text" name="rp_1_1" id="rp_1_1" value=""/>
+                          </div>
+
+                          <div class="modal-footer">
+                            <button class="list-group-item" data-dismiss="modal">Regresar</a>
+                            <button type="submit" class="list-group-item active">Actualizar</button>
+                         </div>
+
+
+                        </form>
+                    </div>
+                </div>
+              </div>
+            </div>
+</div>
+</div></div>
+
+<div class = "row">
+
+  <div class="col-md-3">
+      <div class="list-group">   
+          <a class="list-group-item active" href="{{url_for('directorio_sesion', id = equipo.saso_rev_id, id_rev = (equipo.saso_rev_revisor_1 +'_'+ equipo.saso_rev_dia|string + '.xlsx') )}}">Descargar calendario</a>
+          <br>
+      </div>
+  </div>
+
+
+  <div class="col-md-3">
+      <div class="list-group">   
+          <a class="list-group-item active" href="{{url_for('upload_dictamen')}}">Actualizar</a>
+          <br>
+      </div>
+  </div>
+
+
+</div>
+
+
+{% endblock %}
+
+{% block scripts %}
+    {{ super() }}
+  <script>
+  $('#rev_1_1').on('show.bs.modal', function(e) {
+      var rp_1_1 = $(e.relatedTarget).data('id');
+      $(e.currentTarget).find('input[name="rp_1_1"]').val(rp_1_1);
+  });
+  </script>
+{% endblock %}

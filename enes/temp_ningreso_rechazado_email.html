@@ -1,0 +1,28 @@
+<p>Hola&nbsp;<strong>{{ solicitud.aspirantesolicitud.saas_nombre }} {{ solicitud.aspirantesolicitud.saas_papellido }} {{ solicitud.aspirantesolicitud.saas_sapellido }},</strong>
+</p>
+
+<p>
+Tu registro al Proceso Interno de Selección de la ENES Juriquilla para {{ solicitud.carrera_solicitud.saca_nombre }} con folio {{ solicitud.saso_folio }} ha sido <b>INVALIDADO</b> te pedimos vuelvas a realizar tu registro al Proceso Interno de Selección, la fecha límite es el 11 de abril del año en curso.<br>
+<br>
+La información y los documentos anexados en tu solicitud no fueron aceptados por el área de Servicios Escolares.<br>
+<b>Observaciónes</b>:<br>
+{{ solicitud.saso_observaciones }} <br>
+<br>
+Si tienes alguna duda nos puedes contactar en la dirección de correo electrónico {{ current_user.pgus_email }}<br>
+<br>
+{% if solicitud.saso_fjoin %}
+Adjunto se encuentra el expediente de tu solicitud. <br>
+{% endif %}
+</p>
+
+
+<div>
+<div>&nbsp;</div>
+<div><strong>Escuela Nacional de Estudios Superiores</strong></div>
+<div><strong>Unidad Juriquilla.</strong></div>
+<div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div><strong>No respondas a este correo, es un envío automático.</div>
+</div>
+</div>

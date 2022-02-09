@@ -1,0 +1,231 @@
+<head>
+<style>
+table, th, td {
+  border-collapse: collapse;
+}
+
+@page {
+    size: letter landscape;
+    margin: 2cm;
+}
+
+.tablem .tbodym .trm .tdm {
+  font-size: 5px;
+}
+       
+/***Always insert a page break before the element***/
+       .pb_before {
+           page-break-before: always !important;
+       }
+
+/***Always insert a page break after the element***/
+       .pb_after {
+           page-break-after: always !important;
+       }
+
+/***Avoid page break before the element (if possible)***/
+       .pb_before_avoid {
+           page-break-before: avoid !important;
+       }
+
+/***Avoid page break after the element (if possible)***/
+       .pb_after_avoid {
+           page-break-after: avoid !important;
+       }
+
+/* Avoid page break inside the element (if possible) */
+       .pbi_avoid {
+           page-break-inside: avoid !important;
+       }
+
+
+#toc_container {
+    background: #f9f9f9 none repeat scroll 0 0;
+    border: 1px solid #aaa;
+    display: table;
+    font-size: 95%;
+    margin-bottom: 1em;
+    padding: 20px;
+    width: auto;
+}
+
+.toc_title {
+    font-weight: 700;
+    text-align: center;
+}
+
+#toc_container li, #toc_container ul, #toc_container ul li{
+    list-style: outside none none !important;
+}
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+</style>
+</head>
+<body>
+
+<div class="page1 pb_after">
+
+    <table style="width: 100%;" cellspacing="0" cellpadding="4">
+    <tbody>
+    <tr valign="top">
+    <td style="width: 20%;" rowspan="2">
+    <p class="western" lang="es-ES" style="text-align: center;" align="left"><img src="/var/www/NuevoIngreso/app/static/imgs/escudo_unam.png" width="100%" height="220" /></p>
+    </td>
+    <td style="width: 60%;">
+    <p class="western" lang="es-ES" style="text-align: center;"><img src="/var/www/NuevoIngreso/app/static/imgs/nombre_unam.png" width="100%" height="120" /></p>
+    </td>
+    <td style="width: 20%;" rowspan="2">
+    <p class="western" lang="es-ES" style="text-align: center;"><img src="/var/www/NuevoIngreso/app/static/imgs/escudo_enes_plan.png" width="100%" height="220" /></p>
+    </td>
+    </tr>
+    <tr valign="top">
+    <td style="width: 60%;">
+    <p class="western" lang="es-ES" style="text-align: center;" align="center">&nbsp;</p>
+    <p class="western" lang="es-ES" style="text-align: center;" align="center">&nbsp;</p>
+    </td>
+    </tr>
+    </tbody>
+  </table>
+
+
+
+
+    <table style="height: 18px; background-color: gray; border-color: white;" width="767">
+    <tbody>
+    <tr>
+    <td style="width: 757px; text-align: center;"><span style="color: #ffffff;">&nbsp;COMPROBANTE DE EVALUACIÓN</span></td>
+    </tr>
+    </tbody>
+    </table>
+
+
+
+    <table style="height: 387px;" width="822">
+    <tbody>
+    <tr>
+    <td style="width: 402px;">
+
+        <img style="display: block; margin-left: auto; margin-right: auto;" src="/home/luisasl/Documentos/Py3/NuevoIngreso/app/static/solicitudes/20212/{{solicitud.aspirantesolicitud.saas_curp}}/{{solicitud.saso_imagen}}" width="300" height="350" />
+
+
+    </td>
+    <td style="width: 404px;">
+    <p><strong>FOLIO:</strong>&nbsp;{{solicitud.saso_folio}}</p> 
+    <p><strong>ASPIRANTE:</strong>&nbsp;{{ aspirante.saas_nombre }} {{ aspirante.saas_papellido }} {{ aspirante.saas_sapellido }}</p>
+    <table style="height: 39px;" width="401">
+    <tbody>
+    <tr>
+    <td style="width: 391px; background-color: gray;">
+    <p style="text-align: center;"><span style="color: #ffffff;">DATOS DE LA EVALUACIÓN</span></p>
+    </td>
+    </tr>
+    </tbody>
+    </table>
+    <p><strong>MODALIDAD:</strong> En l&iacute;nea</p>
+    <p><strong>LICENCIATURA SELECCIONADA:</strong>&nbsp;{{ carrera.saca_nombre }}</p>
+    <p><strong>FECHA:</strong>&nbsp;{{ aula.saso_eval_dia}}</p>
+    <p><strong>HORA:</strong>&nbsp;{{ aula.saso_eval_inicio}} -  {{ aula.saso_eval_fin }}</p>
+    </td>
+    </tr>
+    </tbody>
+    </table>
+    <p>&nbsp;</p>
+    <p><span lang="es-ES"><strong>NOTA: El enlace para la evaluación se te enviar&aacute; al correo registrado 20 minutos antes de iniciar la evaluación.</strong></span></p>
+    <p>&nbsp;</p>
+    <p align="justify">Debido a la contingencia por la enfermedad COVID-19 se implementar&aacute; el siguiente protocolo para la aplicaci&oacute;n del examen en l&iacute;nea a trav&eacute;s de la plataforma Zoom. Recuerda que si eres seleccionado para la entrevista se te solicitar&aacute; enviar los documentos que adeudas (Historial Acad&eacute;mico / Boleta Credencial / Comprobante de pase reglamentado)</p>
+    <p>&nbsp;</p>
+    <p>Antes de iniciar el examen deber&aacute;s <strong>mostrar a la c&aacute;mara</strong></p>
+    <ul>
+    <li>Este comprobante de registro <strong>impreso</strong></li>
+    <li>Identificaci&oacute;n con fotograf&iacute;a <strong>vigente</strong></li>
+    </ul>
+    <p lang="es-ES">&nbsp;</p>
+    <p lang="es-ES">&nbsp;</p>
+    <p lang="es-ES">&nbsp;</p>
+</div>
+
+
+    <table style="width: 100%;" cellspacing="0" cellpadding="4">
+    <tbody>
+    <tr valign="top">
+    <td style="width: 20%;" rowspan="2">
+    <p class="western" lang="es-ES" style="text-align: center;" align="left"><img src="/var/www/NuevoIngreso/app/static/imgs/escudo_unam.png" width="100%" height="220" /></p>
+    </td>
+    <td style="width: 60%;">
+    <p class="western" lang="es-ES" style="text-align: center;"><img src="/var/www/NuevoIngreso/app/static/imgs/nombre_unam.png" width="100%" height="120" /></p>
+    </td>
+    <td style="width: 20%;" rowspan="2">
+    <p class="western" lang="es-ES" style="text-align: center;"><img src="/var/www/NuevoIngreso/app/static/imgs/escudo_enes_plan.png" width="100%" height="220" /></p>
+    </td>
+    </tr>
+    <tr valign="top">
+    <td style="width: 60%;">
+    <p class="western" lang="es-ES" style="text-align: center;" align="center">&nbsp;</p>
+    <p class="western" lang="es-ES" style="text-align: center;" align="center">&nbsp;</p>
+    </td>
+    </tr>
+    </tbody>
+  </table>
+
+
+    <table style="height: 18px; background-color: gray; border-color: white;" width="767">
+    <tbody>
+    <tr>
+    <td style="width: 757px; text-align: center;"><span style="color: #ffffff;">&nbsp;COMPROBANTE DE EVALUACIÓN</span></td>
+    </tr>
+    </tbody>
+    </table>
+
+
+
+
+<p align="center">&nbsp;</p>
+<p><span lang="es-ES"><em><u><strong>EVALUACIÓN EN LINEA </strong></u></em></span></p>
+<p><span lang="es-ES"><strong>Prepara tu equipo de computo</strong></span></p>
+<ol>
+<li>
+<p><span lang="es-ES">Deber&aacute;s contar con Servicio de Internet</span></p>
+</li>
+<li>
+<p><span lang="es-ES">Tu computadora debe estar configurada con la fecha y hora actual.</span></p>
+</li>
+<li>
+<p><span lang="es-ES">Tu computadora deber&aacute; contar con c&aacute;mara y micr&oacute;fono.</span></p>
+</li>
+<li>
+<p><span lang="es-ES">Debes tener instalados y actualizados los siguientes navegadores: </span></p>
+<ol type="a">
+<li>
+<p><span lang="es-ES">Google Chrome</span></p>
+</li>
+<li>
+<p><span lang="es-ES">Mozilla Firefox</span></p>
+</li>
+</ol>
+</li>
+</ol>
+<ol start="5">
+<li>
+<p><span lang="es-ES">Verificar que visualizas la direcci&oacute;n electr&oacute;nica <a href="www.examenes.dee.cuaieed.unam.mx"><strong>www.examenes.dee.cuaieed.unam.mx</strong> </a></span></p>
+</li>
+</ol>
+<ol start="6">
+<li>
+<p><span lang="es-ES">Prepara tu &aacute;rea de evaluación con:</span></p>
+</li>
+</ol>
+<p style="padding-left: 60px;"><span lang="es-ES"> - Una superficie r&iacute;gida para colocar tu computadora (Mesa, Escritorio) y debe estar libre de materiales de estudio, solo podr&aacute;s tener 3 hojas blancas, un l&aacute;piz, una goma y un sacapuntas.</span></p>
+<p style="padding-left: 60px;"><span lang="es-ES"> - La c&aacute;mara de tu equipo deber&aacute; estar colocada a la altura de tu rostro, utiliza un asiento c&oacute;modo que te permita estar a esa altura.</span></p>
+
+<br>
+<p><span lang="es-ES"><strong>Recuerda</strong></span></p>
+<p><span lang="es-ES"><strong>
+Antes de iniciar la evaluación se te pedirá que hagas un recorrido con la cámara de tu equipo alrededor de tu área de evaluación (tu mesa / escritorio, el piso, techo, paredes).
+</strong></span></p>
+

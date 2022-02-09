@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% import 'bootstrap/wtf.html' as wtf %}
+
+{% block app_content %}
+<br>
+<div class="row">
+  <div class="col-xl-3 col-lg-7">
+        <a class="list-group-item list-group-item-primary active" href="{{url_for('c_saca')}}" role="button">Crear carrera</a>
+  </div>
+</div>
+
+<br>
+<br>
+
+<div class="row">
+<div class="container-fluid">
+
+
+  <!-- DataTales Example -->
+  <div class="card shadow mb-4">
+    <div class="card-header py-3">
+      <h4 class="m-0 font-weight-bold text-primary">Lista de licenciaturas</h4>
+    </div>
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+          <thead>
+            <tr>
+              <th>Clave</th>
+              <th>Licenciatura</th>
+              <th>Editar</th>
+              <th>Remover</th>
+            </tr>
+          </thead>
+          <tfoot>
+            <tr>
+              <th>Clave</th>
+              <th>Licenciatura</th>
+              <th>Editar</th>
+              <th>Remover</th>
+            </tr>
+          </tfoot>
+          {% for s in carreras %}
+          <tr>
+            <td>{{s.saca_id}}</td>
+            <td>{{s.saca_nombre}}</td>
+            <td><a href="{{url_for('e_saca', id_saca = s.saca_id)}}"><span class="glyphicon glyphicon-edit"></span> Editar</a></td>
+            <td><a href="{{url_for('d_saca', id_saca = s.saca_id)}}"><span class="glyphicon glyphicon-trash"></span> Borrar</a></td>
+          </tr>
+          {% endfor %}          
+        </table>
+
+
+  </div>
+</div>
+
+
+
+<br>
+{% endblock %}

@@ -1,0 +1,41 @@
+<p>Hola&nbsp;<strong>{{ solicitud.aspirantesolicitud.saas_nombre }} {{ solicitud.aspirantesolicitud.saas_papellido }} {{ solicitud.aspirantesolicitud.saas_sapellido }},</strong>
+</p>
+<p>
+Tu registro al Proceso Interno de Selección de la ENES Juriquilla para {{ solicitud.carrera_solicitud.saca_nombre }} ha sido <b>completado</b> y tus documentos aceptados. <br>
+<br>
+La siguiente etapa es hacer una prueba de zoom para poder tener acceso a la evaluación, los datos de la cita son los siguientes:<br>
+<br>
+<b>Fecha</b>: {{ info.asig_saso_rev_dia.strftime('%d-%m-%Y')}} <br>
+<b>Hora</b>: {{info.asig_saso_rev_inicio}}<br>
+<b>Enlace</b>: {{info.asig_url}}<br>
+<b>Id de reunión</b>: {{info.asig_id_reunion}}<br>
+<b>Código de acceso</b>: {{info.asig_code_acceso}}<br>
+<br>
+El tiempo estimado de la prueba son {{info.revisor_saso.saso_rev_tot}} minutos. En este mensaje encontrarás un instructivo para instalar Zoom en tu computadora.
+
+<br>
+<br>
+Adicionalmente, revisa que tu expediente esté integrado correctamente. Descarga el archivo de tu solicitud y verifica la integridad de la información que será evaluada. Si hay alguna inconsistencia, por favor, envía un correo con el dato que debemos revisar. Para identificar tu correo escribe tu folio como asunto y envíalo a amartinezm@unam.mx</p>
+
+<p><span lang="es">Deber&aacute;s tener a la mano los siguientes documentos:&nbsp;</span></p>
+<ol>
+<li><span lang="es">Comprobante de registro actualizado impreso.&nbsp;</span></li>
+<li><span lang="es">Tu identificaci&oacute;n oficial (credencial de la preparatoria, certificado de secundaria, INE, pasaporte).&nbsp;</span></li>
+</ol><br>
+<br>
+{% if solicitud.saso_observaciones %}
+<b>Observaciónes</b>:<br>
+{{ solicitud.saso_observaciones }} <br>
+<br>
+{% endif %}
+
+<div>
+<div>&nbsp;</div>
+<div><strong>Escuela Nacional de Estudios Superiores</strong></div>
+<div><strong>Unidad Juriquilla.</strong></div>
+<div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div><strong>No respondas a este correo, es un envío automático, si tienes alguna duda respecto a este correo, la licenciatura o el proceso de selección interno envía un mensaje a amartinezm@unam.mx</div>
+</div>
+</div>

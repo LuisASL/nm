@@ -8,7 +8,7 @@
     --text-color-n: black;
     --text-color-b: white;
     --text-color-d: #D59F0F;
-    /*Colores de carreras*/
+    /*Colores extras*/
     --color-t: #00B5E2;
     --color-info: #117a8b;
     --color-warning: #ffc107;
@@ -29,7 +29,18 @@ h6 {
 
 .acomodar {
     /*El contenido necesita este espacio para que no quede cubierto al inicio por el navbar que siempre está presente*/
-    padding-top: 100px;
+    margin-top: 100px;
+    /* Determina el margin de todo el contenido */
+    margin-left: 5%;
+    margin-right: 5%;
+}
+
+@media (min-width:1268px) {
+    .acomodar {
+        /* Determina el margin de todo el contenido */
+        margin-left: 9%;
+        margin-right: 9%;
+    }
 }
 
 
@@ -43,10 +54,15 @@ h6 {
 }
 
 .nav__logo {
-    height: 45px;
+    height: 55px;
     margin: 0;
     padding: 0;
     margin-left: 25px;
+}
+
+.navbar-brand {
+    padding: 0!important;
+    margin: 0!important;
 }
 
 .margen {
@@ -80,7 +96,7 @@ h6 {
 
 .nav__enlace {
     color: var(--text-color-b);
-    text-decoration: none;
+    text-decoration: none!important;
 }
 
 .nav__enlace:hover {
@@ -100,8 +116,12 @@ h6 {
     color: var(--text-color-warning);
 }
 
+
+/* APARTADO DE SUBMENUS EN EL NAVBAR */
+
 .dropdown-menu-color {
     background-color: rgba(0, 43, 122, .75)!important;
+    position: absolute!important;
     margin-top: 22px!important;
     backdrop-filter: blur(1px);
     /*Aún no es compatible con Firefox, no es un estilo primodrdial*/
@@ -125,26 +145,21 @@ h6 {
 }
 
 
+/* ESTILO DEL ICONO HAMBURGUESA */
+
+.navbar-toggler {
+    color: rgba(213, 159, 15, 0.75);
+}
+
+.navbar-toggler-icon {
+    display: flex!important;
+    align-items: center;
+    justify-content: center;
+    font-size: 25px;
+}
+
+
 /***********************************************************NAVBAR TERMINA************************************************************/
-
-
-/***********************************************************FOOTER********************************************************************/
-
-.estilo__footer {
-    color: var(--text-color-b);
-    background-color: var(--primary-color);
-    display: flex;
-    flex-flow: column;
-    /*Esto es solo para que no quedé muy junto del contenido*/
-    margin-top: 200px;
-}
-
-.footer__img {
-    height: 100px;
-}
-
-
-/***********************************************************FOOTER TERMINA*************************************************************/
 
 
 /***********************************************************BOTON ARRIBA*************************************************************/
@@ -156,9 +171,8 @@ h6 {
     color: var(--secondary-color);
     cursor: pointer;
     position: fixed;
-    bottom: 10px;
+    bottom: 30px;
     right: 10px;
-    z-index: 2;
 }
 
 .ir-arriba:hover {
@@ -169,12 +183,354 @@ h6 {
 /***********************************************************BOTON ARRIBA  TERMINA*************************************************************/
 
 
+/***********************************************************NAVBAR MÓVIL************************************************************/
+
+
+/*Personalizaciones para distintas pantallas*/
+
+@media all {
+    .activar {
+        display: none;
+        /*Esconde el navbar móvil*/
+    }
+}
+
+@media (max-width: 991px) {
+    /*VERSIÓN MÓVIL NAV BOTTOM*/
+    .off {
+        /*Esconde el navbar de escritorio*/
+        display: none;
+    }
+    .nav__movil {
+        background-color: var(--primary-color);
+        display: flex;
+        align-items: center;
+        width: 100%;
+        height: 60px;
+        box-shadow: 0 1px 10px;
+    }
+    .nav2__centrar {
+        flex: 1 1 auto;
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        margin-bottom: 0;
+        list-style-type: none;
+    }
+    .escala {
+        font-size: 150%;
+        color: var(--text-color-b)
+    }
+    .activar {
+        /* Muestra el nav-movil */
+        display: show;
+    }
+    /* VERSIÓN MÓVIL TOP */
+    .logo__movil {
+        justify-content: center!important;
+    }
+    .nav__logo {
+        margin: 0;
+        height: 55px;
+    }
+    /* BOTON IR ARRIBA */
+    .ir-arriba {
+        color: var(--secondary-color)!important;
+        bottom: 80px;
+    }
+    /* Footer */
+    .estilo__footer {
+        /* Distancia inferior del nav-movil para que no lo cubra */
+        margin-bottom: 60px;
+        padding-bottom: 2%;
+    }
+    .footer__separaciones {
+        /* Separaciones entre los items de la clase contenido1 */
+        padding-top: 2%;
+        padding-bottom: 2%;
+    }
+}
+
+
+/***********************************************************NAVBAR MÓVIL TERMINA************************************************************/
+
+
+/***********************************************************FOOTER********************************************************************/
+
+.estilo__footer {
+    background-color: var(--primary-color);
+    color: var(--text-color-b);
+    /*Esto es solo para que no quedé muy junto del contenido*/
+    margin-top: 50px;
+}
+
+.footer__contenido1 {
+    align-items: center;
+    text-align: center;
+    padding: 1%;
+}
+
+.footer__contenido2 {
+    align-items: center;
+    text-align: center;
+    padding: 1% 10% 1% 10%;
+}
+
+.estilo__listas {
+    list-style-type: none;
+    margin: 0;
+    font-size: .975rem;
+}
+
+.footer__img {
+    height: 100px;
+}
+
+
+/***********************************************************FOOTER TERMINA*************************************************************/
+
+
 /***********************************************************TEXTO DE CONTENIDO *************************************************************/
 
 .contenido__texto {
     font-size: .975rem;
     line-height: 1.25rem;
+    text-align: justify;
+    padding: 10px 16px 10px 16px;
+    margin: 0;
 }
 
 
 /***********************************************************TEXTO DE CONTENIDO  TERMINA*************************************************************/
+
+
+/***********************************************************LISTA OPCIONES MOVIL*************************************************************/
+
+
+/* Aquí se incluyen los arreglos para los submenus correspondientes a materias, comprobantes y usuario */
+
+.submenu__ajustes {
+    display: flex;
+    flex-flow: column;
+    text-align: center;
+    justify-content: center;
+}
+
+.submenu__ajustes-card {
+    width: 100%!important;
+    text-align: center;
+}
+
+.submenu__ajustes-card ul li {
+    padding-left: 20px!important;
+}
+
+
+/***********************************************************LISTA OPCIONES MOVIL TERMINA*************************************************************/
+
+
+/**********************************ESTILOS UTILIZADOS PRINCIPALMENTE EN INICIO*************************************************************/
+
+
+/*Nombre del usuario estilizado*/
+
+.estilo__text-usuario {
+    text-align: center;
+    text-decoration-line: underline;
+    text-decoration-color: var(--secondary-color);
+    /*Define el grosor de la linea del texto usuario*/
+    text-decoration-thickness: 4px;
+}
+
+.card-header {
+    background-color: var(--primary-color) !important;
+    border-radius: 0;
+    color: var(--text-color-b);
+}
+
+.justificar__cards {
+    text-align: justify;
+    padding: 16px 16px 16px 24px;
+    margin: 0;
+}
+
+.estilo__cards {
+    /*Maneja todos los espaciados de los margin de las card => mt=4*/
+    margin-bottom: 1.5rem;
+    /*Proporcion verticalmente del contenido de las tarjetas pequeñas*/
+    display: flex;
+    flex: 1 1 auto;
+    flex-flow: column;
+    justify-content: space-evenly;
+}
+
+.estilos__sub-listas {
+    padding-left: 25px;
+}
+
+.carrera {
+    background-color: var(--color-t) !important;
+}
+
+
+/**********************************ESTILOS UTILIZADOS PRINCIPALMENTE EN INICIO "TERMINA"*************************************************************/
+
+
+/*************************************** ESTILOS UTILIZADOS PRINCIPALMENTE EN PERFIL ****************************************************************/
+
+
+/************************************USUARIO******************************/
+
+.usuario {
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+}
+
+
+/*usuario-top*/
+
+.usuario-top {
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+}
+
+.usuario-top__mascara {
+    /* Estos son los valores de recorte para la imagen de perfil */
+    width: 175px;
+    height: 175px;
+    overflow: hidden;
+    border-radius: 50%;
+    display: flex;
+}
+
+.mascara__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    /*Para que no se deforme la imagen, cubrirá todo*/
+    object-position: center;
+}
+
+
+/*usuario-down*/
+
+.usuario-down {
+    margin-top: 20px;
+    width: 17rem;
+    margin-bottom: 20px;
+}
+
+.list-group-item {
+    padding-left: 2.1rem !important;
+    border-color: var(--secondary-color)!important;
+    font-weight: 500;
+}
+
+.active {
+    /*Página seleccionada*/
+    background-color: var(--primary-color)!important;
+}
+
+.color-default {
+    /* Cambio de color en Lista de usuario Down */
+    background-color: rgba(0, 43, 122, .26)!important;
+}
+
+.color-default:hover {
+    background-color: rgba(0, 43, 122, .46)!important;
+}
+
+.nav__enlace-dark--modificado {
+    color: var(--text-color-n);
+    text-decoration: none;
+    display: flex;
+    justify-content: justify;
+}
+
+.nav__enlace-dark--modificado:hover {
+    color: var(--text-color-n);
+    text-decoration: none;
+}
+
+
+/************************************USUARIO TERMINA******************************/
+
+
+/************************************FORMULARIO******************************/
+
+.formulario__titulo {
+    background-color: var(--primary-color);
+    height: 50px;
+    color: var(--text-color-b);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration-line: underline;
+    text-decoration-color: var(--secondary-color);
+    /*Define el grosor de la linea del texto usuario*/
+    text-decoration-thickness: 3px;
+}
+
+.form-group {
+    margin-top: 10px;
+}
+
+.formulario_label {
+    font-size: .80rem;
+    letter-spacing: 2px;
+}
+
+.formu .form-control {
+    border-radius: 0;
+    border: 2px solid rgb(75, 75, 75);
+    font-size: 14px;
+    width: 100%;
+}
+
+.formulario__boton {
+    margin-top: 20px;
+    font-weight: 500;
+    font-size: 1.1rem;
+    height: 48px;
+    border: 0;
+    color: var(--text-color-b);
+    background-color: var(--primary-color);
+    width: 100%;
+}
+
+.formulario__boton:hover {
+    color: var(--text-color-b);
+    background-color: var(--secondary-color)
+}
+
+
+/************************************FORMULARIO TERMINA******************************/
+
+
+/************************************CARDS PARA ALGUNAS PÁGINAS DE PERFIL Y LAS RESTANTES******************************/
+
+.card--modificado {
+    width: 100%;
+    margin-top: 0;
+}
+
+.card-header--modificado {
+    min-height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.card__listas {
+    list-style: none;
+    margin-top: 10px;
+    margin-left: 20px;
+}
+
+
+/************************************CARDS PARA ALGUNAS PÁGINAS DE PERFIL Y LAS RESTANTES TERMINA******************************/
+
+
+/*************************************** ESTILOS UTILIZADOS PRINCIPALMENTE EN PERFIL TERMINADO ****************************************************************/

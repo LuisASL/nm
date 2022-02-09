@@ -1,0 +1,155 @@
+
+{% extends "saas/base.html" %}
+{% import 'bootstrap/wtf.html' as wtf %}
+
+{% block app_content %}
+
+
+{% if aspirante.saas_personal_info != True %}
+<div class="container acomodar">
+<div class = 'row'>
+  <div class="col-lg-2 col-md-12 "></div>
+  <div class="col-lg-8 col-md-12 ">
+      <div class="card card--modificado">
+        <div class="card-header py-3">
+          <h4 class="m-0 font-weight-bold text-default">
+           Actualización de Información Personal pendiente
+          </h4>            
+        </div>
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table" id="dataTable" width="100%" cellspacing="0">
+              <div class="form-group">
+                Para poder iniciar el proceso de inscripción es necesario actualizar la información personal. Si la información es correcta solo da clic en el botón <b>Actualizar</b>.<br>
+                Puedes encontrar el cuestionario en el menu <b>Perfil</b> opción <b>Información Personal</b> o en el siguiente enlace:
+                <a href="{{url_for('saas_p')}}">Clic aquí</a><br>
+                Si tienes alguna duda por favor escribe a la dirección de correo electrónico <b>amartinezm@unam.mx</b>
+              </div>
+            </table>
+          </div>
+        </div>
+      </div>
+  </div>
+</div>
+</div>
+
+
+{% elif aspirante.saas_personal_complemento != True %}
+<div class="container acomodar">
+<div class = 'row'>
+  <div class="col-lg-2 col-md-12 "></div>
+  <div class="col-lg-8 col-md-12 ">
+      <div class="card card--modificado">
+        <div class="card-header py-3">
+          <h4 class="m-0 font-weight-bold text-default">
+           Actualización de Información Complementaria pendiente
+          </h4>            
+        </div>
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table" id="dataTable" width="100%" cellspacing="0">
+              <div class="form-group">
+                Para poder iniciar el proceso de inscripción es necesario completar los campos del menú Información Complementaria con datos reales. Si la información es correcta solo da clic en el botón <b>Actualizar</b>.<br>
+                Puedes encontrar el cuestionario en el menu <b>Perfil</b> opción <b>Información Complementaria</b> o en el siguiente enlace:
+                <a href="{{url_for('saas_complemento')}}">Clic aquí</a><br>
+                Si tienes alguna duda por favor escribe a la dirección de correo electrónico <b>amartinezm@unam.mx</b>
+              </div>
+            </table>
+          </div>
+        </div>
+      </div>
+  </div>
+</div>
+</div>
+
+{% else %}
+
+
+
+
+
+<div class="row">
+  <div class="col-lg-4 col-md-12">
+        <a class="list-group-item active formulario__boton" href="{{url_for('sol_p1')}}" >Crear nueva solicitud</a>
+  </div>
+</div>
+
+<br>
+
+    <div class=" row">
+        <div class="col-lg-12 col-md-12">
+            <!-- Se ocupa el estilo del stylesheet inicio.css, -->
+            <div class="card card--modificado ">
+                <div class="card-header card-header--modificado">
+                    <h6>Solicitudes registradas </h6>
+                </div>
+                <div class="card-body">
+                  <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                  <thead>
+                    <tr>
+                      <th>Folio</th>
+                      <th>Nombre</th>
+                      <th>Carrera</th>
+                      <th>Correo</th>
+                      <th>Teléfono</th>
+                      <th>Solicitud</th>
+                      <th>Estatus</th>
+                    </tr>
+                  </thead>
+                  <tfoot>
+                    <tr>
+                      <th>Folio</th>
+                      <th>Nombre</th>
+                      <th>Carrera</th>
+                      <th>Correo</th>
+                      <th>Teléfono</th>
+                      <th>Solicitud</th>
+                      <th>Estatus</th>                      
+                    </tr>
+                  </tfoot>
+                  <tbody>
+          {% for a in aspirante.saas_solicitud_saso %}
+          <tr>
+            <td>{{a.saso_folio}}</td>
+            <td>{{ aspirante.saas_nombre }} {{ aspirante.saas_papellido }} {{ aspirante.saas_sapellido }}</td>          
+            <td>{{a.saso_carrera_ceco}}</td>  
+            <td>{{aspirante.saas_email}}</td>           
+            <td>{{aspirante.saas_celular}}</td>  
+            <td><a role="button" class ="btn-primary" href="{{ url_for('down_file', id = a.saso_id) }}">Registro</a></td>
+            {% if a.saso_status == 'c' %}
+              <td class="btn-success"> {{ a.saso_status }}<br>
+                  <b>Observaciónes</b>:<br>
+                  {{ a.solicitudObservaciones() }}
+              </td>
+            {% elif a.saso_status == 'd' %}              
+              <td class="btn-danger">{{ a.saso_status }}<br>
+                <b>Observaciónes</b>:<br>
+                {{ a.solicitudObservaciones() }}
+              </td>
+            {% elif a.saso_status == 'b' %}              
+              <td class="btn-info">{{ a.saso_status }}
+                <br>
+              <b>Observaciónes</b>:<br>
+              {{ a.solicitudObservaciones() }}
+              </td>
+            {% else %}
+              <td class="btn-info">
+                <b>Observaciónes</b>:<br>
+                {{ a.solicitudObservaciones() }}
+              </td>
+            {% endif %}            
+          </tr>
+          {% endfor %}          
+        </table>
+      </div>
+</div>
+</tbody></table></div>
+{% endif %}
+<br>
+<br>
+<br>
+<br>
+<br>
+
+{% endblock %}

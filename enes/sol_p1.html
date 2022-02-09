@@ -1,0 +1,66 @@
+{% extends "saas/base.html" %}
+{% import 'bootstrap/wtf.html' as wtf %}
+
+{% block app_content %}
+
+{% if current_user.is_authenticated and current_user.pgus_usaas == True  %}
+
+  {% if current_user.pgus_regcom == True %}
+
+<div class="container acomodar">
+<div class = 'row'>
+  <div class="col-lg-2 col-md-12 "></div>
+  <div class="col-lg-8 col-md-12 ">
+      <div class="card card--modificado">
+        <div class="card-header py-3">
+          <h4 class="m-0 font-weight-bold text-default">
+           Oferta de carreras
+          </h4> 
+        </div> 
+
+            <div class="modal-body">
+              <center>
+                {% for car in carreras|sort(attribute="saca_id", reverse = False)  if car.saca_id != 215 %}
+                  {% if car.saca_id != 128 %}
+                      <a class="formulario__boton"href="{{url_for('solicitud_c', id_car = car.saca_id)}}" type="button" type="button" data-bs-toggle="popover" data-bs-trigger="hover focus" title="Calendario de registro" data-bs-content="Del {{car.cese_calendario.cese_inicio.strftime('%d-%m-%Y')}} al {{car.cese_calendario.cese_fin.strftime('%d-%m-%Y') }} podrás realizar tu solicitud en línea.">{{ car.saca_nombre }}</a>
+                      <br>
+                  {% endif %}
+                  {% if car.saca_id == 128 %}
+                      <a class="formulario__boton"href="{{url_for('solicitud_c_lier', id_car = car.saca_id)}}" type="button" data-bs-toggle="popover" data-bs-trigger="hover focus" title="Calendario de registro" data-bs-content="Del {{car.cese_calendario.cese_inicio.strftime('%d-%m-%Y')}} al {{car.cese_calendario.cese_fin.strftime('%d-%m-%Y') }} podrás realizar tu solicitud en línea.">
+                      {{ car.saca_nombre }}
+                      </a>
+                      <br>
+                  {% endif %}
+                {% endfor %}
+              </center>
+
+            </div>
+       </div>
+     </div>
+
+   
+      {% else %}
+          <div class="sidebar-heading">
+            <h2>Completar Información Personal de la opción Perfil</h2><br>
+            <h3>Una vez completada la información se desplegaran las opciones de carrera.</h3>
+          </div>
+      {% endif %}
+
+{% endif %} 
+
+
+
+{% endblock %}
+
+{% block scripts %}
+    {{ super() }}
+
+    <script>
+var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
+var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
+  return new bootstrap.Popover(popoverTriggerEl)
+})
+    </script>
+
+{% endblock %}
+

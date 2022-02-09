@@ -1,0 +1,181 @@
+{% extends "base.html" %}
+{% import 'bootstrap/wtf.html' as wtf %}
+
+{% block app_content %}
+
+<br>
+<br>
+<div class="row">
+
+
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+            <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                    <h5 class="m-0 font-weight-bold text-primary" id="exampleModalLabel">Información Personal</h5>
+                  </div>
+                  <div class="modal-body">
+
+                    {% for field, errors in form.errors.items() %}
+                      <div class="alert alert-danger">
+                        {{ form[field].label }}: {{ ', '.join(errors) }}
+                      </div>
+                    {% endfor %}
+                    <form action="{{url_for('solicitud_cg_215_c')}}" method="POST" enctype="multipart/form-data">                        <div class="form-group">
+
+
+                        <div class="form-group">
+                          {{ form.csrf_token }}
+                          </div>
+                        <div class="form-group">
+                          {{form.saasg_papellido.label() }}{{form.saasg_papellido(rows="20",cols="60",class="form-control")}}
+                        </div>
+                        <div class="form-group">
+                          {{form.saasg_sapellido.label() }}{{form.saasg_sapellido(rows="20",cols="60",class="form-control")}}
+                        </div>
+                        <div class="form-group">
+                          {{form.saasg_nombre.label() }}{{form.saasg_nombre(rows="20",cols="60",class="form-control")}}
+                        </div>
+                        <div class="form-group">
+                          {{form.saasg_curp.label() }}{{form.saasg_curp(rows="20",cols="60",class="form-control")}}
+                        </div>
+                        <div class="form-group">
+                          {{form.saasg_fnacimiento.label() }}{{form.saasg_fnacimiento(cols="60", class="form-control")}}
+                        </div>
+                        <div class="form-group">
+                          {{form.saasg_lnacimiento.label() }}{{form.saasg_lnacimiento(rows="20",cols="60",class="form-control")}}
+                        </div>      
+                        <div class="form-group">
+                          {{form.saasg_sexo.label() }}{{form.saasg_sexo(rows="20",cols="60",class="form-control")}}
+                        </div>
+                        <div class="form-group">
+                          {{form.saasg_ecivil.label() }}{{form.saasg_ecivil(rows="20",cols="60",class="form-control")}}
+                        </div>
+                        <div class="form-group">
+                          {{form.saasg_nacionalidad.label() }}{{form.saasg_nacionalidad(rows="20",cols="60",class="form-control")}}
+                        </div>
+                        <div class="form-group">
+                          {{form.saasg_callen.label() }}{{form.saasg_callen(rows="20",cols="60",class="form-control")}}
+                        </div>
+                        <div class="form-group">
+                          {{form.saasg_colonia.label() }}{{form.saasg_colonia(rows="20",cols="60",class="form-control")}}
+                        </div>
+                        <div class="form-group">
+                          {{form.saasg_municipio.label() }}{{form.saasg_municipio(rows="20",cols="60",class="form-control")}}
+                        </div> 
+                        <div class="form-group">
+                          {{form.saasg_estado.label() }}{{form.saasg_estado(rows="20",cols="60",class="form-control")}}
+                        </div> 
+                        <div class="form-group">
+                          {{form.saasg_cp.label() }}{{form.saasg_cp(rows="20",cols="60",class="form-control")}}
+                        </div> 
+                        <div class="form-group">
+                          {{form.saasg_telefono.label() }}{{form.saasg_telefono(rows="20",cols="60",class="form-control")}}
+                        </div>  
+                        <div class="form-group">
+                          {{form.saasg_celular.label() }}{{form.saasg_celular(rows="20",cols="60",class="form-control")}}
+                        </div>  
+                        <div class="form-group">
+                          {{form.saasg_ocupacion.label() }}{{form.saasg_ocupacion(rows="40",cols="60",class="form-control")}}
+                        </div>                                                     
+                        <div class="form-group">
+                          {{form.saasg_email.label() }}{{form.saasg_email(rows="20",cols="60",class="form-control")}}
+                        </div>                            
+               
+                      </div>
+                  </div>
+                </div>
+            </div>
+
+<div class="row">
+
+
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+            <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                    <h5 class="m-0 font-weight-bold text-primary" id="exampleModalLabel">Solicitud</h5>
+                  </div>
+                  <div class="modal-body">
+
+                    {% for field, errors in form.errors.items() %}
+                      <div class="alert alert-danger">
+                        {{ form[field].label }}: {{ ', '.join(errors) }}
+                      </div>
+                    {% endfor %}
+                      <form method="post" enctype="multipart/form-data">
+                        <div class="form-group">
+                          {{ form.csrf_token }}
+                          </div>
+
+        {{form.saasg_bachillerato.label() }}{{form.saasg_bachillerato(class="form-control" )}}<br>
+
+        {{form.saasg_lugarbachiller.label() }}{{form.saasg_lugarbachiller(class="form-control")}}<br>
+
+        {{form.saasg_promedio.label() }}{{form.saasg_promedio(class="form-control")}}<br>
+
+        {{form.saasg_tiempobachiller.label() }}{{form.saasg_tiempobachiller(class="form-control")}}<br>      
+
+        {{form.saasg_lic_aceptado.label() }}{{form.saasg_lic_aceptado(class="form-control")}}<br>
+
+
+        {{form.saasg_otroproceso.label() }}{{form.saasg_otroproceso(class="form-control form-control-user", id="answ", onclick="disableTxt()")}}<br>
+
+        {{form.saasg_otroproceso_lic.label() }}{{form.saasg_otroproceso_lic(class="form-control form-control-user", id="answ1", disabled=true)}}<br>
+
+        {{form.saasg_otroproceso_acep.label() }}{{form.saasg_otroproceso_acep(class="form-control form-control-user", id="answ2", disabled=true)}}<br>
+
+
+        {{form.saasg_otroproceso_curs.label() }}{{form.saasg_otroproceso_curs(class="form-control form-control-user", id="answ3", disabled=true)}}<br>
+
+        {{form.saasg_hiscer.label() }}{{form.saasg_hiscer()}}
+
+
+        {{form.saasg_boleta.label() }}{{form.saasg_boleta()}}
+
+        {{form.saasg_imagen.label() }}{{form.saasg_imagen()}} 
+
+        <br>               
+
+
+
+      {{form.submit(class="btn btn-primary btn-block")}}<br>
+    </form>
+  </div>
+</div>
+
+
+
+
+
+
+
+ 			
+{% endblock %}
+
+
+{% block scripts %}
+    {{ super() }}
+	<script>
+function disableTxt() {
+  var ans = document.getElementById("answ").value;
+  if (ans == 'Si') {
+  	document.getElementById("answ3").selectedIndex = ans;
+  	document.getElementById("answ3").disabled = false;
+  	document.getElementById("answ1").disabled = false;
+  	document.getElementById("answ2").disabled = false;
+	}
+  if (ans == 'No') {
+  	document.getElementById("answ3").disabled = true;
+  	document.getElementById("answ1").disabled = true;
+  	document.getElementById("answ2").disabled = true;
+	}	
+}
+
+function undisableTxt() {
+  document.getElementById("answ1").disabled = false;
+}
+	</script>
+
+{% endblock %}
+

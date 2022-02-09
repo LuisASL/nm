@@ -1,0 +1,82 @@
+
+{% extends "base.html" %}
+{% import 'bootstrap/wtf.html' as wtf %}
+
+{% block app_content %}
+<div class="row">
+    <div class="col-md-12">
+      <ul class="breadcrumb">
+        <li><a href="{{url_for('saas_l')}}">Lista de aspirantes</a></li>
+        <li> {{ aspirante.saas_curp }} </li>
+      </ul>
+    </div>
+</div>
+<br>
+
+  <!-- Begin Page Content -->
+  <div class="container-fluid">
+
+          <!-- Page Heading -->
+          <h1 class="h3 mb-2 text-gray-800">Solicitudes</h1>
+          <!-- DataTales Example -->
+          <div class="card shadow mb-4">
+            <div class="card-header py-3">
+              <h6 class="m-0 font-weight-bold text-primary">Solicitudes de nuevo ingreso</h6>
+            </div>
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                  <thead>
+                    <tr>
+                      <th>Imagen</th>
+                      <th>Folio</th>                      
+                      <th>Nombre</th>
+                      <th>Carrera</th>
+                      <th>Correo</th>
+                      <th>Teléfono</th>
+                      <th>CURP</th>
+                      <th>Solicitud</th>
+                    </tr>
+                  </thead>
+                  <tfoot>
+                    <tr>
+                      <th>Imagen</th>                      
+                      <th>Folio</th>
+                      <th>Nombre</th>
+                      <th>Carrera</th>
+                      <th>Correo</th>
+                      <th>Teléfono</th>
+                      <th>CURP</th>
+                      <th>Solicitud</th>
+                    </tr>
+                  </tfoot>
+                  <tbody>
+          {% for a in aspirante.saas_solicitud_saso %}
+            <tr>
+              {% if a.saso_imagen %}
+              <td>
+                {% if a.saso_carrera_ceco == 215 %}
+                <img src="{{url_for('static',filename='solicitudes/20222/cg215/')}}{{a.aspirantesolicitud.saas_curp}}/{{a.saso_imagen}}" width="100" height="110"/>
+                {% else %}
+                <img src="{{url_for('static',filename='solicitudes/20222/')}}{{a.aspirantesolicitud.saas_curp}}/{{a.saso_imagen}}" width="100" height="110"/>
+                {% endif %}
+              </td>
+              {% else %}
+              <td>{{a.saso_imagen}}</td>
+              {% endif %}
+              <td>{{a.saso_folio}}</td>
+              <td>{{ a.aspirantesolicitud.saas_nombre }} {{ a.aspirantesolicitud.saas_papellido }} {{ a.aspirantesolicitud.saas_sapellido }}</td>          
+              <td>{{a.saso_carrera_ceco}}</td>  
+              <td>{{a.aspirantesolicitud.saas_email}}</td>           
+              <td>{{a.aspirantesolicitud.saas_celular}}</td>  
+              <td>{{a.aspirantesolicitud.saas_curp}}</td>
+              <td><a href="{{ url_for('download_sol', id = a.saso_id) }}">Registro</a></td>
+            </tr>
+          {% endfor %}                              
+        </table>
+      </div>
+</div>
+
+
+
+{% endblock %}

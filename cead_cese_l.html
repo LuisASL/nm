@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% import 'bootstrap/wtf.html' as wtf %}
+
+{% block app_content %}
+
+<div class="row">
+  <div class="col-xl-3 col-lg-7">
+        <a class="list-group-item list-group-item-primary active" href="{{url_for('c_cese')}}" role="button">Crear Semestre</a>
+  </div>
+</div>
+
+<div class="row">
+<div class="container-fluid">
+
+  <!-- Page Heading -->
+  <h1 class="h3 mb-2 text-gray-800">Historico de semestres</h1>
+  <!-- DataTales Example -->
+  <div class="card shadow mb-4">
+    <div class="card-header py-3">
+      <h4 class="m-0 font-weight-bold text-primary">Archivos solicitados</h4>
+    </div>
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+          <thead>
+            <tr>
+              <th>Nombre</th>
+              <th>Año</th>
+              <th>Inicio</th>
+              <th>Fin</th>
+              <th>Modificar</th> 
+              <th>Editar</th>
+              <th>Borrar</th>
+            </tr>
+          </thead>
+          <tfoot>
+            <tr>
+              <th>Nombre</th>
+              <th>Año</th>
+              <th>Inicio</th>
+              <th>Fin</th>
+              <th>Modificar</th> 
+              <th>Editar</th>
+              <th>Borrar</th>
+            </tr>
+          </tfoot>
+          {% for s in semestres %}
+          <tr>
+            <td>{{s.cese_nombre}}</td>          
+            <td>{{s.cese_year}}</td>
+            <td>{{s.cese_inicio}}</td>  
+            <td>{{s.cese_fin}}</td>
+            <td><a href="{{url_for('cead_cese_saca_l', id_cese = s.cese_ciclo)}}"><span class="glyphicon glyphicon-pencil"></span> Licenciaturas</a></td>
+            <td><a href="{{url_for('e_cese', id_cese = s.cese_ciclo)}}"><span class="glyphicon glyphicon-calendar"></span> Editar</a></td>
+            <td><a href="{{url_for('d_cese', id_cese = s.cese_ciclo)}}"><span class="glyphicon glyphicon-trash"></span> Borrar</a></td>
+          </tr>
+          {% endfor %}          
+        </table>
+
+
+  </div>
+</div>
+
+
+
+{% endblock %}

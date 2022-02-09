@@ -1,0 +1,153 @@
+{% extends base %}
+{% import 'bootstrap/wtf.html' as wtf %}
+
+{% block css %}
+{{ super()}}
+<link type="text/css" href="{{url_for('static',filename='nmaquetado/css/perfil.css')}}" rel="stylesheet">
+{% endblock %} 
+{% block title %}{{title}}{% endblock %} 
+{% block app_content %}
+<head>
+<style type="text/css">
+div.ui-menu li {
+    list-style:none;
+    background-image:none;
+    background-repeat:none;
+    background-position:0; 
+}
+ul
+{
+    list-style-type:none;
+    padding:0px;
+    margin:0px;
+}
+li
+{
+    background-image:url(sqpurple.gif);
+    background-repeat:no-repeat;
+    background-position:0px 5px; 
+    padding-left:14px;
+}
+</style>
+</head>
+
+<body>
+
+
+
+<div class=" row">
+    <div class="col-lg-1 col-md-12"></div>
+    <div class="col-lg-10 col-md-12">
+        <!-- Se ocupa el estilo del stylesheet inicio.css, -->
+        <div class="card card--modificado ">
+            <div class="card-header card-header--modificado">
+                <h6>Inicio/continuación del proceso de registro (3/3)</h6>
+            </div>
+            <div class="card-body">
+
+        {% for field, errors in form.errors.items() %}
+          <div class="alert alert-danger">
+            {{ form[field].label }}: {{ ', '.join(errors) }}
+          </div>
+        {% endfor %}
+        <form action="{{url_for('solicitud_genomicas_215_p2', id_curp = aspirante.saas_curp, id_sol = solicitud.saso_id)}}" method="POST" enctype="multipart/form-data">
+        <div class="form-group">
+
+
+        <div class="form-group">
+          {{ form.csrf_token }}
+          </div>
+
+        {{form.saso_informacion_lic.label(class="formulario_label") }}{{form.saso_informacion_lic(class="formulario_label")}}<br>
+        {{form.saso_tipo_ingreso.label(class="formulario_label") }}{{form.saso_tipo_ingreso(class="form-control")}}<br>
+        {{form.saso_lic_ingreso.label(class="formulario_label") }}{{form.saso_lic_ingreso(class="form-control")}}<br>
+        {{form.saso_fac_ingreso.label(class="formulario_label") }}{{form.saso_fac_ingreso(class="form-control")}}<br>
+
+        {{form.saso_otro_proceso.label(class="formulario_label") }}{{form.saso_otro_proceso(class="form-control", id="answ", onclick="disableTxt()")}}<br>
+
+        {{form.saso_otro_licenc.label(class="formulario_label") }}{{form.saso_otro_licenc(class="form-control", id="answ1", disabled=true)}}<br>
+
+        {{form.saso_otro_facultad.label(class="formulario_label") }}{{form.saso_otro_facultad(class="form-control", id="answ2", disabled=true)}}<br>
+
+
+        {{form.saso_otro_aceptado.label(class="formulario_label") }}{{form.saso_otro_aceptado(class="form-control", id="answ3", disabled=true)}}<br>
+
+        {{form.saso_otro_cursado.label(class="formulario_label") }}{{form.saso_otro_cursado(class="form-control", id="answ4", disabled=true)}}<br>
+        
+        {{form.saso_hiscer.label(class="formulario_label") }}<br>
+        {{form.saso_hiscer()}}<br><br>
+        
+        <label for="ceal_discapacidad_descr"><span class="formulario_label">Seleccionar boleta de Concurso de selección o Pase reglamentado (si no cuentas con este documento deberás adjuntar el formato de carta compromiso que se encuentra en <a href="http://www.enesjuriquilla.unam.mx/wp-content/uploads/2020/04/COMPROMISO-DE-ENTREGA-DE-BOLETA-CREDENCIAL.pdf" target = "_blank"><span class="fas fa-info-circle"></span>ESTE ENLACE</a></span></label><br>
+        {{form.saso_boleta()}}<br><br>
+
+        {{form.saso_imagen.label(class="formulario_label") }}<br>{{form.saso_imagen()}} 
+
+        <br>        
+        <hr>
+        <div class="form-group">
+          Para completar el proceso de registro acepta el aviso de privacidad, confidencialidad y el consentimiento de evaluación y entrevista.<br>
+          <br>
+
+          {{form.saas_privacidad_ans()}} {{form.saas_privacidad_ans.label(class="formulario_label") }} <label for="ceal_discapacidad_descr"><span class="formulario_label"><a href="http://www.enesjuriquilla.unam.mx/wp-content/uploads/2019/10/Integral-ENESJ.pdf"> Enlace </a></span></label>
+        </div>
+        <div class="form-group">
+          {{form.saas_confifencial_ans()}} {{form.saas_confifencial_ans.label(class="formulario_label") }} <label for="ceal_discapacidad_descr"><span class="formulario_label"><a href="{{url_for('static',filename='upload/consentimiento.pdf')}}"  target = "_blank"> Enlace </a></span></label>
+        </div>
+        <div class="form-group">
+          {{form.saas_consentimiento_ans()}} {{form.saas_consentimiento_ans.label(class="formulario_label") }} <label for="ceal_discapacidad_descr"><span class="formulario_label"><a href="{{url_for('static',filename='upload/consentimiento.pdf')}}"  target = "_blank"> Enlace </a></span></label>
+        </div>
+        <hr>
+
+
+
+      {{form.submit(class="formulario__boton")}}<br>
+    </form>
+  </div>
+</div>
+
+
+
+
+
+
+
+ 			
+{% endblock %}
+
+
+{% block scripts %}
+    {{ super() }}
+	<script>
+function disableTxt() {
+  var ans = document.getElementById("answ").value;
+  if (ans == 'Si') {
+  	document.getElementById("answ3").selectedIndex = ans;
+  	document.getElementById("answ4").disabled = false;
+    document.getElementById("answ3").disabled = false;
+  	document.getElementById("answ1").disabled = false;
+  	document.getElementById("answ2").disabled = false;
+	}
+  if (ans == 'No') {
+  	document.getElementById("answ4").disabled = true;
+    document.getElementById("answ3").disabled = true;
+  	document.getElementById("answ1").disabled = true;
+  	document.getElementById("answ2").disabled = true;
+	}	
+}
+
+function undisableTxt() {
+  document.getElementById("answ1").disabled = false;
+}
+	</script>
+    <script>
+    function aceptar_cpd(privacidad, imagen, button) {
+       var checkbox = document.getElementById(privacidad);
+       var checkbox2 = document.getElementById(imagen);       
+       var button = document.getElementById(button);
+       updateToggle = checkbox.checked && checkbox2.checked ? button.disabled=false : button.disabled=true;
+      }      
+  </script>
+
+
+{% endblock %}
+

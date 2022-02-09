@@ -1,0 +1,786 @@
+{% extends 'bootstrap/base.html' %}
+{% import 'bootstrap/wtf.html' as wtf %}
+{% block title %}
+    {% if title %}{{ title }} - Servicios{% else %}Bienvenidos a Servicios{% endif %}
+{% endblock %}
+{% block navbar %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Control Escolar - ENES</title>
+
+  <!-- Custom fonts for this template -->
+  <link href="/static/admin/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link href="/static/admin/css/sb-admin-2.min.css" rel="stylesheet">
+
+  <!-- Custom styles for this page -->
+  <link href="/static/admin/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+
+
+    </div>
+    <!-- End of Content Wrapper -->
+
+  </div>
+  <!-- End of Page Wrapper -->
+
+</head>
+
+<body id="page-top">
+{% if current_user.is_authenticated %} 
+  <!-- Page Wrapper -->
+  <div id="wrapper">
+
+    <!-- Sidebar -->
+    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+      <!-- Sidebar - Brand -->
+      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ url_for('index') }}">
+        <div class="sidebar-brand-icon">
+          <i class="fas fa-home"></i>
+        </div>
+        <div class="sidebar-brand-text mx-3">{{ current_user.pgus_username }} </div>
+      </a>
+
+      <!-- Divider -->
+      <hr class="sidebar-divider my-0">
+
+ {% if current_user.is_authenticated and current_user.pgus_usaas == True  %}
+      <!-- Nav Item - Dashboard -->
+      <li class="nav-item">
+        <a class="nav-link" href="{{ url_for('index') }}">
+          <i class="fas fa-fw fa-tachometer-alt"></i>
+          <span>Instrucciones</span></a>
+      </li>
+
+      <!-- Divider -->
+      <hr class="sidebar-divider">     
+
+      <!-- Nav Item - Pages Collapse Menu -->
+      <li class="nav-item">
+        <a class="nav-link" href="{{url_for('saas_p', id=current_user.pgus_aspirante_saas) }}">
+          <i class="fas fa-user-alt"></i>
+          <span>Perfil</span></a>
+      </li>
+     
+ {% endif %}
+
+ {% if current_user.is_authenticated and current_user.pgus_usaad == True and
+                      ( current_user.saad_usuario_pgus.saad_126_rev == True or
+                        current_user.saad_usuario_pgus.saad_228_rev == True or
+                        current_user.saad_usuario_pgus.saad_321_rev == True or 
+                        current_user.saad_usuario_pgus.saad_all_rev == True ) %}
+      <!-- Nav Item - Dashboard -->
+      <li class="nav-item">
+        <a class="nav-link" href="{{ url_for('index') }}">
+          <i class="fas fa-fw fa-tachometer-alt"></i>
+          <span>Tablero</span></a>
+      </li>
+
+      <!-- Divider -->
+      <hr class="sidebar-divider">     
+
+      <!-- Nav Item - Pages Collapse Menu -->
+      <li class="nav-item">
+        <a class="nav-link" href="{{url_for('saad_p', id=current_user.pgus_adminsac_cead) }}">
+          <i class="fas fa-user-alt"></i>
+          <span>Perfil</span></a>
+      </li>
+      <hr class="sidebar-divider d-none d-md-block">
+        <!-- Heading -->
+        <div class="sidebar-heading">
+        Nuevo Ingreso
+        </div>
+
+        
+      <!-- Nav Item - Pages Collapse Menu -->
+      <li class="nav-item">
+        <a class="nav-link" href="{{url_for('pgus_l') }}">
+          <i class="fas fa-users-cog"></i>
+          <span>Usuarios</span></a>
+      </li>      
+
+      <li class="nav-item">
+        <a class="nav-link" href="{{url_for('cead_cese_l') }}">
+          <i class="far fa-calendar-alt"></i>
+          <span>Calendarios</span></a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link" href="{{url_for('saca_l') }}">
+          <i class="fas fa-list"></i>
+          <span>Licenciaturas</span></a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link" href="{{url_for('saas_l') }}">
+          <i class="fas fa-user-edit"></i>
+          <span>Aspirantes</span></a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link" href="{{url_for('saso_select_l') }}">
+          <i class="fas fa-list-ul"></i>
+          <span>Solicitudes en revisión</span></a>
+      </li>
+
+<!--       <li class="nav-item">
+        <a class="nav-link" href="{{url_for('saso_l') }}">
+          <i class="fas fa-list-ul"></i>
+          <span>Solicitudes aprobadas</span></a>
+      </li> -->
+
+      <li class="nav-item">
+        <a class="nav-link" href="{{url_for('saso_rev_equipos_l') }}">
+          <i class="fas fa-list-ul"></i>
+          <span>Pruebas de zoom</span></a>
+      </li>
+
+      <li class="nav-item">
+          <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseEv" aria-expanded="true" aria-controls="collapseEv">
+          <i class="fas fa-chalkboard-teacher"></i>
+            <span>Evaluación</span>
+          </a>
+          <div id="collapseEv" class="collapse" aria-labelledby="collapseEv" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+              <h6 class="collapse-header">Elegir opción:</h6>
+              <a class="collapse-item" href="{{ url_for('saso_evaluacion_enes_l') }}">Dictamen de evaluación</a>
+              <a class="collapse-item" href="{{ url_for('saso_eval_equipos_l') }}">Aulas virtuales</a>
+            </div>
+          </div>
+      </li>        
+
+      <li class="nav-item">
+          <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseEntr" aria-expanded="true" aria-controls="collapseEntr">
+          <i class="fas fa-chalkboard-teacher"></i>
+            <span>Entrevista</span>
+          </a>
+          <div id="collapseEntr" class="collapse" aria-labelledby="collapseEntr" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+              <h6 class="collapse-header">Elegir opción:</h6>
+              <a class="collapse-item" href="{{ url_for('saso_entrevista_enes_l') }}">Dictamen de entrevista</a>
+              <a class="collapse-item" href="{{ url_for('saco_entrevista_l') }}">Comites</a>
+            </div>
+          </div>
+      </li>       
+
+       <hr class="sidebar-divider d-none d-md-block">
+        <!-- Heading -->
+        <div class="sidebar-heading">
+        LIER
+     </div>
+
+
+      <li class="nav-item">
+        <a class="nav-link" href="{{url_for('saso_128_l') }}">
+          <i class="fas fa-list-ul"></i>
+          <span>Energías Renovables</span></a>
+      </li>
+
+
+     <hr class="sidebar-divider d-none d-md-block">
+        <!-- Heading -->
+        <div class="sidebar-heading">
+        Revisores
+     </div>
+
+
+      <li class="nav-item">
+        <a class="nav-link" href="{{url_for('sapr_l') }}">
+          <i class="fas fa-chalkboard-teacher"></i>
+          <span>Revisores</span></a>
+      </li>
+        
+
+      <li class="nav-item">
+        <a class="nav-link" href="{{url_for('saad_l') }}">
+          <i class="fas fa-list-ul"></i>
+          <span>Administradores</span></a>
+      </li>
+        
+
+      <hr class="sidebar-divider d-none d-md-block">
+
+
+
+           <!-- Sidebar Toggler (Sidebar) -->
+          <div class="text-center d-none d-md-inline">
+            <button class="rounded-circle border-0" id="sidebarToggle"></button>
+          </div>
+        </ul>
+        <!-- End of Sidebar -->
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+          <!-- Main Content -->
+          <div id="content">
+
+            <!-- Topbar -->
+            <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+
+              <!-- Sidebar Toggle (Topbar) -->
+              <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                <i class="fa fa-bars"></i>
+              </button>
+
+
+
+              <!-- Topbar Navbar -->
+              <ul class="navbar-nav ml-auto">
+
+
+                 <div class="topbar-divider d-none d-sm-block"></div>
+
+                <!-- Nav Item - User Information -->
+                <li class="nav-item dropdown no-arrow">
+                  <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ current_user.pgus_nombre }}</span>
+                    <img class="img-profile rounded-circle" src="{{url_for('static',filename='upload/')}}{{current_user.pgus_image}}">
+                  </a>
+                  <!-- Dropdown - User Information -->
+                  <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+                    <a class="dropdown-item" href="{{url_for('saad_p', id=current_user.pgus_adminsac_cead) }}">
+                      <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                      Perfil
+                    </a>
+                    <a class="dropdown-item" href="{{url_for('pgus_saad_m', id=current_user.id) }}">
+                      <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
+                      Cuenta
+                    </a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                      <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                      Salir
+                    </a>
+                  </div>
+                </li>
+
+              </ul>
+
+            </nav>
+            <!-- End of Topbar -->
+
+      <!-- Scroll to Top Button-->
+      <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+      </a>
+
+        <!-- Logout Modal-->
+        <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">¿Listo para cerrar sesión?</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">×</span>
+                </button>
+              </div>
+              <div class="modal-body">Selecciona "Salir" si  quieres terminar tu sesión actual.</div>
+              <div class="modal-footer">
+                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                <a class="btn btn-primary" href="{{ url_for('logout') }}">Salir</a>
+              </div>
+            </div>
+          </div>
+        </div>      
+ {% endif %}  
+
+
+  {% if current_user.is_authenticated and current_user.pgus_usaad == True and
+                      ( current_user.saad_usuario_pgus.saad_126_rev != True and
+                        current_user.saad_usuario_pgus.saad_215_rev == True and
+                        current_user.saad_usuario_pgus.saad_228_rev != True and
+                        current_user.saad_usuario_pgus.saad_321_rev != True and 
+                        current_user.saad_usuario_pgus.saad_all_rev != True ) %}
+      <!-- Nav Item - Dashboard -->
+      <li class="nav-item">
+        <a class="nav-link" href="{{ url_for('index') }}">
+          <i class="fas fa-fw fa-tachometer-alt"></i>
+          <span>Tablero</span></a>
+      </li>
+
+      <!-- Divider -->
+      <hr class="sidebar-divider">     
+
+      <!-- Nav Item - Pages Collapse Menu -->
+      <li class="nav-item">
+        <a class="nav-link" href="{{url_for('saad_p', id=current_user.pgus_adminsac_cead) }}">
+          <i class="fas fa-user-alt"></i>
+          <span>Perfil</span></a>
+      </li>
+      <hr class="sidebar-divider d-none d-md-block">
+        <!-- Heading -->
+        <div class="sidebar-heading">
+        Nuevo Ingreso
+        </div>
+
+      <li class="nav-item">
+        <a class="nav-link" href="{{url_for('saso_215_l') }}">
+          <i class="fas fa-list-ul"></i>
+          <span>Solicitudes en revisión</span></a>
+      </li>
+        <li class="nav-item">
+          <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePrf" aria-expanded="true" aria-controls="collapsePrf">
+          <i class="fas fa-chalkboard-teacher"></i>
+            <span>Administradores</span>
+          </a>
+          <div id="collapsePrf" class="collapse" aria-labelledby="headingPrf" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+              <h6 class="collapse-header">Elegir opción:</h6>
+              <a class="collapse-item" href="{{ url_for('saad_cg_l') }}">Lista</a>
+              <a class="collapse-item" href="{{ url_for('rProfesor') }}">Alta</a>
+            </div>
+          </div>
+        </li>  
+        
+        <hr class="sidebar-divider d-none d-md-block">
+        <!-- Heading -->
+        <div class="sidebar-heading">
+        Servicios Escolares
+        </div>
+
+        <li class="nav-item">
+          <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseSE" aria-expanded="true" aria-controls="collapseSE">
+          <i class="fas fa-chalkboard-teacher"></i>
+            <span>Revisión</span>
+          </a>
+          <div id="collapseSE" class="collapse" aria-labelledby="headingSE" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+              <h6 class="collapse-header">Elegir carrera:</h6>
+              <a class="collapse-item" href="#">Tecnología</a>
+              <a class="collapse-item" href="{{ url_for('saso_228_l') }}">Ortesis y Protesis</a>
+              <a class="collapse-item" href="{{ url_for('saso_321_l') }}">Negocios Internacionales</a>
+              <a class="collapse-item" href="{{ url_for('sasr_l') }}">Rechazados</a>
+            </div>
+          </div>
+        </li>  
+
+
+      <hr class="sidebar-divider d-none d-md-block">
+
+
+
+           <!-- Sidebar Toggler (Sidebar) -->
+          <div class="text-center d-none d-md-inline">
+            <button class="rounded-circle border-0" id="sidebarToggle"></button>
+          </div>
+        </ul>
+        <!-- End of Sidebar -->
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+          <!-- Main Content -->
+          <div id="content">
+
+            <!-- Topbar -->
+            <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+
+              <!-- Sidebar Toggle (Topbar) -->
+              <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                <i class="fa fa-bars"></i>
+              </button>
+
+
+
+              <!-- Topbar Navbar -->
+              <ul class="navbar-nav ml-auto">
+
+
+                 <div class="topbar-divider d-none d-sm-block"></div>
+
+                <!-- Nav Item - User Information -->
+                <li class="nav-item dropdown no-arrow">
+                  <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ current_user.pgus_nombre }}</span>
+                    <img class="img-profile rounded-circle" src="{{url_for('static',filename='upload/')}}{{current_user.pgus_image}}">
+                  </a>
+                  <!-- Dropdown - User Information -->
+                  <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+                    <a class="dropdown-item" href="{{url_for('saad_p', id=current_user.pgus_adminsac_cead) }}">
+                      <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                      Perfil
+                    </a>
+                    <a class="dropdown-item" href="{{url_for('pgus_saad_m', id=current_user.id) }}">
+                      <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
+                      Cuenta
+                    </a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                      <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                      Salir
+                    </a>
+                  </div>
+                </li>
+
+              </ul>
+
+            </nav>
+            <!-- End of Topbar -->
+
+      <!-- Scroll to Top Button-->
+      <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+      </a>
+
+        <!-- Logout Modal-->
+        <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">¿Listo para cerrar sesión?</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">×</span>
+                </button>
+              </div>
+              <div class="modal-body">Selecciona "Salir" si  quieres terminar tu sesión actual.</div>
+              <div class="modal-footer">
+                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                <a class="btn btn-primary" href="{{ url_for('logout') }}">Salir</a>
+              </div>
+            </div>
+          </div>
+        </div>      
+ {% endif %}  
+
+
+
+ {% if current_user.is_authenticated and current_user.pgus_usapr == True  %}
+
+      <!-- Nav Item - Dashboard -->
+      <li class="nav-item">
+        <a class="nav-link" href="{{ url_for('index') }}">
+          <i class="fas fa-fw fa-tachometer-alt"></i>
+          <span>Tablero</span></a>
+      </li>
+
+      <!-- Divider -->
+      <hr class="sidebar-divider">     
+
+      <!-- Nav Item - Pages Collapse Menu -->
+      <li class="nav-item">
+        <a class="nav-link" href="{{url_for('sapr_p', id=current_user.pgus_profesor_sapr) }}">  
+          <i class="fas fa-user-alt"></i>
+          <span>Perfil</span></a>
+      </li>
+      <hr class="sidebar-divider d-none d-md-block">
+        <!-- Heading -->
+        <div class="sidebar-heading">
+        Nuevo Ingreso
+        </div>
+
+      <li class="nav-item">
+        <a class="nav-link" href="{{url_for('saso_in_sapr_l') }}">
+          <i class="fas fa-list-ul"></i>
+          <span>Solicitudes</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{{url_for('saco_in_sapr_l') }}">
+            <i class="fas fa-chalkboard"></i>
+            <span>Comites</span></a>
+      </li>
+
+      <hr class="sidebar-divider d-none d-md-block">
+
+
+
+           <!-- Sidebar Toggler (Sidebar) -->
+          <div class="text-center d-none d-md-inline">
+            <button class="rounded-circle border-0" id="sidebarToggle"></button>
+          </div>
+        </ul>
+        <!-- End of Sidebar -->
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+          <!-- Main Content -->
+          <div id="content">
+
+            <!-- Topbar -->
+            <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+
+              <!-- Sidebar Toggle (Topbar) -->
+              <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                <i class="fa fa-bars"></i>
+              </button>
+
+
+
+              <!-- Topbar Navbar -->
+              <ul class="navbar-nav ml-auto">
+
+
+                 <div class="topbar-divider d-none d-sm-block"></div>
+
+                <!-- Nav Item - User Information -->
+                <li class="nav-item dropdown no-arrow">
+                  <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ current_user.pgus_nombre }}</span>
+                    <img class="img-profile rounded-circle" src="{{url_for('static',filename='upload/')}}{{current_user.pgus_image}}">
+                  </a>
+                  <!-- Dropdown - User Information -->
+                  <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+                    <a class="dropdown-item" href="{{url_for('sapr_p', id=current_user.pgus_profesor_sapr)}}">
+                      <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                      Perfil
+                    </a>
+                    <a class="dropdown-item" href="{{url_for('pgus_sapr_m', id=current_user.id) }}">
+                      <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
+                      Cuenta
+                    </a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                      <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                      Salir
+                    </a>
+                  </div>
+                </li>
+
+              </ul>
+
+            </nav>
+            <!-- End of Topbar -->
+
+      <!-- Scroll to Top Button-->
+      <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+      </a>
+
+        <!-- Logout Modal-->
+        <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">¿Listo para cerrar sesión?</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">×</span>
+                </button>
+              </div>
+              <div class="modal-body">Selecciona "Salir" si  quieres terminar tu sesión actual.</div>
+              <div class="modal-footer">
+                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                <a class="btn btn-primary" href="{{ url_for('logout') }}">Salir</a>
+              </div>
+            </div>
+          </div>
+        </div>  
+
+ {% endif %}       
+
+
+
+  {% if current_user.is_authenticated and current_user.pgus_usaas == True  %}
+
+          <!-- Divider -->
+          <hr class="sidebar-divider">
+          <!-- Heading -->
+          <div class="sidebar-heading">
+            Nuevo ingreso
+          </div>
+
+
+          <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseEst" aria-expanded="true" aria-controls="collapseEst">
+              <i class="fas fa-user-graduate"></i>
+              <span>Solicitudes</span>
+            </a>
+            <div id="collapseEst" class="collapse" aria-labelledby="headingEst" data-parent="#accordionSidebar">
+              <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">Elegir opción:</h6>
+                <a class="collapse-item" href="{{ url_for('sol_p1') }}">Nueva</a>
+                <a class="collapse-item" href="{{ url_for('saas_saso_l') }}">Revisión</a>
+              </div>
+            </div>
+          </li>      
+
+          <hr class="sidebar-divider d-none d-md-block">
+
+           <!-- Sidebar Toggler (Sidebar) -->
+          <div class="text-center d-none d-md-inline">
+            <button class="rounded-circle border-0" id="sidebarToggle"></button>
+          </div>
+        </ul>
+        <!-- End of Sidebar -->
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+          <!-- Main Content -->
+          <div id="content">
+
+            <!-- Topbar -->
+            <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+
+              <!-- Sidebar Toggle (Topbar) -->
+              <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                <i class="fa fa-bars"></i>
+              </button>
+
+              <!-- Topbar Search -->
+
+
+              <!-- Topbar Navbar -->
+              <ul class="navbar-nav ml-auto">
+
+                 <div class="topbar-divider d-none d-sm-block"></div>
+
+                <!-- Nav Item - User Information -->
+                <li class="nav-item dropdown no-arrow">
+                  <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ current_user.pgus_username }}</span>
+                    <img class="img-profile rounded-circle" src="{{url_for('static',filename='upload/')}}{{current_user.pgus_image}}">
+                  </a>
+                  <!-- Dropdown - User Information -->
+                  <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+                    <a class="dropdown-item" href="{{url_for('saas_p', id=current_user.pgus_aspirante_saas) }}">
+                      <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                      Perfil
+                    </a>
+                    <a class="dropdown-item" href="{{url_for('pgus_saas_m', id=current_user.id) }}">
+                      <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
+                      Cuenta
+                    </a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                      <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                      Salir
+                    </a>
+                  </div>
+                </li>
+
+              </ul>
+
+            </nav>
+            <!-- End of Topbar -->
+
+      <!-- Scroll to Top Button-->
+      <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+      </a>
+
+        <!-- Logout Modal-->
+        <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">¿Listo para cerrar sesión?</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">×</span>
+                </button>
+              </div>
+              <div class="modal-body">Selecciona "Salir" si  quieres terminar tu sesión actual.</div>
+              <div class="modal-footer">
+                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                <a class="btn btn-primary" href="{{ url_for('logout') }}">Salir</a>
+              </div>
+            </div>
+          </div>
+        </div>
+  {% endif %} 
+
+
+
+
+
+
+
+
+
+
+{% endif %} 
+{% endblock %}
+
+
+
+      <!-- Begin Page Content -->
+
+
+
+
+      <!-- End of Main Content -->
+
+
+  <!-- Scroll to Top Button-->
+  <a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+  </a>
+
+  <!-- Logout Modal-->
+  <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+          <a class="btn btn-primary" href="login.html">Logout</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% block content %}
+
+
+    <div class="container">
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+            <div class="alert alert-info" role="alert">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+        {% endwith %}
+
+        {# application content needs to be provided in the app_content block #}
+        {% block app_content %}{% endblock %}
+    </div>
+
+{% endblock %}
+{% block scripts %}
+    {{ super() }}
+    {{ moment.include_moment() }}
+
+  <!-- Bootstrap core JavaScript-->
+  <script src="/static/admin/vendor/jquery/jquery.min.js"></script>
+  <script src="/static/admin/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Core plugin JavaScript-->
+  <script src="/static/admin/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+  <!-- Custom scripts for all pages-->
+  <script src="/static/admin/js/sb-admin-2.min.js"></script>
+
+  <!-- Page level plugins -->
+  <script src="/static/admin/vendor/datatables/jquery.dataTables.min.js"></script>
+  <script src="/static/admin/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+  <!-- Page level custom scripts -->
+  <script src="/static/admin/js/demo/datatables-demo.js"></script>
+
+
+<script>
+$(document).ready(function(){
+  $('.toast').toast('show');
+});
+</script>
+
+
+
+{% endblock %}

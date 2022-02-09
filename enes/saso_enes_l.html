@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+{% import 'bootstrap/wtf.html' as wtf %}
+
+{% block app_content %}
+
+  <!-- Begin Page Content -->
+  <div class="container-fluid">
+
+<div class="row">
+  <div class="col-md-6">
+            {{ wtf.quick_form(form, button_map={'consultar':'success', 'download':'info'}, horizontal_columns=('lg', 2, 10) )}}
+   </div>
+</div>
+
+
+          <!-- Page Heading -->
+          <h1 class="h3 mb-2 text-gray-800">Solicitudes Tecnología (<a href="{{ url_for('directorioporcarrera') }}">Reporte directorio</a>)</h1>
+          <!-- DataTales Example -->
+          <div class="card shadow mb-4">
+            <div class="card-header py-3">
+              <h6 class="m-0 font-weight-bold text-primary">Solicitudes de nuevo ingreso</h6>
+            </div>
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                  <thead>
+                    <tr>
+                      <th>Imagen</th>
+                      <th>Folio</th>                      
+                      <th>Nombre</th>
+                      <th>Correo</th>
+                      <th>Teléfono</th>
+                      <th>CURP</th>
+                      <th>Detalle</th>                      
+                      <th>Solicitud</th>
+                      <th>Revisión</th>                      
+                    </tr>
+                  </thead>
+                  <tfoot>
+                    <tr>
+                      <th>Imagen</th>                      
+                      <th>Folio</th>
+                      <th>Nombre</th>
+                      <th>Correo</th>
+                      <th>Teléfono</th>
+                      <th>CURP</th>
+                      <th>Detalle</th>
+                      <th>Solicitud</th>
+                      <th>Revisión</th>
+
+                    </tr>
+                  </tfoot>
+                  <tbody>
+          {% for a in solicitudes %}
+          <tr>
+            {% if a.saso_imagen %}
+            <td>
+              {% if a.saso_carrera_ceco == 215 %}
+              <img src="{{url_for('static',filename='solicitudes/20222/cg215/')}}{{a.aspirantesolicitud.saas_curp}}/{{a.saso_imagen}}" width="100" height="110"/>
+              {% else %}
+              <img src="{{url_for('static',filename='solicitudes/20222/')}}{{a.aspirantesolicitud.saas_curp}}/{{a.saso_imagen}}" width="100" height="110"/>
+              {% endif %}
+            </td>
+            {% else %}
+            <td>{{a.saso_imagen}}</td>
+            {% endif %}
+            <td>{{a.saso_folio}}</td>
+            <td>{{ a.aspirantesolicitud.saas_nombre }} {{ a.aspirantesolicitud.saas_papellido }} {{ a.aspirantesolicitud.saas_sapellido }}</td>          
+            <td>{{a.aspirantesolicitud.saas_email}}</td>           
+            <td>{{a.aspirantesolicitud.saas_celular}}</td>  
+            <td>{{a.aspirantesolicitud.saas_curp}}</td>
+            <td><a href="{{ url_for('saso_review', id = a.saso_id) }}">Detalle</a></td>
+            <td><a href="{{ url_for('download_sol', id = a.saso_id) }}">Expediente</a></td>
+            {% if a.saso_status == 'Aprobada' %}
+              <td class="success"> {{ a.saso_status }}</td>
+            {% elif a.saso_status == 'Rechazada' %}              
+                <td class="danger">{{ a.saso_status }} </td>
+            {% elif a.saso_status == 'Solicitud registrada' %}              
+                <td class="info">{{ a.saso_status }} </td>
+            {% else %}
+              <td class="info">{{ a.saso_status }}</td>
+            {% endif %}
+          </tr>
+          {% endfor %}          
+        </table>
+      </div>
+</div>
+
+
+
+{% endblock %}
