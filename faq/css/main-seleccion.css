@@ -1,0 +1,405 @@
+:root {
+  /*Fondo*/
+  --theme-color: white;
+  /*Colores principales*/
+  --primary-color: #002b7a;
+  --secondary-color: #d59f0f;
+  /*Colores de texto*/
+  --text-color-n: black;
+  --text-color-b: white;
+  --text-color-d: #d59f0f;
+}
+
+/* ============================================================== */
+/* ============= Estilos de la página LOGIN ===================== */
+/* ============================================================== */
+.body-fondo {
+  background-image: url('./../img/ENES-Juriquilla1.jpg');
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  color: black;
+}
+
+.fondo {
+  /*Transparencia*/
+  background-color: rgba(0, 43, 122, 0.29);
+  background-color: rgba(213, 159, 15, 0.19);
+  min-height: 100vh;
+}
+
+.acomodar {
+  padding-top: 100px;
+  padding-bottom: 100px;
+}
+
+.azul {
+  /* Fondo transparente del escudo de la ENES  */
+  background-color: rgba(0, 43, 122, 0.87) !important;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.blanco {
+  background-color: rgba(255, 255, 255, 0.87) !important;
+}
+
+.escudo {
+  /* Escudo ENES-J */
+  width: 60%;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.card--modificada {
+  /* Para que ocupe el 100% del tamaño de la card */
+  height: 100%;
+  /* Quitar las esquinas redondeadas a las cards */
+  border: 0 !important;
+}
+
+.correciones {
+  /* Para que las cards se queden juntas */
+  padding: 0 !important;
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--primary-color) !important;
+}
+.estilo__text-usuario {
+  text-decoration-line: underline;
+  text-decoration-color: var(--secondary-color);
+  text-decoration-thickness: 4px;
+  text-align: center;
+  color: var(--text-color-b);
+  font-size: 1.5rem;
+}
+
+.tamanio-inputs {
+  /* Un truco para definir el width de los input sin afectar otras cosas */
+  margin-top: 7%;
+  margin-left: 5%;
+  margin-right: 5%;
+}
+
+.form-control {
+  border-radius: 0 !important;
+  border: 2px solid rgb(75, 75, 75) !important;
+  font-size: 14px;
+}
+.formulario_label {
+  font-size: 0.8rem;
+  letter-spacing: 2px;
+}
+
+.nav__enlace-dark {
+  color: var(--text-color-n);
+  text-decoration: none !important;
+}
+
+.nav__enlace-dark:hover {
+  color: var(--text-color-d);
+}
+
+.formulario__boton {
+  margin-top: 20px;
+  font-weight: 500;
+  font-size: 1.1rem;
+  height: 48px;
+  border: 0;
+  color: var(--text-color-b);
+  background-color: var(--primary-color);
+  width: 100%;
+}
+
+.formulario__boton:hover {
+  color: var(--text-color-b);
+  background-color: var(--secondary-color);
+}
+
+.alineacion-enlaces {
+  text-align: center;
+}
+
+/* ====================================================================================== */
+/* ============= Estilos de la página REGISTRO/PREGUNTAS-FRECUENTES ===================== */
+/* ====================================================================================== */
+
+.nav {
+  background-color: var(--primary-color);
+  /* 64px */
+  box-shadow: 0 1px 10px;
+  width: 100%;
+}
+
+.nav__logo {
+  height: 55px;
+  margin: 0;
+  padding: 0;
+}
+
+.navbar-brand {
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.estilos_card-instrucciones {
+  box-shadow: 0 1px 10px;
+  z-index: 1;
+  height: auto;
+  margin-bottom: 20px;
+
+  /* PARA MANTENER EL CARD DE INSTRUCCIONES, PERO NO ES PERFECTO A NIVEL VISUAL
+  position: fixed!important;
+  min-height: 120px;
+  max-width: 400px; */
+}
+.card-body--modificado {
+  margin-top: 0;
+}
+.contenido__lista {
+  line-height: 1.25rem;
+  text-align: justify;
+  padding: 10px 16px 10px 20px;
+  margin: 0;
+}
+
+.estilos_titulo-formulario {
+  text-align: center;
+  color: var(--text-color-b);
+  font-size: 1.5rem;
+}
+
+@media (max-width: 345px) {
+  .logo__movil {
+    justify-content: center !important;
+  }
+  .formulario__boton {
+    height: auto;
+  }
+}
+
+
+
+/* ====================================================================================== */
+/* ================================= Estilos deL FOOTER ================================= */
+/* ====================================================================================== */
+.estilo__footer {
+  background-color: var(--primary-color);
+  color: var(--text-color-b);
+  /*Esto es solo para que no quedé muy junto del contenido*/
+  margin-top: 50px;
+}
+
+.footer__contenido1 {
+  align-items: center;
+  text-align: center;
+  padding: 1%;
+}
+
+.footer__contenido2 {
+  align-items: center;
+  text-align: center;
+  padding: 1% 10% 1% 10%;
+}
+
+.estilo__listas {
+  list-style-type: none;
+  padding: 0;
+  font-size: 0.975rem;
+}
+
+.footer__img {
+  height: 100px;
+}
+
+.nav__enlace {
+  color: var(--text-color-b);
+  text-decoration: none !important;
+}
+
+.nav__enlace:hover {
+  color: var(--text-color-d);
+}
+.dropdown-divider {
+  background-color: var(--secondary-color);
+  height: 2px !important;
+}
+
+/*********************************** COMIENZA PREGUNTAS FRECUENTES *******************************************/
+
+/* ========================================================= */
+/* ============= Temas más recurrentes ===================== */
+/* ========================================================= */
+.acomodar-preguntas {
+  margin-top: 100px;
+  margin-bottom: 100px;
+  margin-left: 5%;
+  margin-right: 5%;
+}
+
+@media (min-width: 1268px) {
+  .acomodar-preguntas {
+    /* Determina el margin de todo el contenido */
+    margin-left: 9%;
+    margin-right: 9%;
+  }
+}
+
+
+.titulo {
+  font-size: 2rem;
+}
+
+.alineación__temas {
+
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+}
+
+.contenido__lista {
+  line-height: 1.25rem;
+  text-align: justify;
+  padding: 10px 16px 10px 20px;
+}
+
+/* Estilos del tema seleccionado */
+.temas{
+  padding-bottom: 10px;
+}
+.leyenda__titulo {
+  background-color: var(--primary-color);
+  height: auto;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+  color: var(--text-color-b);
+  margin-top: 10px;
+  padding-top: 10px;
+}
+.leyenda__titulo h2 {
+  font-size: 24px;
+  text-align: center;
+}
+
+.leyenda__titulo p {
+  width: 90%;
+  text-align: justify;
+}
+
+
+
+.categoria {
+	cursor: pointer;
+	font-weight: 500;
+  padding: 10px 0 10px 0;
+	transition: .3s ease all;
+}
+
+.categoria:hover {
+	color:var(--secondary-color);
+	
+}
+
+.categoria.activa {
+	color:var(--secondary-color);
+  text-decoration: underline;
+}
+
+
+/* ========================================================= */
+/* ============= Buscador ================================== */
+/* ========================================================= */
+.formulario__search {
+  /* Estilos del input tipo search */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.estilos__search {
+  width: 80% !important;
+  border-radius: 0 !important;
+}
+
+/* ========================================================= */
+/* ============= Contenedores de las preguntas ============= */
+/* ========================================================= */
+.contenedor-pregunta p {
+  margin: 0;
+}
+.contenedor-preguntas {
+  display: none;
+  grid-template-columns: 1fr;
+}
+
+.contenedor-preguntas.activo {
+  display: grid;
+}
+
+.contenedor-pregunta {
+  background-color: var(--theme-color);
+  padding: 18px;
+  border: 2px solid transparent;
+  overflow: hidden;
+  transition: 0.3s ease all;
+  cursor: pointer;
+}
+
+.contenedor-pregunta:hover {
+  background-color: rgba(213, 159, 15, 0.1);
+}
+
+.contenedor-pregunta.activa {
+  border-left: 2px solid var(--secondary-color);
+  border-right: 2px solid var(--secondary-color);
+  background-color: var(--theme-color);
+}
+
+.estilos__separaciones {
+  /* Es el estilo de las hr que dividen cada pregunta */
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid var(--secondary-color);
+  border-bottom: 1px solid var(--secondary-color);
+}
+/* ============================================================ */
+/* ============= Estilos de Preguntas/Respuestas ============== */
+/* ============================================================ */
+
+.pregunta {
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.pregunta img {
+  width: 14px;
+}
+
+.respuesta {
+  color: var(--text-color-n);
+  max-height: 0;
+  opacity: 0;
+  text-align: justify;
+  transition: 0.3s ease all;
+}
+
+.contenedor-pregunta.activa .respuesta {
+  opacity: 1;
+  margin-top: 20px;
+}
+
+.contenedor-pregunta.activa img {
+  transform: rotate(45deg);
+}
+
