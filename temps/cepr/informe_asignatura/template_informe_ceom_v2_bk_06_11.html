@@ -1,0 +1,1685 @@
+<head>
+<style>
+table, th, td {
+  border-collapse: collapse;
+}
+
+@page {
+    size: letter landscape;
+    margin: 2cm;
+}
+
+@media print {
+#scores {
+      page-break-before: always;
+    }
+}
+
+.tablem .tbodym .trm .tdm {
+  font-size: 5px;
+}
+       
+/***Always insert a page break before the element***/
+       .pb_before {
+           page-break-before: always !important;
+       }
+
+/***Always insert a page break after the element***/
+       .pb_after {
+           page-break-after: always !important;
+       }
+
+/***Avoid page break before the element (if possible)***/
+       .pb_before_avoid {
+           page-break-before: avoid !important;
+       }
+
+/***Avoid page break after the element (if possible)***/
+       .pb_after_avoid {
+           page-break-after: avoid !important;
+       }
+
+/* Avoid page break inside the element (if possible) */
+       .pbi_avoid {
+           page-break-inside: avoid !important;
+       }
+
+
+#toc_container {
+    background: #f9f9f9 none repeat scroll 0 0;
+    border: 1px solid #aaa;
+    display: table;
+    font-size: 95%;
+    margin-bottom: 1em;
+    padding: 20px;
+    width: auto;
+}
+
+.toc_title {
+    font-weight: 700;
+    text-align: center;
+}
+
+#toc_container li, #toc_container ul, #toc_container ul li{
+    list-style: outside none none !important;
+}
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+
+</style>
+</head>
+<body>
+
+<div class="page1 pb_after">
+  <table style="width: 90%;">
+    <table style="width: 100%;" cellspacing="0" cellpadding="4">
+    <tbody>
+    <tr valign="top">
+    <td style="width: 20%;" rowspan="2">
+    <p class="western" lang="es-ES" style="text-align: center;" align="left"><img src="/var/www/NuevoIngreso/app/static/imgs/escudo_unam.png" width="100%" height="220" /></p>
+    </td>
+    <td style="width: 60%;">
+    <p class="western" lang="es-ES" style="text-align: center;"><img src="/var/www/NuevoIngreso/app/static/imgs/nombre_unam.png" width="100%" height="120" /></p>
+    </td>
+    <td style="width: 20%;" rowspan="2">
+    <p class="western" lang="es-ES" style="text-align: center;"><img src="/var/www/NuevoIngreso/app/static/imgs/escudo_enes_plan.png" width="110%" height="220" /></p>
+    </td>
+    </tr>
+    <tr valign="top">
+    <td style="width: 60%;">
+    <p class="western" lang="es-ES" style="text-align: center;" align="center"></p>    
+    <p class="western" lang="es-ES" style="text-align: center;" align="center">
+        <span style="font-size: x-large;"><strong><br>SECRETARÍA ACADÉMICA</strong></span>
+    </p>
+    <p class="western" lang="es-ES" style="text-align: center;" align="center"></p>
+    <p class="western" lang="es-ES" style="text-align: center;" align="center">
+      <span style="font-size: large;"><strong><br><br>INFORME DE ACTIVIDADES ACADÉMICAS  <br> "PROFESORES FRENTE A GRUPO" </strong></span>
+    </p>
+    </td>
+    </tr>
+    </tbody>
+    </table>
+  </table>
+
+
+<span style="font-family: 'Times New Roman', serif; font-size: 18;text-align: justify-all;"><strong>PRESENTACIÓN</strong></span>
+<p style="font-family: 'Times New Roman', serif; text-align: justify;">
+Estimado profesor, con objeto de dar cumplimiento a lo dispuesto en el inciso b) del Artículo 56 del Estatuto del Personal Académico (EPA) de la UNAM, referente a la importancia de presentar un informe de sus actividades académicas en la impartición de cátedra, correspondientes al presente semestre, me permito solicitar a usted de la manera más atenta, nos proporcione la siguiente información (en caso de impartir más de una asignatura, deberá presentar un informe por cada una de ellas)
+</p>
+
+
+
+<h3 class="western"><span style="font-family: 'Times New Roman', serif;">DATOS GENERALES</span></h3>
+            <table style="width: 100%;">
+              <tr>
+                 <td style="width: 22%;"><b>Nombre</b>: </td>
+                 <td style="width: 78%;">{{profesor.cepr_nombre}} {{profesor.cepr_papellido}} {{profesor.cepr_sapellido}}</td>
+              </tr>
+              <tr>
+                 <td><b>No. de trabajador</b>: </td>
+                 <td>{{profesor.cepr_ntrabajador}}</td>
+              </tr>
+              <tr>
+                 <td><b>Categoría</b>: </td>
+                 <td>{% if profesor.cepr_nombramiento == 0 %} Sin Nombramiento {% endif %} {% if profesor.cepr_nombramiento == 1 %} Profesor de Asignatura {% endif %} {% if profesor.cepr_nombramiento == 2 %} Profesor Carrera {% endif %} {% if profesor.cepr_nombramiento == 3 %} T&eacute;cnico Acad&eacute;mico {% endif %} {% if profesor.cepr_nombramiento == 4 %} Ayudante de Profesor {% endif %} {% if profesor.cepr_nombramiento == 5 %} Ayudante de Investigador {% endif %} {% if profesor.cepr_nombramiento == 6 %} Investigador {% endif %}</td>
+              </tr>                          
+              <tr>
+                 <td><b>E-mail</b>: </td>
+                 <td>{{profesor.cepr_email}}</td>
+              </tr>
+              <tr>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+              </tr>              
+              <tr>
+                 <td><b>Carrera</b>: </td>
+                 <td>{{omateria.cepe_omateria_ceom.cepe_nombre}}</td>
+              </tr>            
+              <tr>
+                 <td><b>Plan</b>: </td>
+                 <td>{{omateria.cepe_omateria_ceom.cepe_clave}}</td>
+              </tr>
+              <tr>
+                 <td><b>Asignatura</b>: </td>
+                 <td>{{omateria.cema_omateria_ceom.cema_nombre}}
+                 </td>
+              </tr>
+              <tr>
+                 <td><b>Calve de asignatura</b>: </td>
+                 <td>
+                    {% set clave = omateria.cema_omateria_ceom.cema_clave_u|string %}
+                    {% if clave|length < 4 %}
+                    {% set clave = "0" + clave|string  %}
+                    {% endif %}
+                    {% if clave|length < 4 %}
+                    {% set clave = "0" + clave|string  %}
+                    {% endif %}
+                    {% if clave|length < 4 %}
+                    {% set clave = "0" + clave|string  %}
+                    {% endif %}  
+                    {{clave}}
+                 </td>
+              </tr>              
+              <tr>
+                 <td><b>Grupo</b>: </td>
+                 <td>{{omateria.ceom_grupo}}</td>
+              </tr>
+              <tr>
+                 <td><b>Horas de asignatura</b>: </td>
+                 <td>{{ omateria.ceom_hs_totales }} horas totales a la semana</td>
+              </tr>              
+              <tr>
+                 <td><b>Hora impartidas</b>: </td>
+                 <td>
+                      {% if omateria.ceom_profesor_cepr == profesor.cepr_ntrabajador and omateria.ceom_profesor2_cepr == None %} 
+                          {{ omateria.ceom_hs_totales }}
+                      {% elif omateria.ceom_profesor_cepr == profesor.cepr_ntrabajador and omateria.ceom_profesor2_cepr != None %}                                   
+                          {{ omateria.ceom_hs_pr1 }}
+                      {% elif omateria.ceom_profesor_cepr != profesor.cepr_ntrabajador and omateria.ceom_profesor2_cepr == profesor.cepr_ntrabajador %}                                   
+                          {{ omateria.ceom_hs_pr2 }}
+                      {% endif %} hora(s)
+                 </td>
+              </tr>
+              <tr>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+              </tr>              
+              <tr>
+                 <td><b>Alumnos inscritos</b>: </td>
+                <td>{{ asignatura_inf.ceal_inscritos }}</td>
+              </tr>
+              <tr>
+                 <td><b>Alumnos aprobados</b>: </td>
+                <td>{{ asignatura_inf.ceal_aprobados }}</td>
+              </tr>
+              <tr>
+                 <td><b>Alumnos no aprobados</b>: </td>
+                <td>{{ asignatura_inf.ceal_no_aprobados }}</td>
+              </tr>
+              <tr>
+                 <td><b>Alumnos no presentados</b>: </td>
+                <td>{{ asignatura_inf.ceal_no_presentados }}</td>
+              </tr>                                                    
+            </table>
+
+</div>
+
+
+<div class="page1 pb_after">
+  <h3> 
+    <span style="font-family: 'Times New Roman', serif;"><strong>{{ cuestionario[0].cepr_asig_informe_descrip }}</strong></span>
+  </h3>
+
+  <table style="width: 100%;" cellspacing="0" cellpadding="4">
+    <tbody>
+      <tr>
+        <td style="width: 5%;"> {{ asignatura_inf.marca_respuesta(asignatura_inf.cepr_cuestionario_q1_ra) }} </td>
+        <td style="width: 95%;"> {{ respuestas[0].cepr_asig_informe_descrip }} </td>
+      </tr>
+      <tr>
+        <td style="width: 5%;"> {{ asignatura_inf.marca_respuesta(asignatura_inf.cepr_cuestionario_q1_rb) }} </td>
+        <td style="width: 95%;"> {{ respuestas[1].cepr_asig_informe_descrip }} </td>
+      </tr>
+      <tr>
+        <td style="width: 5%;"> {{ asignatura_inf.marca_respuesta(asignatura_inf.cepr_cuestionario_q1_rc) }} </td>
+        <td style="width: 95%;"> {{ respuestas[2].cepr_asig_informe_descrip }} </td>
+      </tr>
+      <tr>
+        <td style="width: 5%;"> {{ asignatura_inf.marca_respuesta(asignatura_inf.cepr_cuestionario_q1_rd) }} </td>
+        <td style="width: 95%;"> {{ respuestas[3].cepr_asig_informe_descrip }}  </td>
+      </tr> 
+    </tbody>
+  </table>
+
+<br>
+
+<h3>
+  <span style="font-family: 'Times New Roman', serif;"><strong>PROGRAMA DE ESTUDIOS</strong></span><br>
+</h3>  
+<span style="font-family: 'Times New Roman', serif;"><strong>{{ cuestionario[1].cepr_asig_informe_descrip }}</strong></span>
+<br>
+  <table style="width: 100%;" cellspacing="0" cellpadding="4">
+    <tbody>
+      <tr>
+        <td style="width: 5%;"> {% if asignatura_inf.cepr_cuestionario_q2 == 'Sí' %} x {% endif %}</td>
+        <td style="width: 95%;"> {{ respuestas[4].cepr_asig_informe_descrip }} </td>
+      </tr>
+      <tr>
+        <td style="width: 5%;"> {% if asignatura_inf.cepr_cuestionario_q2 == 'No' %} x {% endif %}</td>
+        <td style="width: 95%;"> {{ respuestas[5].cepr_asig_informe_descrip }} </td>
+      </tr>
+    </tbody>
+  </table>
+
+<br>
+
+<span style="font-family: 'Times New Roman', serif;"><strong> {{ cuestionario[2].cepr_asig_informe_descrip }}</strong></span><br>
+  <table style="width: 100%;" cellspacing="0" cellpadding="4">
+    <tbody>
+      <tr>
+        <td style="width: 5%;"> {% if asignatura_inf.cepr_cuestionario_q3 == '100%' %} x {% endif %}</td>
+        <td style="width: 95%;"> {{ respuestas[6].cepr_asig_informe_descrip }} </td>
+      </tr>
+      <tr>
+        <td style="width: 5%;"> {% if asignatura_inf.cepr_cuestionario_q3 == '90%' %} x {% endif %}</td>
+        <td style="width: 95%;"> {{ respuestas[7].cepr_asig_informe_descrip }} </td>
+      </tr>
+      <tr>
+        <td style="width: 5%;"> {% if asignatura_inf.cepr_cuestionario_q3 == '80%' %} x {% endif %}</td>
+        <td style="width: 95%;"> {{ respuestas[8].cepr_asig_informe_descrip }} </td>
+      </tr>
+      <tr>
+        <td style="width: 5%;"> {% if asignatura_inf.cepr_cuestionario_q3 == '70%' %} x {% endif %}</td>
+        <td style="width: 95%;"> {{ respuestas[9].cepr_asig_informe_descrip }} </td>
+      </tr> 
+      <tr>
+        <td style="width: 5%;"> {% if asignatura_inf.cepr_cuestionario_q3 == '60%' %} x {% endif %}</td>
+        <td style="width: 95%;"> {{ respuestas[10].cepr_asig_informe_descrip }} </td>
+      </tr> 
+      <tr>
+        <td style="width: 5%;"> {% if asignatura_inf.cepr_cuestionario_q3 == '50%' %} x {% endif %}</td>
+        <td style="width: 95%;"> {{ respuestas[11].cepr_asig_informe_descrip }} </td>
+      </tr> 
+      <tr>
+        <td style="width: 5%;"> {% if asignatura_inf.cepr_cuestionario_q3 == 'Menos del 50%' %} x {% endif %}</td>
+        <td style="width: 95%;"> {{ respuestas[12].cepr_asig_informe_descrip }} </td>
+      </tr>                   
+    </tbody>
+  </table>
+
+<br>
+
+
+<span style="font-family: 'Times New Roman', serif;"><strong>{{ cuestionario[3].cepr_asig_informe_descrip }}</strong></span><br>
+  <table style="width: 100%;" cellspacing="0" cellpadding="4">
+    <tbody>
+      <tr>
+        <td style="width: 5%;"> {% if asignatura_inf.cepr_cuestionario_q4 == 'Sí' %} x {% endif %}</td>
+        <td style="width: 95%;"> {{ respuestas[13].cepr_asig_informe_descrip }} {% if asignatura_inf.cepr_cuestionario_q4 == 'Sí' %}, {{asignatura_inf.cepr_cuestionario_q4_descrp }} {% endif %}</td>
+      </tr>
+      <tr>
+        <td style="width: 5%;"> {% if asignatura_inf.cepr_cuestionario_q4 == 'No' %} x {% endif %}</td>
+        <td style="width: 95%;"> {{ respuestas[14].cepr_asig_informe_descrip }} </td>
+      </tr>
+    </tbody>
+  </table>
+
+<br>
+
+<h3>
+<span style="font-family: 'Times New Roman', serif;"><strong>ESTRATEGIAS DE ENSEÑANZA PARA EL APRENDIZAJE </strong></span>
+</h3>
+
+<span style="font-family: 'Times New Roman', serif;"><strong> {{ cuestionario[4].cepr_asig_informe_descrip }}</strong></span>  
+
+  <table style="width: 100%;" cellspacing="0" cellpadding="4">
+    <tbody>
+      <tr>
+        <td style="width: 5%;"> {{ asignatura_inf.marca_respuesta(asignatura_inf.cepr_cuestionario_q5_ra) }} </td>
+        <td style="width: 95%;"> {{ respuestas[15].cepr_asig_informe_descrip }} </td>
+      </tr>
+      <tr>
+        <td style="width: 5%;"> {{ asignatura_inf.marca_respuesta(asignatura_inf.cepr_cuestionario_q5_rb) }} </td>
+        <td style="width: 95%;"> {{ respuestas[16].cepr_asig_informe_descrip }} </td>
+      </tr>
+      <tr>
+        <td style="width: 5%;"> {{ asignatura_inf.marca_respuesta(asignatura_inf.cepr_cuestionario_q5_rc) }} </td>
+        <td style="width: 95%;"> {{ respuestas[17].cepr_asig_informe_descrip }} </td>
+      </tr>
+      <tr>
+        <td style="width: 5%;"> {{ asignatura_inf.marca_respuesta(asignatura_inf.cepr_cuestionario_q5_rd) }} </td>
+        <td style="width: 95%;"> {{ respuestas[18].cepr_asig_informe_descrip }}  </td>
+      </tr> 
+      <tr>
+        <td style="width: 5%;"> {{ asignatura_inf.marca_respuesta(asignatura_inf.cepr_cuestionario_q5_re) }} </td>
+        <td style="width: 95%;"> {{ respuestas[19].cepr_asig_informe_descrip }} </td>
+      </tr>
+      <tr>
+        <td style="width: 5%;"> {{ asignatura_inf.marca_respuesta(asignatura_inf.cepr_cuestionario_q5_rf) }} </td>
+        <td style="width: 95%;"> {{ respuestas[20].cepr_asig_informe_descrip }} </td>
+      </tr>
+      <tr>
+        <td style="width: 5%;"> {{ asignatura_inf.marca_respuesta(asignatura_inf.cepr_cuestionario_q5_rg) }} </td>
+        <td style="width: 95%;"> {{ respuestas[21].cepr_asig_informe_descrip }} </td>
+      </tr>
+      <tr>
+        <td style="width: 5%;"> {{ asignatura_inf.marca_respuesta(asignatura_inf.cepr_cuestionario_q5_rh) }} </td>
+        <td style="width: 95%;"> {{ respuestas[22].cepr_asig_informe_descrip }}  </td>
+      </tr> 
+      <tr>
+        <td style="width: 5%;"> {{ asignatura_inf.marca_respuesta(asignatura_inf.cepr_cuestionario_q5_ri) }} </td>
+        <td style="width: 95%;"> {{ respuestas[23].cepr_asig_informe_descrip }} </td>
+      </tr>
+      <tr>
+        <td style="width: 5%;"> {{ asignatura_inf.marca_respuesta(asignatura_inf.cepr_cuestionario_q5_rj) }} </td>
+        <td style="width: 95%;"> {{ respuestas[24].cepr_asig_informe_descrip }} </td>
+      </tr>
+      <tr>
+        <td style="width: 5%;"> {{ asignatura_inf.marca_respuesta(asignatura_inf.cepr_cuestionario_q5_rk) }} </td>
+        <td style="width: 95%;"> {{ respuestas[25].cepr_asig_informe_descrip }} </td>
+      </tr>
+      <tr>
+        <td style="width: 5%;"> {{ asignatura_inf.marca_respuesta(asignatura_inf.cepr_cuestionario_q5_rl) }} </td>
+        <td style="width: 95%;"> {{ respuestas[26].cepr_asig_informe_descrip }}  </td>
+      </tr> 
+      <tr>
+        <td style="width: 5%;"> {{ asignatura_inf.marca_respuesta(asignatura_inf.cepr_cuestionario_q5_rm) }} </td>
+        <td style="width: 95%;"> {{ respuestas[27].cepr_asig_informe_descrip }} </td>
+      </tr>
+      <tr>
+        <td style="width: 5%;"> {{ asignatura_inf.marca_respuesta(asignatura_inf.cepr_cuestionario_q5_rn) }} </td>
+        <td style="width: 95%;"> {{ respuestas[28].cepr_asig_informe_descrip }} </td>
+      </tr>
+      <tr>
+        <td style="width: 5%;"> {{ asignatura_inf.marca_respuesta(asignatura_inf.cepr_cuestionario_q5_ro) }} </td>
+        <td style="width: 95%;"> {{ respuestas[29].cepr_asig_informe_descrip }} </td>
+      </tr>
+      <tr>
+        <td style="width: 5%;"> {{ asignatura_inf.marca_respuesta(asignatura_inf.cepr_cuestionario_q5_rp) }} </td>
+        <td style="width: 95%;"> {{ respuestas[30].cepr_asig_informe_descrip }}  </td>
+      </tr> 
+      <tr>
+        <td style="width: 5%;"> {{ asignatura_inf.marca_respuesta(asignatura_inf.cepr_cuestionario_q5_rq) }} </td>
+        <td style="width: 95%;"> {{ respuestas[31].cepr_asig_informe_descrip }}  </td>
+      </tr> 
+      <tr>
+        <td style="width: 5%;"> {{ asignatura_inf.marca_respuesta(asignatura_inf.cepr_cuestionario_q5_rr) }} </td>
+        <td style="width: 95%;"> {{ respuestas[32].cepr_asig_informe_descrip }}  </td>
+      </tr> 
+    </tbody>
+  </table>
+
+<br>
+
+<span style="font-family: 'Times New Roman', serif;"><strong> {{ cuestionario[5].cepr_asig_informe_descrip }}</strong></span><br>
+
+  <table style="width: 100%;" cellspacing="0" cellpadding="4">
+    <tbody>
+      <tr>
+        <td style="width: 5%;"> {{ asignatura_inf.marca_respuesta(asignatura_inf.cepr_cuestionario_q6_ra) }} </td>
+        <td style="width: 95%;"> {{ respuestas[33].cepr_asig_informe_descrip }} </td>
+      </tr>
+      <tr>
+        <td style="width: 5%;"> {{ asignatura_inf.marca_respuesta(asignatura_inf.cepr_cuestionario_q6_rb) }} </td>
+        <td style="width: 95%;"> {{ respuestas[34].cepr_asig_informe_descrip }} </td>
+      </tr>
+      <tr>
+        <td style="width: 5%;"> {{ asignatura_inf.marca_respuesta(asignatura_inf.cepr_cuestionario_q6_rc) }} </td>
+        <td style="width: 95%;"> {{ respuestas[35].cepr_asig_informe_descrip }} </td>
+      </tr>
+      <tr>
+        <td style="width: 5%;"> {{ asignatura_inf.marca_respuesta(asignatura_inf.cepr_cuestionario_q6_rd) }} </td>
+        <td style="width: 95%;"> {{ respuestas[36].cepr_asig_informe_descrip }}  </td>
+      </tr> 
+      <tr>
+        <td style="width: 5%;"> {{ asignatura_inf.marca_respuesta(asignatura_inf.cepr_cuestionario_q6_re) }} </td>
+        <td style="width: 95%;"> {{ respuestas[37].cepr_asig_informe_descrip }} </td>
+      </tr>
+      <tr>
+        <td style="width: 5%;"> {{ asignatura_inf.marca_respuesta(asignatura_inf.cepr_cuestionario_q6_rf) }} </td>
+        <td style="width: 95%;"> {{ respuestas[38].cepr_asig_informe_descrip }} </td>
+      </tr>
+      <tr>
+        <td style="width: 5%;">  </td>
+        <td style="width: 95%;"> {{ asignatura_inf.cepr_cuestionario_q6_descrp }} </td>
+      </tr>      
+    </tbody>
+  </table>
+
+<br>
+
+<span style="font-family: 'Times New Roman', serif;"><strong> {{ cuestionario[6].cepr_asig_informe_descrip }}</strong></span><br>
+
+  <table style="width: 100%;" cellspacing="0" cellpadding="4">
+    <tbody>
+      <tr>
+        <td style="width: 5%;"> {{ asignatura_inf.marca_respuesta(asignatura_inf.cepr_cuestionario_q7_ra) }} </td>
+        <td style="width: 95%;"> {{ respuestas[39].cepr_asig_informe_descrip }} </td>
+      </tr>
+      <tr>
+        <td style="width: 5%;"> {{ asignatura_inf.marca_respuesta(asignatura_inf.cepr_cuestionario_q7_rb) }} </td>
+        <td style="width: 95%;"> {{ respuestas[40].cepr_asig_informe_descrip }} </td>
+      </tr>
+      <tr>
+        <td style="width: 5%;"> {{ asignatura_inf.marca_respuesta(asignatura_inf.cepr_cuestionario_q7_rc) }} </td>
+        <td style="width: 95%;"> {{ respuestas[41].cepr_asig_informe_descrip }} </td>
+      </tr>
+      <tr>
+        <td style="width: 5%;"> {{ asignatura_inf.marca_respuesta(asignatura_inf.cepr_cuestionario_q7_rd) }} </td>
+        <td style="width: 95%;"> {{ respuestas[42].cepr_asig_informe_descrip }}  </td>
+      </tr> 
+      <tr>
+        <td style="width: 5%;"> {{ asignatura_inf.marca_respuesta(asignatura_inf.cepr_cuestionario_q7_re) }} </td>
+        <td style="width: 95%;"> {{ respuestas[43].cepr_asig_informe_descrip }} </td>
+      </tr>
+      <tr>
+        <td style="width: 5%;"> {{ asignatura_inf.marca_respuesta(asignatura_inf.cepr_cuestionario_q7_rf) }} </td>
+        <td style="width: 95%;"> {{ respuestas[44].cepr_asig_informe_descrip }} </td>
+      </tr>
+      <tr>
+        <td style="width: 5%;"> {{ asignatura_inf.marca_respuesta(asignatura_inf.cepr_cuestionario_q7_rf) }} </td>
+        <td style="width: 95%;"> {{ respuestas[45].cepr_asig_informe_descrip }} </td>
+      </tr>      
+      <tr>
+        <td style="width: 5%;">  </td>
+        <td style="width: 95%;"> {{ asignatura_inf.cepr_cuestionario_q7_descrp }} </td>
+      </tr>      
+    </tbody>
+  </table>
+</div>
+
+
+
+
+<div class="page1 pb_after">
+
+{% if profesor.cepr_tipo == 'profesor' and plan.n_actividades %}
+
+{% set acts_n = ( (plan.n_actividades(1|string, 1.1|string)|int +  
+  plan.n_actividades(2|string, 2.1|string)|int +  
+  plan.n_actividades(2|string, 2.2|string)|int + 
+  plan.n_actividades(2|string, 2.3|string)|int +
+  plan.n_actividades(2|string, 2.4|string)|int +
+  plan.n_actividades(2|string, 2.5|string)|int +
+  plan.n_actividades(2|string, 2.6|string)|int +
+  plan.n_actividades(2|string, 2.7|string)|int +    
+  plan.n_actividades(2|string, 2.8|string)|int +    
+  plan.n_actividades(2|string, 2.9|string)|int +    
+  plan.n_actividades(2|string, 2.10|string)|int +    
+  plan.n_actividades(2|string, 2.11|string)|int +    
+  plan.n_actividades(2|string, 2.12|string)|int +    
+  plan.n_actividades(2|string, 2.13|string)|int +    
+  plan.n_actividades(2|string, 2.14|string)|int +    
+  plan.n_actividades(2|string, 2.15|string)|int +    
+  plan.n_actividades(2|string, 2.16|string)|int +    
+  plan.n_actividades(3|string, 3.1|string)|int +  
+  plan.n_actividades(3|string, 3.2|string)|int + 
+  plan.n_actividades(3|string, 3.3|string)|int + 
+  plan.n_actividades(3|string, 3.4|string)|int +  
+  plan.n_actividades(3|string, 3.5|string)|int + 
+  plan.n_actividades(3|string, 3.6|string)|int + 
+  plan.n_actividades(3|string, 3.7|string)|int +
+  plan.n_actividades(3|string, 3.8|string)|int +
+  plan.n_actividades(4|string, 4.1|string)|int +  
+  plan.n_actividades(4|string, 4.2|string)|int + 
+  plan.n_actividades(4|string, 4.3|string)|int + 
+  plan.n_actividades(4|string, 4.4|string)|int +  
+  plan.n_actividades(4|string, 4.5|string)|int + 
+  plan.n_actividades(4|string, 4.6|string)|int + 
+  plan.n_actividades(4|string, 4.7|string)|int +
+  plan.n_actividades(4|string, 4.8|string)|int +
+  plan.n_actividades(5|string, 5.1|string)|int + 
+  plan.n_actividades(5|string, 5.2|string)|int + 
+  plan.n_actividades(5|string, 5.3|string)|int + 
+  plan.n_actividades(5|string, 5.4|string)|int +  
+  plan.n_actividades(5|string, 5.5|string)|int + 
+  plan.n_actividades(6|string, 6.1|string)|int + 
+  plan.n_actividades(6|string, 6.2|string)|int + 
+  plan.n_actividades(6|string, 6.3|string)|int + 
+  plan.n_actividades(6|string, 6.4|string)|int  ) )|round(precision=2)  %}
+
+
+{% if acts_n > 0  %}
+
+  {% set total = (100 / (plan.n_actividades(1|string, 1.1|string)|int +  
+  plan.n_actividades(2|string, 2.1|string)|int +  
+  plan.n_actividades(2|string, 2.2|string)|int + 
+  plan.n_actividades(2|string, 2.3|string)|int +
+  plan.n_actividades(2|string, 2.4|string)|int +
+  plan.n_actividades(2|string, 2.5|string)|int +
+  plan.n_actividades(2|string, 2.6|string)|int +
+  plan.n_actividades(2|string, 2.7|string)|int +    
+  plan.n_actividades(2|string, 2.8|string)|int +    
+  plan.n_actividades(2|string, 2.9|string)|int +    
+  plan.n_actividades(2|string, 2.10|string)|int +    
+  plan.n_actividades(2|string, 2.11|string)|int +    
+  plan.n_actividades(2|string, 2.12|string)|int +    
+  plan.n_actividades(2|string, 2.13|string)|int +    
+  plan.n_actividades(2|string, 2.14|string)|int +    
+  plan.n_actividades(2|string, 2.15|string)|int +    
+  plan.n_actividades(2|string, 2.16|string)|int +    
+  plan.n_actividades(3|string, 3.1|string)|int +  
+  plan.n_actividades(3|string, 3.2|string)|int + 
+  plan.n_actividades(3|string, 3.3|string)|int + 
+  plan.n_actividades(3|string, 3.4|string)|int +  
+  plan.n_actividades(3|string, 3.5|string)|int + 
+  plan.n_actividades(3|string, 3.6|string)|int + 
+  plan.n_actividades(3|string, 3.7|string)|int +
+  plan.n_actividades(3|string, 3.8|string)|int +
+  plan.n_actividades(4|string, 4.1|string)|int +  
+  plan.n_actividades(4|string, 4.2|string)|int + 
+  plan.n_actividades(4|string, 4.3|string)|int + 
+  plan.n_actividades(4|string, 4.4|string)|int +  
+  plan.n_actividades(4|string, 4.5|string)|int + 
+  plan.n_actividades(4|string, 4.6|string)|int + 
+  plan.n_actividades(4|string, 4.7|string)|int +
+  plan.n_actividades(4|string, 4.8|string)|int +
+  plan.n_actividades(5|string, 5.1|string)|int + 
+  plan.n_actividades(5|string, 5.2|string)|int + 
+  plan.n_actividades(5|string, 5.3|string)|int + 
+  plan.n_actividades(5|string, 5.4|string)|int +  
+  plan.n_actividades(5|string, 5.5|string)|int + 
+  plan.n_actividades(6|string, 6.1|string)|int + 
+  plan.n_actividades(6|string, 6.2|string)|int + 
+  plan.n_actividades(6|string, 6.3|string)|int + 
+  plan.n_actividades(6|string, 6.4|string)|int  ) )|round(precision=2)  %}
+
+{% else %}  
+
+  {% set total = 1 %}
+
+{% endif %}
+
+
+
+
+<table class="table tablem" style="width: 100%;" border="2" cellspacing="0" cellpadding="3">
+<thead>
+<tr>
+    <th style="background: #002B7A; height: 25px;" bgcolor="#002B7A"><span style="color: #bb8800;">{{ labels.sapr_plan_label_1 }}</span></th>
+    <th style="background: #002B7A; height: 25px;" bgcolor="#002B7A"><span style="color: #bb8800;">NO.</span></th>
+</tr>
+</thead>
+<tbody>
+
+<tr style="height: 17px;">
+    <td style="width: 85%; height: 17px;">
+        <p id="p_1" class="western" align="left">{{ labels.sapr_plan_label_1_1 }}</p>
+    </td>
+    <td style="width: 10%; height: 17px;">
+        <p id="p_1" class="western" align="center">{{ plan.n_actividades(1|string, 1.1|string)|int}}</p>
+    </td>
+</tr>
+
+<tr style="height: 17px;">
+    <td style="width: 85%; height: 17px;">
+        <p id="p_1" class="western" align="left"><b>Total</b></p>
+    </td>
+    <td style="width: 10%; height: 17px;">
+        <p id="p_1" class="western" align="center"><b>{{ plan.n_actividades(1|string, 1.1|string)|int +  
+                                                      plan.n_actividades(1|string, 1.2|string)|int + 
+                                                      plan.n_actividades(1|string, 1.3|string)|int  }}</b></p>
+    </td>
+</tr>
+
+
+</tbody>
+</table>
+
+
+<br>
+
+
+<table class="table tablem" style="width: 100%;" border="2" cellspacing="0" cellpadding="3">
+<thead>
+<tr>
+    <th style="background: #002B7A; height: 25px;" bgcolor="#002B7A"><span style="color: #bb8800;">{{ labels.sapr_plan_label_2 }}</span></th>
+    <th style="background: #002B7A; height: 25px;" bgcolor="#002B7A"><span style="color: #bb8800;">NO.</span></th>
+</tr>
+</thead>
+<tbody>
+
+<tr style="height: 17px;">
+<td style="width: 85%; height: 17px;">
+<p id="p_1" class="western" align="left">&nbsp;{{ labels.sapr_plan_label_2_1 }}</p>
+</td>
+<td style="width: 10%; height: 17px;">
+<p id="p_1" class="western" align="center">&nbsp;{{ plan.n_actividades(2|string, 2.1|string)|int}}</p>
+</td>
+</tr>
+
+<tr style="height: 17px;">
+<td style="width: 85%; height: 17px;">
+<p id="p_1" class="western" align="left">&nbsp;{{ labels.sapr_plan_label_2_2 }}</p>
+</td>
+<td style="width: 10%; height: 17px;">
+<p id="p_1" class="western" align="center">&nbsp;{{ plan.n_actividades(2|string, 2.2|string)|int}}</p>
+</td>
+</tr>
+
+<tr style="height: 17px;">
+<td style="width: 85%; height: 17px;">
+<p id="p_1" class="western" align="left">&nbsp;{{ labels.sapr_plan_label_2_3 }}</p>
+</td>
+<td style="width: 10%; height: 17px;">
+<p id="p_1" class="western" align="center">&nbsp;{{ plan.n_actividades(2|string, 2.3|string)|int}}</p>
+</td>
+</tr>
+
+<tr style="height: 17px;">
+<td style="width: 85%; height: 17px;">
+<p id="p_1" class="western" align="left">&nbsp;{{ labels.sapr_plan_label_2_4 }}</p>
+</td>
+<td style="width: 10%; height: 17px;">
+<p id="p_1" class="western" align="center">&nbsp;{{ plan.n_actividades(2|string, 2.4|string)|int}}</p>
+</td>
+</tr>
+
+<tr style="height: 17px;">
+<td style="width: 85%; height: 17px;">
+<p id="p_1" class="western" align="left">&nbsp;{{ labels.sapr_plan_label_2_5 }}</p>
+</td>
+<td style="width: 10%; height: 17px;">
+<p id="p_1" class="western" align="center">&nbsp;{{ plan.n_actividades(2|string, 2.5|string)|int}}</p>
+</td>
+</tr>
+
+<tr style="height: 17px;">
+<td style="width: 85%; height: 17px;">
+<p id="p_1" class="western" align="left">&nbsp;{{ labels.sapr_plan_label_2_6 }}</p>
+</td>
+<td style="width: 10%; height: 17px;">
+<p id="p_1" class="western" align="center">&nbsp;{{ plan.n_actividades(2|string, 2.6|string)|int}}</p>
+</td>
+</tr>
+
+<tr style="height: 17px;">
+<td style="width: 85%; height: 17px;">
+<p id="p_1" class="western" align="left">&nbsp;{{ labels.sapr_plan_label_2_7 }}</p>
+</td>
+<td style="width: 10%; height: 17px;">
+<p id="p_1" class="western" align="center">&nbsp;{{ plan.n_actividades(2|string, 2.7|string)|int}}</p>
+</td>
+</tr>
+
+<tr style="height: 17px;">
+<td style="width: 85%; height: 17px;">
+<p id="p_1" class="western" align="left">&nbsp;{{ labels.sapr_plan_label_2_8 }}</p>
+</td>
+<td style="width: 10%; height: 17px;">
+<p id="p_1" class="western" align="center">&nbsp;{{ plan.n_actividades(2|string, 2.8|string)|int}}</p>
+</td>
+</tr>
+
+<tr style="height: 17px;">
+<td style="width: 85%; height: 17px;">
+<p id="p_1" class="western" align="left">&nbsp;{{ labels.sapr_plan_label_2_9 }}</p>
+</td>
+<td style="width: 10%; height: 17px;">
+<p id="p_1" class="western" align="center">&nbsp;{{ plan.n_actividades(2|string, 2.9|string)|int}}</p>
+</td>
+</tr>
+
+<tr style="height: 17px;">
+<td style="width: 85%; height: 17px;">
+<p id="p_1" class="western" align="left">&nbsp;{{ labels.sapr_plan_label_2_10 }}</p>
+</td>
+<td style="width: 10%; height: 17px;">
+<p id="p_1" class="western" align="center">&nbsp;{{ plan.n_actividades(2|string, 2.10|string)|int}}</p>
+</td>
+</tr>
+
+<tr style="height: 17px;">
+<td style="width: 85%; height: 17px;">
+<p id="p_1" class="western" align="left">&nbsp;{{ labels.sapr_plan_label_2_11 }}</p>
+</td>
+<td style="width: 10%; height: 17px;">
+<p id="p_1" class="western" align="center">&nbsp;{{ plan.n_actividades(2|string, 2.11|string)|int}}</p>
+</td>
+</tr>
+
+<tr style="height: 17px;">
+<td style="width: 85%; height: 17px;">
+<p id="p_1" class="western" align="left">&nbsp;{{ labels.sapr_plan_label_2_12 }}</p>
+</td>
+<td style="width: 10%; height: 17px;">
+<p id="p_1" class="western" align="center">&nbsp;{{ plan.n_actividades(2|string, 2.12|string)|int}}</p>
+</td>
+</tr>
+
+<tr style="height: 17px;">
+<td style="width: 85%; height: 17px;">
+<p id="p_1" class="western" align="left">&nbsp;{{ labels.sapr_plan_label_2_13 }}</p>
+</td>
+<td style="width: 10%; height: 17px;">
+<p id="p_1" class="western" align="center">&nbsp;{{ plan.n_actividades(2|string, 2.13|string)|int}}</p>
+</td>
+</tr>
+
+<tr style="height: 17px;">
+<td style="width: 85%; height: 17px;">
+<p id="p_1" class="western" align="left">&nbsp;{{ labels.sapr_plan_label_2_14 }}</p>
+</td>
+<td style="width: 10%; height: 17px;">
+<p id="p_1" class="western" align="center">&nbsp;{{ plan.n_actividades(2|string, 2.14|string)|int}}</p>
+</td>
+</tr>
+
+<tr style="height: 17px;">
+<td style="width: 85%; height: 17px;">
+<p id="p_1" class="western" align="left">&nbsp;{{ labels.sapr_plan_label_2_15 }}</p>
+</td>
+<td style="width: 10%; height: 17px;">
+<p id="p_1" class="western" align="center">&nbsp;{{ plan.n_actividades(2|string, 2.15|string)|int}}</p>
+</td>
+</tr>
+
+<td style="width: 85%; height: 17px;">
+<p id="p_1" class="western" align="left">&nbsp;{{ labels.sapr_plan_label_2_16 }}</p>
+</td>
+<td style="width: 10%; height: 17px;">
+<p id="p_1" class="western" align="center">&nbsp;{{ plan.n_actividades(2|string, 2.16|string)|int}}</p>
+</td>
+</tr>
+
+
+<tr style="height: 17px;">
+    <td style="width: 85%; height: 17px;">
+        <p id="p_1" class="western" align="left"><b>Total</b></p>
+    </td>
+    <td style="width: 10%; height: 17px;">
+        <p id="p_1" class="western" align="center"><b>{{ plan.n_actividades(2|string, 2.1|string)|int +  
+                                                      plan.n_actividades(2|string, 2.2|string)|int + 
+                                                      plan.n_actividades(2|string, 2.3|string)|int +
+                                                      plan.n_actividades(2|string, 2.4|string)|int +
+                                                      plan.n_actividades(2|string, 2.5|string)|int +
+                                                      plan.n_actividades(2|string, 2.6|string)|int +
+                                                      plan.n_actividades(2|string, 2.7|string)|int +    
+                                                      plan.n_actividades(2|string, 2.8|string)|int +    
+                                                      plan.n_actividades(2|string, 2.9|string)|int +    
+                                                      plan.n_actividades(2|string, 2.10|string)|int +    
+                                                      plan.n_actividades(2|string, 2.11|string)|int +    
+                                                      plan.n_actividades(2|string, 2.12|string)|int +    
+                                                      plan.n_actividades(2|string, 2.13|string)|int +    
+                                                      plan.n_actividades(2|string, 2.14|string)|int +    
+                                                      plan.n_actividades(2|string, 2.15|string)|int +    
+                                                      plan.n_actividades(2|string, 2.16|string)|int  }}</b></p>
+    </td>
+</tr>
+</tbody>
+</table>
+
+
+
+<br>
+
+
+
+<table class="table tablem" style="width: 100%;" border="2" cellspacing="0" cellpadding="3">
+<thead>
+<tr>
+    <th style="background: #002B7A; height: 25px;" bgcolor="#002B7A"><span style="color: #bb8800;">{{ labels.sapr_plan_label_3 }}</span></th>
+    <th style="background: #002B7A; height: 25px;" bgcolor="#002B7A"><span style="color: #bb8800;">NO.</span></th>
+</tr>
+</thead>
+<tbody>
+
+<tr style="height: 17px;">
+<td style="width: 85%; height: 17px;">
+<p id="p_1" class="western" align="left">&nbsp;{{ labels.sapr_plan_label_3_1 }}</p>
+</td>
+<td style="width: 10%; height: 17px;">
+<p id="p_1" class="western" align="center">&nbsp;{{ plan.n_actividades(3|string, 3.1|string)|int}}</p>
+</td>
+</tr>
+
+<td style="width: 85%; height: 17px;">
+<p id="p_1" class="western" align="left">&nbsp;{{ labels.sapr_plan_label_3_2 }}</p>
+</td>
+<td style="width: 10%; height: 17px;">
+<p id="p_1" class="western" align="center">&nbsp;{{ plan.n_actividades(3|string, 3.2|string)|int}}</p>
+</td>
+</tr>
+
+<tr style="height: 17px;">
+<td style="width: 85%; height: 17px;">
+<p id="p_1" class="western" align="left">&nbsp;{{ labels.sapr_plan_label_3_3 }}</p>
+</td>
+<td style="width: 10%; height: 17px;">
+<p id="p_1" class="western" align="center">&nbsp;{{ plan.n_actividades(3|string, 3.3|string)|int}}</p>
+</td>
+</tr>
+
+<tr style="height: 17px;">
+<td style="width: 85%; height: 17px;">
+<p id="p_1" class="western" align="left">&nbsp;{{ labels.sapr_plan_label_3_4 }}</p>
+</td>
+<td style="width: 10%; height: 17px;">
+<p id="p_1" class="western" align="center">&nbsp;{{ plan.n_actividades(3|string, 3.4|string)|int}}</p>
+</td>
+</tr>
+
+<tr style="height: 17px;">
+<td style="width: 85%; height: 17px;">
+<p id="p_1" class="western" align="left">&nbsp;{{ labels.sapr_plan_label_3_5 }}</p>
+</td>
+<td style="width: 10%; height: 17px;">
+<p id="p_1" class="western" align="center">&nbsp;{{ plan.n_actividades(3|string, 3.5|string)|int}}</p>
+</td>
+</tr>
+
+<tr style="height: 17px;">
+<td style="width: 85%; height: 17px;">
+<p id="p_1" class="western" align="left">&nbsp;{{ labels.sapr_plan_label_3_6 }}</p>
+</td>
+<td style="width: 10%; height: 17px;">
+<p id="p_1" class="western" align="center">&nbsp;{{ plan.n_actividades(3|string, 3.6|string)|int}}</p>
+</td>
+</tr>
+
+<tr style="height: 17px;">
+<td style="width: 85%; height: 17px;">
+<p id="p_1" class="western" align="left">&nbsp;{{ labels.sapr_plan_label_3_7 }}</p>
+</td>
+<td style="width: 10%; height: 17px;">
+<p id="p_1" class="western" align="center">&nbsp;{{ plan.n_actividades(3|string, 3.7|string)|int}}</p>
+</td>
+</tr>
+
+<tr style="height: 17px;">
+<td style="width: 85%; height: 17px;">
+<p id="p_1" class="western" align="left">&nbsp;{{ labels.sapr_plan_label_3_8 }}</p>
+</td>
+<td style="width: 10%; height: 17px;">
+<p id="p_1" class="western" align="center">&nbsp;{{ plan.n_actividades(3|string, 3.8|string)|int}}</p>
+</td>
+</tr>
+
+
+
+<tr style="height: 17px;">
+    <td style="width: 85%; height: 17px;">
+        <p id="p_1" class="western" align="left"><b>Total</b></p>
+    </td>
+    <td style="width: 10%; height: 17px;">
+        <p id="p_1" class="western" align="center"><b>{{plan.n_actividades(3|string, 3.1|string)|int +  
+                                                          plan.n_actividades(3|string, 3.2|string)|int + 
+                                                          plan.n_actividades(3|string, 3.3|string)|int + 
+                                                          plan.n_actividades(3|string, 3.4|string)|int +  
+                                                          plan.n_actividades(3|string, 3.5|string)|int + 
+                                                          plan.n_actividades(3|string, 3.6|string)|int + 
+                                                          plan.n_actividades(3|string, 3.7|string)|int +
+                                                          plan.n_actividades(3|string, 3.8|string)|int  }}</b></p>
+    </td>
+</tr>
+
+
+</tbody>
+</table>
+
+
+</div>
+
+
+
+<table class="table tablem" style="width: 100%;" border="2" cellspacing="0" cellpadding="3">
+<thead>
+<tr>
+    <th style="background: #002B7A; height: 25px;" bgcolor="#002B7A"><span style="color: #bb8800;">{{ labels.sapr_plan_label_4 }}</span></th>
+    <th style="background: #002B7A; height: 25px;" bgcolor="#002B7A"><span style="color: #bb8800;">NO.</span></th>
+</tr>
+</thead>
+<tbody>
+
+<tr style="height: 17px;">
+<td style="width: 85%; height: 17px;">
+<p id="p_1" class="western" align="left">&nbsp;{{ labels.sapr_plan_label_4_1 }}</p>
+</td>
+<td style="width: 10%; height: 17px;">
+<p id="p_1" class="western" align="center">&nbsp;{{ plan.n_actividades(4|string, 4.1|string)|int}}</p>
+</td>
+</tr>
+
+<tr style="height: 17px;">
+<td style="width: 85%; height: 17px;">
+<p id="p_1" class="western" align="left">&nbsp;{{ labels.sapr_plan_label_4_2 }}</p>
+</td>
+<td style="width: 10%; height: 17px;">
+<p id="p_1" class="western" align="center">&nbsp;{{ plan.n_actividades(4|string, 4.2|string)|int}}</p>
+</td>
+</tr>
+
+<tr style="height: 17px;">
+<td style="width: 85%; height: 17px;">
+<p id="p_1" class="western" align="left">&nbsp;{{ labels.sapr_plan_label_4_3 }}</p>
+</td>
+<td style="width: 10%; height: 17px;">
+<p id="p_1" class="western" align="center">&nbsp;{{ plan.n_actividades(4|string, 4.3|string)|int}}</p>
+</td>
+</tr>
+
+<tr style="height: 17px;">
+<td style="width: 85%; height: 17px;">
+<p id="p_1" class="western" align="left">&nbsp;{{ labels.sapr_plan_label_4_4 }}</p>
+</td>
+<td style="width: 10%; height: 17px;">
+<p id="p_1" class="western" align="center">&nbsp;{{ plan.n_actividades(4|string, 4.4|string)|int}}</p>
+</td>
+</tr>
+
+<tr style="height: 17px;">
+<td style="width: 85%; height: 17px;">
+<p id="p_1" class="western" align="left">&nbsp;{{ labels.sapr_plan_label_4_5 }}</p>
+</td>
+<td style="width: 10%; height: 17px;">
+<p id="p_1" class="western" align="center">&nbsp;{{ plan.n_actividades(4|string, 4.5|string)|int}}</p>
+</td>
+</tr>
+
+<tr style="height: 17px;">
+<td style="width: 85%; height: 17px;">
+<p id="p_1" class="western" align="left">&nbsp;{{ labels.sapr_plan_label_4_6 }}</p>
+</td>
+<td style="width: 10%; height: 17px;">
+<p id="p_1" class="western" align="center">&nbsp;{{ plan.n_actividades(4|string, 4.6|string)|int}}</p>
+</td>
+</tr>
+
+<tr style="height: 17px;">
+<td style="width: 85%; height: 17px;">
+<p id="p_1" class="western" align="left">&nbsp;{{ labels.sapr_plan_label_4_7 }}</p>
+</td>
+<td style="width: 10%; height: 17px;">
+<p id="p_1" class="western" align="center">&nbsp;{{ plan.n_actividades(4|string, 4.7|string)|int}}</p>
+</td>
+</tr>
+
+<tr style="height: 17px;">
+<td style="width: 85%; height: 17px;">
+<p id="p_1" class="western" align="left">&nbsp;{{ labels.sapr_plan_label_4_8 }}</p>
+</td>
+<td style="width: 10%; height: 17px;">
+<p id="p_1" class="western" align="center">&nbsp;{{ plan.n_actividades(4|string, 4.8|string)|int}}</p>
+</td>
+</tr>
+
+<tr style="height: 17px;">
+    <td style="width: 85%; height: 17px;">
+        <p id="p_1" class="western" align="left"><b>Total</b></p>
+    </td>
+    <td style="width: 10%; height: 17px;">
+        <p id="p_1" class="western" align="center"><b>{{ plan.n_actividades(4|string, 4.1|string)|int +  
+                                                          plan.n_actividades(4|string, 4.2|string)|int + 
+                                                          plan.n_actividades(4|string, 4.3|string)|int + 
+                                                          plan.n_actividades(4|string, 4.4|string)|int +  
+                                                          plan.n_actividades(4|string, 4.5|string)|int + 
+                                                          plan.n_actividades(4|string, 4.6|string)|int + 
+                                                          plan.n_actividades(4|string, 4.7|string)|int +
+                                                          plan.n_actividades(4|string, 4.8|string)|int  }}</b></p>
+    </td>
+</tr>
+
+
+</tbody>
+</table>
+
+
+<br>
+
+
+
+<table class="table tablem" style="width: 100%;" border="2" cellspacing="0" cellpadding="3">
+<thead>
+<tr>
+    <th style="background: #002B7A; height: 25px;" bgcolor="#002B7A"><span style="color: #bb8800;">{{ labels.sapr_plan_label_5 }}</span></th>
+    <th style="background: #002B7A; height: 25px;" bgcolor="#002B7A"><span style="color: #bb8800;">NO.</span></th>
+</tr>
+</thead>
+<tbody>
+
+<tr style="height: 17px;">
+<td style="width: 85%; height: 17px;">
+<p id="p_1" class="western" align="left">&nbsp;{{ labels.sapr_plan_label_5_1 }}</p>
+</td>
+<td style="width: 10%; height: 17px;">
+<p id="p_1" class="western" align="center">&nbsp;{{ plan.n_actividades(5|string, 5.1|string)|int}}</p>
+</td>
+</tr>
+
+<tr style="height: 17px;">
+<td style="width: 85%; height: 17px;">
+<p id="p_1" class="western" align="left">&nbsp;{{ labels.sapr_plan_label_5_2 }}</p>
+</td>
+<td style="width: 10%; height: 17px;">
+<p id="p_1" class="western" align="center">&nbsp;{{ plan.n_actividades(5|string, 5.2|string)|int }}</p>
+</td>
+</tr>
+
+<tr style="height: 17px;">
+<td style="width: 85%; height: 17px;">
+<p id="p_1" class="western" align="left">&nbsp;{{ labels.sapr_plan_label_5_3 }}</p>
+</td>
+<td style="width: 10%; height: 17px;">
+<p id="p_1" class="western" align="center">&nbsp;{{ plan.n_actividades(5|string, 5.3|string)|int}}</p>
+</td>
+</tr>
+
+<tr style="height: 17px;">
+<td style="width: 85%; height: 17px;">
+<p id="p_1" class="western" align="left">&nbsp;{{ labels.sapr_plan_label_5_4 }}</p>
+</td>
+<td style="width: 10%; height: 17px;">
+<p id="p_1" class="western" align="center">&nbsp;{{ plan.n_actividades(5|string, 5.4|string)|int}}</p>
+</td>
+</tr>
+
+<tr style="height: 17px;">
+<td style="width: 85%; height: 17px;">
+<p id="p_1" class="western" align="left">&nbsp;{{ labels.sapr_plan_label_5_5 }}</p>
+</td>
+<td style="width: 10%; height: 17px;">
+<p id="p_1" class="western" align="center">&nbsp;{{ plan.n_actividades(5|string, 5.5|string)|int}}</p>
+</td>
+</tr>
+
+<tr style="height: 17px;">
+    <td style="width: 85%; height: 17px;">
+        <p id="p_1" class="western" align="left"><b>Total</b></p>
+    </td>
+    <td style="width: 10%; height: 17px;">
+        <p id="p_1" class="western" align="center"><b>{{ plan.n_actividades(5|string, 5.1|string)|int + 
+                                                      plan.n_actividades(5|string, 5.2|string)|int + 
+                                                      plan.n_actividades(5|string, 5.3|string)|int + 
+                                                      plan.n_actividades(5|string, 5.4|string)|int +  
+                                                      plan.n_actividades(5|string, 5.5|string)|int + 
+                                                      plan.n_actividades(5|string, 5.6|string)|int }}</b></p>
+    </td>
+</tr>
+
+
+</tbody>
+</table>
+
+
+<br>
+
+
+
+<table class="table tablem" style="width: 100%;" border="2" cellspacing="0" cellpadding="3">
+<thead>
+<tr>
+    <th style="background: #002B7A; height: 25px;" bgcolor="#002B7A"><span style="color: #bb8800;">{{ labels.sapr_plan_label_6 }}</span></th>
+    <th style="background: #002B7A; height: 25px;" bgcolor="#002B7A"><span style="color: #bb8800;">NO.</span></th>
+</tr>
+</thead>
+<tbody>
+
+
+
+<tr style="height: 17px;">
+<td style="width: 85%; height: 17px;">
+<p id="p_1" class="western" align="left">&nbsp;{{ labels.sapr_plan_label_6 }}</p>
+</td>
+<td style="width: 10%; height: 17px;">
+<p id="p_1" class="western" align="center">&nbsp;{{ plan.n_actividades(6|string, 6.1|string)|int }}</p>
+</td>
+</tr>
+
+<tr style="height: 17px;">
+<td style="width: 85%; height: 17px;">
+<p id="p_1" class="western" align="left">&nbsp;{{ labels.sapr_plan_label_6_2 }}</p>
+</td>
+<td style="width: 10%; height: 17px;">
+<p id="p_1" class="western" align="center">&nbsp;{{ plan.n_actividades(6|string, 6.2|string)|int }}</p>
+</td>
+</tr>
+
+<tr style="height: 17px;">
+<td style="width: 85%; height: 17px;">
+<p id="p_1" class="western" align="left">&nbsp;{{ labels.sapr_plan_label_6_3 }}</p>
+</td>
+<td style="width: 10%; height: 17px;">
+<p id="p_1" class="western" align="center">&nbsp;{{ plan.n_actividades(6|string, 6.3|string)|int}}</p>
+</td>
+</tr>
+
+<tr style="height: 17px;">
+<td style="width: 85%; height: 17px;">
+<p id="p_1" class="western" align="left">&nbsp;{{ labels.sapr_plan_label_6_4 }}</p>
+</td>
+<td style="width: 10%; height: 17px;">
+<p id="p_1" class="western" align="center">&nbsp;{{ plan.n_actividades(6|string, 6.4|string)|int}}</p>
+</td>
+</tr>
+
+<tr style="height: 17px;">
+<td style="width: 85%; height: 17px;">
+<p id="p_1" class="western" align="left">&nbsp;{{ labels.sapr_plan_label_6_5 }}</p>
+</td>
+<td style="width: 10%; height: 17px;">
+<p id="p_1" class="western" align="center">&nbsp;{{ plan.n_actividades(6|string, 6.5|string)|int}}</p>
+</td>
+</tr>
+
+
+<tr style="height: 17px;">
+    <td style="width: 85%; height: 17px;">
+        <p id="p_1" class="western" align="left"><b>Total</b></p>
+    </td>
+    <td style="width: 10%; height: 17px;">
+        <p id="p_1" class="western" align="center"><b>{{ plan.n_actividades(6|string, 6.1|string)|int + 
+                                                      plan.n_actividades(6|string, 6.2|string)|int + 
+                                                      plan.n_actividades(6|string, 6.3|string)|int + 
+                                                      plan.n_actividades(6|string, 6.4|string)|int +  
+                                                      plan.n_actividades(6|string, 6.5|string)|int  }}</b></p>
+    </td>
+</tr>
+
+
+</tbody>
+</table>
+
+
+{% endif %}
+
+
+
+
+
+
+{% if profesor.cepr_tipo == 'tecnico' %}
+
+{% set acts_n = ( (plan.n_actividades(1|string, 1.1|string)|int +  
+  plan.n_actividades(1|string, 1.2|string)|int + 
+  plan.n_actividades(1|string, 1.3|string)|int + 
+  plan.n_actividades(2|string, 2.1|string)|int +
+  plan.n_actividades(2|string, 2.2|string)|int +
+  plan.n_actividades(2|string, 2.3|string)|int +
+  plan.n_actividades(3|string, 3.1|string)|int +  
+  plan.n_actividades(3|string, 3.2|string)|int + 
+  plan.n_actividades(3|string, 3.3|string)|int + 
+  plan.n_actividades(3|string, 3.4|string)|int +  
+  plan.n_actividades(3|string, 3.5|string)|int + 
+  plan.n_actividades(3|string, 3.6|string)|int + 
+  plan.n_actividades(3|string, 3.7|string)|int +
+  plan.n_actividades(3|string, 3.8|string)|int +
+  plan.n_actividades(4|string, 4.1|string)|int +  
+  plan.n_actividades(4|string, 4.2|string)|int + 
+  plan.n_actividades(4|string, 4.3|string)|int + 
+  plan.n_actividades(4|string, 4.4|string)|int +  
+  plan.n_actividades(4|string, 4.5|string)|int + 
+  plan.n_actividades(4|string, 4.6|string)|int + 
+  plan.n_actividades(4|string, 4.7|string)|int +
+  plan.n_actividades(5|string, 5.1|string)|int + 
+  plan.n_actividades(5|string, 5.2|string)|int + 
+  plan.n_actividades(5|string, 5.3|string)|int + 
+  plan.n_actividades(5|string, 5.4|string)|int +  
+  plan.n_actividades(5|string, 5.5|string)|int + 
+  plan.n_actividades(5|string, 5.6|string)|int + 
+  plan.n_actividades(6|string, 6.1|string)|int  ) )|round(precision=2)  %}
+
+
+{% if acts_n > 0  %}
+
+  {% set total = (100 / (plan.n_actividades(1|string, 1.1|string)|int +  
+  plan.n_actividades(1|string, 1.2|string)|int + 
+  plan.n_actividades(1|string, 1.3|string)|int + 
+  plan.n_actividades(2|string, 2.1|string)|int +
+  plan.n_actividades(2|string, 2.2|string)|int +
+  plan.n_actividades(2|string, 2.3|string)|int +
+  plan.n_actividades(3|string, 3.1|string)|int +  
+  plan.n_actividades(3|string, 3.2|string)|int + 
+  plan.n_actividades(3|string, 3.3|string)|int + 
+  plan.n_actividades(3|string, 3.4|string)|int +  
+  plan.n_actividades(3|string, 3.5|string)|int + 
+  plan.n_actividades(3|string, 3.6|string)|int + 
+  plan.n_actividades(3|string, 3.7|string)|int +
+  plan.n_actividades(3|string, 3.8|string)|int +
+  plan.n_actividades(4|string, 4.1|string)|int +  
+  plan.n_actividades(4|string, 4.2|string)|int + 
+  plan.n_actividades(4|string, 4.3|string)|int + 
+  plan.n_actividades(4|string, 4.4|string)|int +  
+  plan.n_actividades(4|string, 4.5|string)|int + 
+  plan.n_actividades(4|string, 4.6|string)|int + 
+  plan.n_actividades(4|string, 4.7|string)|int +
+  plan.n_actividades(5|string, 5.1|string)|int + 
+  plan.n_actividades(5|string, 5.2|string)|int + 
+  plan.n_actividades(5|string, 5.3|string)|int + 
+  plan.n_actividades(5|string, 5.4|string)|int +  
+  plan.n_actividades(5|string, 5.5|string)|int + 
+  plan.n_actividades(5|string, 5.6|string)|int + 
+  plan.n_actividades(6|string, 6.1|string)|int  ) )|round(precision=2)  %}
+
+{% else %}  
+
+  {% set total = 1 %}
+
+{% endif %}
+
+
+
+
+<table class="table tablem" style="width: 100%;" border="2" cellspacing="0" cellpadding="3">
+<thead>
+<tr>
+    <th style="background: #002B7A; height: 25px;" bgcolor="#002B7A"><span style="color: #bb8800;">{{ labels.sapr_plan_label_1 }}</span></th>
+    <th style="background: #002B7A; height: 25px;" bgcolor="#002B7A"><span style="color: #bb8800;">NO.</span></th>
+</tr>
+</thead>
+<tbody>
+
+<tr style="height: 17px;">
+    <td style="width: 85%; height: 17px;">
+        <p id="p_1" class="western" align="left">{{ labels.sapr_plan_label_1_1 }}</p>
+    </td>
+    <td style="width: 10%; height: 17px;">
+        <p id="p_1" class="western" align="center">{{ plan.n_actividades(1|string, 1.1|string)|int}}</p>
+    </td>
+</tr>
+
+<tr style="height: 17px;">
+    <td style="width: 85%; height: 17px;">
+        <p id="p_1" class="western" align="left">{{ labels.sapr_plan_label_1_2 }}</p>
+    </td>
+    <td style="width: 10%; height: 17px;">
+        <p id="p_1" class="western" align="center">{{ plan.n_actividades(1|string, 1.2|string)|int}}</p>
+    </td>
+</tr>
+
+<tr style="height: 17px;">
+    <td style="width: 85%; height: 17px;">
+        <p id="p_1" class="western" align="left">{{ labels.sapr_plan_label_1_3 }}</p>
+    </td>
+    <td style="width: 10%; height: 17px;">
+        <p id="p_1" class="western" align="center">{{ plan.n_actividades(1|string, 1.3|string)|int}}</p>
+    </td>
+</tr>
+
+
+<tr style="height: 17px;">
+    <td style="width: 85%; height: 17px;">
+        <p id="p_1" class="western" align="left"><b>Total</b></p>
+    </td>
+    <td style="width: 10%; height: 17px;">
+        <p id="p_1" class="western" align="center"><b>{{ plan.n_actividades(1|string, 1.1|string)|int +  
+                                                      plan.n_actividades(1|string, 1.2|string)|int + 
+                                                      plan.n_actividades(1|string, 1.3|string)|int  }}</b></p>
+    </td>
+</tr>
+</tbody>
+</table>
+
+
+<br>
+
+
+
+<table class="table tablem" style="width: 100%;" border="2" cellspacing="0" cellpadding="3">
+<thead>
+<tr>
+    <th style="background: #002B7A; height: 25px;" bgcolor="#002B7A"><span style="color: #bb8800;">{{ labels.sapr_plan_label_2 }}</span></th>
+    <th style="background: #002B7A; height: 25px;" bgcolor="#002B7A"><span style="color: #bb8800;">NO.</span></th>
+</tr>
+</thead>
+<tbody>
+
+<tr style="height: 17px;">
+    <td style="width: 85%; height: 17px;">
+        <p id="p_1" class="western" align="left">{{ labels.sapr_plan_label_2_1 }}</p>
+    </td>
+    <td style="width: 10%; height: 17px;">
+        <p id="p_1" class="western" align="center">{{ plan.n_actividades(2|string, 2.1|string)|int}}</p>
+    </td>
+</tr>
+
+<tr style="height: 17px;">
+    <td style="width: 85%; height: 17px;">
+        <p id="p_1" class="western" align="left">{{ labels.sapr_plan_label_2_2 }}</p>
+    </td>
+    <td style="width: 10%; height: 17px;">
+        <p id="p_1" class="western" align="center">{{ plan.n_actividades(2|string, 2.2|string)|int}}</p>
+    </td>
+</tr>
+
+<tr style="height: 17px;">
+    <td style="width: 85%; height: 17px;">
+        <p id="p_1" class="western" align="left">{{ labels.sapr_plan_label_2_3 }}</p>
+    </td>
+    <td style="width: 10%; height: 17px;">
+        <p id="p_1" class="western" align="center">{{ plan.n_actividades(2|string, 2.3|string)|int}}</p>
+    </td>
+</tr>
+
+
+<tr style="height: 17px;">
+    <td style="width: 85%; height: 17px;">
+        <p id="p_1" class="western" align="left"><b>Total</b></p>
+    </td>
+    <td style="width: 10%; height: 17px;">
+        <p id="p_1" class="western" align="center"><b>{{ plan.n_actividades(2|string, 2.1|string)|int +  
+                                                      plan.n_actividades(2|string, 2.2|string)|int + 
+                                                      plan.n_actividades(2|string, 2.3|string)|int  }}</b></p>
+    </td>
+</tr>
+</tbody>
+</table>
+
+
+
+<br>
+
+
+
+<table class="table tablem" style="width: 100%;" border="2" cellspacing="0" cellpadding="3">
+<thead>
+<tr>
+    <th style="background: #002B7A; height: 25px;" bgcolor="#002B7A"><span style="color: #bb8800;">{{ labels.sapr_plan_label_3 }}</span></th>
+    <th style="background: #002B7A; height: 25px;" bgcolor="#002B7A"><span style="color: #bb8800;">NO.</span></th>
+</tr>
+</thead>
+<tbody>
+
+<tr style="height: 17px;">
+<td style="width: 85%; height: 17px;">
+<p id="p_1" class="western" align="left">&nbsp;{{ labels.sapr_plan_label_3_1 }}</p>
+</td>
+<td style="width: 10%; height: 17px;">
+<p id="p_1" class="western" align="center">&nbsp;{{ plan.n_actividades(3|string, 3.1|string)|int}}</p>
+</td>
+</tr>
+
+<td style="width: 85%; height: 17px;">
+<p id="p_1" class="western" align="left">&nbsp;{{ labels.sapr_plan_label_3_2 }}</p>
+</td>
+<td style="width: 10%; height: 17px;">
+<p id="p_1" class="western" align="center">&nbsp;{{ plan.n_actividades(3|string, 3.2|string)|int}}</p>
+</td>
+</tr>
+
+<tr style="height: 17px;">
+<td style="width: 85%; height: 17px;">
+<p id="p_1" class="western" align="left">&nbsp;{{ labels.sapr_plan_label_3_3 }}</p>
+</td>
+<td style="width: 10%; height: 17px;">
+<p id="p_1" class="western" align="center">&nbsp;{{ plan.n_actividades(3|string, 3.3|string)|int}}</p>
+</td>
+</tr>
+
+<tr style="height: 17px;">
+<td style="width: 85%; height: 17px;">
+<p id="p_1" class="western" align="left">&nbsp;{{ labels.sapr_plan_label_3_4 }}</p>
+</td>
+<td style="width: 10%; height: 17px;">
+<p id="p_1" class="western" align="center">&nbsp;{{ plan.n_actividades(3|string, 3.4|string)|int}}</p>
+</td>
+</tr>
+
+<tr style="height: 17px;">
+<td style="width: 85%; height: 17px;">
+<p id="p_1" class="western" align="left">&nbsp;{{ labels.sapr_plan_label_3_5 }}</p>
+</td>
+<td style="width: 10%; height: 17px;">
+<p id="p_1" class="western" align="center">&nbsp;{{ plan.n_actividades(3|string, 3.5|string)|int}}</p>
+</td>
+</tr>
+
+<tr style="height: 17px;">
+<td style="width: 85%; height: 17px;">
+<p id="p_1" class="western" align="left">&nbsp;{{ labels.sapr_plan_label_3_6 }}</p>
+</td>
+<td style="width: 10%; height: 17px;">
+<p id="p_1" class="western" align="center">&nbsp;{{ plan.n_actividades(3|string, 3.6|string)|int}}</p>
+</td>
+</tr>
+
+<tr style="height: 17px;">
+<td style="width: 85%; height: 17px;">
+<p id="p_1" class="western" align="left">&nbsp;{{ labels.sapr_plan_label_3_7 }}</p>
+</td>
+<td style="width: 10%; height: 17px;">
+<p id="p_1" class="western" align="center">&nbsp;{{ plan.n_actividades(3|string, 3.7|string)|int}}</p>
+</td>
+</tr>
+
+
+
+<tr style="height: 17px;">
+    <td style="width: 85%; height: 17px;">
+        <p id="p_1" class="western" align="left"><b>Total</b></p>
+    </td>
+    <td style="width: 10%; height: 17px;">
+        <p id="p_1" class="western" align="center"><b>{{plan.n_actividades(3|string, 3.1|string)|int +  
+                                                          plan.n_actividades(3|string, 3.2|string)|int + 
+                                                          plan.n_actividades(3|string, 3.3|string)|int + 
+                                                          plan.n_actividades(3|string, 3.4|string)|int +  
+                                                          plan.n_actividades(3|string, 3.5|string)|int + 
+                                                          plan.n_actividades(3|string, 3.6|string)|int + 
+                                                          plan.n_actividades(3|string, 3.7|string)|int  }}</b></p>
+    </td>
+</tr>
+
+
+</tbody>
+</table>
+
+<br>
+
+
+<table class="table tablem" style="width: 100%;" border="2" cellspacing="0" cellpadding="3">
+<thead>
+<tr>
+    <th style="background: #002B7A; height: 25px;" bgcolor="#002B7A"><span style="color: #bb8800;">{{ labels.sapr_plan_label_4 }}</span></th>
+    <th style="background: #002B7A; height: 25px;" bgcolor="#002B7A"><span style="color: #bb8800;">NO.</span></th>
+</tr>
+</thead>
+<tbody>
+
+<tr style="height: 17px;">
+<td style="width: 85%; height: 17px;">
+<p id="p_1" class="western" align="left">&nbsp;{{ labels.sapr_plan_label_4_1 }}</p>
+</td>
+<td style="width: 10%; height: 17px;">
+<p id="p_1" class="western" align="center">&nbsp;{{ plan.n_actividades(4|string, 4.1|string)|int}}</p>
+</td>
+</tr>
+
+<tr style="height: 17px;">
+<td style="width: 85%; height: 17px;">
+<p id="p_1" class="western" align="left">&nbsp;{{ labels.sapr_plan_label_4_2 }}</p>
+</td>
+<td style="width: 10%; height: 17px;">
+<p id="p_1" class="western" align="center">&nbsp;{{ plan.n_actividades(4|string, 4.2|string)|int}}</p>
+</td>
+</tr>
+
+<tr style="height: 17px;">
+<td style="width: 85%; height: 17px;">
+<p id="p_1" class="western" align="left">&nbsp;{{ labels.sapr_plan_label_4_3 }}</p>
+</td>
+<td style="width: 10%; height: 17px;">
+<p id="p_1" class="western" align="center">&nbsp;{{ plan.n_actividades(4|string, 4.3|string)|int}}</p>
+</td>
+</tr>
+
+<tr style="height: 17px;">
+<td style="width: 85%; height: 17px;">
+<p id="p_1" class="western" align="left">&nbsp;{{ labels.sapr_plan_label_4_4 }}</p>
+</td>
+<td style="width: 10%; height: 17px;">
+<p id="p_1" class="western" align="center">&nbsp;{{ plan.n_actividades(4|string, 4.4|string)|int}}</p>
+</td>
+</tr>
+
+<tr style="height: 17px;">
+<td style="width: 85%; height: 17px;">
+<p id="p_1" class="western" align="left">&nbsp;{{ labels.sapr_plan_label_4_5 }}</p>
+</td>
+<td style="width: 10%; height: 17px;">
+<p id="p_1" class="western" align="center">&nbsp;{{ plan.n_actividades(4|string, 4.5|string)|int}}</p>
+</td>
+</tr>
+
+<tr style="height: 17px;">
+<td style="width: 85%; height: 17px;">
+<p id="p_1" class="western" align="left">&nbsp;{{ labels.sapr_plan_label_4_6 }}</p>
+</td>
+<td style="width: 10%; height: 17px;">
+<p id="p_1" class="western" align="center">&nbsp;{{ plan.n_actividades(4|string, 4.6|string)|int}}</p>
+</td>
+</tr>
+
+<tr style="height: 17px;">
+<td style="width: 85%; height: 17px;">
+<p id="p_1" class="western" align="left">&nbsp;{{ labels.sapr_plan_label_4_7 }}</p>
+</td>
+<td style="width: 10%; height: 17px;">
+<p id="p_1" class="western" align="center">&nbsp;{{ plan.n_actividades(4|string, 4.7|string)|int}}</p>
+</td>
+</tr>
+
+
+<tr style="height: 17px;">
+    <td style="width: 85%; height: 17px;">
+        <p id="p_1" class="western" align="left"><b>Total</b></p>
+    </td>
+    <td style="width: 10%; height: 17px;">
+        <p id="p_1" class="western" align="center"><b>{{ plan.n_actividades(4|string, 4.1|string)|int +  
+                                                          plan.n_actividades(4|string, 4.2|string)|int + 
+                                                          plan.n_actividades(4|string, 4.3|string)|int + 
+                                                          plan.n_actividades(4|string, 4.4|string)|int +  
+                                                          plan.n_actividades(4|string, 4.5|string)|int + 
+                                                          plan.n_actividades(4|string, 4.6|string)|int + 
+                                                          plan.n_actividades(4|string, 4.7|string)|int  }}</b></p>
+    </td>
+</tr>
+
+
+</tbody>
+</table>
+
+
+
+
+</div>
+
+
+
+
+<br>
+
+
+
+<table class="table tablem" style="width: 100%;" border="2" cellspacing="0" cellpadding="3">
+<thead>
+<tr>
+    <th style="background: #002B7A; height: 25px;" bgcolor="#002B7A"><span style="color: #bb8800;">{{ labels.sapr_plan_label_5 }}</span></th>
+    <th style="background: #002B7A; height: 25px;" bgcolor="#002B7A"><span style="color: #bb8800;">NO.</span></th>
+</tr>
+</thead>
+<tbody>
+
+<tr style="height: 17px;">
+<td style="width: 85%; height: 17px;">
+<p id="p_1" class="western" align="left">&nbsp;{{ labels.sapr_plan_label_5_1 }}</p>
+</td>
+<td style="width: 10%; height: 17px;">
+<p id="p_1" class="western" align="center">&nbsp;{{ plan.n_actividades(5|string, 5.1|string)|int}}</p>
+</td>
+</tr>
+
+<tr style="height: 17px;">
+<td style="width: 85%; height: 17px;">
+<p id="p_1" class="western" align="left">&nbsp;{{ labels.sapr_plan_label_5_2 }}</p>
+</td>
+<td style="width: 10%; height: 17px;">
+<p id="p_1" class="western" align="center">&nbsp;{{ plan.n_actividades(5|string, 5.2|string)|int }}</p>
+</td>
+</tr>
+
+<tr style="height: 17px;">
+<td style="width: 85%; height: 17px;">
+<p id="p_1" class="western" align="left">&nbsp;{{ labels.sapr_plan_label_5_3 }}</p>
+</td>
+<td style="width: 10%; height: 17px;">
+<p id="p_1" class="western" align="center">&nbsp;{{ plan.n_actividades(5|string, 5.3|string)|int}}</p>
+</td>
+</tr>
+
+<tr style="height: 17px;">
+<td style="width: 85%; height: 17px;">
+<p id="p_1" class="western" align="left">&nbsp;{{ labels.sapr_plan_label_5_4 }}</p>
+</td>
+<td style="width: 10%; height: 17px;">
+<p id="p_1" class="western" align="center">&nbsp;{{ plan.n_actividades(5|string, 5.4|string)|int}}</p>
+</td>
+</tr>
+
+<tr style="height: 17px;">
+<td style="width: 85%; height: 17px;">
+<p id="p_1" class="western" align="left">&nbsp;{{ labels.sapr_plan_label_5_5 }}</p>
+</td>
+<td style="width: 10%; height: 17px;">
+<p id="p_1" class="western" align="center">&nbsp;{{ plan.n_actividades(5|string, 5.5|string)|int}}</p>
+</td>
+</tr>
+
+<tr style="height: 17px;">
+<td style="width: 85%; height: 17px;">
+<p id="p_1" class="western" align="left">&nbsp;{{ labels.sapr_plan_label_5_6 }}</p>
+</td>
+<td style="width: 10%; height: 17px;">
+<p id="p_1" class="western" align="center">&nbsp;{{ plan.n_actividades(5|string, 5.6|string)|int}}</p>
+</td>
+</tr>
+
+
+<tr style="height: 17px;">
+    <td style="width: 85%; height: 17px;">
+        <p id="p_1" class="western" align="left"><b>Total</b></p>
+    </td>
+    <td style="width: 10%; height: 17px;">
+        <p id="p_1" class="western" align="center"><b>{{ plan.n_actividades(5|string, 5.1|string)|int + 
+                                                      plan.n_actividades(5|string, 5.2|string)|int + 
+                                                      plan.n_actividades(5|string, 5.3|string)|int + 
+                                                      plan.n_actividades(5|string, 5.4|string)|int +  
+                                                      plan.n_actividades(5|string, 5.5|string)|int + 
+                                                      plan.n_actividades(5|string, 5.6|string)|int }}</b></p>
+    </td>
+</tr>
+
+
+</tbody>
+</table>
+
+
+<br>
+
+
+
+<table class="table tablem" style="width: 100%;" border="2" cellspacing="0" cellpadding="3">
+<thead>
+<tr>
+    <th style="background: #002B7A; height: 25px;" bgcolor="#002B7A"><span style="color: #bb8800;">{{ labels.sapr_plan_label_6 }}</span></th>
+    <th style="background: #002B7A; height: 25px;" bgcolor="#002B7A"><span style="color: #bb8800;">NO.</span></th>
+</tr>
+</thead>
+<tbody>
+
+
+
+<tr style="height: 17px;">
+<td style="width: 85%; height: 17px;">
+<p id="p_1" class="western" align="left">&nbsp;{{ labels.sapr_plan_label_6 }}</p>
+</td>
+<td style="width: 10%; height: 17px;">
+<p id="p_1" class="western" align="center">&nbsp;{{ plan.n_actividades(6|string, 6.1|string)|int }}</p>
+</td>
+</tr>
+
+
+<tr style="height: 17px;">
+    <td style="width: 85%; height: 17px;">
+        <p id="p_1" class="western" align="left"><b>Total</b></p>
+    </td>
+    <td style="width: 10%; height: 17px;">
+        <p id="p_1" class="western" align="center"><b>{{ plan.n_actividades(6|string, 6.1|string)|int }}</b></p>
+    </td>
+</tr>
+
+
+</tbody>
+</table>
+
+
+
+
+
+{% endif %}
+
+</body>

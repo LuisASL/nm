@@ -1,0 +1,156 @@
+{% extends base %}
+{% import 'bootstrap/wtf.html' as wtf %}
+
+{% block app_content %}
+
+<div>
+  <ul class="nav nav__centrar nav2">
+    <li id="profile" class="nav-item ">
+      <a class="nav__enlace" href="{{url_for('cepr_perf_ini', id=current_user.pgus_profeid_cepr)}}">Perfil</a>
+    </li>
+    <li class="nav-item" id="publications">
+      <a class="nav__enlace" href="{{url_for('cepr_invs_menu', id=current_user.pgus_profeid_cepr)}}">Investigación</a>
+    </li>
+    <li class="nav-item " id="popular_science">
+      <a class="nav__enlace"
+        href="{{url_for('cepr_divulgacion_ini', id=current_user.pgus_profeid_cepr)}}">Divulgación</a>
+    </li>
+    <li class="nav-item " id="outreach_activities">
+      <a class="nav__enlace"
+        href="{{url_for('cepr_vinculacion_ini', id=current_user.pgus_profeid_cepr)}}">Vinculación</a>
+    </li>
+    <li class="nav-item activo" id="teaching">
+      <a class="nav__enlace" href="{{url_for('cepr_docencia_cursos', id=current_user.pgus_profeid_cepr)}}">Docencia</a>
+    </li>
+    <li class="nav-item" id="tech_activities">
+      <a class="nav__enlace" href="{{url_for('cepr_tecnicas_ini', id=current_user.pgus_profeid_cepr)}}">Actividades
+        técnico-académicas</a>
+    </li>
+    <li class="nav-item" id="reports">
+      <a class="nav__enlace" href="{{url_for('cepr_informes_ini', id=current_user.pgus_profeid_cepr)}}">Informes</a>
+    </li>
+    <li class="nav-item" id="others">
+      <a class="nav__enlace" href="{{url_for('cepr_otros_ini', id=current_user.pgus_profeid_cepr)}}">Otros</a>
+    </li>
+  </ul>
+</div>
+
+<div class="row">
+  <div class="col-lg-4 col-md-12 usuario">
+    <div class="usuario-top">
+      <div class="usuario-top__mascara">
+        {% if current_user.pgus_image %}
+        <img class="mascara__img" src="{{url_for('static',filename='upload/')}}{{current_user.pgus_image}}"
+          alt="Img - usuario ENES JURIQUILLA">
+        {% else %}
+        <img class="mascara__img" src="{{url_for('static',filename='upload/not-found.png')}}" />
+        {% endif %}
+      </div>
+      <h5>{{ current_user.pgus_username }}</h5>
+    </div>
+
+    <div class="card usuario-down">
+      <ul class="list-group list-group-flush ">
+        <a class="list-group-item color-default nav__enlace-dark--modificado"
+          href="{{url_for('cepr_docencia_cursos', id=current_user.pgus_profeid_cepr)}}">Cursos curriculares</a>
+        <a class="list-group-item active nav__enlace"
+          href="{{url_for('cepr_docencia_cespeciales', id=current_user.pgus_profeid_cepr)}}">Cursos especiales</a>
+        <a class="list-group-item color-default nav__enlace-dark--modificado"
+          href="{{url_for('cepr_docencia_direcciontesis', id=current_user.pgus_profeid_cepr)}}">Dirección de tesis</a>
+        <a class="list-group-item color-default nav__enlace-dark--modificado"
+          href="{{url_for('cepr_docencia_juradotesis', id=current_user.pgus_profeid_cepr)}}">Jurado de tesis</a>
+        <a class="list-group-item color-default nav__enlace-dark--modificado"
+          href="{{url_for('cepr_docencia_comitetesis', id=current_user.pgus_profeid_cepr)}}">Comités tutorales</a>
+        <a class="list-group-item color-default nav__enlace-dark--modificado"
+          href="{{url_for('cepr_docencia_asesoria_ceal', id=current_user.pgus_profeid_cepr)}}">Asesoría a
+          estudiantes</a>
+        <a class="list-group-item color-default nav__enlace-dark--modificado"
+          href="{{url_for('cepr_docencia_tutoria_ceal', id=current_user.pgus_profeid_cepr)}}">Tutoría a estudiantes</a>
+        <a class="list-group-item color-default nav__enlace-dark--modificado"
+          href="{{url_for('cepr_docencia_practicascampo_ceal', id=current_user.pgus_profeid_cepr)}}">Prácticas de
+          campo</a>
+        <a class="list-group-item color-default nav__enlace-dark--modificado"
+          href="{{url_for('cepr_docencia_serviciosocial', id=current_user.pgus_profeid_cepr)}}">Servicio Social </a>
+        <a class="list-group-item color-default nav__enlace-dark--modificado"
+          href="{{url_for('cepr_docencia_practicasprofesionales', id=current_user.pgus_profeid_cepr)}}">Prácticas
+          profesionales</a>
+        <a class="list-group-item color-default nav__enlace-dark--modificado"
+          href="{{url_for('cepr_docencia_becario', id=current_user.pgus_profeid_cepr)}}">Becarios</a>
+        <a class="list-group-item color-default nav__enlace-dark--modificado"
+          href="{{url_for('cepr_docencia_producto', id=current_user.pgus_profeid_cepr)}}">Productos de docencia</a>
+        <a class="list-group-item color-default nav__enlace-dark--modificado"
+          href="{{url_for('cepr_docencia_cespeciales', id=current_user.pgus_profeid_cepr)}}">Otras actividades
+          de docencia</a>
+      </ul>
+    </div>
+  </div>
+
+
+
+  <div class="col-lg-8 col-md-12">
+    <div class="card text-center align-content-center">
+      <div class="card-header">
+        <h6>
+          Cursos especiales
+        </h6>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+          {% for a in pr.cepr_cespeciales_obj |sort(attribute="cepr_cespeciales_fcreacion", reverse = True) %}
+          <table class="table" id="dataTable" width="100%" cellspacing="0">
+            <div class="form-group">
+              <table style="width: 100%;">
+                <tbody>
+                  <tr>
+                    <td style="width: 25%;"><strong>Asignatura</strong></td>
+                    <td style="width: 75%;">&nbsp;{{ a.cepr_cespeciales_materia }}</td>
+                  </tr>
+                  <tr>
+                    <td style="width: 25%;"><strong>Nivel</strong></td>
+                    <td style="width: 75%;">&nbsp;{{ a.cepr_cespeciales_nivel }}</td>
+                  </tr>
+                  <tr>
+                    <td style="width: 25%;"><strong>Nombre de la licenciatura o posgrado</strong></td>
+                    <td style="width: 75%;">&nbsp;{{ a.cepr_cespeciales_carrera }}</td>
+                  </tr>
+                  <tr>
+                    <td style="width: 25%;"><strong>Número de grupo</strong></td>
+                    <td style="width: 75%;">&nbsp;{{ a.cepr_cespeciales_grupos }}</td>
+                  </tr>
+                  <tr>
+                    <td style="width: 25%;"><strong>Tema(s) que fortalecerá </strong></td>
+                    <td style="width: 75%;">&nbsp;{{ a.cepr_cespeciales_temas }}</td>
+                  </tr>
+                  <tr>
+                    <td style="width: 25%;"><strong>Fecha de inicio</strong></td>
+                    <td style="width: 75%;">&nbsp;{{ a.cepr_cespeciales_finicio }}</td>
+                  </tr>
+                  <tr>
+                    <td style="width: 25%;"><strong>Fecha de término</strong></td>
+                    <td style="width: 75%;">&nbsp;{{ a.cepr_cespeciales_ffinal }} </td>
+                  </tr>
+                  <tr>
+                    <td style="width: 25%;"><strong>Lugar de la práctica de campo </strong></td>
+                    <td style="width: 75%;">&nbsp;{{ a.cepr_cespeciales_lugar }}</td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <a href="{{url_for('cepr_docencia_cespeciales_m', id=a.cepr_cespeciales_id)}}" class="btn-sm btn-warning"
+                role="button">Modificar</a>
+              <a href="{{url_for('cepr_docencia_cespeciales_d', id=a.cepr_cespeciales_id)}}" class="btn-sm btn-danger"
+                role="button">Eliminar</a><br>
+              <hr>
+              {% endfor %}
+              <div class="form-group">
+                <a href="{{url_for('cepr_docencia_cespeciales_add', id=pr.cepr_ntrabajador)}}" class="btn btn-outline-success"
+                  role="button">Agregar nuevo</a>
+              </div>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+  {% endblock %}

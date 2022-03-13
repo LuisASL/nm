@@ -1,0 +1,563 @@
+<head>
+<style>
+table, th, td {
+  border-collapse: collapse;
+}
+
+@page {
+    size: letter landscape;
+    margin: 2cm;
+}
+
+@media print {
+#scores {
+      page-break-before: always;
+    }
+}
+
+.tablem .tbodym .trm .tdm {
+  font-size: 5px;
+}
+       
+/***Always insert a page break before the element***/
+       .pb_before {
+           page-break-before: always !important;
+       }
+
+/***Always insert a page break after the element***/
+       .pb_after {
+           page-break-after: always !important;
+       }
+
+/***Avoid page break before the element (if possible)***/
+       .pb_before_avoid {
+           page-break-before: avoid !important;
+       }
+
+/***Avoid page break after the element (if possible)***/
+       .pb_after_avoid {
+           page-break-after: avoid !important;
+       }
+
+/* Avoid page break inside the element (if possible) */
+       .pbi_avoid {
+           page-break-inside: avoid !important;
+       }
+
+
+#toc_container {
+    background: #f9f9f9 none repeat scroll 0 0;
+    border: 1px solid #aaa;
+    display: table;
+    font-size: 95%;
+    margin-bottom: 1em;
+    padding: 20px;
+    width: auto;
+}
+
+.toc_title {
+    font-weight: 700;
+    text-align: center;
+}
+
+#toc_container li, #toc_container ul, #toc_container ul li{
+    list-style: outside none none !important;
+}
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+
+</style>
+</head>
+<body>
+
+<div class="page1 pb_after">
+  <table style="width: 90%;">
+    <table style="width: 100%;" cellspacing="0" cellpadding="4">
+    <tbody>
+    <tr valign="top">
+    <td style="width: 20%;" rowspan="2">
+    <p class="western" lang="es-ES" style="text-align: center;" align="left"><img src="/var/www/NuevoIngreso/app/static/imgs/escudo_unam.png" width="100%" height="220" /></p>
+    </td>
+    <td style="width: 60%;">
+    <p class="western" lang="es-ES" style="text-align: center;"><img src="/var/www/NuevoIngreso/app/static/imgs/nombre_unam.png" width="100%" height="120" /></p>
+    </td>
+    <td style="width: 20%;" rowspan="2">
+    <p class="western" lang="es-ES" style="text-align: center;"><img src="/var/www/NuevoIngreso/app/static/imgs/escudo_enes_plan.png" width="110%" height="220" /></p>
+    </td>
+    </tr>
+    <tr valign="top">
+    <td style="width: 60%;">
+    <p class="western" lang="es-ES" style="text-align: center;" align="center"></p>    
+    <p class="western" lang="es-ES" style="text-align: center;" align="center">
+        <span style="font-size: x-large;"><strong><br>SECRETARÍA ACADÉMICA</strong></span>
+    </p>
+    <p class="western" lang="es-ES" style="text-align: center;" align="center"></p>
+    <p class="western" lang="es-ES" style="text-align: center;" align="center">
+      <span style="font-size: large;"><strong><br><br>INFORME DE ACTIVIDADES ACADÉMICAS  <br> "PROFESORES FRENTE A GRUPO" </strong></span>
+    </p>
+    </td>
+    </tr>
+    </tbody>
+    </table>
+  </table>
+
+
+<span style="font-family: 'Times New Roman', serif; font-size: 18;text-align: justify-all;"><strong>PRESENTACIÓN</strong></span>
+<p style="font-family: 'Times New Roman', serif; text-align: justify;">
+Estimado profesor, con objeto de dar cumplimiento a lo dispuesto en el inciso b) del Artículo 56 del Estatuto del Personal Académico (EPA) de la UNAM, referente a la importancia de presentar un informe de sus actividades académicas en la impartición de cátedra, correspondientes al presente semestre, me permito solicitar a usted de la manera más atenta, nos proporcione la siguiente información (en caso de impartir más de una asignatura, deberá presentar un informe por cada una de ellas)
+</p>
+
+
+
+<h3 class="western"><span style="font-family: 'Times New Roman', serif;">DATOS GENERALES</span></h3>
+            <table style="width: 100%;">
+              <tr>
+                 <td style="width: 22%;"><b>Nombre</b>: </td>
+                 <td style="width: 78%;">{{profesor.cepr_nombre}} {{profesor.cepr_papellido}} {{profesor.cepr_sapellido}}</td>
+              </tr>
+              <tr>
+                 <td><b>No. de trabajador</b>: </td>
+                 <td>{{profesor.cepr_ntrabajador}}</td>
+              </tr>
+              <tr>
+                 <td><b>Categoría</b>: </td>
+                 <td>{% if profesor.cepr_nombramiento == 0 %} Sin Nombramiento {% endif %} {% if profesor.cepr_nombramiento == 1 %} Profesor de Asignatura {% endif %} {% if profesor.cepr_nombramiento == 2 %} Profesor Carrera {% endif %} {% if profesor.cepr_nombramiento == 3 %} T&eacute;cnico Acad&eacute;mico {% endif %} {% if profesor.cepr_nombramiento == 4 %} Ayudante de Profesor {% endif %} {% if profesor.cepr_nombramiento == 5 %} Ayudante de Investigador {% endif %} {% if profesor.cepr_nombramiento == 6 %} Investigador {% endif %}</td>
+              </tr>                          
+              <tr>
+                 <td><b>E-mail</b>: </td>
+                 <td>{{profesor.cepr_email}}</td>
+              </tr>
+              <tr>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+              </tr>              
+              <tr>
+                 <td><b>Carrera</b>: </td>
+                 <td>{{omateria.cepe_omateria_ceom.cepe_nombre}}</td>
+              </tr>            
+              <tr>
+                 <td><b>Plan de estudios</b>: </td>
+                 <td>{{omateria.cepe_omateria_ceom.cepe_clave}}</td>
+              </tr>
+              <tr>
+                 <td><b>Asignatura</b>: </td>
+                 <td>{{omateria.cema_omateria_ceom.cema_nombre}}
+                 </td>
+              </tr>
+              <tr>
+                 <td><b>Clave de asignatura</b>: </td>
+                 <td>
+                    {{ omateria.ceom_clave_str() }}
+                 </td>
+              </tr>              
+              <tr>
+                 <td><b>Grupo</b>: </td>
+                 <td>{{omateria.ceom_grupo}}</td>
+              </tr>
+              <tr>
+                 <td><b>Horas de asignatura</b>: </td>
+                 <td>{{ omateria.ceom_hs_totales }} horas totales a la semana</td>
+              </tr>              
+              <tr>
+                 <td><b>Hora impartidas</b>: </td>
+                 <td>
+                      {% if omateria.ceom_profesor_cepr == profesor.cepr_ntrabajador and omateria.ceom_profesor2_cepr == None %} 
+                          {{ omateria.ceom_hs_totales }}
+                      {% elif omateria.ceom_profesor_cepr == profesor.cepr_ntrabajador and omateria.ceom_profesor2_cepr != None %}                                   
+                          {{ omateria.ceom_hs_pr1 }}
+                      {% elif omateria.ceom_profesor_cepr != profesor.cepr_ntrabajador and omateria.ceom_profesor2_cepr == profesor.cepr_ntrabajador %}                                   
+                          {{ omateria.ceom_hs_pr2 }}
+                      {% endif %} hora(s)
+                 </td>
+              </tr>
+              <tr>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+              </tr>              
+              <tr>
+                 <td><b>Alumnos inscritos</b>: </td>
+                <td>{{ asignatura_inf.ceal_inscritos }}</td>
+              </tr>
+              <tr>
+                 <td><b>Alumnos aprobados</b>: </td>
+                <td>{{ asignatura_inf.ceal_aprobados }}</td>
+              </tr>
+              <tr>
+                 <td><b>Alumnos no aprobados</b>: </td>
+                <td>{{ asignatura_inf.ceal_no_aprobados }}</td>
+              </tr>
+              <tr>
+                 <td><b>Alumnos no presentados</b>: </td>
+                <td>{{ asignatura_inf.ceal_no_presentados }}</td>
+              </tr>                                                    
+            </table>
+
+</div>
+
+
+<div class="page1 pb_after">
+  <h3> 
+    <span style="font-family: 'Times New Roman', serif;"><strong>{{ cepr_asig_informe.pregunta_descripcion('q1') }}</strong></span>
+  </h3>
+
+  <table style="width: 100%;" cellspacing="0" cellpadding="4">
+    <tbody>
+      <tr>
+        <td style="width: 5%;"> {{ asignatura_inf.marca_respuesta(asignatura_inf.cepr_cuestionario_q1_ra) }} </td>
+        <td style="width: 95%;"> {{ cepr_asig_informe.respuesta_descripcion('q1', 'r1') }} </td>
+      </tr>
+      <tr>
+        <td style="width: 5%;"> {{ asignatura_inf.marca_respuesta(asignatura_inf.cepr_cuestionario_q1_rb) }} </td>
+        <td style="width: 95%;"> {{ cepr_asig_informe.respuesta_descripcion('q1', 'r2') }} </td>
+      </tr>
+      <tr>
+        <td style="width: 5%;"> {{ asignatura_inf.marca_respuesta(asignatura_inf.cepr_cuestionario_q1_rc) }} </td>
+        <td style="width: 95%;"> {{ cepr_asig_informe.respuesta_descripcion('q1', 'r3') }} </td>
+      </tr>
+      <tr>
+        <td style="width: 5%;"> {{ asignatura_inf.marca_respuesta(asignatura_inf.cepr_cuestionario_q1_rd) }} </td>
+        <td style="width: 95%;"> {{ cepr_asig_informe.respuesta_descripcion('q1', 'r4') }} </td>
+      </tr> 
+    </tbody>
+  </table>
+
+<br>
+
+<h3>
+  <span style="font-family: 'Times New Roman', serif;"><strong>PROGRAMA DE ESTUDIOS</strong></span><br>
+</h3>  
+    <span style="font-family: 'Times New Roman', serif;"><strong>{{ cepr_asig_informe.pregunta_descripcion('q2') }}</strong></span>
+<br>
+  <table style="width: 100%;" cellspacing="0" cellpadding="4">
+    <tbody>
+      <tr>
+        <td style="width: 5%;"> {% if asignatura_inf.cepr_cuestionario_q2 == 'No' %} x {% endif %}</td>
+        <td style="width: 95%;"> {{ cepr_asig_informe.respuesta_descripcion('q2', 'q2_r2') }} </td>
+      </tr>
+      <tr>
+        <td style="width: 5%;"> {% if asignatura_inf.cepr_cuestionario_q2 == 'Sí' %} x {% endif %}</td>
+        <td style="width: 95%;"> {{ cepr_asig_informe.respuesta_descripcion('q2', 'q2_r1') }} </td>
+      </tr>
+    </tbody>
+  </table>
+
+<br>
+
+<span style="font-family: 'Times New Roman', serif;"><strong>{{ cepr_asig_informe.pregunta_descripcion('q3') }}</strong></span>
+  <table style="width: 100%;" cellspacing="0" cellpadding="4">
+    <tbody>
+      <tr>
+        <td style="width: 5%;"> {% if asignatura_inf.cepr_cuestionario_q3 == '100%' %} x {% endif %}</td>
+        <td style="width: 95%;"> {{ cepr_asig_informe.respuesta_descripcion('q3', 'q3_r1') }} </td>
+      </tr>
+      <tr>
+        <td style="width: 5%;"> {% if asignatura_inf.cepr_cuestionario_q3 == '90%' %} x {% endif %}</td>
+        <td style="width: 95%;"> {{ cepr_asig_informe.respuesta_descripcion('q3', 'q3_r2') }} </td>
+      </tr>
+      <tr>
+        <td style="width: 5%;"> {% if asignatura_inf.cepr_cuestionario_q3 == '80%' %} x {% endif %}</td>
+        <td style="width: 95%;"> {{ cepr_asig_informe.respuesta_descripcion('q3', 'q3_r3') }} </td>
+      </tr>
+      <tr>
+        <td style="width: 5%;"> {% if asignatura_inf.cepr_cuestionario_q3 == '70%' %} x {% endif %}</td>
+        <td style="width: 95%;"> {{ cepr_asig_informe.respuesta_descripcion('q3', 'q3_r4') }} </td>
+      </tr> 
+      <tr>
+        <td style="width: 5%;"> {% if asignatura_inf.cepr_cuestionario_q3 == '60%' %} x {% endif %}</td>
+        <td style="width: 95%;"> {{ cepr_asig_informe.respuesta_descripcion('q3', 'q3_r5') }} </td>
+      </tr> 
+      <tr>
+        <td style="width: 5%;"> {% if asignatura_inf.cepr_cuestionario_q3 == '50%' %} x {% endif %}</td>
+        <td style="width: 95%;"> {{ cepr_asig_informe.respuesta_descripcion('q3', 'q3_r6') }} </td>
+      </tr> 
+      <tr>
+        <td style="width: 5%;"> {% if asignatura_inf.cepr_cuestionario_q3 == 'Menos del 50%' %} x {% endif %}</td>
+        <td style="width: 95%;"> {{ cepr_asig_informe.respuesta_descripcion('q3', 'q3_r7') }} </td>
+      </tr>                   
+    </tbody>
+  </table>
+
+<br>
+
+
+<span style="font-family: 'Times New Roman', serif;"><strong>{{ cepr_asig_informe.pregunta_descripcion('q4') }}</strong></span>
+  <table style="width: 100%;" cellspacing="0" cellpadding="4">
+    <tbody>
+      <tr>
+        <td style="width: 5%;"> {% if asignatura_inf.cepr_cuestionario_q4 == 'No' %} x {% endif %}</td>
+        <td style="width: 95%;"> {{ cepr_asig_informe.respuesta_descripcion('q4', 'q4_r2') }} </td>
+      </tr>
+      <tr>
+        <td style="width: 5%;"> {% if asignatura_inf.cepr_cuestionario_q4 == 'Sí' %} x {% endif %}</td>
+        <td style="width: 95%;">{{ cepr_asig_informe.respuesta_descripcion('q4', 'q4_r1') }}  {% if asignatura_inf.cepr_cuestionario_q4 == 'Sí' %}, <br> {{asignatura_inf.cepr_cuestionario_q4_descrp }} {% endif %}</td>
+      </tr>
+    </tbody>
+  </table>
+
+<br>
+
+<h3>
+<span style="font-family: 'Times New Roman', serif;"><strong>ESTRATEGIAS DE ENSEÑANZA PARA EL APRENDIZAJE </strong></span>
+</h3>
+
+<span style="font-family: 'Times New Roman', serif;"><strong>{{ cepr_asig_informe.pregunta_descripcion('q5') }}</strong></span>
+
+  <table style="width: 100%;" cellspacing="0" cellpadding="4">
+    <tbody>
+      <tr>
+        <td style="width: 5%;"> {{ asignatura_inf.marca_respuesta(asignatura_inf.cepr_cuestionario_q5_ra) }} </td>
+        <td style="width: 95%;"> {{ cepr_asig_informe.respuesta_descripcion('q5', 'q5_r1') }} </td>
+      </tr>
+      <tr>
+        <td style="width: 5%;"> {{ asignatura_inf.marca_respuesta(asignatura_inf.cepr_cuestionario_q5_rb) }} </td>
+        <td style="width: 95%;"> {{ cepr_asig_informe.respuesta_descripcion('q5', 'q5_r2') }} </td>
+      </tr>
+      <tr>
+        <td style="width: 5%;"> {{ asignatura_inf.marca_respuesta(asignatura_inf.cepr_cuestionario_q5_rc) }} </td>
+        <td style="width: 95%;"> {{ cepr_asig_informe.respuesta_descripcion('q5', 'q5_r3') }} </td>
+      </tr>
+      <tr>
+        <td style="width: 5%;"> {{ asignatura_inf.marca_respuesta(asignatura_inf.cepr_cuestionario_q5_rd) }} </td>
+        <td style="width: 95%;"> {{ cepr_asig_informe.respuesta_descripcion('q5', 'q5_r4') }} </td>
+      </tr> 
+      <tr>
+        <td style="width: 5%;"> {{ asignatura_inf.marca_respuesta(asignatura_inf.cepr_cuestionario_q5_re) }} </td>
+        <td style="width: 95%;"> {{ cepr_asig_informe.respuesta_descripcion('q5', 'q5_r5') }} </td>
+      </tr>
+      <tr>
+        <td style="width: 5%;"> {{ asignatura_inf.marca_respuesta(asignatura_inf.cepr_cuestionario_q5_rf) }} </td>
+        <td style="width: 95%;"> {{ cepr_asig_informe.respuesta_descripcion('q5', 'q5_r6') }} </td>
+      </tr>
+      <tr>
+        <td style="width: 5%;"> {{ asignatura_inf.marca_respuesta(asignatura_inf.cepr_cuestionario_q5_rg) }} </td>
+        <td style="width: 95%;"> {{ cepr_asig_informe.respuesta_descripcion('q5', 'q5_r7') }} </td>
+      </tr>
+      <tr>
+        <td style="width: 5%;"> {{ asignatura_inf.marca_respuesta(asignatura_inf.cepr_cuestionario_q5_rh) }} </td>
+        <td style="width: 95%;"> {{ cepr_asig_informe.respuesta_descripcion('q5', 'q5_r8') }} </td>
+      </tr> 
+      <tr>
+        <td style="width: 5%;"> {{ asignatura_inf.marca_respuesta(asignatura_inf.cepr_cuestionario_q5_ri) }} </td>
+        <td style="width: 95%;"> {{ cepr_asig_informe.respuesta_descripcion('q5', 'q5_r9') }} </td>
+      </tr>
+      <tr>
+        <td style="width: 5%;"> {{ asignatura_inf.marca_respuesta(asignatura_inf.cepr_cuestionario_q5_rj) }} </td>
+        <td style="width: 95%;"> {{ cepr_asig_informe.respuesta_descripcion('q5', 'q5_r10') }} </td>
+      </tr>
+      <tr>
+        <td style="width: 5%;"> {{ asignatura_inf.marca_respuesta(asignatura_inf.cepr_cuestionario_q5_rk) }} </td>
+        <td style="width: 95%;"> {{ cepr_asig_informe.respuesta_descripcion('q5', 'q5_r11') }} </td>
+      </tr>
+      <tr>
+        <td style="width: 5%;"> {{ asignatura_inf.marca_respuesta(asignatura_inf.cepr_cuestionario_q5_rl) }} </td>
+        <td style="width: 95%;"> {{ cepr_asig_informe.respuesta_descripcion('q5', 'q5_r12') }} </td>
+      </tr> 
+      <tr>
+        <td style="width: 5%;"> {{ asignatura_inf.marca_respuesta(asignatura_inf.cepr_cuestionario_q5_rm) }} </td>
+        <td style="width: 95%;"> {{ cepr_asig_informe.respuesta_descripcion('q5', 'q5_r13') }} </td>
+      </tr>
+      <tr>
+        <td style="width: 5%;"> {{ asignatura_inf.marca_respuesta(asignatura_inf.cepr_cuestionario_q5_rn) }} </td>
+        <td style="width: 95%;"> {{ cepr_asig_informe.respuesta_descripcion('q5', 'q5_r14') }} </td>
+      </tr>
+      <tr>
+        <td style="width: 5%;"> {{ asignatura_inf.marca_respuesta(asignatura_inf.cepr_cuestionario_q5_ro) }} </td>
+        <td style="width: 95%;"> {{ cepr_asig_informe.respuesta_descripcion('q5', 'q5_r15') }} </td>
+      </tr>
+      <tr>
+        <td style="width: 5%;"> {{ asignatura_inf.marca_respuesta(asignatura_inf.cepr_cuestionario_q5_rp) }} </td>
+        <td style="width: 95%;"> {{ cepr_asig_informe.respuesta_descripcion('q5', 'q5_r16') }} </td>
+      </tr> 
+      <tr>
+        <td style="width: 5%;"> {{ asignatura_inf.marca_respuesta(asignatura_inf.cepr_cuestionario_q5_rq) }} </td>
+        <td style="width: 95%;"> {{ cepr_asig_informe.respuesta_descripcion('q5', 'q5_r17') }} </td>
+      </tr> 
+      <tr>
+        <td style="width: 5%;"> {{ asignatura_inf.marca_respuesta(asignatura_inf.cepr_cuestionario_q5_rr) }} </td>
+        <td style="width: 95%;"> {{ cepr_asig_informe.respuesta_descripcion('q5', 'q5_r18') }} </td>
+      </tr> 
+    </tbody>
+  </table>
+
+<br>
+
+<span style="font-family: 'Times New Roman', serif;"><strong>{{ cepr_asig_informe.pregunta_descripcion('q6') }}</strong></span>
+
+  <table style="width: 100%;" cellspacing="0" cellpadding="4">
+    <tbody>
+      <tr>
+        <td style="width: 5%;"> {{ asignatura_inf.marca_respuesta(asignatura_inf.cepr_cuestionario_q6_ra) }} </td>
+        <td style="width: 95%;"> {{ cepr_asig_informe.respuesta_descripcion('q6', 'q6_r1') }} </td>
+      </tr>
+      <tr>
+        <td style="width: 5%;"> {{ asignatura_inf.marca_respuesta(asignatura_inf.cepr_cuestionario_q6_rb) }} </td>
+        <td style="width: 95%;"> {{ cepr_asig_informe.respuesta_descripcion('q6', 'q6_r2') }} </td>
+      </tr>
+      <tr>
+        <td style="width: 5%;"> {{ asignatura_inf.marca_respuesta(asignatura_inf.cepr_cuestionario_q6_rc) }} </td>
+        <td style="width: 95%;"> {{ cepr_asig_informe.respuesta_descripcion('q6', 'q6_r3') }} </td>
+      </tr>
+      <tr>
+        <td style="width: 5%;"> {{ asignatura_inf.marca_respuesta(asignatura_inf.cepr_cuestionario_q6_rd) }} </td>
+        <td style="width: 95%;"> {{ cepr_asig_informe.respuesta_descripcion('q6', 'q6_r4') }} </td>
+      </tr> 
+      <tr>
+        <td style="width: 5%;"> {{ asignatura_inf.marca_respuesta(asignatura_inf.cepr_cuestionario_q6_re) }} </td>
+        <td style="width: 95%;"> {{ cepr_asig_informe.respuesta_descripcion('q6', 'q6_r5') }} </td>
+      </tr>
+      <tr>
+        <td style="width: 5%;"> {{ asignatura_inf.marca_respuesta(asignatura_inf.cepr_cuestionario_q6_rf) }} </td>
+        <td style="width: 95%;"> {{ cepr_asig_informe.respuesta_descripcion('q6', 'q6_r6') }} </td>
+      </tr>
+      <tr>
+        <td style="width: 5%;"> {{ asignatura_inf.marca_respuesta(asignatura_inf.cepr_cuestionario_q6_rg) }} </td>
+        <td style="width: 95%;"> {{ cepr_asig_informe.respuesta_descripcion('q6', 'q6_r7') }} </td>
+      </tr>
+    </tbody>
+  </table>
+
+<br>
+
+<span style="font-family: 'Times New Roman', serif;"><strong>{{ cepr_asig_informe.pregunta_descripcion('q7') }}</strong></span>
+
+  <table style="width: 100%;" cellspacing="0" cellpadding="4">
+    <tbody>
+      <tr>
+        <td style="width: 5%;"> {{ asignatura_inf.marca_respuesta(asignatura_inf.cepr_cuestionario_q7_ra) }} </td>
+        <td style="width: 95%;"> {{ cepr_asig_informe.respuesta_descripcion('q7', 'q7_r1') }} </td>
+      </tr>
+      <tr>
+        <td style="width: 5%;"> {{ asignatura_inf.marca_respuesta(asignatura_inf.cepr_cuestionario_q7_rb) }} </td>
+        <td style="width: 95%;"> {{ cepr_asig_informe.respuesta_descripcion('q7', 'q7_r2') }} </td>
+      </tr>
+      <tr>
+        <td style="width: 5%;"> {{ asignatura_inf.marca_respuesta(asignatura_inf.cepr_cuestionario_q7_rc) }} </td>
+        <td style="width: 95%;"> {{ cepr_asig_informe.respuesta_descripcion('q7', 'q7_r3') }} </td>
+      </tr>
+      <tr>
+        <td style="width: 5%;"> {{ asignatura_inf.marca_respuesta(asignatura_inf.cepr_cuestionario_q7_rd) }} </td>
+        <td style="width: 95%;"> {{ cepr_asig_informe.respuesta_descripcion('q7', 'q7_r4') }} </td>
+      </tr> 
+      <tr>
+        <td style="width: 5%;"> {{ asignatura_inf.marca_respuesta(asignatura_inf.cepr_cuestionario_q7_re) }} </td>
+        <td style="width: 95%;"> {{ cepr_asig_informe.respuesta_descripcion('q7', 'q7_r5') }} </td>
+      </tr>      
+    </tbody>
+  </table>
+</div>
+
+
+
+
+<h3>
+<span style="font-family: 'Times New Roman', serif;"><strong>SUPERACIÓN ACADÉMICA Y ACTUALIZACIÓN DOCENTE</strong></span>
+</h3>
+
+<span style="font-family: 'Times New Roman', serif;"><strong>Actividades de superación académica o de actualización docente REALIZADAS durante el semestre</strong></span>
+
+
+    {% for a in informe.cepr_general_evento_academia if a.cepr_cuestionario_evento_act == 'Realizadas' %}
+
+        <table style="width: 100%;">
+          <tbody>
+          <tr>
+          <td style="width: 25%;"><strong>Actividad</strong></td>
+          <td style="width: 75%;">{{ a.cepr_cuestionario_evento_tipo }}</td>
+          </tr>
+          <tr>
+          <td style="width: 25%;"><strong>Nombre</strong></td>
+          <td style="width: 75%;">{{a.cepr_cuestionario_evento_participacion}}</td>
+          </tr>
+          <tr>
+          <td style="width: 25%;"><strong>Modalidad</strong></td>
+          <td style="width: 75%;">{{a.cepr_cuestionario_evento_modalidad}}</td>
+          </tr>
+          <tr>
+          <td style="width: 25%;"><strong>Duración</strong></td>
+          <td style="width: 75%;">{{ a.cepr_cuestionario_evento_duracion }}</td>
+          </tr>
+          <tr>
+          <tr>
+          <td style="width: 25%;"><strong>Fecha o Período</strong></td>
+          <td style="width: 75%;">{{ a.cepr_cuestionario_evento_periodo }}</td>
+          </tr>
+          <tr>
+            <tr>
+          <td style="width: 25%;"><strong>Entidad</strong></td>
+          <td style="width: 75%;">
+                {% if a.cepr_cuestionario_evento_entidad == 'ENES Juriquilla' %}
+                      {{ a.cepr_cuestionario_evento_entidad }}
+                {% else %}
+                      {{ a.cepr_cuestionario_evento_entidad_detalle }}
+                {% endif %}
+          </td>
+          </tr>
+          <tr>
+            <tr>
+          <td style="width: 25%;"><strong>Descripción</strong></td>
+          <td style="width: 75%;">{{ a.cepr_cuestionario_evento_descripcion }}</td>
+          </tr>
+          </tbody>
+        </table>
+        <br>
+    {% endfor %}
+
+<br>
+
+<span style="font-family: 'Times New Roman', serif;"><strong>Actividades de superación académica o de actualización docente que le GUSTARÍA realizar durante el próximo semestre</strong></span>
+
+    {% for a in informe.cepr_general_evento_academia if a.cepr_cuestionario_evento_act == 'Por realizar' %}
+
+        <table style="width: 100%;">
+          <tbody>
+          <tr>
+          <td style="width: 25%;"><strong>Actividad</strong></td>
+          <td style="width: 75%;">{{ a.cepr_cuestionario_evento_tipo }}</td>
+          </tr>
+          <tr>
+          <td style="width: 25%;"><strong>Nombre</strong></td>
+          <td style="width: 75%;">{{a.cepr_cuestionario_evento_participacion}}</td>
+          </tr>
+          <tr>
+          <td style="width: 25%;"><strong>Modalidad</strong></td>
+          <td style="width: 75%;">{{a.cepr_cuestionario_evento_modalidad}}</td>
+          </tr>
+          <tr>
+          <td style="width: 25%;"><strong>Duración</strong></td>
+          <td style="width: 75%;">{{ a.cepr_cuestionario_evento_duracion }}</td>
+          </tr>
+          <tr>
+          <tr>
+          <td style="width: 25%;"><strong>Fecha o Período</strong></td>
+          <td style="width: 75%;">{{ a.cepr_cuestionario_evento_periodo }}</td>
+          </tr>
+          <tr>
+            <tr>
+          <td style="width: 25%;"><strong>Entidad</strong></td>
+          <td style="width: 75%;">
+                {% if a.cepr_cuestionario_evento_entidad == 'ENES Juriquilla' %}
+                      {{ a.cepr_cuestionario_evento_entidad }}
+                {% else %}
+                      {{ a.cepr_cuestionario_evento_entidad_detalle }}
+                {% endif %}
+          </td>
+          </tr>
+          <tr>
+            <tr>
+          <td style="width: 25%;"><strong>Descripción</strong></td>
+          <td style="width: 75%;">{{ a.cepr_cuestionario_evento_descripcion }}</td>
+          </tr>
+          </tbody>
+        </table>
+        <br>
+    {% endfor %}
+
+
+
+</body>
