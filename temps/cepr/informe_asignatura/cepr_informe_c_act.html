@@ -1,0 +1,80 @@
+{% extends base %}
+{% import 'bootstrap/wtf.html' as wtf %}
+
+{% block app_content %}
+
+{% if current_user.pgus_uprof_as == True %}
+<ol class="breadcrumb">
+  <li><a href="{{url_for('ceom_cepr_pr_as_actual', id = profesor.cepr_ntrabajador )}}">Asignaturas actuales</a></li>
+  <li><a href="{{url_for('pr_as_informe_asignatura_m_v2', id_cepr = profesor.cepr_ntrabajador, id_ceom = omateria.ceom_clave, id_cpi = q_inf.cepr_cuestionario_id )}}">{{omateria.cema_omateria_ceom.cema_nombre}}</a></li>
+  <li class="active">Agregar actividad</li>
+</ol>
+{% else %}
+<ol class="breadcrumb">
+  <li><a href="{{url_for('ceom_cepr_actual', id = profesor.cepr_ntrabajador )}}">Asignaturas actuales</a></li>
+  <li><a href="{{url_for('cepr_informe_asignatura_m_v2', id_cepr = profesor.cepr_ntrabajador, id_ceom = omateria.ceom_clave, id_cpi = q_inf.cepr_cuestionario_id )}}">{{omateria.cema_omateria_ceom.cema_nombre}}</a></li>
+  <li class="active">Agregar actividad</li>
+</ol>
+{% endif %}
+
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+    <center>
+    </center>
+
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h3 class="modal-title" id="exampleModalLabel">{{ subtitle }}</h3>
+                  </div>
+                  <div class="modal-body">
+                      <div class="form-group">
+                            {{ wtf.quick_form(form, button_map={'submit':'success', 'submit_new':'info', 'si':'danger', 'no':'success'}, horizontal_columns=('lg', 2, 10) ) }}
+                            <br>
+                            {% if current_user.pgus_uprof_as == True %}
+                            <a href="{{url_for('pr_as_informe_asignatura_m_v2', id_cepr = profesor.cepr_ntrabajador, id_ceom = omateria.ceom_clave, id_cpi = q_inf.cepr_cuestionario_id )}}" class="btn btn-warning" role="button">Regresar</a>
+                            {% else %} 
+                            <a href="{{url_for('cepr_informe_asignatura_m_v2', id_cepr = profesor.cepr_ntrabajador, id_ceom = omateria.ceom_clave, id_cpi = q_inf.cepr_cuestionario_id )}}" class="btn btn-warning" role="button">Regresar</a>
+                            {% endif %}
+                      </div>
+                  </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
+
+
+
+<br>
+{% endblock %}
+
+
+
+{% block scripts %}
+    {{ super() }}
+    <script>
+       $('#cepr_cuestionario_evento_entidad_detalle').hide();
+    </script>
+    <script>
+        jQuery(document).ready(function() {
+            $("#cepr_cuestionario_evento_entidad").change(function() {
+                var chosen_val = $(this).val();
+                if (chosen_val != 'ENES Juriquilla') {
+                    $('#cepr_cuestionario_evento_entidad_detalle').show();
+                } else {
+                    $('#cepr_cuestionario_evento_entidad_detalle').hide();
+                }
+            });
+        });
+    </script>
+    </script>
+
+
+{% endblock %}

@@ -1,0 +1,120 @@
+{% extends base %}
+{% import 'bootstrap/wtf.html' as wtf %}
+
+{% block app_content %}
+
+<div>
+  <ul class="nav nav__centrar nav2">
+    <li id="profile" class="nav-item activo">
+      <a class="nav__enlace" href="{{url_for('cepr_perf_ini', id=current_user.pgus_profeid_cepr)}}">Perfil</a>
+    </li>
+    <li class="nav-item" id="publications">
+      <a class="nav__enlace" href="{{url_for('cepr_invs_menu', id=current_user.pgus_profeid_cepr)}}">Investigación</a>
+    </li>
+    <li class="nav-item" id="popular_science">
+      <a class="nav__enlace"
+        href="{{url_for('cepr_divulgacion_ini', id=current_user.pgus_profeid_cepr)}}">Divulgación</a>
+    </li>
+    <li class="nav-item" id="outreach_activities">
+      <a class="nav__enlace"
+        href="{{url_for('cepr_vinculacion_ini', id=current_user.pgus_profeid_cepr)}}">Vinculación</a>
+    </li>
+    <li class="nav-item" id="teaching">
+      <a class="nav__enlace" href="{{url_for('cepr_docencia_cursos', id=current_user.pgus_profeid_cepr)}}">Docencia</a>
+    </li>
+    <li class="nav-item" id="tech_activities">
+      <a class="nav__enlace" href="{{url_for('cepr_tecnicas_ini', id=current_user.pgus_profeid_cepr)}}">Actividades
+        técnico-académicas</a>
+    </li>
+    <li class="nav-item" id="reports">
+      <a class="nav__enlace" href="{{url_for('cepr_informes_ini', id=current_user.pgus_profeid_cepr)}}">Informes</a>
+    </li>
+    <li class="nav-item" id="others">
+      <a class="nav__enlace" href="{{url_for('cepr_otros_ini', id=current_user.pgus_profeid_cepr)}}">Otros</a>
+    </li>
+  </ul>
+</div>
+
+<div class="row">
+  <div class="col-lg-4 col-md-12 usuario">
+    <div class="usuario-top">
+      <div class="usuario-top__mascara">
+        {% if current_user.pgus_image %}
+        <img class="mascara__img" src="{{url_for('static',filename='upload/')}}{{current_user.pgus_image}}"
+          alt="Img - usuario ENES JURIQUILLA">
+        {% else %}
+        <img class="mascara__img" src="{{url_for('static',filename='upload/not-found.png')}}" />
+        {% endif %}
+      </div>
+      <h5>{{ current_user.pgus_username }}</h5>
+    </div>
+
+    <div class="card usuario-down">
+      <ul class="list-group list-group-flush ">
+        <a class="list-group-item color-default nav__enlace-dark--modificado"
+          href="{{url_for('cepr_perf_ini', id=current_user.pgus_profeid_cepr)}}">Información
+          personal</a>
+        <a class="list-group-item color-default nav__enlace-dark--modificado"
+          href="{{url_for('cepr_perf_categorias', id=current_user.pgus_profeid_cepr)}}">Categorías</a>
+        <a class="list-group-item color-default nav__enlace-dark--modificado"
+          href="{{url_for('cepr_perf_laboral', id=current_user.pgus_profeid_cepr)}}">Situación
+          laboral</a>
+        <a class="list-group-item color-default nav__enlace-dark--modificado"
+          href="{{url_for('cepr_perf_escolaridad', id=current_user.pgus_profeid_cepr)}}">Escolaridad</a>
+        <a class="list-group-item color-default nav__enlace-dark--modificado"
+          href="{{url_for('cepr_perf_lineas', id=current_user.pgus_profeid_cepr)}}">Líneas de
+          investigación</a>
+        <a class="list-group-item color-default nav__enlace-dark--modificado"
+          href="{{url_for('cepr_perf_proyectos', id=current_user.pgus_profeid_cepr)}}">Proyectos</a>
+        <a class="list-group-item color-default nav__enlace-dark--modificado"
+          href="{{url_for('cepr_perf_cursos', id=current_user.pgus_profeid_cepr)}}">Cursos
+          recibidos</a>
+        <a class="list-group-item color-default nav__enlace-dark--modificado"
+          href="{{url_for('cepr_perf_estimulos', id=current_user.pgus_profeid_cepr)}}">Estímulos
+          académicos</a>
+        <a class="list-group-item color-default nav__enlace-dark--modificado"
+          href="{{url_for('cepr_perf_premios', id=current_user.pgus_profeid_cepr)}}">Premios y
+          distinciones</a>
+        <a class="list-group-item color-default nav__enlace-dark--modificado"
+          href="{{url_for('cepr_perf_eventos', id=current_user.pgus_profeid_cepr)}}">Asistencia
+          a eventos</a>
+        <a class="list-group-item color-default nav__enlace-dark--modificado"
+          href="{{url_for('cepr_perf_idioma', id=current_user.pgus_profeid_cepr)}}">Idiomas</a>
+        <a class="list-group-item color-default nav__enlace-dark--modificado"
+          href="{{url_for('cepr_perf_agradecimientos', id=current_user.pgus_profeid_cepr)}}">Agradecimientos y otros
+          cŕeditos</a>
+        <a class="list-group-item color-default nav__enlace-dark--modificado"
+          href="{{url_for('cepr_perf_participacion', id=current_user.pgus_profeid_cepr)}}">Participación
+          institucional</a>
+        <a class="list-group-item active nav__enlace"
+          href="{{url_for('cepr_perf_emergencia', id=current_user.pgus_profeid_cepr)}}">Contacto de
+          Emergencia</a>
+        <a class="list-group-item color-default nav__enlace-dark--modificado"
+          href="{{url_for('cepr_perf_cuenta', id=current_user.id)}}">Configuración de
+          cuenta</a>
+      </ul>
+    </div>
+  </div>
+
+  <div class="col-lg-8 col-md-12">
+    <div class="container">
+      <div class="formulario__titulo">
+        <h6>Emergencia</h6>
+      </div>
+
+      <form class="formu" action method="POST">
+        <div class="table-responsive">
+          <table class="table" id="dataTable" width="100%" cellspacing="0">
+            <div class="form-group">
+              {{ wtf.quick_form(form, button_map={'submit':'outline-success', 'subant':'outline-success'},
+              horizontal_columns=('lg', 2,
+              10) ) }}
+            </div>
+          </table>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

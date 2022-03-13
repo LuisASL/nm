@@ -1,0 +1,692 @@
+<head>
+<style>
+table, th, td {
+  border-collapse: collapse;
+}
+
+@page {
+    size: letter landscape;
+    margin: 2cm;
+}
+
+.tablem .tbodym .trm .tdm {
+  font-size: 5px;
+}
+       
+/***Always insert a page break before the element***/
+       .pb_before {
+           page-break-before: always !important;
+       }
+
+/***Always insert a page break after the element***/
+       .pb_after {
+           page-break-after: always !important;
+       }
+
+/***Avoid page break before the element (if possible)***/
+       .pb_before_avoid {
+           page-break-before: avoid !important;
+       }
+
+/***Avoid page break after the element (if possible)***/
+       .pb_after_avoid {
+           page-break-after: avoid !important;
+       }
+
+/* Avoid page break inside the element (if possible) */
+       .pbi_avoid {
+           page-break-inside: avoid !important;
+       }
+
+
+#toc_container {
+    background: #f9f9f9 none repeat scroll 0 0;
+    border: 1px solid #aaa;
+    display: table;
+    font-size: 95%;
+    margin-bottom: 1em;
+    padding: 20px;
+    width: auto;
+}
+
+.toc_title {
+    font-weight: 700;
+    text-align: center;
+}
+
+#toc_container li, #toc_container ul, #toc_container ul li{
+    list-style: outside none none !important;
+}
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+
+</style>
+</head>
+<body>
+
+<div class="page1 pb_after">
+  <table style="width: 90%;">
+    <table style="width: 100%;" cellspacing="0" cellpadding="4">
+    <tbody>
+    <tr valign="top">
+    <td style="width: 20%;" rowspan="2">
+    <p class="western" lang="es-ES" style="text-align: center;" align="left"><img src="/var/www/NuevoIngreso/app/static/imgs/escudo_unam.png" width="100%" height="220" /></p>
+    </td>
+    <td style="width: 60%;">
+    <p class="western" lang="es-ES" style="text-align: center;"><img src="/var/www/NuevoIngreso/app/static/imgs/nombre_unam.png" width="100%" height="120" /></p>
+    </td>
+    <td style="width: 20%;" rowspan="2">
+    <p class="western" lang="es-ES" style="text-align: center;"><img src="/var/www/NuevoIngreso/app/static/imgs/escudo_enes_plan.png" width="100%" height="220" /></p>
+    </td>
+    </tr>
+    <tr valign="top">
+    <td style="width: 60%;">
+    <p class="western" lang="es-ES" style="text-align: center;" align="center"></p>    
+    <p class="western" lang="es-ES" style="text-align: center;" align="center">
+        <span style="font-size: x-large;"><strong><br>SECRETARÍA ACADÉMICA</strong></span>
+    </p>
+    <p class="western" lang="es-ES" style="text-align: center;" align="center"></p>
+    <p class="western" lang="es-ES" style="text-align: center;" align="center">
+      <span style="font-size: large;"><strong><br><br>INFORME DE ACTIVIDADES ACADÉMICAS  <br> "PROFESORES FRENTE A GRUPO" </strong></span>
+    </p>
+    </td>
+    </tr>
+    </tbody>
+    </table>
+  </table>
+
+
+<p>
+<span style="font-family: 'Times New Roman', serif;"><strong>Presentación</strong></span><br>
+Estimado profesor, con objeto de dar cumplimiento a lo dispuesto en el inciso b) del Artículo 56 del Estatuto del Personal Académico (EPA) de la UNAM, referente a la importancia de presentar un informe de sus actividades académicas en la impartición de cátedra, correspondientes al presente semestre, me permito solicitar a usted de la manera más atenta, nos proporcione la siguiente información (en caso de impartir más de una asignatura, deberá presentar un informe por cada una de ellas)
+</p>
+
+
+
+<h3 class="western"><span style="font-family: 'Times New Roman', serif;">Datos Generales</span></h3>
+            <table>
+              <tr>
+                 <td><b>Nombre</b>: </td>
+                 <td>{{profesor.cepr_nombre}} {{profesor.cepr_papellido}} {{profesor.cepr_sapellido}}</td>
+              </tr>
+              <tr>
+                 <td><b>No. de trabajador</b>: </td>
+                 <td>{{profesor.cepr_ntrabajador}}</td>
+              </tr>
+              <tr>
+                 <td><b>Categoría</b>: </td>
+                 <td>{% if profesor.cepr_nombramiento == 0 %} Sin Nombramiento {% endif %} {% if profesor.cepr_nombramiento == 1 %} Profesor de Asignatura {% endif %} {% if profesor.cepr_nombramiento == 2 %} Profesor Carrera {% endif %} {% if profesor.cepr_nombramiento == 3 %} T&eacute;cnico Acad&eacute;mico {% endif %} {% if profesor.cepr_nombramiento == 4 %} Ayudante de Profesor {% endif %} {% if profesor.cepr_nombramiento == 5 %} Ayudante de Investigador {% endif %} {% if profesor.cepr_nombramiento == 6 %} Investigador {% endif %}</td>
+              </tr>                          
+              <tr>
+                 <td><b>E-mail</b>: </td>
+                 <td>{{profesor.cepr_email}}</td>
+              </tr>
+              <tr>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+              </tr>              
+              <tr>
+                 <td><b>Carrera</b>: </td>
+                 <td>{{omateria.cepe_omateria_ceom.cepe_nombre}}</td>
+              </tr>            
+              <tr>
+                 <td><b>Plan</b>: </td>
+                 <td>{{omateria.cepe_omateria_ceom.cepe_clave}}</td>
+              </tr>
+              <tr>
+                 <td><b>Asignatura</b>: </td>
+                 <td>{{omateria.cema_omateria_ceom.cema_nombre}}</td>
+              </tr>
+              <tr>
+                 <td><b>Grupo</b>: </td>
+                 <td>{{omateria.ceom_grupo}}</td>
+              </tr>
+              <tr>
+                 <td><b>Hora impartidas</b>: </td>
+                 <td>
+                      {% if omateria.ceom_profesor_cepr == profesor.cepr_ntrabajador and omateria.ceom_profesor2_cepr == None %} 
+                          {{ omateria.ceom_hs_totales }}
+                      {% elif omateria.ceom_profesor_cepr == profesor.cepr_ntrabajador and omateria.ceom_profesor2_cepr != None %}                                   
+                          {{ omateria.ceom_hs_pr1 }}
+                      {% elif omateria.ceom_profesor_cepr != profesor.cepr_ntrabajador and omateria.ceom_profesor2_cepr == profesor.cepr_ntrabajador %}                                   
+                          {{ omateria.ceom_hs_pr2 }}
+                      {% endif %} hora(s)
+                 </td>
+              </tr>
+              <tr>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+              </tr>              
+              <tr>
+                 <td><b>Alumnos inscritos</b>: </td>
+                <td>{{ informe.ceal_inscritos }}</td>
+              </tr>
+              <tr>
+                 <td><b>Alumnos aprobados</b>: </td>
+                <td>{{ informe.ceal_aprobados }}</td>
+              </tr>
+              <tr>
+                 <td><b>Alumnos no aprobados</b>: </td>
+                <td>{{ informe.ceal_no_aprobados }}</td>
+              </tr>
+              <tr>
+                 <td><b>Alumnos no presentados</b>: </td>
+                <td>{{ informe.ceal_no_presentados }}</td>
+              </tr>                                                    
+            </table>
+
+</div>
+
+
+
+
+<span style="font-family: 'Times New Roman', serif;"><strong>{{ cuestionario[0].cepr_asig_informe_descrip }}</strong></span><br>
+{% set list1 = informe.cepr_cuestionario_q_1.split('||') %}
+{% for r in list1 %}
+{{ r|replace("['","")|replace("\r\n","") |replace("']","") |replace("', '","") |replace("']","")}}<br>
+{% endfor %}
+
+
+<span style="font-family: 'Times New Roman', serif;"><strong>{{ cuestionario[1].cepr_asig_informe_descrip }}</strong></span><br>
+{{ informe.cepr_cuestionario_q_2 }}<br>
+<br>
+
+<span style="font-family: 'Times New Roman', serif;"><strong> {{ cuestionario[2].cepr_asig_informe_descrip }}</strong></span><br>
+{{ informe.cepr_cuestionario_q_3 }}<br>
+<br>
+
+<span style="font-family: 'Times New Roman', serif;"><strong>{{ cuestionario[3].cepr_asig_informe_descrip }}</strong></span><br>
+{% set list1 = informe.cepr_cuestionario_q_4.split('||') %}
+{% for r in list1 %}
+{{ r|replace("['","")|replace("\r\n","") |replace("']","") |replace("', '","") |replace("']","")}}<br>
+{% endfor %}
+<br>
+{{ informe.cepr_cuestionario_descrip_4 }}<br>
+<br>
+
+<span style="font-family: 'Times New Roman', serif;"><strong> {{ cuestionario[4].cepr_asig_informe_descrip }}</strong></span><br>
+{% set list1 = informe.cepr_cuestionario_q_5.split('||') %}
+{% for r in list1 %}
+{{ r|replace("['","")|replace("\r\n","") |replace("']","") |replace("', '","") |replace("']","")}}<br>
+{% endfor %}
+<br>
+
+<span style="font-family: 'Times New Roman', serif;"><strong> {{ cuestionario[5].cepr_asig_informe_descrip }}</strong></span><br>
+{% set list1 = informe.cepr_cuestionario_q_6.split('||') %}
+{% for r in list1 %}
+{{ r|replace("['","")|replace("\r\n","") |replace("']","") |replace("', '","") |replace("']","")}}<br>
+{% endfor %}
+<br>
+{{ informe.cepr_cuestionario_descrip_6 }}<br>
+<br>
+
+<span style="font-family: 'Times New Roman', serif;"><strong> {{ cuestionario[6].cepr_asig_informe_descrip }}</strong></span><br>
+{% set list1 = informe.cepr_cuestionario_q_7.split('||') %}
+{% for r in list1 %}
+{{ r|replace("['","")|replace("\r\n","") |replace("']","") |replace("', '","") |replace("']","")}}<br>
+{% endfor %}
+<br>
+
+{{informe.cepr_cuestionario_descrip_7}}
+
+<br>
+<br>
+<br>
+<h3>ACTIVIDADES ACADÉMICAS </h3>
+
+
+Durante el presente semestre, ¿en cuántas ocasiones participó en algunas de las siguientes actividades académicas? 
+
+  <table  border="black" aria-rowcount="11" style="width: 100%;" >
+  <tbody>
+  <tr>
+    <td style="width: 30%;" style="text-align: center;" colspan="1" rowspan="2" >
+      <p><strong><span data-contrast="auto">Actividades</span></strong></p>
+    </td>
+    <td style="text-align: center;" colspan="2" style="width: 70%;" >
+        <p style="text-align: center;"><strong><span data-contrast="auto">Cantidad</span></strong></p>
+    </td>
+  </tr>
+  <tr aria-rowindex="2">
+    <td style="text-align: center;" >
+    <p><strong><span data-contrast="auto">ENES Juriquilla</span></strong></p>
+    </td>
+    <td style="text-align: center;" >
+    <p><strong><span data-contrast="auto">Otra entidad(es), mencione cu&aacute;l/es</span></strong></p>
+    </td>
+  </tr>
+
+  <tr aria-rowindex="3">
+    <td>
+    <p><span data-contrast="auto">Direcci&oacute;n de trabajos de titulaci&oacute;n</span></p>
+    </td>
+    <td>
+    <p>{{ academia.cepr_general_q1_sq1_enes }} </p>
+    </td>
+    <td>
+    <p>{{ academia.cepr_general_q1_sq1_extern }} </p>
+    </td>
+  </tr>
+  <tr aria-rowindex="4">
+    <td>
+    <p><span data-contrast="auto">Revisi&oacute;n de trabajos de titulaci&oacute;n</span></p>
+    </td>
+    <td>
+    <p>{{ academia.cepr_general_q1_sq2_enes }} </p>
+    </td>
+    <td>
+    <p>{{ academia.cepr_general_q1_sq2_extern }} </p>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    <p><span data-contrast="auto">Ex&aacute;menes profesionales</span></p>
+    </td>
+    <td>
+    <p>{{ academia.cepr_general_q1_sq3_enes }} </p>
+    </td>
+    <td>
+    <p>{{ academia.cepr_general_q1_sq3_extern }} </p>
+    </td>
+  </tr>
+  <tr aria-rowindex="6">
+    <td>
+    <p><span data-contrast="auto">Asesor&iacute;a para egresados</span></p>
+    </td>
+    <td>
+    <p>{{ academia.cepr_general_q1_sq4_enes }} </p>
+    </td>
+    <td>
+    <p>{{ academia.cepr_general_q1_sq4_extern }} </p>
+    </td>
+  </tr>
+  <tr aria-rowindex="7">
+    <td>
+    <p><span data-contrast="auto">Ex&aacute;menes extraordinarios</span></p>
+    </td>
+    <td>
+    <p>{{ academia.cepr_general_q1_sq5_enes }} </p>
+    </td>
+    <td>
+    <p>{{ academia.cepr_general_q1_sq5_extern }} </p>
+    </td>
+  </tr>
+  <tr aria-rowindex="8">
+    <td>
+    <p><span data-contrast="auto">Impartici&oacute;n de cursos intersemestrales o de actualizaci&oacute;n docente</span></p>
+    </td>
+    <td>
+    <p>{{ academia.cepr_general_q1_sq6_enes }} </p>
+    </td>
+    <td>
+    <p>{{ academia.cepr_general_q1_sq6_extern }} </p>
+    </td>
+  </tr>
+  <tr aria-rowindex="9">
+    <td>
+    <p><span data-contrast="auto">Tutor&iacute;as</span></p>
+    </td>
+    <td>
+    <p>{{ academia.cepr_general_q1_sq7_enes }} </p>
+    </td>
+    <td>
+    <p>{{ academia.cepr_general_q1_sq7_extern }} </p>
+    </td>
+  </tr>
+  <tr aria-rowindex="10">
+    <td>
+    <p><span data-contrast="auto">Realizaci&oacute;n de material did&aacute;ctico</span></p>
+    </td>
+    <td>
+    <p>{{ academia.cepr_general_q1_sq8_enes }} </p>
+    </td>
+    <td>
+    <p>{{ academia.cepr_general_q1_sq8_extern }} </p>
+    </td>
+  </tr>
+  <tr aria-rowindex="11">
+    <td>
+    <p><span data-contrast="auto">Publicaciones</span></p>
+    </td>
+    <td>
+    <p>{{ academia.cepr_general_q1_sq9_enes }} </p>
+    </td>
+    <td>
+    <p>{{ academia.cepr_general_q1_sq9_extern }} </p>
+    </td>
+  </tr>
+  </tbody>
+  </table>
+
+<br>
+<br>
+
+</div>
+<div class="form-group">
+  <h3>EVENTOS ACADÉMICOS</h3> <br>
+  <p>
+  <b>Participación en actividades académicas</b><br>
+  {{ academia.cepr_general_q2 }} <br>
+
+  {% if academia.cepr_general_q2_sq1 == 'Sí' %}
+  En organizadas o en representación de la carrera<br>
+  {% endif %}
+  
+  {% if academia.cepr_general_q2_sq2 == 'Sí' %}
+  En organizadas por otra área o áreas de la ENES Juriquilla<br>
+  {% endif %}
+
+  {% if academia.cepr_general_q2_sq3 == 'Sí' %}
+  En organizadas por otra dependencia del campus Juriquilla<br>
+  {% endif %}
+
+  {% if academia.cepr_general_q2_sq4 == 'Sí' %}
+  En organizadas por otra institución<br>
+  {% endif %}
+
+  </p>
+
+</div>
+<br>
+<br>
+
+<div class="form-group">
+  <b>Cómo fue la participación y el nombre de la entidad responsable</b><br>
+
+  <table  border="black" aria-rowcount="11" style="width: 100%;" id = "table_detalle_q4">
+  <tbody>
+  <tr>
+  <td>
+  <p><strong><span data-contrast="auto">Tipo de Evento</span></strong></p>
+  </td>
+  <td>
+  <p><strong><span data-contrast="auto">Coordinador</span></strong></p>
+  </td>
+  <td>
+  <p><strong><span data-contrast="auto">Ponente / Expositor</span></strong></p>
+  </td>
+  <td>
+  <p><strong><span data-contrast="auto">Asistente</span></strong></p>
+  </td>
+  <td>
+  <p><strong><span data-contrast="auto">Organizador</span></strong></p>
+  </td>
+  <td>
+  <p><strong><span data-contrast="auto">Relator y/o Moderador</span></strong></p>
+  </td>
+  </tr>
+  <tr aria-rowindex="2">
+  <td>
+  <p><span data-contrast="auto">Conferencia</span></p>
+  </td>
+  <td>
+    <p>{{ academia.cepr_general_q4_sq1_a }} </p>
+  </td>
+  <td>
+    <p>{{ academia.cepr_general_q4_sq1_b }} </p>
+  </td>
+  <td>
+    <p>{{ academia.cepr_general_q4_sq1_c }} </p>
+  </td>
+  <td>
+    <p>{{ academia.cepr_general_q4_sq1_d }} </p>
+  </td>
+  <td>
+    <p>{{ academia.cepr_general_q4_sq1_e }} </p>
+  </td>
+  </tr>
+  <tr aria-rowindex="3">
+  <td>
+  <p><span data-contrast="auto">Exposiciones</span></p>
+  </td>
+  <td>
+    <p>{{ academia.cepr_general_q4_sq2_a }} </p>
+  </td>
+  <td>
+    <p>{{ academia.cepr_general_q4_sq2_b }} </p>
+  </td>
+  <td>
+    <p>{{ academia.cepr_general_q4_sq2_c }} </p>
+  </td>
+  <td>
+    <p>{{ academia.cepr_general_q4_sq2_d }} </p>
+  </td>
+  <td>
+    <p>{{ academia.cepr_general_q4_sq2_e }} </p>
+  </td>
+  </td>
+  </tr>
+  <tr aria-rowindex="4">
+  <td>
+  <p><span data-contrast="auto">Mesa</span><span data-contrast="auto">&nbsp;r</span><span data-contrast="auto">edonda</span></p>
+  </td>
+  <td>
+    <p>{{ academia.cepr_general_q4_sq3_a }} </p>
+  </td>
+  <td>
+    <p>{{ academia.cepr_general_q4_sq3_b }} </p>
+  </td>
+  <td>
+    <p>{{ academia.cepr_general_q4_sq3_c }} </p>
+  </td>
+  <td>
+    <p>{{ academia.cepr_general_q4_sq3_d }} </p>
+  </td>
+  <td>
+    <p>{{ academia.cepr_general_q4_sq3_e }} </p>
+  </td>
+  </tr>
+  <tr>
+  <td>
+  <p><span data-contrast="auto">Presentaci&oacute;n</span><span data-contrast="auto">&nbsp;</span><span data-contrast="auto">de libros</span></p>
+  </td>
+  <td>
+    <p>{{ academia.cepr_general_q4_sq4_a }} </p>
+  </td>
+  <td>
+    <p>{{ academia.cepr_general_q4_sq4_b }} </p>
+  </td>
+  <td>
+    <p>{{ academia.cepr_general_q4_sq4_c }} </p>
+  </td>
+  <td>
+    <p>{{ academia.cepr_general_q4_sq4_d }} </p>
+  </td>
+  <td>
+    <p>{{ academia.cepr_general_q4_sq4_e }} </p>
+  </td>
+  </tr>
+  <tr aria-rowindex="6">
+  <td>
+  <p><span data-contrast="auto">Debate</span></p>
+  </td>
+  <td>
+    <p>{{ academia.cepr_general_q4_sq5_a }} </p>
+  </td>
+  <td>
+    <p>{{ academia.cepr_general_q4_sq5_b }} </p>
+  </td>
+  <td>
+    <p>{{ academia.cepr_general_q4_sq5_c }} </p>
+  </td>
+  <td>
+    <p>{{ academia.cepr_general_q4_sq5_d }} </p>
+  </td>
+  <td>
+    <p>{{ academia.cepr_general_q4_sq5_e }} </p>
+  </td>
+  </tr>
+  <tr aria-rowindex="7">
+  <td>
+  <p><span data-contrast="auto">Eventos ENESJ</span></p>
+  </td>
+  <td>
+    <p>{{ academia.cepr_general_q4_sq6_a }} </p>
+  </td>
+  <td>
+    <p>{{ academia.cepr_general_q4_sq6_b }} </p>
+  </td>
+  <td>
+    <p>{{ academia.cepr_general_q4_sq6_c }} </p>
+  </td>
+  <td>
+    <p>{{ academia.cepr_general_q4_sq6_d }} </p>
+  </td>
+  <td>
+    <p>{{ academia.cepr_general_q4_sq6_e }} </p>
+  </td>
+  </tr>
+  <tr aria-rowindex="8">
+  <td>
+  <p><span data-contrast="auto">Eventos externos a la ENESJ</span></p>
+  </td>
+  <td>
+    <p>{{ academia.cepr_general_q4_sq7_a }} </p>
+  </td>
+  <td>
+    <p>{{ academia.cepr_general_q4_sq7_b }} </p>
+  </td>
+  <td>
+    <p>{{ academia.cepr_general_q4_sq7_c }} </p>
+  </td>
+  <td>
+    <p>{{ academia.cepr_general_q4_sq7_d }} </p>
+  </td>
+  <td>
+    <p>{{ academia.cepr_general_q4_sq7_e }} </p>
+  </td>
+  </tr>
+  <tr aria-rowindex="9">
+  <td>
+  <p><span data-contrast="auto">Congreso</span></p>
+  </td>
+  <td>
+    <p>{{ academia.cepr_general_q4_sq8_a }} </p>
+  </td>
+  <td>
+    <p>{{ academia.cepr_general_q4_sq8_b }} </p>
+  </td>
+  <td>
+    <p>{{ academia.cepr_general_q4_sq8_c }} </p>
+  </td>
+  <td>
+    <p>{{ academia.cepr_general_q4_sq8_d }} </p>
+  </td>
+  <td>
+    <p>{{ academia.cepr_general_q4_sq8_e }} </p>
+  </td>
+  </td>
+  </tr>
+  </tbody>
+  </table>
+</div>
+<br>
+<br>
+
+<div class="form-group">
+  <h3>SUPERACIÓN ACADÉMICA Y ACTUALIZACIÓN DOCENTE</h3> <br>
+  <p>
+  <b>Participación en actividades de superación académica o de actualización docente</b>
+  {{ academia.cepr_general_q5 }} <br>
+
+  </p>
+  <table  border="black" aria-rowcount="11" style="width: 100%;" id = "table_detalle_q5">
+      <tbody>
+      <tr>
+      <td>
+      <p><strong><span data-contrast="auto">Tipo de actividad</span></strong></p>
+      </td>
+      <td>
+      <p><strong><span data-contrast="auto">En la ENES Juriquilla</span></strong></p>
+      </td>
+      <td>
+      <p><strong><span data-contrast="auto">Otras dependencias de la UNAM</span></strong></p>
+      </td>
+      <td>
+      <p><strong><span data-contrast="auto">Externas</span></strong></p>
+      </td>
+      </tr>
+      <tr aria-rowindex="2">
+      <td>
+      <p><span data-contrast="auto">Cursos</span></p>
+      </td>
+      <td>
+        <p>{{ academia.cepr_general_q5_sq1_a }} </p>
+      </td>
+      <td>
+        <p>{{ academia.cepr_general_q5_sq1_b }} </p>
+      </td>
+      <td>
+        <p>{{ academia.cepr_general_q5_sq1_c }} </p>
+      </td>
+      </tr>
+      <tr aria-rowindex="3">
+      <td>
+      <p><span data-contrast="auto">Seminarios</span></p>
+      </td>
+      <td>
+        <p>{{ academia.cepr_general_q5_sq2_a }} </p>
+      </td>
+      <td>
+        <p>{{ academia.cepr_general_q5_sq2_b }} </p>
+      </td>
+      <td>
+        <p>{{ academia.cepr_general_q5_sq2_c }} </p>
+      </td>
+      </tr>
+      <tr aria-rowindex="4">
+      <td>
+      <p><span data-contrast="auto">Talleres</span></p>
+      </td>
+      <td>
+        <p>{{ academia.cepr_general_q5_sq3_a }} </p>
+      </td>
+      <td>
+        <p>{{ academia.cepr_general_q5_sq3_b }} </p>
+      </td>
+      <td>
+        <p>{{ academia.cepr_general_q5_sq3_c }} </p>
+      </td>
+      </tr>
+      <tr>
+      <td>
+      <p><span data-contrast="auto">Diplomados</span></p>
+      </td>
+      <td>
+        <p>{{ academia.cepr_general_q5_sq4_a }} </p>
+      </td>
+      <td>
+        <p>{{ academia.cepr_general_q5_sq4_b }} </p>
+      </td>
+      <td>
+        <p>{{ academia.cepr_general_q5_sq4_c }} </p>
+      </td>
+      </tr>
+      <tr aria-rowindex="6">
+      <td>
+      <p><span data-contrast="auto">Estudios de p</span><span data-contrast="auto">osgrado</span></p>
+      </td>
+      <td>
+        <p>{{ academia.cepr_general_q5_sq5_a }} </p>
+      </td>
+      <td>
+        <p>{{ academia.cepr_general_q5_sq5_b }} </p>
+      </td>
+      <td>
+        <p>{{ academia.cepr_general_q5_sq5_c }} </p>
+      </td>
+      </tr>
+      </tbody>
+      </table>
+
+
+</div>
+
+
+</body>

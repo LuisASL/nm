@@ -1,0 +1,218 @@
+{% extends "base.html" %}
+{% import 'bootstrap/wtf.html' as wtf %}
+
+{% block app_content %}
+
+<ol class="breadcrumb">
+  <li><a href="{{url_for('ceom_cepr_actual', id = profesor.cepr_ntrabajador )}}">Materias actuales</a></li>
+  <li class="active">{{omateria.cema_omateria_ceom.cema_nombre}}</li>
+</ol>
+
+
+<div class="container">
+<div class="row">
+        <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">DATOS GENERALES</h5>
+                  </div>
+                  <div class="modal-body">
+                        {% for field, errors in form.errors.items() %}
+                        <div class="alert alert-danger">
+                            {{ form[field].label }}: {{ ', '.join(errors) }}
+                        </div>
+                        {% endfor %}
+
+                      <div class="form-group">
+                      <form action="{{url_for('cepr_informe_asignatura_m',id_cepr = profesor.cepr_ntrabajador , id_ceom= omateria.ceom_clave, id_cpi = q_inf.cepr_cuestionario_id)}}" method="POST" enctype="multipart/form-data">
+
+                        {{ form.csrf_token }}
+                        <table>
+                          <tr>
+                             <td><b>Nombre</b>: </td>
+                             <td>{{profesor.cepr_nombre}} {{profesor.cepr_papellido}} {{profesor.cepr_sapellido}}</td>
+                          </tr>
+                          <tr>
+                             <td><b>No. de trabajador</b>: </td>
+                             <td>{{profesor.cepr_ntrabajador}}</td>
+                          </tr>
+                          <tr>
+                             <td><b>Categoría</b>: </td>
+                             <td>{% if profesor.cepr_nombramiento == 0 %} Sin Nombramiento {% endif %} {% if profesor.cepr_nombramiento == 1 %} Profesor de Asignatura {% endif %} {% if profesor.cepr_nombramiento == 2 %} Profesor Carrera {% endif %} {% if profesor.cepr_nombramiento == 3 %} T&eacute;cnico Acad&eacute;mico {% endif %} {% if profesor.cepr_nombramiento == 4 %} Ayudante de Profesor {% endif %} {% if profesor.cepr_nombramiento == 5 %} Ayudante de Investigador {% endif %} {% if profesor.cepr_nombramiento == 6 %} Investigador {% endif %}</td>
+                          </tr>                          
+                          <tr>
+                             <td><b>E-mail</b>: </td>
+                             <td>{{profesor.cepr_email}}</td>
+                          </tr>
+                          <tr>
+                             <td><b>Carrera</b>: </td>
+                             <td>{{omateria.cepe_omateria_ceom.cepe_nombre}}</td>
+                          </tr>
+                          <tr>
+                             <td><b>Plan</b>: </td>
+                             <td>{{omateria.cepe_omateria_ceom.cepe_clave}}</td>
+                          </tr>
+                          <tr>
+                             <td><b>Asignatura</b>: </td>
+                             <td>{{omateria.cema_omateria_ceom.cema_nombre}}</td>
+                          </tr>
+                          <tr>
+                             <td><b>Grupo</b>: </td>
+                             <td>{{omateria.ceom_grupo}}</td>
+                          </tr>
+                          <tr>
+                             <td><b>Hora impartidas</b>: </td>
+                             <td>
+                                  {% if omateria.ceom_profesor_cepr == profesor.cepr_ntrabajador and omateria.ceom_profesor2_cepr == None %} 
+                                      {{ omateria.ceom_hs_totales }}
+                                  {% elif omateria.ceom_profesor_cepr == profesor.cepr_ntrabajador and omateria.ceom_profesor2_cepr != None %}                                   
+                                      {{ omateria.ceom_hs_pr1 }}
+                                  {% elif omateria.ceom_profesor_cepr != profesor.cepr_ntrabajador and omateria.ceom_profesor2_cepr == profesor.cepr_ntrabajador %}                                   
+                                      {{ omateria.ceom_hs_pr2 }}
+                                  {% endif %} hora(s)
+                             </td>
+                          </tr>
+                          <tr>
+                            <td>{{ form.ceal_inscritos.label() }}</td>
+                            <td>{{ form.ceal_inscritos(class="form-control")  }}</td>
+                          </tr>
+                          <tr>
+                            <td>{{ form.ceal_aprobados.label() }}</td>
+                            <td>{{ form.ceal_aprobados(class="form-control")  }}</td>
+                          </tr>
+                          <tr>
+                            <td>{{ form.ceal_no_aprobados.label() }}</td>
+                            <td>{{ form.ceal_no_aprobados(class="form-control")  }}</td>
+                          </tr>
+                          <tr>
+                            <td>{{ form.ceal_no_presentados.label() }}</td>
+                            <td>{{ form.ceal_no_presentados(class="form-control")  }}</td>
+                          </tr>                                                    
+                        </table>
+                    </div>
+                  </div>
+                </div>
+         </div>
+
+              <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">{{ titulo }}</h5>
+                  </div>
+                  <div class="modal-body">
+                      <div class="form-group">
+                        <div class="form-group">
+                          {{ cuestionario[0].cepr_asig_informe_descrip }}<br>
+                          {{ form.q1  }}
+                        </div>
+                        <div class="form-group">
+                          {{ cuestionario[1].cepr_asig_informe_descrip }}<br>
+                          {{ form.q2(class="form-control") }}
+                        </div>
+                        <div class="form-group">
+                          {{ cuestionario[2].cepr_asig_informe_descrip }}<br>
+                          {{ form.q3(class="form-control") }}
+                        </div>
+                        <div class="form-group">
+                          {{ cuestionario[3].cepr_asig_informe_descrip }}<br>
+                          {{ form.q4(class="form-control") }}
+
+                          {{ form.q4_descrip(class="form-control") }}
+                        </div>
+                        <div class="form-group">
+                          {{ cuestionario[4].cepr_asig_informe_descrip }}<br>
+                          {{ form.q5  }}
+                        </div>                        
+                        <div class="form-group">
+                          {{ cuestionario[5].cepr_asig_informe_descrip }}<br>
+                          {{ form.q6  }}
+
+                          {{ form.q6_descrip(class="form-control") }}
+                        </div>    
+                        <div class="form-group">
+                          {{ cuestionario[6].cepr_asig_informe_descrip }}<br>
+                          {{ form.q7  }}
+
+                          {{ form.q7_descrip(class="form-control") }}
+                        </div>  
+                          
+                          <table style="width: 100%;" cellspacing="50" cellpadding="50">
+                            <tr>
+                              <td>
+                                {{form.save(class="btn btn-lg btn-info btn-block")}}  
+                              </td>
+                              <td>  
+                                {{form.submit(class="btn btn-lg btn-success btn-block")}}
+                              </td>
+                            </tr>
+                          </table>
+
+                      </form>
+                      </div>
+                  </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+</div>
+
+
+
+
+
+
+<br>
+{% endblock %}
+
+
+{% block scripts %}
+    {{ super() }}
+    <script>
+       $('#q4_descrip').hide();
+       $('#q6_descrip').hide();
+       $('#q7_descrip').hide();
+    </script>
+    <script>
+        jQuery(document).ready(function() {
+            $("#q4").change(function() {
+                var chosen_val = $(this).val();
+                if (chosen_val != 'No') {
+                    $('#q4_descrip').show();
+                } else {
+                    $('#q4_descrip').hide();
+                }
+            });
+        });
+    </script>
+
+    <script>
+        jQuery(document).ready(function() {
+            $("#q6-5").change(function() {
+                var chosen_val = $(this).val();
+                if (chosen_val = false ) {
+                    $('#q6_descrip').hide();
+                } else if (chosen_val = true ) {
+                    $('#q6_descrip').show();
+                }
+            });
+        });
+    </script>
+
+    <script>
+        jQuery(document).ready(function() {
+            $("#q7-6").change(function() {
+                var chosen_val = $(this).val();
+                if (chosen_val = false ) {
+                    $('#q7_descrip').hide();
+                } else if (chosen_val = true ) {
+                    $('#q7_descrip').show();
+                }
+            });
+        });
+    </script>
+
+
+{% endblock %}
