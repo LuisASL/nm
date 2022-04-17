@@ -1,0 +1,271 @@
+{% extends base %}
+{% from 'bootstrap4/form.html' import render_field as renderfield%}
+
+
+{% block app_content %}
+
+<div class="container-fluid">
+  <div class="col-md-4">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Licenciatura/Área</h5>
+        </div>
+        <div class="modal-body">
+            <div class="form-group">
+              {{ wtf(form, button_map={'submit':'success', 'descargar':'info', 'si':'danger', 'no':'primary'}, horizontal_columns=('lg', 2, 10) ) }}
+            </div>
+        </div>
+      </div>
+  </div>
+</div>
+
+<br>
+<br>
+<div class="container">
+<div class="col-md-12">
+<!-- Page Heading -->
+
+
+<div class="card shadow mb-4">
+  <div class="card-header py-3">
+            <div class="row">
+                <div class="col-xl-4 col-lg-12">
+                  <h4 class="m-0 font-weight-bold text-primary">
+                    Solicitudes de constancia
+                  </h4>
+                </div>
+              </div>
+
+  </div>
+  <div class="card-body">
+
+<form method="POST" action="{{url_for('get_data_list')}}">
+   <div class="table-responsive">
+    <div align="right" style="padding:10px;">
+       <input type="submit" name = "dict" value="Aprobar selección" class="btn btn-success">  
+       <input type="submit" name = "dict" value="Rechazar selección" class="btn btn-danger">
+      </div>
+
+    <div class="table-responsive">
+      <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
+        <thead>
+          <tr>
+            <th width="1%"><input type="checkbox" id="select-all" /></th>
+            <th width="55%">Información</th>
+            <th width="40%">Opciones</th>
+            <th width="35%">Dictaminar</th>
+          </tr>
+        </thead>
+        <tfoot>
+          <tr>
+            <th width="1%">ID</th>
+            <th width="55%">Información</th>
+            <th width="40%">Opciones</th>
+            <th width="35%">Dictaminar</th>
+          </tr>
+        </tfoot>
+        <tbody>
+        {% for p in reconocimientos  %}
+                <tr id="{{p.cepr_om_ack_id}}">
+                  <td>
+                    <input type="checkbox" name="mycheckbox" value="{{p.cepr_om_ack_id}}" />
+                  </td>
+                  <td>
+
+                    {{p.invitado_name()}} / {{p.cepr_om_ack_tema}}<a data-bs-toggle="collapse" href="#collapse{{p.cepr_om_ack_id}}">(+)</a>
+                    <div class="collapse" id="collapse{{p.cepr_om_ack_id}}">
+                      <div >
+                        <table width="100%" cellspacing="0">
+                          <tr>
+                            <th width="20%">Tipo</th>
+                            <td width="80%">{{p.cepr_om_ack_tipo}}</td>
+                          </tr>
+                          <tr>
+                            <th width="20%">Invitada/o</th>
+                            <td width="80%">{{p.invitado_name()}}</td>
+                          </tr>
+                          <tr>
+                            <th width="20%">Correo de invitada/o</th>
+                            <td width="80%">{{p.cepr_om_ack_invitado_email}}</td>
+                          </tr>
+                          <tr>
+                            <th width="20%">Tema</th>
+                            <td width="80%">{{p.cepr_om_ack_tema}}</td>
+                          </tr>
+                          <tr>
+                            <th width="20%">Asignatura</th>
+                            <td width="80%">{{p.omateria_ofertada.nombre_alias()}}</td>
+                          </tr>
+                          <tr>
+                            <th width="20%">Ciclo</th>
+                            <td width="80%">{{p.omateria_ofertada.ceom_ciclo_cese}}</td>
+                          </tr>
+                          <tr>
+                            <th width="20%">Área</th>
+                            <td width="80%">{{p.omateria_ofertada.ceca_in_ceom().ceca_nombre|title }}</td>
+                          </tr>
+                          <tr>
+                            <th width="20%">Solicitante</th>
+                            <td width="80%">{{ p.profesor_solicitud.nombre_cepr() }}</td>
+                          </tr>
+                          <tr>
+                            <th width="20%">Fecha</th>
+                            <td width="80%">{{ p.cepr_om_ack_fcreacion }}</td>
+                          </tr>
+                        </table>
+                      </div>
+                    </div>
+
+
+                  </td>
+                  <td>
+                    <a class="btn btn-info" href="{{url_for('pdf_reconocimiento_vp', id_ceom=p.omateria_ofertada.ceom_clave, id_cepr = p.cepr_om_ack_profesor, id_ack = p.cepr_om_ack_id)}}" target="_blank"> <span class="glyphicon glyphicon-search"></span> Vista previa </a>
+
+                    <a class="btn btn-warning" href="{{url_for('reconocimiento_c', id_ceom=p.omateria_ofertada.ceom_clave, id_cepr = p.cepr_om_ack_profesor, id_ack = p.cepr_om_ack_id)}}"> Modificar </a>
+
+                    <a class="btn btn-danger" href="{{url_for('reconocimiento_e', id_ceom=p.omateria_ofertada.ceom_clave, id_cepr = p.cepr_om_ack_profesor, id_ack = p.cepr_om_ack_id)}}"> Eliminar </a>
+
+
+
+
+                    <a class="btn btn-primary" data-bs-toggle="collapse"  href="#collapseEstatus{{p.cepr_om_ack_id}}"role="button" aria-expanded="false" aria-controls="collapseEstatus">
+                        Estatus de solicitud 
+                    </a><br>
+                    <div class="collapse" id="collapseEstatus{{p.cepr_om_ack_id}}">
+                      <div class="card card-body">
+                        <b>Estatus actual:</b> {{ p.status() }}<br>
+                        <b>Fecha de creación:</b> {{ p.cepr_om_ack_fcreacion }}<br>
+                        <br>
+                        <hr>
+                        <b>Responsable académico:</b> {{ p.respuesta(p.cepr_om_ack_respuesta1_coordlic) }}
+                          {% if p.cepr_om_ack_comentario1_coorlic %}
+                            <br>{{p.cepr_om_ack_comentario1_coorlic}}
+                          {% endif %}<br>
+                        <b>Fecha de dictamen:</b> {% if p.cepr_om_ack_datetime_clicenciaturas %}
+                                                  {{ p.cepr_om_ack_datetime_clicenciaturas }}<br>
+                                                  {% else %}
+                                                  Pendiente de revisión
+                                                  {% endif %}
+                        <hr>
+                        <b>Secretaría Académica:</b> {{ p.respuesta(p.cepr_om_ack_respuesta1_secacade) }}
+                          {% if p.cepr_om_ack_comentario1_secacade %}
+                            <br>{{p.cepr_om_ack_comentario1_secacade}}
+                          {% endif %}
+                        <b>Fecha de dictamen:</b> {% if p.cepr_om_ack_datetime_secacad %}
+                                                  {{ p.cepr_om_ack_datetime_secacad }}<br>
+                                                  {% else %}
+                                                  Pendiente de revisión
+                                                  {% endif %}
+                        <b>Fecha de emisión:</b> {% if p.cepr_om_ack_femision %}
+                                                  {{ p.cepr_om_ack_femision }}<br>
+                                                  {% else %}
+                                                  Pendiente
+                                                  {% endif %}
+
+                      </div>
+                    </div>
+
+
+                    {% if p.cepr_om_ack_publicado == True %}
+                    <br>
+                    <a class="btn btn-success" href="{{url_for('download_ack', id_ack = p.cepr_om_ack_id)}}" target="_blank"> <span class="glyphicon glyphicon-download-alt"></span> Descargar</a>
+                    <a class="btn btn-secondary" href="{{url_for('cepr_reconocimiento_reenviar', id_ack = p.cepr_om_ack_id)}}"> <span class="glyphicon glyphicon-send"></span> Reenviar</a>
+                    {% endif %}
+
+                  </td> 
+                  <td> <a class = "btn btn-outline-success" href="#rev_1_1" data-bs-toggle="modal" data-id = {{ p.cepr_om_ack_id }}>
+                           <i class="fas fa-ban"></i> Responder</a>
+                  </td>
+               </tr>
+      {% endfor %}
+
+        </table>
+      </form>
+      </div>
+</div>  
+
+
+          <div class="modal in fade" id="rev_1_1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Revisión</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <form action="{{url_for('cepr_reconocimiento_coord_rev')}}" method="POST" enctype="multipart/form-data">
+
+                          <div class="form-group">
+                            <label for="message-text" class="col-form-label", rows='6'>Dictamen:</label>
+                            <select class="custom-select" id="rev_estatus_id" name="rev_estatus_id">
+                              <option selected>Seleccionar opción</option>
+                              <option value="1">Aprobar solicitud de reconocimiento de asignatura</option>
+                              <option value="0">Solicitar corrección al académico</option>
+                              <option value="2">Cancelar solicitud de reconocimiento</option>
+                            </select>
+                          </div>
+
+<!--                           {% if current_user.pgus_ctsa == True %}
+                          <div class="form-group">
+                            <label for="message-text" class="col-form-label", rows='6'>Número de oficio (solo si la solicitud es aprobada):</label>
+                            <input class="form-control" id="rev_oficio_id" name="rev_oficio_id" type="text">
+                          </div>
+                          {% endif %} -->
+
+                          <div class="form-group">
+                            <label for="message-text" class="col-form-label", rows='6'>Observaciones:</label>
+                            <textarea type="text" class="form-control" id="rev_comentarios_id" name="rev_comentarios_id" rows='6'></textarea>
+                          </div>
+                          <div class="form-group form-check">
+                            <input hidden type="text" name="rp_1_1" id="rp_1_1" value=""/>
+                          </div>
+
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Regresar</a>
+                            <button type="submit" class="btn btn-primary">Actualizar</button>                           
+                         </div>
+
+
+                        </form>
+                    </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+
+
+{% endblock %}
+{% block scripts %}
+    {{ super() }}
+  <script>
+  $('#rev_1_1').on('show.bs.modal', function(e) {
+      var rp_1_1 = $(e.relatedTarget).data('id');
+      $(e.currentTarget).find('input[name="rp_1_1"]').val(rp_1_1);
+  });
+  </script>
+  <script>
+    $(document).ready(function() {
+    $('#select-all').click(function() {
+        var checked = this.checked;
+        $('input[type="checkbox"]').each(function() {
+        this.checked = checked;
+    });
+    })
+  });
+  </script>
+
+
+  <script>
+    $('#dataTable').dataTable( {
+    "order": [],
+    "paging": false
+      } );
+  </script>
+
+
+{% endblock %}

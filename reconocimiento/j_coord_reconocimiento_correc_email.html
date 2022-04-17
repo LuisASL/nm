@@ -1,0 +1,48 @@
+<p>
+	<b>
+		Dra. María Magdalena Giordano Noyola<br>
+		Secretaría Académica<br>
+		ENES Juriquilla 
+	</b>
+</p>
+
+
+<p>
+Por este medio me permito notificarle que las observaciones a la solicitud de {{ reconocimiento.cepr_om_ack_tipo }} de la persona invitada <b>{{ reconocimiento.invitado_name() }}</b> que impartió el tema <i>{{ reconocimiento.cepr_om_ack_tema }}</i> para la asignatura <b>{{reconocimiento.omateria_ofertada.nombre_alias()}}</b> en el semestre {{reconocimiento.omateria_ofertada.ceom_ciclo_cese}}, han sido <b>revisadas y realizadas</b>.
+
+Sin otro particular, agradezco de antemano su atención y aprovecho la ocasión para enviarle un saludo cordial. 
+
+</p>
+
+{% if current_user.pgus_ctsa %}
+<div><strong>Secretaría Académica</strong></div>
+<div><strong>Escuela Nacional de Estudios Superiores</strong></div>
+<div><strong>Unidad Juriquilla</strong></div>
+<div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div><strong>Este mensaje de correo es generado automáticamente por el sistema por lo que no es necesario responderlo. Los mensajes enviados a esta dirección  de correo no serán respondidos. Dudas respecto a las observaciones favor de acudir con el responsable académico en la dirección de correo electrónico asissacad_enesj@unam.mx </strong>
+</div>
+</div>
+
+{% elif current_user.pgus_ctca %}
+<div><strong>{{ carrera.ceca_coordinador }}</strong></div>
+<div><strong>Responsable Académico de la Licenciatura en {{ carrera.ceca_nombre|title }}</strong></div>
+<div><strong>ENES Juriquilla</strong></div>
+<br>
+<div>
+<br>
+<div>&nbsp;</div>
+<div><strong>Este mensaje de correo es generado automáticamente por el sistema por lo que no es necesario responderlo. Los mensajes enviados a esta dirección  de correo no serán respondidos. Dudas respecto a las observaciones favor de acudir con el responsable académico en la dirección de correo electrónico {{ carrera.ceca_contacto }}. </strong>
+</div>
+</div>
+{% else %}
+<div><strong>{{ reconocimiento.profesor_solicitud.genero_grado() }}</strong></div>
+<div><strong>{{ reconocimiento.profesor_solicitud.nombramiento() }}</strong></div>
+<div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div><strong>Este mensaje de correo es generado automáticamente por el sistema por lo que no es necesario responderlo. Los mensajes enviados a esta dirección  de correo no serán respondidos. Dudas respecto a las observaciones favor de acudir con el responsable académico en la dirección de correo electrónico {{ current_user.pgus_email }}. </strong>
+</div>
+</div>
+{% endif %}

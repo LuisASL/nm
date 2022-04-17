@@ -1,0 +1,106 @@
+{% extends base %}
+
+{% block app_content %}
+
+
+
+
+<br>
+<div class="container acomodar__footer">
+  <div class="col-md-12">
+    <!-- Page Heading -->
+    <div class="card shadow mb-4">
+      <div class="card-header py-3">
+        <h6>Asignaturas actuales</h6>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-bordered display" id="dataTable" width="100%" cellspacing="0">
+            <thead>
+              <tr>
+                <th width="25%">Asignatura</th>
+                <th width="20%">Invitado/a</th>
+                <th width="14%">Vista previa</th>
+                <th width="9%">Modificar</th>
+                <th width="9%">Borrar</th>
+                <th width="35%">Estatus</th>
+              </tr>
+            </thead>
+            <tfoot>
+              <tr>
+                <th>Asignatura</th>
+                <th>Invitado/a</th>
+                <th>Vista previa</th>
+                <th>Modificar</th>
+                <th>Borrar</th>
+                <th>Estatus</th>
+              </tr>
+            </tfoot>
+            <tbody>
+
+        {% for p in profesor.cepr_solicitud_ack|sort(attribute="cepr_om_ack_fcreacion", reverse = False)   %}
+                <tr>
+                  <td>{{p.omateria_ofertada.ceom_nombre}}</td>
+                  <td>{{p.invitado_name()}}</td>
+                  <td>
+                    <a class="btn btn-info" href="{{url_for('pdf_reconocimiento_vp', id_ceom=p.omateria_ofertada.ceom_clave, id_cepr = profesor.cepr_ntrabajador, id_ack = p.cepr_om_ack_id)}}" target="_blank"> <span class="glyphicon glyphicon-search"></span> Vista previa </a>
+                  </td> 
+                  <td>
+                    <a class="btn btn-warning" href="{{url_for('reconocimiento_c', id_ceom=p.omateria_ofertada.ceom_clave, id_cepr = profesor.cepr_ntrabajador, id_ack = p.cepr_om_ack_id)}}"> Modificar </a>
+                  </td> 
+                  <td>
+                    <a class="btn btn-danger" href="{{url_for('reconocimiento_e', id_ceom=p.omateria_ofertada.ceom_clave, id_cepr = profesor.cepr_ntrabajador, id_ack = p.cepr_om_ack_id)}}"> Eliminar </a>
+                  </td> 
+                  <td>
+                    <p>
+                      <a class="btn btn-primary" data-bs-toggle="collapse"  href="#collapseEstatus{{p.cepr_om_ack_id}}"role="button" aria-expanded="false" aria-controls="collapseEstatus">
+                        Estatus de solicitud 
+                      </a>
+                    </p>
+                    <div class="collapse" id="collapseEstatus{{p.cepr_om_ack_id}}">
+                      <div class="card card-body">
+                        <b>Estatus actual:</b> {{ p.status() }}<br>
+                        <b>Fecha de creación:</b> {{ p.cepr_om_ack_fcreacion.strftime('%d-%m-%Y %H:%m') }}<br>
+                        <br>
+                        <hr>
+                        <b>Responsable académico:</b> {{ p.respuesta(p.cepr_om_ack_respuesta1_coordlic) }}
+                          {% if p.cepr_om_ack_comentario1_coorlic %}
+                            <br>{{p.cepr_om_ack_comentario1_coorlic}}
+                          {% endif %}<br>
+                        <b>Fecha de dictamen:</b> {% if p.cepr_om_ack_datetime_clicenciaturas %}
+                                                  {{ p.cepr_om_ack_datetime_clicenciaturas }}<br>
+                                                  {% else %}
+                                                  Pendiente de revisión
+                                                  {% endif %}
+                        <hr>
+                        <b>Secretaría Académica:</b> {{ p.respuesta(p.cepr_om_ack_respuesta1_secacade) }}
+                          {% if p.cepr_om_ack_comentario1_secacade %}
+                            <br>{{p.cepr_om_ack_comentario1_secacade}}
+                          {% endif %}
+                        <b>Fecha de dictamen:</b> {% if p.cepr_om_ack_datetime_secacad %}
+                                                  {{ p.cepr_om_ack_datetime_secacad }}<br>
+                                                  {% else %}
+                                                  Pendiente de revisión
+                                                  {% endif %}
+                        <b>Fecha de emisión:</b> {% if p.cepr_om_ack_femision %}
+                                                  {{ p.cepr_om_ack_femision }}<br>
+                                                  {% else %}
+                                                  Pendiente
+                                                  {% endif %}
+
+
+                      </div>
+                    </div>
+
+                  </td> 
+               </tr>
+      {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,201 @@
+<head>
+<style>
+table, th, td {
+  border-collapse: collapse;
+}
+
+@page {
+    size: letter landscape;
+    margin: 2cm;
+}
+
+.tablem .tbodym .trm .tdm {
+  font-size: 5px;
+}
+       
+/***Always insert a page break before the element***/
+       .pb_before {
+           page-break-before: always !important;
+       }
+
+/***Always insert a page break after the element***/
+       .pb_after {
+           page-break-after: always !important;
+       }
+
+/***Avoid page break before the element (if possible)***/
+       .pb_before_avoid {
+           page-break-before: avoid !important;
+       }
+
+/***Avoid page break after the element (if possible)***/
+       .pb_after_avoid {
+           page-break-after: avoid !important;
+       }
+
+/* Avoid page break inside the element (if possible) */
+       .pbi_avoid {
+           page-break-inside: avoid !important;
+       }
+
+#background{
+    position:absolute;
+    z-index:0;
+    background:white;
+    display:block;
+    min-height:50%; 
+    min-width:50%;
+    color:yellow;
+}
+
+#content{
+    position:absolute;
+    z-index:1;
+}
+
+#bg-text
+{
+    color:lightgrey;
+    font-size:120px;
+    transform:rotate(300deg);
+    -webkit-transform:rotate(300deg);
+}
+.container {
+  position: relative;
+  text-align: center;
+  color: white;
+}
+
+/* Bottom left text */
+.bottom-left {
+  position: absolute;
+  bottom: 8px;
+  left: 16px;
+  color:lightgrey;
+  font-size:100px;  
+}
+
+/* Top left text */
+.top-left {
+  position: absolute;
+  top: 8px;
+  left: 16px;
+  color:lightgrey;
+  font-size:100px;  
+}
+
+/* Top right text */
+.top-right {
+  position: absolute;
+  top: 8px;
+  right: 16px;
+  color:lightgrey;
+  font-size:100px;  
+}
+
+/* Bottom right text */
+.bottom-right {
+  position: absolute;
+  bottom: 8px;
+  right: 16px;
+  color:lightgrey;
+  font-size:100px;  
+}
+
+/* Centered text */
+.centered {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  color:lightgrey;
+  font-size:100px;
+}
+
+
+
+</style>
+</head>
+<body>
+
+<div class="page1 pb_after">
+
+  <table style="width: 100%;">
+    <table style="width: 100%;" cellspacing="0" cellpadding="4">
+    <tbody>
+    <tr valign="top">
+    <td style="width: 20%;" rowspan="2">
+    <p class="western" lang="es-ES" style="text-align: center;" align="left"><img src="/var/www/NuevoIngreso/app/static/imgs/escudo_unam.png" width="100%" height="220" /></p>
+    </td>
+    <td style="width: 60%;">
+    <p class="western" lang="es-ES" style="text-align: center;"><img src="/var/www/NuevoIngreso/app/static/imgs/nombre_unam.png" width="100%" height="120" /></p>
+    </td>
+    <td style="width: 20%;" rowspan="2">
+    <p class="western" lang="es-ES" style="text-align: center;"><img src="/var/www/NuevoIngreso/app/static/imgs/escudo_enes_plan.png" width="115%" height="220" /></p>
+    </td>
+    </tr>
+    </tbody>
+  </table>
+
+ 
+
+<p style="text-align: right;font-size: large;">
+<b>ENES/SacAcad/Cons-{{ reconocimiento.cepr_om_ack_id }}/{{fecha.strftime('%Y')}}</b><br>
+<b>ASUNTO</b>:  {{ reconocimiento.cepr_om_ack_tipo }}
+</p>
+
+<p style="text-align: left;font-size: large;"><b>
+{{ reconocimiento.invitado_name() }}<br>
+Presente<br><br>
+</b></p>
+
+<p style="font-size: large;text-align: justify ;">
+La Escuela Nacional de Estudios Superiores, Unidad Juriquilla, UNAM, a través de la Secretaría Académica, hace constar su participación como ponente del tema <i>{{reconocimiento.cepr_om_ack_tema }}</i> impartido al alumnado de la asignatura {{reconocimiento.omateria_ofertada.nombre_alias()|title}} de la Licenciatura en {{reconocimiento.omateria_ofertada.ceca_in_ceom().ceca_nombre|title }}, realizado {{reconocimiento.fecha() }}, con una duración de {{ reconocimiento.cepr_om_ack_horas }} horas. 
+</p>
+<p style="font-size: large;text-align: justify ;">
+Cabe resaltar su valiosa contribución a la calidad de la formación de los profesionales de nuestro país. Esperamos seguir contando con su inestimable apoyo en próximas ocasiones. 
+</p>
+<p style="font-size: large;text-align: justify ;">
+Sin otro particular, aprovecho la ocasión para enviarle un cordial saludo. 
+</p>
+<br>
+<b><p style="font-size: large;text-align: justify ;">
+ATENTAMENTE<br>
+“POR MI RAZA HABLARÁ EL ESPÍRITU”<br>
+Campus Juriquilla de la UNAM, Querétaro, {{reconocimiento.fechaFormato(fecha) }}
+</p>
+<p>
+LA SECRETARIA ACADÉMICA
+</p>
+<img src="{{ qrcode((mensaje_firma), error_correction='H')}}", width="190" height="190">
+<br>
+DRA. MARÍA MAGDALENA GIORDANO NOYOLA 
+</b>
+</table>
+
+</div>
+<div>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+El siguiente documento puede ser verificado<br> en: 
+<a href="{{ url_for('validar_documento', id_tipo = 1, id_ack = reconocimiento.cepr_om_ack_id, _external=True) }}">
+{{ url_for('validar_documento', id_tipo = 1, id_ack = reconocimiento.cepr_om_ack_id, _external=True) }}</a><br>
+o con la opción de emisión Secretaría Académica - Agradecimiento y el número de folio: <b>{{reconocimiento.cepr_om_ack_id}}</b><br>
+<br>
+<img src="{{ qrcode((mensaje_val), error_correction='H', icon_img='/var/www/NuevoIngreso/app/static/imgs/escudo_enes_plan.png', factor=3)}}", width="250" height="250">
+<br>
+
+</div>    
+
+
+
+</body>

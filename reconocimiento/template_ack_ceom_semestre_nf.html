@@ -1,0 +1,241 @@
+
+<head>
+<style>
+  @media print {
+  body {
+    background: none;
+    -ms-zoom: 1.665;
+  }
+  div.portrait, div.landscape {
+    margin: 0;
+    padding: 0;
+    border: none;
+    background: none;
+  }
+  div.landscape {
+    transform: rotate(270deg) translate(-276mm, 0);
+    transform-origin: 0 0;
+  }
+}
+
+
+table, th, td {
+  border-collapse: collapse;
+}
+
+
+.tablem .tbodym .trm .tdm {
+  font-size: 5px;
+}
+       
+/***Always insert a page break before the element***/
+       .pb_before {
+           page-break-before: always !important;
+       }
+
+/***Always insert a page break after the element***/
+       .pb_after {
+           page-break-after: always !important;
+       }
+
+/***Avoid page break before the element (if possible)***/
+       .pb_before_avoid {
+           page-break-before: avoid !important;
+       }
+
+/***Avoid page break after the element (if possible)***/
+       .pb_after_avoid {
+           page-break-after: avoid !important;
+       }
+
+/* Avoid page break inside the element (if possible) */
+       .pbi_avoid {
+           page-break-inside: avoid !important;
+       }
+
+
+#toc_container {
+    background: #f9f9f9 none repeat scroll 0 0;
+    border: 1px solid #aaa;
+    display: table;
+    font-size: 95%;
+    margin-bottom: 1em;
+    padding: 20px;
+    width: auto;
+}
+
+.toc_title {
+    font-weight: 700;
+    text-align: center;
+}
+
+#toc_container li, #toc_container ul, #toc_container ul li{
+    list-style: outside none none !important;
+}
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+#p_1 {
+    padding : 0;
+    margin : 0;
+}
+
+#barAzul {
+  width: 100%;
+  height: 20px;
+  background-color: #002B7A;
+}
+#barDorado {
+  width: 100%;
+  height: 20px;
+  background-color: #BB8800;
+}
+#barWhite {
+  width: 100%;
+  height: 10px;
+  background-color: #FFFFFF;
+}
+/* Bottom left text */
+.bottom-left {
+  position: absolute;
+  bottom: 8px;
+  left: 16px;
+  color:lightgrey;
+  font-size:100px;  
+}
+
+/* Top left text */
+.top-left {
+  position: absolute;
+  top: 8px;
+  left: 16px;
+  color:lightgrey;
+  font-size:100px;  
+}
+
+/* Top right text */
+.top-right {
+  position: absolute;
+  top: 8px;
+  right: 16px;
+  color:lightgrey;
+  font-size:100px;  
+}
+
+/* Bottom right text */
+.bottom-right {
+  position: absolute;
+  bottom: 8px;
+  right: 16px;
+  color:lightgrey;
+  font-size:100px;  
+}
+
+/* Centered text */
+.centered {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  color:lightgrey;
+  font-size:100px;
+}
+
+</style>
+</head>
+<div class="top-left">Sin validez oficial</div>
+<div class="bottom-right">Sin validez oficial</div>
+<div class="centered">Sin validez oficial</div>
+<body>
+<table style="width: 100%;">
+    <table style="width: 100%;" cellspacing="0" cellpadding="4">
+    <tbody>
+    <tr valign="top">
+    <td style="width: 20%;" rowspan="2">
+    <p class="western" lang="es-ES" style="text-align: center;" align="left"><img src="/var/www/NuevoIngreso/app/static/imgs/escudo_unam.png" width="80%" height="220" /></p>
+    </td>
+    <td style="width: 60%;">
+    <p class="western" lang="es-ES" style="text-align: center;"><img src="/var/www/NuevoIngreso/app/static/imgs/nombre_unam.png" width="100%" height="120" /></p>
+    </td>
+    <td style="width: 20%;" rowspan="2">
+    <p class="western" lang="es-ES" style="text-align: center;"><img src="/var/www/NuevoIngreso/app/static/imgs/escudo_enes_plan.png" width="80%" height="220" /></p>
+    </td>
+    </tr>
+    </tbody>
+  </table>
+</table>
+
+<table style="width: 100%;">
+<tbody>
+<tr>      
+  <td style="width: 100%;">
+      <div id="barAzul"></div>
+      <div id="barWhite"></div>
+      <div id="barDorado"></div>
+  </td>
+</tr>
+</tbody>
+</table>
+<br>
+
+<center>
+<span style="font-size: 150%;">
+OTORGAN LA PRESENTE
+</span>
+<br>
+<br>
+<span style="font-size: 300%;">
+<strong>CONSTANCIA</strong>
+</span>
+<br>
+<br>
+<span style="font-size: 250%;">
+        <strong>
+        {{ reconocimiento.invitado_name() }}
+        </strong>
+</span>
+<br>
+<br>
+  
+  <table style="width: 100%;">
+    <tbody>
+    <tr>      
+      <td style="width: 10%;">
+      </td>
+      <td style="width: 80%;text-align: center ;">
+        <span style="font-size: large;">Por su participación como ponente de la Charla: <b>{{reconocimiento.cepr_om_ack_tema }}</b>, que se llevó a cabo en la ENES Juriquilla {{reconocimiento.fecha() }}, con una duración de {{ reconocimiento.cepr_om_ack_horas }} horas.</span>
+      </td>
+      <td style="width: 10%;">
+      </td>
+    </tr>
+    </tbody>
+  </table>
+
+<br>
+<p style="font-size: large;text-align: center ;">
+“POR MI RAZA HABLARÁ EL ESPÍRITU”<br>
+Campus Juriquilla de la UNAM, Querétaro, {{reconocimiento.fechaFormato(fecha) }}
+</p>
+<br>
+<br>
+<br>
+<br>
+<br>
+<p>
+DRA. MARÍA MAGDALENA GIORDANO NOYOLA<br>
+SECRETARIA ACADÉMICA<br>
+ESCUELA NACIONAL DE ESTUDIOS SUPERIORES, UNIDAD JURIQUILLA<br>
+
+</center>
+
+</body>
+ 
+ 
+
+
+
+

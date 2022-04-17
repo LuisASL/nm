@@ -1,0 +1,72 @@
+{% extends base %}
+
+{% block app_content %}
+<div class="container">
+  <div class="row">
+    <center><h1> {{ title }} </h1></center>
+      <div class="col-md-6">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">{{ subtitle }}</h5>
+              </div>
+              <div class="modal-body">
+                  <div class="form-group">
+                    {{ wtf(form, button_map={'submit':'success', 'subant':'success', 'si':'danger', 'no':'primary'}, horizontal_columns=('lg', 2, 10) ) }}
+                  </div>
+              </div>
+
+            </div>
+         </div>
+    </div>
+      <div class="col-md-6">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Información</h5>
+              </div>
+              <div class="modal-body">
+                  <div class="form-group">
+                    {% if rec.cepr_om_ack_id %}
+                    <span class="formulario_label">Folio</span>
+                    <input class="form-control" name="folio"type="text" readonly="True" value="{{rec.cepr_om_ack_id }}"><br>
+                    {% endif %}
+                    {% if rec.cepr_om_ack_tipo %}
+                    <span class="formulario_label">Tipo de reconocimiento</span>
+                    <input class="form-control" name="Tipo de reconocimient "type="text" readonly="True" value="{{rec.cepr_om_ack_tipo }}"><br>
+                    {% endif %}
+                    {% if rec.cepr_om_ack_invitado_nombre %}
+                    <span class="formulario_label">Nombre completo</span>
+                    <input class="form-control" name="Nombre completo"type="text" readonly="True" value="{{rec.invitado_name() }}"><br>
+                    {% endif %}
+                    {% if rec.cepr_om_ack_tema %}
+                    <span class="formulario_label">Tema</span>
+                    <input class="form-control" name="Tema"type="text" readonly="True" value="{{rec.cepr_om_ack_tema }}"><br>
+                    {% endif %}
+                    {% if rec.cepr_om_ack_fecha %}
+                    <span class="formulario_label">Fecha de impartición</span>
+                    <input class="form-control" name="Fecha de impartición"type="text" readonly="True" value="{{rec.cepr_om_ack_fecha }}"><br>
+                    {% endif %}
+                    {% if rec.cepr_om_ack_horas %}
+                    <span class="formulario_label">Horas</span>
+                    <input class="form-control" name="Número de horas"type="text" readonly="True" value="{{rec.cepr_om_ack_horas }}"><br>
+                    {% endif %}
+                    {% if rec.cepr_om_ack_femision %}
+                    <span class="formulario_label">Fecha de emisión</span>
+                    <input class="form-control" name="Fecha de emisión"type="text" readonly="True" value="{{rec.cepr_om_ack_femision }}"><br>
+                    {% endif %}
+                    {% if rec.cepr_om_ack_noficio %}
+                    <span class="formulario_label">Número de oficio</span>
+                    <input class="form-control" name="Oficio"type="text" readonly="True" value="{{rec.cepr_om_ack_noficio }}">
+                    {% endif %}
+                  </div>
+              </div>
+
+            </div>
+         </div>
+    </div>
+  </div>
+</div>
+
+
+{% endblock %}

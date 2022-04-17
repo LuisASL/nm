@@ -1,0 +1,122 @@
+{% extends base %}
+
+{% block app_content %}
+<br>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+    <center>
+    <h1> {{ title }} </h1>
+    </center>
+        <div id="crearS1s1" >
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">{{ subtitle }}</h5><br>
+                  </div>
+                  <div class="modal-body">
+                  <form class="form-horizontal" method="post" enctype="multipart/form-data">
+                      {% for field, errors in form.errors.items() %}
+                        <div class="alert alert-danger">
+                          {{ form[field].label }}: {{ ', '.join(errors) }}
+                        </div>
+                      {% endfor %}
+                    <div class="form-group">
+                      {{ form.csrf_token }}
+                    </div>
+                    <div class="form-group">
+                        {{form.cepr_om_ack_invitado_nombre.label(class="formulario_label") }}
+                        {{form.cepr_om_ack_invitado_nombre(class="form-control")}}<br>
+
+                        {{form.cepr_om_ack_invitado_papellido.label(class="formulario_label") }}
+                        {{form.cepr_om_ack_invitado_papellido(class="form-control")}}<br>
+
+                        {{form.cepr_om_ack_invitado_sapellido.label(class="formulario_label") }}
+                        {{form.cepr_om_ack_invitado_sapellido(class="form-control")}}<br>
+
+                        {{form.cepr_om_ack_invitado_email.label(class="formulario_label") }}
+                        {{form.cepr_om_ack_invitado_email(class="form-control")}}<br>
+
+                        {{form.cepr_om_ack_tema.label(class="formulario_label") }}
+                        {{form.cepr_om_ack_tema(class="form-control")}}<br>
+
+                        {{form.cepr_om_ack_horas.label(class="formulario_label") }}
+                        {{form.cepr_om_ack_horas(class="form-control")}}<br>
+
+                        {{form.cepr_om_ack_ftipo.label(class="formulario_label") }}
+                        {{form.cepr_om_ack_ftipo(class="form-control", id = "tipoP")}}<br>
+
+                        {{form.cepr_om_ack_fecha.label(class="formulario_label", id = "fecha_l") }}
+                        {{form.cepr_om_ack_fecha(class="form-control", id = "fecha")}}<br>
+
+                        {{form.cepr_om_ack_finicio.label(class="formulario_label", id = "inicio_l") }}
+                        {{form.cepr_om_ack_finicio(class="form-control", id = "inicio")}}<br>
+
+                        {{form.cepr_om_ack_ffinal.label(class="formulario_label", id = "fina_l") }}
+                        {{form.cepr_om_ack_ffinal(class="form-control", id = "final")}}
+
+                        {{form.submit(class="formulario__boton")}}
+
+                    </div>
+                  </form>
+                  </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+</div>
+
+
+
+
+
+
+<br>
+{% endblock %}
+
+{% block scripts %}
+    {{ super() }}
+
+    <script>
+      $('#fecha_l').hide();
+      $('#fecha').hide();
+      $('#inicio_l').hide();
+      $('#inicio').hide();
+      $('#fina_l').hide();
+      $('#final').hide();
+    </script>
+    <script>
+        jQuery(document).ready(function() {
+            $("#tipoP").change(function() {
+                var chosen_val = $(this).val();
+                if (chosen_val == 'a') {
+                    $('#fecha_l').show();
+                    $('#fecha').show();
+                    $('#inicio_l').hide();
+                    $('#inicio').hide();
+                    $('#fina_l').hide();
+                    $('#final').hide();
+                } else if (chosen_val == 'b') {
+                    $('#fecha_l').hide();
+                    $('#fecha').hide();
+                    $('#inicio_l').show();
+                    $('#inicio').show();
+                    $('#fina_l').show();
+                    $('#final').show();
+                } else {
+                    $('#fecha_l').hide();
+                    $('#fecha').hide();
+                    $('#inicio_l').hide();
+                    $('#inicio').hide();
+                    $('#fina_l').hide();
+                    $('#final').hide();
+                }
+            });
+        });
+    </script>
+
+
+{% endblock %}
