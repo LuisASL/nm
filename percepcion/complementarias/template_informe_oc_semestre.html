@@ -1,0 +1,222 @@
+<head>
+<style>
+table, th, td {
+  border-collapse: collapse;
+}
+
+@page {
+    size: letter landscape;
+    margin: 2cm;
+}
+
+.tablem .tbodym .trm .tdm {
+  font-size: 5px;
+}
+       
+/***Always insert a page break before the element***/
+       .pb_before {
+           page-break-before: always !important;
+       }
+
+/***Always insert a page break after the element***/
+       .pb_after {
+           page-break-after: always !important;
+       }
+
+/***Avoid page break before the element (if possible)***/
+       .pb_before_avoid {
+           page-break-before: avoid !important;
+       }
+
+/***Avoid page break after the element (if possible)***/
+       .pb_after_avoid {
+           page-break-after: avoid !important;
+       }
+
+/* Avoid page break inside the element (if possible) */
+       .pbi_avoid {
+           page-break-inside: avoid !important;
+       }
+
+
+#toc_container {
+    background: #f9f9f9 none repeat scroll 0 0;
+    border: 1px solid #aaa;
+    display: table;
+    font-size: 95%;
+    margin-bottom: 1em;
+    padding: 20px;
+    width: auto;
+}
+
+.toc_title {
+    font-weight: 700;
+    text-align: center;
+}
+
+#toc_container li, #toc_container ul, #toc_container ul li{
+    list-style: outside none none !important;
+}
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+#p_1 {
+    padding : 0;
+    margin : 0;
+}
+</style>
+</head>
+<body>
+
+
+
+
+    <div>
+
+
+    <table style="width: 100%;" cellspacing="0" cellpadding="4">
+    <tbody>
+    <tr valign="top">
+    <td style="width: 20%;" rowspan="2">
+    <p class="western" lang="es-ES" style="text-align: center;" align="left"><img src="/var/www/NuevoIngreso/app/static/imgs/escudo_unam.png" width="100%" height="220" /></p>
+    </td>
+    <td style="width: 60%;">
+    <p class="western" lang="es-ES" style="text-align: center;"><img src="/var/www/NuevoIngreso/app/static/imgs/nombre_unam.png" width="100%" height="120" /></p>
+    </td>
+    <td style="width: 20%;" rowspan="2">
+    <p class="western" lang="es-ES" style="text-align: center;"><img src="/var/www/NuevoIngreso/app/static/imgs/escudo_enes_plan.png" width="100%" height="220" /></p>
+    </td>
+    </tr>
+    <tr valign="top">
+    <td style="width: 60%;">
+    <p class="western" lang="es-ES" style="text-align: center;" align="center">&nbsp;</p>
+    <p class="western" lang="es-ES" style="text-align: center;" align="center">
+      <span style="font-size: x-large;"><span><strong> Asignaturas Complementarias<br>Cico {{semestre.cese_ciclo}} </strong></span></span></p>
+    </td>
+    </tr>
+    </tbody>
+  </table>
+
+    <br>
+    <table style="width:100%" border ="2" cellspacing="0" cellpadding="5">
+     <tr style="font-size: medium;">
+        <td width="25%" style="background: #002B7A; height: 25px;" bgcolor="#002B7A"><span style="color: #BB8800;"><b>Académico</b></span></td>
+        <td width="30%" style="background: #002B7A; height: 25px;" bgcolor="#002B7A"><span style="color: #BB8800;"><b>Asignatura</b></span></td>
+        <td width="10%" style="background: #002B7A; height: 25px;" bgcolor="#002B7A"><span style="color: #BB8800;"><b>1. Aprendizaje</b></span></td>
+        <td width="10%" style="background: #002B7A; height: 25px;" bgcolor="#002B7A"><span style="color: #BB8800;"><b>2. Motivación</b></span></td>
+        <td width="10%" style="background: #002B7A; height: 25px;" bgcolor="#002B7A"><span style="color: #BB8800;"><b>3. Evaluación</b></span></td>
+        <td width="10%" style="background: #002B7A; height: 25px;" bgcolor="#002B7A"><span style="color: #BB8800;"><b>4. Respon- sabilidad</b></span></td>
+        <td width="10%" style="background: #002B7A; height: 25px;" bgcolor="#002B7A"><span style="color: #BB8800;"><b>7. En línea</b></span></td>
+     </tr>
+        {% for om in single_semestre %}
+
+             <tr style="font-size: small;">
+                <td>{{ om[0] }}</td>
+                <td>{{ om[1] }} }}</td>
+                {% for n in meanAprendizajeCarrera  %}
+                    {% if n[0] >= om[2] %}
+                    <td bgcolor="#ff1600">{{ om[2]|round(precision=3) }}</td>
+                    {% else %}
+                    <td bgcolor="#1cc88a">{{ om[2]|round(precision=3) }}</td>
+                    {% endif %}
+                {% endfor %}
+                {% for n in meanMotivacionCarrera %}
+                    {% if n[0] >= om[3] %}
+                    <td bgcolor="#ff1600">{{ om[3]|round(precision=3) }}</td>
+                    {% else %}
+                    <td bgcolor="#1cc88a">{{ om[3]|round(precision=3) }}</td>
+                    {% endif %}
+                {% endfor %}
+                {% for n in meanEvaluacionCarrera %}
+                    {% if n[0] >= om[4] %}
+                    <td bgcolor="#ff1600">{{ om[4]|round(precision=3) }}</td>
+                    {% else %}
+                    <td bgcolor="#1cc88a">{{ om[4]|round(precision=3) }}</td>
+                    {% endif %}
+                {% endfor %}
+                {% for n in meanResponsabCarrera %}
+                    {% if n[0] >= om[5] %}
+                    <td bgcolor="#ff1600">{{ om[5]|round(precision=3) }}</td>
+                    {% else %}
+                    <td bgcolor="#1cc88a">{{ om[5]|round(precision=3) }}</td>
+                    {% endif %}
+                {% endfor %}
+                {% for n in meanEnlineaCarrera %}
+                    {% if n[0] >= om[6] %}
+                    <td bgcolor="#ff1600">{{ om[6]|round(precision=3) }}</td>
+                    {% else %}
+                    <td bgcolor="#1cc88a">{{ om[6]|round(precision=3) }}</td>
+                    {% endif %}
+                {% endfor %}
+             </tr>
+        {% endfor %}
+             <tr style="font-size: small;">
+                <td bgcolor="#a2ccf7" colspan="2"> Media </td>
+                <td bgcolor="#a2ccf7">
+                    {% for n in meanAprendizajeCarrera %}
+                        {{ n[0]|round(precision=3) }}<br>
+                    {% endfor %}
+                </td>
+                <td bgcolor="#a2ccf7">
+                    {% for n in meanMotivacionCarrera %}
+                        {{ n[0]|round(precision=3) }}<br>
+                    {% endfor %}
+                </td>
+                <td bgcolor="#a2ccf7">
+                    {% for n in meanEvaluacionCarrera %}
+                        {{ n[0]|round(precision=3) }}<br>
+                    {% endfor %}
+                </td>
+                <td bgcolor="#a2ccf7">
+                    {% for n in meanResponsabCarrera %}
+                        {{ n[0]|round(precision=3) }}<br>
+                    {% endfor %}
+                </td>
+                <td bgcolor="#a2ccf7">
+                    {% for n in meanEnlineaCarrera %}
+                        {{ n[0]|round(precision=3) }}<br>
+                    {% endfor %}
+                </td>
+             </tr>
+             <tr bgcolor="#076d0d" style="font-size: small;">
+                <td colspan="2"> Máxima </td>
+                <td>
+                    {% for n in meanAprendizajeCarrera %}
+                        {{ n[1]|round(precision=3) }}<br>
+                    {% endfor %}
+                </td>
+                <td>
+                    {% for n in meanMotivacionCarrera %}
+                        {{ n[1]|round(precision=3) }}<br>
+                    {% endfor %}
+                </td>
+                <td>
+                    {% for n in meanEvaluacionCarrera %}
+                        {{ n[1]|round(precision=3) }}<br>
+                    {% endfor %}
+                </td>
+                <td>
+                    {% for n in meanResponsabCarrera %}
+                        {{ n[1]|round(precision=3) }}<br>
+                    {% endfor %}
+                </td>
+                <td>
+                    {% for n in meanEnlineaCarrera %}
+                        {{ n[1]|round(precision=3) }}<br>
+                    {% endfor %}
+                </td>
+             </tr>
+    </tbody>
+    </table>
+
+
+
+</div>
+
+
+</body>

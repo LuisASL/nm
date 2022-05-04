@@ -1,0 +1,178 @@
+<head>
+<style>
+table, th, td {
+  border-collapse: collapse;
+}
+
+@page {
+    size: letter landscape;
+    margin: 2cm;
+}
+
+.tablem .tbodym .trm .tdm {
+  font-size: 5px;
+}
+       
+/***Always insert a page break before the element***/
+       .pb_before {
+           page-break-before: always !important;
+       }
+
+/***Always insert a page break after the element***/
+       .pb_after {
+           page-break-after: always !important;
+       }
+
+/***Avoid page break before the element (if possible)***/
+       .pb_before_avoid {
+           page-break-before: avoid !important;
+       }
+
+/***Avoid page break after the element (if possible)***/
+       .pb_after_avoid {
+           page-break-after: avoid !important;
+       }
+
+/* Avoid page break inside the element (if possible) */
+       .pbi_avoid {
+           page-break-inside: avoid !important;
+       }
+
+
+#toc_container {
+    background: #f9f9f9 none repeat scroll 0 0;
+    border: 1px solid #aaa;
+    display: table;
+    font-size: 95%;
+    margin-bottom: 1em;
+    padding: 20px;
+    width: auto;
+}
+
+.toc_title {
+    font-weight: 700;
+    text-align: center;
+}
+
+#toc_container li, #toc_container ul, #toc_container ul li{
+    list-style: outside none none !important;
+}
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+#p_1 {
+    padding : 0;
+    margin : 0;
+}
+</style>
+</head>
+<body>
+
+
+<div class="page1 pb_after">
+
+    <table style="width: 100%;" cellspacing="0" cellpadding="4">
+    <tbody>
+    <tr valign="top">
+    <td style="width: 20%;" rowspan="2">
+    <p class="western" lang="es-ES" style="text-align: center;" align="left"><img src="/var/www/NuevoIngreso/app/static/imgs/escudo_unam.png" width="100%" height="220" /></p>
+    </td>
+    <td style="width: 60%;">
+    <p class="western" lang="es-ES" style="text-align: center;"><img src="/var/www/NuevoIngreso/app/static/imgs/nombre_unam.png" width="100%" height="120" /></p>
+    </td>
+    <td style="width: 20%;" rowspan="2">
+    <p class="western" lang="es-ES" style="text-align: center;"><img src="/var/www/NuevoIngreso/app/static/imgs/escudo_enes_plan.png" width="100%" height="220" /></p>
+    </td>
+    </tr>
+    <tr valign="top">
+    <td style="width: 60%;">
+    <p class="western" lang="es-ES" style="text-align: center;" align="center">&nbsp;</p>
+    <p class="western" lang="es-ES" style="text-align: center;" align="center">
+      <span style="font-size: x-large;"><span><strong> {{ car.ceca_nombre }} </strong></span></span></p>
+    </td>
+    </tr>
+    </tbody>
+  </table>
+
+
+
+<table style="width:100%" border ="2" cellspacing="0" cellpadding="5">
+  <thead>
+   <tr>
+      <th style="width: 2%;" style="background: #002B7A; height: 25px;" bgcolor="#002B7A"><span style="color: #BB8800;">Clave</span></th>
+      <th style="width: 40%;" style="background: #002B7A; height: 25px;" bgcolor="#002B7A"><span style="color: #BB8800;">Asignatura</span></th>
+      <th style="width: 2%;" style="background: #002B7A; height: 25px;" bgcolor="#002B7A"><span style="color: #BB8800;">Sem</span></th>
+      <th style="width: 2%;" style="background: #002B7A; height: 25px;" bgcolor="#002B7A"><span style="color: #BB8800;">Período</span></th>
+      <th style="width: 2%;" style="background: #002B7A; height: 25px;" bgcolor="#002B7A"><span style="color: #BB8800;">Plan</span></th>
+      <th style="width: 40%;" style="background: #002B7A; height: 25px;" bgcolor="#002B7A"><span style="color: #BB8800;">Profesor</span></th>
+      <th style="width: 2%;" style="background: #002B7A; height: 25px;" bgcolor="#002B7A"><span style="color: #BB8800;">Hrs</span></th>
+      <th style="width: 2%;" style="background: #002B7A; height: 25px;" bgcolor="#002B7A"><span style="color: #BB8800;">Alumnos</span></th>
+      <th style="width: 2%;" style="background: #002B7A; height: 25px;" bgcolor="#002B7A"><span style="color: #BB8800;">%</span></th>
+    </tr>
+</thead>
+<tfoot>
+  <tr>
+      <th style="width: 2%;" style="background: #002B7A; height: 25px;" bgcolor="#002B7A"><span style="color: #BB8800;">Clave</span></th>
+      <th style="width: 40%;" style="background: #002B7A; height: 25px;" bgcolor="#002B7A"><span style="color: #BB8800;">Asignatura</span></th>
+      <th style="width: 2%;" style="background: #002B7A; height: 25px;" bgcolor="#002B7A"><span style="color: #BB8800;">Sem</span></th>
+      <th style="width: 2%;" style="background: #002B7A; height: 25px;" bgcolor="#002B7A"><span style="color: #BB8800;">Período</span></th>
+      <th style="width: 2%;" style="background: #002B7A; height: 25px;" bgcolor="#002B7A"><span style="color: #BB8800;">Plan</span></th>
+      <th style="width: 40%;" style="background: #002B7A; height: 25px;" bgcolor="#002B7A"><span style="color: #BB8800;">Profesor</span></th>
+      <th style="width: 2%;" style="background: #002B7A; height: 25px;" bgcolor="#002B7A"><span style="color: #BB8800;">Hrs</span></th>
+      <th style="width: 2%;" style="background: #002B7A; height: 25px;" bgcolor="#002B7A"><span style="color: #BB8800;">Alumnos</span></th>
+      <th style="width: 2%;" style="background: #002B7A; height: 25px;" bgcolor="#002B7A"><span style="color: #BB8800;">%</span></th>
+  </tr>
+</tfoot>
+<tbody>                    
+    {% for om in omaterias|sort(attribute="ceom_clave_u", reverse = False)|sort(attribute="ceom_semestre", reverse = False) if om.ceca_in_ceom().ceca_clave == car.ceca_clave %}
+        {% for pr in om.cesr_cepr_ceom %}
+        <span style="font-size: x-small;">
+          <tr style="font-size: x-small;">
+            <td>{{om.ceom_clave_str()}}</td> 
+            <td>{{om.ceom_nombre}}</td>
+            <td>{{om.ceom_semestre}}</td>
+            <td>{{om.ceom_ciclo_cese}}</td>
+            <td>{{om.ceom_plan_cepe}}</td>
+            <td>{{pr.nombre_cepr()}}</td>
+            <td>{% if om.ceom_profesor_cepr == pr.cepr_ntrabajador and (om.ceom_profesor2_cepr is not number ) %}
+                    {{om.ceom_hs_totales}}
+                {% elif om.ceom_profesor_cepr == pr.cepr_ntrabajador and (om.ceom_profesor2_cepr is number or om.ceom_profesor2_cepr != 0) %}
+                    {{om.ceom_hs_pr1}}
+                {% elif om.ceom_profesor_cepr != pr.cepr_ntrabajador and om.ceom_profesor2_cepr == pr.cepr_ntrabajador %}
+                    {{om.ceom_hs_pr2}}
+                {% endif %}
+
+            </td>
+
+            <td>
+                {{ ceal_docencia_informe.informes_completo(semestre.cese_ciclo, om.ceom_clave, pr.cepr_ntrabajador) }} / 
+                {{ ceal_docencia_informe.informes_creados(semestre.cese_ciclo, om.ceom_clave, pr.cepr_ntrabajador) }}
+            </td>            
+            <td>
+              {% if ceal_docencia_informe.informes_completo(semestre.cese_ciclo, om.ceom_clave, pr.cepr_ntrabajador) >= 1 %}
+                {{ (
+                    (
+                        ceal_docencia_informe.informes_completo(semestre.cese_ciclo, om.ceom_clave, pr.cepr_ntrabajador)  /  
+                        ceal_docencia_informe.informes_creados(semestre.cese_ciclo, om.ceom_clave, pr.cepr_ntrabajador)
+                        *100)|int
+                     )|round(precision=3) }} 
+              {% else %}
+                  0
+              {% endif %}
+            </td>
+
+          </tr>
+        </span>
+       {% endfor %}
+    {% endfor %}
+    </tbody>
+    </table>
+
+</div>
+
+</body>

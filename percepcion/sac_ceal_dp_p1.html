@@ -1,0 +1,184 @@
+{% extends base %} 
+
+
+{% block app_content %}
+<head>
+<style type="text/css">
+div.ui-menu li {
+    list-style:none;
+    background-image:none;
+    background-repeat:none;
+    background-position:0; 
+}
+ul
+{
+    list-style-type:none;
+    padding:0px;
+    margin:0px;
+}
+li
+{
+    background-image:url(sqpurple.gif);
+    background-repeat:no-repeat;
+    background-position:0px 5px; 
+    padding-left:14px;
+}
+</style>
+</head>
+
+<body>
+
+<br>
+<div class="row">
+    <div class="col-md-12">
+      <ol class="breadcrumb">
+        <li><a href="{{url_for('ceom_ceal_actual', id = al.ceal_cuenta )}}">Lista de materias</a></li>
+        <li>/ {{ om.ceom_nombre }} (Profesor {{pr.cepr_nombre}} {{pr.cepr_papellido}} {{pr.cepr_sapellido}})</li>
+      </ol>
+    </div>
+</div>
+
+
+<br>
+<br>
+
+<div class="container">
+
+  <div class="row">
+    <div class="col-md-12">
+        {% for field, errors in form.errors.items() %}
+        <div class="alert alert-danger">
+            {{ form[field].label }}: {{ ', '.join(errors) }}
+        </div>
+        {% endfor %}
+    </div>
+  </div>
+
+
+<form method="post">
+    {{ form.csrf_token }}
+                      
+
+  <div class="row">
+    <div class="col-md-12">
+        <div class="container-fluid">
+          <div class="card shadow mb-4">
+            <div class="card-header py-3">
+              <h6>
+                1. OBJETIVOS DEL CURSO
+              </h6>            
+            </div>
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table" id="dataTable" width="100%" cellspacing="0">    
+                <b>Instrucciones</b>
+                <br>
+                Lee con atención cada una de las siguientes preguntas, da clic sobre la respuesta que consideres adecuada.
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+  </div>
+
+
+
+  <div class="row">
+    <div class="col-md-12">
+        <div class="container-fluid">
+          <div class="card shadow mb-4">
+            <div class="card-header py-3">
+              <h6>
+                {{form.ceal_docencia_q_1_1.label() }}
+              </h6>            
+            </div>
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table" id="dataTable" width="100%" cellspacing="0">    
+                        <div class="form-group list-unstyled">
+                          {{form.ceal_docencia_q_1_1()}}
+                        </div>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+  </div>
+
+
+  <div class="row">
+    <div class="col-md-12">
+        <div class="container-fluid">
+          <div class="card shadow mb-4">
+            <div class="card-header py-3">
+              <h6>
+                {{form.ceal_docencia_q_1_2.label() }}
+              </h6>            
+            </div>
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table" id="dataTable" width="100%" cellspacing="0">    
+                        <div class="form-group">
+                          {{form.ceal_docencia_q_1_2()}}
+                        </div>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+  </div>
+
+
+    <div class="row">
+    <div class="col-md-12">
+        <div class="container-fluid">
+          <div class="card shadow mb-4">
+            <div class="card-header py-3">
+              <h6>
+                {{form.ceal_docencia_q_1_3.label() }}
+              </h6>            
+            </div>
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table" id="dataTable" width="100%" cellspacing="0">    
+                        <div class="form-group">
+                          {{form.ceal_docencia_q_1_3()}}
+                        </div>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+  </div>
+
+
+
+    <table width="100%">
+      <tr>
+        <td width="20"> 
+            {{form.atras(class="btn btn-lg btn-warning")}}
+            {{form.submit(class="btn btn-lg btn-info")}}
+        </td>
+        <td width="100"> 
+            <div class="progress" style="height: 25px;">
+              <div class="progress-bar bg-success" role="progressbar" style="width: {{avance}}%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+            Página 1 de 8
+        </td>        
+      </tr>
+    </table>
+
+</form>
+</div>
+
+
+
+
+
+
+<br>
+{% endblock %}
