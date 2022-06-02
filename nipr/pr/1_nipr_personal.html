@@ -1,0 +1,319 @@
+{% extends "nipr/base_nipr.html" %}
+
+
+{% block app_content %}
+
+<div class="row">
+<div class="col-lg-4 col-md-12 mb-4">
+  <div class="formulario__titulo">
+    <h6>Nuevo profesor: {{pr.nipr_nombre}}</h6>
+  </div>
+  <br> <br>
+  <div class="card justify-content-center">
+    <ul class="list-group list-group-flush ">
+      
+      <!-- Completado -->
+      {% if pr.nipr_seccion_1 == True %}
+      <a class="list-group-item nav__enlace-dark--modificado active" href="{{url_for('nipr_c_1', id = pr.nipr_rfc)}}">
+        <i class="fas fa-check-square text-success"></i> Información personal </a>      
+      {% else %}
+      <a class="list-group-item nav__enlace-dark--modificado color-default" href="{{url_for('nipr_c_1', id = pr.nipr_rfc)}}">
+        <i class="fas fa-file-excel text-danger"></i> Información personal </a>
+      {% endif %}
+
+      {% if pr.nipr_seccion_2 == True %}
+      <a class="list-group-item nav__enlace-dark--modificado active" href="{{url_for('nipr_c_2', id = pr.nipr_rfc)}}">
+        <i class="fas fa-check-square text-success"></i>  Estudios concluidos con grado académico</a>
+      {% else %}
+      <a class="list-group-item color-default nav__enlace-dark--modificado" href="{{url_for('nipr_c_2', id = pr.nipr_rfc)}}">
+        <i class="fas fa-file-excel text-danger"></i> Estudios concluidos con grado académico</a>
+      {% endif %}
+
+      {% if pr.nipr_seccion_3 == True %}
+      <a class="list-group-item nav__enlace-dark--modificado active" href="{{url_for('nipr_c_3', id = pr.nipr_rfc)}}">
+        <i class="fas fa-check-square text-success"></i>  Sistema Nacional de Investigadores (SNI)</a>
+      {% else %}
+      <a class="list-group-item color-default nav__enlace-dark--modificado" href="{{url_for('nipr_c_3', id = pr.nipr_rfc)}}"> <i class="fas fa-check-square text-danger"></i> Sistema Nacional de Investigadores (SNI)</a>
+      {% endif %}
+
+      {% if pr.nipr_seccion_4 == True %}
+      <a class="list-group-item nav__enlace-dark--modificado active" href="{{url_for('nipr_c_4', id = pr.nipr_rfc)}}">
+        <i class="fas fa-check-square text-success"></i> Situación laboral</a>
+      {% else %}
+      <a class="list-group-item color-default nav__enlace-dark--modificado" href="{{url_for('nipr_c_4', id = pr.nipr_rfc)}}"> <i class="fas fa-check-square text-danger"></i> Situación laboral</a>
+      {% endif %}
+
+      {% if pr.nipr_seccion_5 == True %}
+      <a class="list-group-item nav__enlace-dark--modificado active" href="{{url_for('nipr_c_5', id = pr.nipr_rfc)}}">
+        <i class="fas fa-check-square text-success"></i> Información de Emergencia</a>
+      {% else %}
+      <a class="list-group-item color-default nav__enlace-dark--modificado" href="{{url_for('nipr_c_5', id = pr.nipr_rfc)}}"> <i class="fas fa-check-square text-danger"></i> Información de Emergencia</a>
+      {% endif %}
+
+      {% if pr.nipr_seccion_6 == True %}
+      <a class="list-group-item nav__enlace-dark--modificado active" href="{{url_for('nipr_c_6', id = pr.nipr_rfc)}}">
+        <i class="fas fa-check-square text-success"></i> Documentos probatorios</a>
+      {% else %}
+      <a class="list-group-item color-default nav__enlace-dark--modificado" href="{{url_for('nipr_c_6', id = pr.nipr_rfc)}}"> <i class="fas fa-check-square text-danger"></i> Documentos probatorios</a>
+      {% endif %}
+
+    </ul>
+  </div>
+</div>
+
+<div id="crearS1s1" class="col-lg-8 col-md-12 justify-content-center">
+  <div class="container">
+
+    <div class="formulario__titulo">
+      <h6 id="titulo">{{title}}</h6>
+    </div>
+    <br>
+
+    <p class="instrucción_estilo">Capture la información como aparece en su acta de nacimiento</p>
+    <form class="formu" action="{{url_for('nipr_c_1', id = pr.nipr_rfc)}}" method="post" enctype="multipart/form-data">
+        {{ form.csrf_token }}
+        {% for field, errors in form.errors.items() %}
+          <div class="alert alert-danger">
+            {{ form[field].label }}: {{ ', '.join(errors) }}
+          </div>
+        {% endfor %}
+        {% with messages = get_flashed_messages() %}
+          {% if messages %}
+              {% for message in messages %}
+              <div class="alert alert-info" role="alert">{{ message }}</div>
+              {% endfor %}
+          {% endif %}
+        {% endwith %}
+        <div class="form-group">
+          {{form.nipr_nombre.label(class = "formulario_label") }}
+          {{form.nipr_nombre(class ="form-control" )}}
+        </div>
+        <div class="form-group">
+          {{form.nipr_papellido.label(class = "formulario_label") }}
+          {{form.nipr_papellido(class ="form-control" )}}
+        </div>
+        <div class="form-group">
+          {{form.nipr_sapellido.label(class = "formulario_label") }}
+          {{form.nipr_sapellido(class ="form-control" )}}
+        </div>
+        <div class="form-group">
+          {{form.nipr_curp.label(class = "formulario_label") }}
+          {{form.nipr_curp(class ="form-control" )}}
+        </div>
+        <div class="form-group">
+          {{form.nipr_rfc.label(class = "formulario_label") }}
+          {{form.nipr_rfc(class ="form-control" )}}
+        </div>
+        <div class="form-group">
+          {{form.nipr_rfc_sh.label(class = "formulario_label") }}
+          {{form.nipr_rfc_sh(class ="form-control" )}}
+        </div>
+        <div class="form-group">
+          {{form.nipr_nacimiento.label(class = "formulario_label") }}
+          {{form.nipr_nacimiento(class ="form-control" )}}
+        </div>
+        <div class="form-group">
+          {{form.nipr_nacionalidad.label(class = "formulario_label", id = "nacionalidad_l") }}
+          {{form.nipr_nacionalidad(class ="form-control", id = "nacionalidad" )}}
+        </div>
+        
+        <hr>
+        <div class="form-group">
+          {{form.nipr_nac_estado.label(class = "formulario_label", id = "nac_estado_l") }}
+          {{form.nipr_nac_estado(class ="form-control", id = "nac_estado" )}}
+        </div>
+        <div class="form-group">
+          {{form.nipr_nac_ciudad.label(class = "formulario_label", id = "nac_ciudad_l") }}
+          {{form.nipr_nac_ciudad(class ="form-control", id = "nac_ciudad" )}}
+        </div>
+        <div class="form-group">
+          {{form.nipr_nac_pais_extr.label(class = "formulario_label", id = "nac_pais_extr_l") }}
+          {{form.nipr_nac_pais_extr(class ="form-control", id = "nac_pais_extr" )}}
+        </div>
+        <div class="form-group">
+          {{form.nipr_nac_ciudad_extr.label(class = "formulario_label", id = "nac_ciudad_extr_l") }}
+          {{form.nipr_nac_ciudad_extr(class ="form-control", id = "nac_ciudad_extr" )}}
+        </div>
+        <div class="form-group">
+          {{form.nipr_emigratorio.label(class = "formulario_label", id = "emigratorio_l") }}
+          {{form.nipr_emigratorio(class ="form-control", id = "emigratorio" )}}
+        </div>
+        <hr> 
+
+        Domicilio actual
+        <div class="form-group">
+          {{form.nipr_calle_numero.label(class = "formulario_label") }}
+          {{form.nipr_calle_numero(class ="form-control" )}}
+        </div>
+        <div class="form-group">
+          {{form.nipr_colonia.label(class = "formulario_label") }}
+          {{form.nipr_colonia(class ="form-control" )}}
+        </div>
+        <div class="form-group">
+          {{form.nipr_estado.label(class = "formulario_label") }}
+          {{form.nipr_estado(class ="form-control" )}}
+        </div>
+        <div class="form-group">
+          {{form.nipr_municipio.label(class = "formulario_label") }}
+          {{form.nipr_municipio(class ="form-control" )}}
+        </div>
+        <div class="form-group">
+          {{form.nipr_cp.label(class = "formulario_label") }}
+          {{form.nipr_cp(class ="form-control" )}}
+        </div>
+        <div class="form-group">
+          {{form.nipr_sexo.label(class = "formulario_label") }}<label><span class="formulario_label"><a href="https://www.dgae.unam.mx/" target="_blank"> Enlace </a></span></label><br>
+          {{form.nipr_sexo(class ="form-control" )}}
+        </div>
+        <div class="form-group">
+          {{form.nipr_ecivil.label(class = "formulario_label") }}<label><span class="formulario_label"><a href="https://www.personal.unam.mx/" target="_blank"> Enlace </a></span></label><br>
+          {{form.nipr_ecivil(class ="form-control" )}}
+        </div>
+        <div class="form-group">
+          {{form.nipr_lengua.label(class = "formulario_label") }}
+          {{form.nipr_lengua(class ="form-control" )}}
+        </div>
+        <div class="form-group">
+          {{form.nipr_lengua_descr.label(class = "formulario_label") }}
+          {{form.nipr_lengua_descr(class ="form-control" )}}
+        </div>
+        <div class="form-group">
+          {{form.nipr_discapacidad.label(class = "formulario_label") }}
+          {{form.nipr_discapacidad(class ="form-control" )}}
+        </div>
+        <div class="form-group">
+          {{form.nipr_telefono.label(class = "formulario_label") }}
+          {{form.nipr_telefono(class ="form-control" )}}
+        </div>
+        <div class="form-group">
+          {{form.nipr_email.label(class = "formulario_label") }}
+          {{form.nipr_email(class ="form-control" )}}
+        </div>
+         {{form.submit(class="formulario__boton" )}}
+    </form>
+
+    <br>
+    <div class="progress mb-5">
+      <div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"
+        style="width:{{pr.nipr_advance()}}%">
+      </div>
+    </div>
+  </div>
+</div>
+
+
+  <br>
+  <br>
+  {% endblock %}
+
+  {% block scripts %}
+{{ super() }}
+<script>
+    /*
+      Nacionalidad
+    */
+    $('#nac_estado_l').hide();
+    $('#nac_estado').hide();
+    $('#nac_ciudad_l').hide();
+    $('#nac_ciudad').hide();
+    $('#nac_pais_extr_l').hide();
+    $('#nac_pais_extr').hide();
+    $('#nac_ciudad_extr_l').hide();
+    $('#nac_ciudad_extr').hide();
+    $('#emigratorio_l').hide();
+    $('#emigratorio').hide();
+</script>
+<script>
+  jQuery(document).ready(function () {
+    $("#nacionalidad").change(function () {
+      var chosen_val = $(this).val();
+      if (chosen_val == 'M') {
+        $('#nac_estado_l').show();
+        $('#nac_estado').show();
+        $('#nac_ciudad_l').show();
+        $('#nac_ciudad').show();
+        
+        $('#nac_pais_extr_l').hide();
+        $('#nac_pais_extr').hide();
+        $('#nac_ciudad_extr_l').hide();
+        $('#nac_ciudad_extr').hide();
+        $('#emigratorio_l').hide();
+        $('#emigratorio').hide();
+
+      } else if (chosen_val == 'E') {
+        $('#nac_estado_l').hide();
+        $('#nac_estado').hide();
+        $('#nac_ciudad_l').hide();
+        $('#nac_ciudad').hide();
+
+        $('#nac_pais_extr_l').show();
+        $('#nac_pais_extr').show();
+        $('#nac_ciudad_extr_l').show();
+        $('#nac_ciudad_extr').show();
+        $('#emigratorio_l').show();
+        $('#emigratorio').show();
+      } else {
+        $('#nac_estado_l').hide();
+        $('#nac_estado').hide();
+        $('#nac_ciudad_l').hide();
+        $('#nac_ciudad').hide();
+        $('#nac_pais_extr_l').hide();
+        $('#nac_pais_extr').hide();
+        $('#nac_ciudad_extr_l').hide();
+        $('#nac_ciudad_extr').hide();
+        $('#emigratorio_l').hide();
+        $('#emigratorio').hide();
+      }
+
+    });
+  });
+</script>
+<script>
+    estado_select_nac = document.getElementById("nac_estado");
+    municipio_select_nac = document.getElementById("nac_ciudad");
+
+    estado_select_nac.onchange = function()  {
+      estado_nac = estado_select_nac.value;
+
+        fetch('/mun_entidad/' + estado_nac).then(function(response) {
+            response.json().then(function(data) {
+              var optionHTML = '';
+
+                for (var municipio of data.municipios) {
+                    optionHTML += '<option  value=' +  municipio.cve_mun + '>' + municipio.nom_cab + '</option>';
+                }
+
+                municipio_select_nac.innerHTML = optionHTML;
+                //console.table(data)
+
+            });
+         //alert(estado)
+        });
+      }
+</script>
+<script>
+    estado_select_nac = document.getElementById("nipr_estado");
+    municipio_select_nac = document.getElementById("nipr_municipio");
+
+    estado_select_nac.onchange = function()  {
+      estado_nac = estado_select_nac.value;
+
+        fetch('/mun_entidad/' + estado_nac).then(function(response) {
+            response.json().then(function(data) {
+              var optionHTML = '';
+
+                for (var municipio of data.municipios) {
+                    optionHTML += '<option  value=' +  municipio.cve_mun + '>' + municipio.nom_cab + '</option>';
+                }
+
+                municipio_select_nac.innerHTML = optionHTML;
+                //console.table(data)
+
+            });
+         //alert(estado)                
+        });
+      }
+</script>
+
+
+{% endblock %}

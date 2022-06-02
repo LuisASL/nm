@@ -1,0 +1,86 @@
+{% extends "nipr/base_nipr.html" %}
+
+
+{% block app_content %}
+
+<div class="row">
+
+<div class="col-lg-4 col-md-12 mb-4">
+  <div class="formulario__titulo">
+    <h6>Nuevo profesor: {{pr.nipr_nombre}}</h6>
+  </div>
+  <br> <br>
+  <div class="card justify-content-center">
+    <ul class="list-group list-group-flush ">
+      
+      <!-- Completado -->
+      {% if pr.nipr_seccion_1 == True %}
+      <a class="list-group-item nav__enlace-dark--modificado active" href="{{url_for('nipr_c_1', id = pr.nipr_rfc)}}">
+        <i class="fas fa-check-square text-success"></i> Información personal </a>      
+      {% else %}
+      <a class="list-group-item nav__enlace-dark--modificado color-default" href="{{url_for('nipr_c_1', id = pr.nipr_rfc)}}">
+        <i class="fas fa-file-excel text-danger"></i> Información personal </a>
+      {% endif %}
+
+      {% if pr.nipr_seccion_2 == True %}
+      <a class="list-group-item nav__enlace-dark--modificado active" href="{{url_for('nipr_c_2', id = pr.nipr_rfc)}}">
+        <i class="fas fa-check-square text-success"></i>  Estudios concluidos con grado académico</a>
+      {% else %}
+      <a class="list-group-item color-default nav__enlace-dark--modificado" href="{{url_for('nipr_c_2', id = pr.nipr_rfc)}}">
+        <i class="fas fa-file-excel text-danger"></i> Estudios concluidos con grado académico</a>
+      {% endif %}
+
+      {% if pr.nipr_seccion_3 == True %}
+      <a class="list-group-item nav__enlace-dark--modificado active" href="{{url_for('nipr_c_3', id = pr.nipr_rfc)}}">
+        <i class="fas fa-check-square text-success"></i>  Sistema Nacional de Investigadores (SNI)</a>
+      {% else %}
+      <a class="list-group-item color-default nav__enlace-dark--modificado" href="{{url_for('nipr_c_3', id = pr.nipr_rfc)}}"> <i class="fas fa-check-square text-danger"></i> Sistema Nacional de Investigadores (SNI)</a>
+      {% endif %}
+
+      {% if pr.nipr_seccion_4 == True %}
+      <a class="list-group-item nav__enlace-dark--modificado active" href="{{url_for('nipr_c_4', id = pr.nipr_rfc)}}">
+        <i class="fas fa-check-square text-success"></i> Situación laboral</a>
+      {% else %}
+      <a class="list-group-item color-default nav__enlace-dark--modificado" href="{{url_for('nipr_c_4', id = pr.nipr_rfc)}}"> <i class="fas fa-check-square text-danger"></i> Situación laboral</a>
+      {% endif %}
+
+      {% if pr.nipr_seccion_5 == True %}
+      <a class="list-group-item nav__enlace-dark--modificado active" href="{{url_for('nipr_c_5', id = pr.nipr_rfc)}}">
+        <i class="fas fa-check-square text-success"></i> Información de Emergencia</a>
+      {% else %}
+      <a class="list-group-item color-default nav__enlace-dark--modificado" href="{{url_for('nipr_c_5', id = pr.nipr_rfc)}}"> <i class="fas fa-check-square text-danger"></i> Información de Emergencia</a>
+      {% endif %}
+
+      {% if pr.nipr_seccion_6 == True %}
+      <a class="list-group-item nav__enlace-dark--modificado active" href="{{url_for('nipr_c_6', id = pr.nipr_rfc)}}">
+        <i class="fas fa-check-square text-success"></i> Documentos probatorios</a>
+      {% else %}
+      <a class="list-group-item color-default nav__enlace-dark--modificado" href="{{url_for('nipr_c_6', id = pr.nipr_rfc)}}"> <i class="fas fa-check-square text-danger"></i> Documentos probatorios</a>
+      {% endif %}
+
+    </ul>
+  </div>
+</div>
+
+<div id="crearS1s1" class="col-lg-8 col-md-12 justify-content-center">
+  <div class="container">
+
+    <div class="formulario__titulo">
+      <h6 id="titulo">{{title}}</h6>
+    </div>
+    <br>
+
+      {{ wtf(form, button_map={'submit':'primary', 'subant':'danger'}, horizontal_columns=('lg', 2, 10) ) }}
+
+    <br>
+    <div class="progress mb-5">
+      <div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"
+        style="width:{{pr.nipr_advance()}}%">
+      </div>
+    </div>
+  </div>
+</div>
+
+  <br>
+  <br>
+  {% endblock %}

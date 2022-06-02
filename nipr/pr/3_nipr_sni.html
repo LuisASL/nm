@@ -1,0 +1,180 @@
+{% extends "nipr/base_nipr.html" %}
+
+
+{% block app_content %}
+
+<div class="row">
+
+<div class="col-lg-4 col-md-12 mb-4">
+  <div class="formulario__titulo">
+    <h6>Nuevo profesor: {{pr.nipr_nombre}}</h6>
+  </div>
+  <br> <br>
+  <div class="card justify-content-center">
+    <ul class="list-group list-group-flush ">
+      
+      <!-- Completado -->
+      {% if pr.nipr_seccion_1 == True %}
+      <a class="list-group-item nav__enlace-dark--modificado active" href="{{url_for('nipr_c_1', id = pr.nipr_rfc)}}">
+        <i class="fas fa-check-square text-success"></i> Información personal </a>      
+      {% else %}
+      <a class="list-group-item nav__enlace-dark--modificado color-default" href="{{url_for('nipr_c_1', id = pr.nipr_rfc)}}">
+        <i class="fas fa-file-excel text-danger"></i> Información personal </a>
+      {% endif %}
+
+      {% if pr.nipr_seccion_2 == True %}
+      <a class="list-group-item nav__enlace-dark--modificado active" href="{{url_for('nipr_c_2', id = pr.nipr_rfc)}}">
+        <i class="fas fa-check-square text-success"></i>  Estudios concluidos con grado académico</a>
+      {% else %}
+      <a class="list-group-item color-default nav__enlace-dark--modificado" href="{{url_for('nipr_c_2', id = pr.nipr_rfc)}}">
+        <i class="fas fa-file-excel text-danger"></i> Estudios concluidos con grado académico</a>
+      {% endif %}
+
+      {% if pr.nipr_seccion_3 == True %}
+      <a class="list-group-item nav__enlace-dark--modificado active" href="{{url_for('nipr_c_3', id = pr.nipr_rfc)}}">
+        <i class="fas fa-check-square text-success"></i>  Sistema Nacional de Investigadores (SNI)</a>
+      {% else %}
+      <a class="list-group-item color-default nav__enlace-dark--modificado" href="{{url_for('nipr_c_3', id = pr.nipr_rfc)}}"> <i class="fas fa-check-square text-danger"></i> Sistema Nacional de Investigadores (SNI)</a>
+      {% endif %}
+
+      {% if pr.nipr_seccion_4 == True %}
+      <a class="list-group-item nav__enlace-dark--modificado active" href="{{url_for('nipr_c_4', id = pr.nipr_rfc)}}">
+        <i class="fas fa-check-square text-success"></i> Situación laboral</a>
+      {% else %}
+      <a class="list-group-item color-default nav__enlace-dark--modificado" href="{{url_for('nipr_c_4', id = pr.nipr_rfc)}}"> <i class="fas fa-check-square text-danger"></i> Situación laboral</a>
+      {% endif %}
+
+      {% if pr.nipr_seccion_5 == True %}
+      <a class="list-group-item nav__enlace-dark--modificado active" href="{{url_for('nipr_c_5', id = pr.nipr_rfc)}}">
+        <i class="fas fa-check-square text-success"></i> Información de Emergencia</a>
+      {% else %}
+      <a class="list-group-item color-default nav__enlace-dark--modificado" href="{{url_for('nipr_c_5', id = pr.nipr_rfc)}}"> <i class="fas fa-check-square text-danger"></i> Información de Emergencia</a>
+      {% endif %}
+
+      {% if pr.nipr_seccion_6 == True %}
+      <a class="list-group-item nav__enlace-dark--modificado active" href="{{url_for('nipr_c_6', id = pr.nipr_rfc)}}">
+        <i class="fas fa-check-square text-success"></i> Documentos probatorios</a>
+      {% else %}
+      <a class="list-group-item color-default nav__enlace-dark--modificado" href="{{url_for('nipr_c_6', id = pr.nipr_rfc)}}"> <i class="fas fa-check-square text-danger"></i> Documentos probatorios</a>
+      {% endif %}
+
+    </ul>
+  </div>
+</div>
+
+<div id="crearS1s1" class="col-lg-8 col-md-12 justify-content-center">
+  <div class="container">
+
+    <div class="formulario__titulo">
+      <h6 id="titulo">{{title}}</h6>
+    </div>
+    <br>
+
+    <form class="formu" action="{{url_for('nipr_c_3', id = pr.nipr_rfc)}}" method="post" enctype="multipart/form-data">
+        {{ form.csrf_token }}
+        {% for field, errors in form.errors.items() %}
+          <div class="alert alert-danger">
+            {{ form[field].label }}: {{ ', '.join(errors) }}
+          </div>
+        {% endfor %}
+        <div class="form-group">
+          {{form.nipr_sni.label(class = "formulario_label", id = "sni_l") }}<br>
+          {{form.nipr_sni(class ="form-control",  id = "sni" )}}
+        </div>
+        <hr>
+        <div class="form-group">
+          {{form.nipr_sni_exp.label(class = "formulario_label", id = "sni_exp_l") }}<br>
+          {{form.nipr_sni_exp(class ="form-control", id = "sni_exp" )}}
+        </div>
+        <div class="form-group">
+          {{form.nipr_sni_cvu.label(class = "formulario_label", id = "sni_cvu_l") }}<br>
+          {{form.nipr_sni_cvu(class ="form-control", id = "sni_cvu" )}}
+        </div>
+        <div class="form-group">
+          {{form.nipr_sni_niv.label(class = "formulario_label", id = "sni_nivel_l") }}<br>
+          {{form.nipr_sni_niv(class ="form-control", id = "sni_nivel" )}}
+        </div>
+        <div class="form-group">
+          {{form.nipr_sni_fini.label(class = "formulario_label", id = "sni_fini_l") }}<br>
+          {{form.nipr_sni_fini(class ="form-control", id = "sni_fini" )}}
+        </div>
+        <div class="form-group">
+          {{form.nipr_sni_ffin.label(class = "formulario_label", id = "sni_ffin_l") }}<br>
+          {{form.nipr_sni_ffin(class ="form-control", id = "sni_ffin" )}}
+        </div>
+        <hr>
+         {{form.submit(class="formulario__boton" )}}
+    </form>
+
+    <br>
+    <div class="progress mb-5">
+      <div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"
+        style="width:{{pr.nipr_advance()}}%">
+      </div>
+    </div>
+  </div>
+</div>
+
+
+  <br>
+  <br>
+
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+<script>
+    $('#sni_exp').hide();
+    $('#sni_cvu').hide();
+    $('#sni_nivel').hide();
+    $('#sni_fini').hide();
+    $('#sni_ffin').hide();
+    $('#pride_niv').hide();
+
+    $('#sni_exp_l').hide();
+    $('#sni_cvu_l').hide();
+    $('#sni_nivel_l').hide();
+    $('#sni_fini_l').hide();
+    $('#sni_ffin_l').hide();
+    $('#pride_niv_l').hide();
+</script>
+
+<script>
+  jQuery(document).ready(function () {
+    $("#sni").change(function () {
+      var chosen_val = $(this).val();
+      if (chosen_val == 'No') {
+        $('#sni_exp').hide();
+        $('#sni_cvu').hide();
+        $('#sni_nivel').hide();
+        $('#sni_fini').hide();
+        $('#sni_ffin').hide();
+
+        $('#sni_exp_l').hide();
+        $('#sni_cvu_l').hide();
+        $('#sni_nivel_l').hide();
+        $('#sni_fini_l').hide();
+        $('#sni_ffin_l').hide();
+      } else {
+        $("div.form-control #sni_ffin, #sni_exp, #sni_cvu, #sni_nivel,#sni_fini").animate({ opacity: .5, height: ["toggle", "swing"], }, 450);
+        $('#sni_exp').show();
+        $('#sni_cvu').show();
+        $('#sni_nivel').show();
+        $('#sni_fini').show();
+        $('#sni_ffin').show();
+
+        $('#sni_exp_l').show();
+        $('#sni_cvu_l').show();
+        $('#sni_nivel_l').show();
+        $('#sni_fini_l').show();
+        $('#sni_ffin_l').show();
+        $("div.formulario_label #sni_ffin, #sni_exp, #sni_cvu, #sni_nivel,#sni_fini").animate({ opacity: 1 }, 100);
+      }
+    });
+  });
+</script>
+
+
+
+{% endblock %}
+

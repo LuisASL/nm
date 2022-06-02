@@ -1,0 +1,55 @@
+{% extends "nipr/base_nipr.html" %}
+
+
+{% block app_content %}
+
+<div class="row">
+<div class="col-lg-2">
+</div>
+
+<div id="crearS1s1" class="col-lg-8 col-md-12 justify-content-center">
+  <div class="container">
+        {% for field, errors in form.errors.items() %}
+          <div class="alert alert-danger">
+            {{ form[field].label }}: {{ ', '.join(errors) }}
+          </div>
+        {% endfor %}
+
+    <div class="formulario__titulo">
+      <h6 id="titulo">{{titulo}}</h6>
+    </div>
+    <br>
+
+    <form class="formu" action="{{url_for('personal_nuevo')}}" method="post" enctype="multipart/form-data">
+          {{ form.csrf_token }}
+
+        <div class="form-group">
+          {{form.nipr_rfc.label() }}
+          {{form.nipr_rfc(class="form-control")}}
+        </div>
+
+
+        <div class="form-group">
+          {{form.nipr_privacidad_ans()}} {{form.nipr_privacidad_ans.label(class="formulario_label") }} 
+          <label><span class="formulario_label"><a href="http://www.enesjuriquilla.unam.mx/wp-content/uploads/2019/10/Integral-ENESJ.pdf"> Enlace </a></span></label>
+        </div>
+        <div class="form-group">
+          {{form.nipr_cctv_ans()}} {{form.nipr_cctv_ans.label(class="formulario_label") }} 
+          <label><span class="formulario_label"><a href="http://www.enesjuriquilla.unam.mx/wp-content/uploads/2019/10/Integral-ENESJ.pdf"> Enlace </a></span></label>
+        </div>
+        <div class="form-group">
+          {{form.nipr_imagen_ans()}} {{form.nipr_imagen_ans.label(class="formulario_label") }} 
+          <label><span class="formulario_label"><a href="http://www.enesjuriquilla.unam.mx/wp-content/uploads/2019/10/Integral-ENESJ.pdf"> Enlace </a></span></label>
+        </div>
+
+         {{form.submit(class="formulario__boton" )}}
+    </form>
+    <br>
+  </div>
+</div>
+
+</div>
+
+<br>
+<br>
+{% endblock %}

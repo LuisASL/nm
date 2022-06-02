@@ -1,0 +1,497 @@
+{% extends "nipr/base_nipr.html" %}
+
+
+{% block app_content %}
+
+<div class="row">
+
+<div class="col-lg-4 col-md-12 mb-4">
+  <div class="formulario__titulo">
+    <h6>Nuevo profesor: {{pr.nipr_nombre}}</h6>
+  </div>
+  <br> <br>
+  <div class="card justify-content-center">
+    <ul class="list-group list-group-flush ">
+      
+      <!-- Completado -->
+      {% if pr.nipr_seccion_1 == True %}
+      <a class="list-group-item nav__enlace-dark--modificado active" href="{{url_for('nipr_c_1', id = pr.nipr_rfc)}}">
+        <i class="fas fa-check-square text-success"></i> Información personal </a>      
+      {% else %}
+      <a class="list-group-item nav__enlace-dark--modificado color-default" href="{{url_for('nipr_c_1', id = pr.nipr_rfc)}}">
+        <i class="fas fa-file-excel text-danger"></i> Información personal </a>
+      {% endif %}
+
+      {% if pr.nipr_seccion_2 == True %}
+      <a class="list-group-item nav__enlace-dark--modificado active" href="{{url_for('nipr_c_2', id = pr.nipr_rfc)}}">
+        <i class="fas fa-check-square text-success"></i>  Estudios concluidos con grado académico</a>
+      {% else %}
+      <a class="list-group-item color-default nav__enlace-dark--modificado" href="{{url_for('nipr_c_2', id = pr.nipr_rfc)}}">
+        <i class="fas fa-file-excel text-danger"></i> Estudios concluidos con grado académico</a>
+      {% endif %}
+
+      {% if pr.nipr_seccion_3 == True %}
+      <a class="list-group-item nav__enlace-dark--modificado active" href="{{url_for('nipr_c_3', id = pr.nipr_rfc)}}">
+        <i class="fas fa-check-square text-success"></i>  Sistema Nacional de Investigadores (SNI)</a>
+      {% else %}
+      <a class="list-group-item color-default nav__enlace-dark--modificado" href="{{url_for('nipr_c_3', id = pr.nipr_rfc)}}"> <i class="fas fa-check-square text-danger"></i> Sistema Nacional de Investigadores (SNI)</a>
+      {% endif %}
+
+      {% if pr.nipr_seccion_4 == True %}
+      <a class="list-group-item nav__enlace-dark--modificado active" href="{{url_for('nipr_c_4', id = pr.nipr_rfc)}}">
+        <i class="fas fa-check-square text-success"></i> Situación laboral</a>
+      {% else %}
+      <a class="list-group-item color-default nav__enlace-dark--modificado" href="{{url_for('nipr_c_4', id = pr.nipr_rfc)}}"> <i class="fas fa-check-square text-danger"></i> Situación laboral</a>
+      {% endif %}
+
+      {% if pr.nipr_seccion_5 == True %}
+      <a class="list-group-item nav__enlace-dark--modificado active" href="{{url_for('nipr_c_5', id = pr.nipr_rfc)}}">
+        <i class="fas fa-check-square text-success"></i> Información de Emergencia</a>
+      {% else %}
+      <a class="list-group-item color-default nav__enlace-dark--modificado" href="{{url_for('nipr_c_5', id = pr.nipr_rfc)}}"> <i class="fas fa-check-square text-danger"></i> Información de Emergencia</a>
+      {% endif %}
+
+      {% if pr.nipr_seccion_6 == True %}
+      <a class="list-group-item nav__enlace-dark--modificado active" href="{{url_for('nipr_c_6', id = pr.nipr_rfc)}}">
+        <i class="fas fa-check-square text-success"></i> Documentos probatorios</a>
+      {% else %}
+      <a class="list-group-item color-default nav__enlace-dark--modificado" href="{{url_for('nipr_c_6', id = pr.nipr_rfc)}}"> <i class="fas fa-check-square text-danger"></i> Documentos probatorios</a>
+      {% endif %}
+
+    </ul>
+  </div>
+</div>
+
+<div id="crearS1s1" class="col-lg-8 col-md-12 justify-content-center">
+  <div class="container">
+
+    <div class="formulario__titulo">
+      <h6 id="titulo">{{title}}
+      </h6>
+    </div>
+    <br>
+
+    <form class="formu" action="{{url_for('nipr_c_4', id = pr.nipr_rfc)}}" method="post" enctype="multipart/form-data">
+        {{ form.csrf_token }}
+        {% for field, errors in form.errors.items() %}
+          <div class="alert alert-danger">
+            {{ form[field].label }}: {{ ', '.join(errors) }}
+          </div>
+        {% endfor %}
+        <!-- 
+
+            Inicio pregunta 1
+
+         -->
+        <div class="form-group">
+        {{form.nipr_contrato_enes.label(class = "formulario_label", id = "p_1_l") }}
+        {{form.nipr_contrato_enes(class ="form-control", id = "p1" )}}
+        </div>
+        
+        <!-- si -->
+        <div class="form-group">
+        {{form.nipr_nombramiento_se.label(class = "formulario_label", id = "p_1_1_1_l") }}
+        {{form.nipr_nombramiento_se(class ="form-control", id = "p_1_1_1" )}}
+        </div>
+        <div class="form-group">
+        {{form.nipr_docencia_nombramiento.label(class = "formulario_label", id = "p_1_1_2_l") }}
+        {{form.nipr_docencia_nombramiento(class ="form-control", id = "p_1_1_2" )}}
+        </div>
+        <div class="form-group">
+        {{form.nipr_contrato_tipo.label(class = "formulario_label", id = "p_1_1_3_l") }}
+        {{form.nipr_contrato_tipo(class ="form-control", id = "p_1_1_3" )}}
+        </div>
+        <div class="form-group">
+        {{form.nipr_contrato_tipo_desc.label(class = "formulario_label", id = "p_1_1_3_1_l") }}
+        {{form.nipr_contrato_tipo_desc(class ="form-control", id = "p_1_1_3_1" )}}
+        </div>
+
+        <!-- no -->
+        <div class="form-group">
+        {{form.nipr_situacion_actual_unam.label(class = "formulario_label", id = "p_1_2_1_l") }}
+        {{form.nipr_situacion_actual_unam(class ="form-control", id = "p_1_2_1" )}}
+        </div>
+        <!-- elige beca (1.2.1.1) -->
+        <div class="form-group">
+        {{form.nipr_depen_beca_tipo.label(class = "formulario_label", id = "p_1_2_1_1_l") }}
+        {{form.nipr_depen_beca_tipo(class ="form-control", id = "p_1_2_1_1" )}}
+        </div>
+        <div class="form-group">
+        {{form.nipr_depen_beca_otorga.label(class = "formulario_label", id = "p_1_2_1_2_l") }}
+        {{form.nipr_depen_beca_otorga(class ="form-control", id = "p_1_2_1_2" )}}
+        </div>
+        <div class="form-group">
+        {{form.nipr_depen_beca_ads.label(class = "formulario_label", id = "p_1_2_1_3_l") }}
+        {{form.nipr_depen_beca_ads(class ="form-control", id = "p_1_2_1_3" )}}
+        </div>
+        <div class="form-group">
+        {{form.nipr_depen_beca_inicio.label(class = "formulario_label", id = "p_1_2_1_4_l") }}
+        {{form.nipr_depen_beca_inicio(class ="form-control", id = "p_1_2_1_4" )}}
+        </div>
+        <div class="form-group">
+        {{form.nipr_depen_beca_final.label(class = "formulario_label", id = "p_1_2_1_5_l") }}
+        {{form.nipr_depen_beca_final(class ="form-control", id = "p_1_2_1_5" )}}
+        </div>
+
+        <!-- elige otro (1.2.1.2) -->
+        <div class="form-group">
+        {{form.nipr_situacion_otra_unam.label(class = "formulario_label", id = "p_1_2_2_1_l") }}
+        {{form.nipr_situacion_otra_unam(class ="form-control", id = "p_1_2_2_1")}}
+        </div>
+
+        <!-- 
+
+            Termina pregunta 1
+            
+         -->
+        <!-- 
+
+            Inicia pregunta 2
+            
+         -->
+        <hr>
+        <div class="form-group">
+          {{form.nipr_contrato_unam.label(class = "formulario_label", id = "p_2_l") }}
+          {{form.nipr_contrato_unam(class ="form-control", id = "p2" )}}
+        </div>
+        <div class="form-group">
+          {{form.nipr_depen_unam_ads.label(class = "formulario_label", id = "p_2_1_1_l") }}
+          {{form.nipr_depen_unam_ads(class ="form-control", id = "p_2_1_1" )}}
+        </div>
+        <div class="form-group">
+          {{form.nipr_depen_unam_ads_nombramiento.label(class = "formulario_label", id = "p_2_1_2_l") }}
+          {{form.nipr_depen_unam_ads_nombramiento(class ="form-control", id = "p_2_1_2" )}}
+        </div>
+        <div class="form-group">
+          {{form.nipr_depen_unam_ads_nombramiento_otro.label(class = "formulario_label", id = "p_2_1_2_1_l") }}
+          {{form.nipr_depen_unam_ads_nombramiento_otro(class ="form-control", id = "p_2_1_2_1" )}}
+        </div>
+        <hr>
+        <!-- 
+
+            Termina pregunta 2
+            
+         -->
+        <!-- 
+
+            Inicia pregunta 3
+            
+         -->
+        <div class="form-group">
+          {{form.nipr_contrato_externo.label(class = "formulario_label", id = "p_3_l") }}
+          {{form.nipr_contrato_externo(class ="form-control", id = "p_3" )}}
+        </div>
+
+        <div class="form-group">
+          {{form.nipr_depen_externa_ads.label(class = "formulario_label", id = "p_3_1_l") }}
+          {{form.nipr_depen_externa_ads(class ="form-control", id = "p_3_1" )}}
+        </div>
+        <div class="form-group">
+          {{form.nipr_depen_externa_ads_nombramiento.label(class = "formulario_label", id = "p_3_2_l") }}
+          {{form.nipr_depen_externa_ads_nombramiento(class ="form-control", id = "p_3_2" )}}
+        </div>
+        <!-- 
+
+            Inicia pregunta 3
+            
+         -->
+
+         {{form.submit(class="formulario__boton" )}}
+    </form>
+
+    <br>
+    <div class="progress mb-5">
+      <div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"
+        style="width:{{pr.nipr_advance()}}%">
+      </div>
+    </div>
+  </div>
+</div>
+
+  <br>
+  <br>
+  {% endblock %}
+    {% block scripts %}
+{{ super() }}
+<script>
+  
+  // Pregunta 1
+  $('#p_1_1_1_l').hide();
+  $('#p_1_1_1').hide();
+  $('#p_1_1_2_l').hide();
+  $('#p_1_1_2').hide();
+  $('#p_1_1_3_l').hide();
+  $('#p_1_1_3').hide();
+
+  $('#p_1_1_3_1_l').hide();
+  $('#p_1_1_3_1').hide();
+
+  $('#p_1_2_1_l').hide();
+  $('#p_1_2_1').hide();
+  $('#p_1_2_1_1_l').hide();
+  $('#p_1_2_1_1').hide();
+  $('#p_1_2_1_2_l').hide();
+  $('#p_1_2_1_2').hide();
+  $('#p_1_2_1_3_l').hide();
+  $('#p_1_2_1_3').hide();
+  $('#p_1_2_1_4_l').hide();
+  $('#p_1_2_1_4').hide();
+  $('#p_1_2_1_5_l').hide();
+  $('#p_1_2_1_5').hide();
+  $('#p_1_2_2_1_l').hide();
+  $('#p_1_2_2_1').hide();
+  
+  // Pregunta 2
+  $('#p_2_1_1_l').hide();
+  $('#p_2_1_1').hide();
+  $('#p_2_1_2_l').hide();
+  $('#p_2_1_2').hide();
+  $('#p_2_1_2_1_l').hide();
+  $('#p_2_1_2_1').hide();
+
+  // Pregunta 3
+  $('#p_3_1_l').hide();
+  $('#p_3_1').hide();
+  $('#p_3_2_l').hide();
+  $('#p_3_2').hide();
+
+</script>
+
+
+<!-- 
+
+  PREGUNTA 1
+
+ -->
+
+
+<script>
+  jQuery(document).ready(function () {
+    $("#p1").change(function () {
+      var chosen_val = $(this).val();
+      if (chosen_val == 'Sí') {
+        $('#p_1_1_1_l').show();
+        $('#p_1_1_1').show();
+        $('#p_1_1_2_l').show();
+        $('#p_1_1_2').show();
+        $('#p_1_1_3_l').show();
+        $('#p_1_1_3').show();
+
+        $('#p_1_2_1_l').hide();
+        $('#p_1_2_1').hide();
+        $('#p_1_2_1_1_l').hide();
+        $('#p_1_2_1_1').hide();
+        $('#p_1_2_1_2_l').hide();
+        $('#p_1_2_1_2').hide();
+        $('#p_1_2_1_3_l').hide();
+        $('#p_1_2_1_3').hide();
+        $('#p_1_2_1_4_l').hide();
+        $('#p_1_2_1_4').hide();
+        $('#p_1_2_1_5_l').hide();
+        $('#p_1_2_1_5').hide();
+        $('#p_1_2_2_1_l').hide();
+        $('#p_1_2_2_1').hide();
+
+      } else if (chosen_val == 'No') {
+        $('#p_1_1_1_l').hide();
+        $('#p_1_1_1').hide();
+        $('#p_1_1_2_l').hide();
+        $('#p_1_1_2').hide();
+        $('#p_1_1_3_l').hide();
+        $('#p_1_1_3').hide();
+        $('#p_1_1_3_1_l').hide();
+        $('#p_1_1_3_1').hide();        
+
+        $('#p_1_2_1_l').show();
+        $('#p_1_2_1').show();
+
+
+      } else {
+        $('#p_1_1_1_l').hide();
+        $('#p_1_1_1').hide();
+        $('#p_1_1_2_l').hide();
+        $('#p_1_1_2').hide();
+        $('#p_1_1_3_l').hide();
+        $('#p_1_1_3').hide();
+
+        $('#p_1_1_3_1_l').hide();
+        $('#p_1_1_3_1').hide();
+
+        $('#p_1_2_1_l').hide();
+        $('#p_1_2_1').hide();
+        $('#p_1_2_1_1_l').hide();
+        $('#p_1_2_1_1').hide();
+        $('#p_1_2_1_2_l').hide();
+        $('#p_1_2_1_2').hide();
+        $('#p_1_2_1_3_l').hide();
+        $('#p_1_2_1_3').hide();
+        $('#p_1_2_1_4_l').hide();
+        $('#p_1_2_1_4').hide();
+        $('#p_1_2_1_5_l').hide();
+        $('#p_1_2_1_5').hide();
+        $('#p_1_2_2_1_l').hide();
+        $('#p_1_2_2_1').hide();
+      }
+    });
+  });
+</script>
+
+<script>
+  jQuery(document).ready(function () {
+    $("#p_1_1_3").change(function () {
+      var chosen_val = $(this).val();
+      if (chosen_val != 'Otro') {
+        $('#p_1_1_3_1_l').hide();
+        $('#p_1_1_3_1').hide();
+      } else {
+        $('#p_1_1_3_1_l').show();
+        $('#p_1_1_3_1').show();
+
+      }
+    });
+  });
+</script>
+
+<script>
+  jQuery(document).ready(function () {
+    $("#p_1_2_1").change(function () {
+      var chosen_val = $(this).val();
+      if (chosen_val == 'Becario') {
+        $('#p_1_2_1_1_l').show();
+        $('#p_1_2_1_1').show();
+        $('#p_1_2_1_2_l').show();
+        $('#p_1_2_1_2').show();
+        $('#p_1_2_1_3_l').show();
+        $('#p_1_2_1_3').show();
+        $('#p_1_2_1_4_l').show();
+        $('#p_1_2_1_4').show();
+        $('#p_1_2_1_5_l').show();
+        $('#p_1_2_1_5').show();
+
+        $('#p_1_2_2_1_l').hide();
+        $('#p_1_2_2_1').hide();
+      } else if (chosen_val == 'Otro'){
+        $('#p_1_2_1_1_l').hide();
+        $('#p_1_2_1_1').hide();
+        $('#p_1_2_1_2_l').hide();
+        $('#p_1_2_1_2').hide();
+        $('#p_1_2_1_3_l').hide();
+        $('#p_1_2_1_3').hide();
+        $('#p_1_2_1_4_l').hide();
+        $('#p_1_2_1_4').hide();
+        $('#p_1_2_1_5_l').hide();
+        $('#p_1_2_1_5').hide();
+        
+        $('#p_1_2_2_1_l').show();
+        $('#p_1_2_2_1').show();
+
+      } else {
+        $('#p_1_2_1_1_l').hide();
+        $('#p_1_2_1_1').hide();
+        $('#p_1_2_1_2_l').hide();
+        $('#p_1_2_1_2').hide();
+        $('#p_1_2_1_3_l').hide();
+        $('#p_1_2_1_3').hide();
+        $('#p_1_2_1_4_l').hide();
+        $('#p_1_2_1_4').hide();
+        $('#p_1_2_1_5_l').hide();
+        $('#p_1_2_1_5').hide();
+        $('#p_1_2_2_1_l').hide();
+        $('#p_1_2_2_1').hide();
+      }
+    });
+  });
+</script>
+
+<!-- 
+
+  PREGUNTA 2
+
+ -->
+
+<script>
+  jQuery(document).ready(function () {
+    $("#p2").change(function () {
+      var chosen_val = $(this).val();
+      if (chosen_val == 'Sí') {
+          $('#p_2_1_1_l').show();
+          $('#p_2_1_1').show();
+          $('#p_2_1_2_l').show();
+          $('#p_2_1_2').show();
+
+
+      } else if (chosen_val == 'No') {
+          $('#p_2_1_1_l').hide();
+          $('#p_2_1_1').hide();
+          $('#p_2_1_2_l').hide();
+          $('#p_2_1_2').hide();
+          $('#p_2_1_2_1_l').hide();
+          $('#p_2_1_2_1').hide();
+
+
+      } else {
+        $('#p_2_1_1_l').hide();
+        $('#p_2_1_1').hide();
+        $('#p_2_1_2_l').hide();
+        $('#p_2_1_2').hide();
+        $('#p_2_1_2_1_l').hide();
+        $('#p_2_1_2_1').hide();
+
+      }
+    });
+  });
+</script>
+
+<script>
+  jQuery(document).ready(function () {
+    $("#p_2_1_2").change(function () {
+      var chosen_val = $(this).val();
+      if (chosen_val == 'Otro') {
+        $('#p_2_1_2_1_l').show();
+        $('#p_2_1_2_1').show();
+      } else {
+        $('#p_2_1_2_1_l').hide();
+        $('#p_2_1_2_1').hide();
+
+      }
+    });
+  });
+</script>
+
+<!-- 
+
+  PREGUNTA 3
+
+ -->
+
+<script>
+  jQuery(document).ready(function () {
+    $("#p_3").change(function () {
+      var chosen_val = $(this).val();
+      if (chosen_val == 'Sí') {
+          $('#p_3_1_l').show();
+          $('#p_3_1').show();
+          $('#p_3_2_l').show();
+          $('#p_3_2').show();
+
+
+      } else if (chosen_val == 'No') {
+          $('#p_3_1_l').hide();
+          $('#p_3_1').hide();
+          $('#p_3_2_l').hide();
+          $('#p_3_2').hide();
+
+      } else {
+          $('#p_3_1_l').hide();
+          $('#p_3_1').hide();
+          $('#p_3_2_l').hide();
+          $('#p_3_2').hide();
+
+      }
+    });
+  });
+</script>
+
+
+
+{% endblock %}

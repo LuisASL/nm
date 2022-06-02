@@ -1,0 +1,226 @@
+{% if current_user.is_authenticated %}
+  {% extends current_user.base_usuario() %}
+{% else %}
+  {% extends "nipr/base_nipr.html" %}
+{% endif %}
+
+
+{% block app_content %}
+
+<div class="row">
+
+<div class="col-lg-4 col-md-12 mb-4">
+  <div class="formulario__titulo">
+    <h6>Nuevo profesor: {{pr.nipr_nombre}}</h6>
+  </div>
+  <br> <br>
+  <div class="card justify-content-center">
+    <ul class="list-group list-group-flush ">
+      
+      <!-- Completado -->
+      {% if pr.nipr_seccion_1 == True %}
+      <a class="list-group-item nav__enlace-dark--modificado active" href="{{url_for('nipr_c_1', id = pr.nipr_rfc)}}">
+        <i class="fas fa-check-square text-success"></i> Información personal </a>      
+      {% else %}
+      <a class="list-group-item nav__enlace-dark--modificado color-default" href="{{url_for('nipr_c_1', id = pr.nipr_rfc)}}">
+        <i class="fas fa-file-excel text-danger"></i> Información personal </a>
+      {% endif %}
+
+      {% if pr.nipr_seccion_2 == True %}
+      <a class="list-group-item nav__enlace-dark--modificado active" href="{{url_for('nipr_c_2', id = pr.nipr_rfc)}}">
+        <i class="fas fa-check-square text-success"></i>  Estudios concluidos con grado académico</a>
+      {% else %}
+      <a class="list-group-item color-default nav__enlace-dark--modificado" href="{{url_for('nipr_c_2', id = pr.nipr_rfc)}}">
+        <i class="fas fa-file-excel text-danger"></i> Estudios concluidos con grado académico</a>
+      {% endif %}
+
+      {% if pr.nipr_seccion_3 == True %}
+      <a class="list-group-item nav__enlace-dark--modificado active" href="{{url_for('nipr_c_3', id = pr.nipr_rfc)}}">
+        <i class="fas fa-check-square text-success"></i>  Sistema Nacional de Investigadores (SNI)</a>
+      {% else %}
+      <a class="list-group-item color-default nav__enlace-dark--modificado" href="{{url_for('nipr_c_3', id = pr.nipr_rfc)}}"> <i class="fas fa-check-square text-danger"></i> Sistema Nacional de Investigadores (SNI)</a>
+      {% endif %}
+
+      {% if pr.nipr_seccion_4 == True %}
+      <a class="list-group-item nav__enlace-dark--modificado active" href="{{url_for('nipr_c_4', id = pr.nipr_rfc)}}">
+        <i class="fas fa-check-square text-success"></i> Situación laboral</a>
+      {% else %}
+      <a class="list-group-item color-default nav__enlace-dark--modificado" href="{{url_for('nipr_c_4', id = pr.nipr_rfc)}}"> <i class="fas fa-check-square text-danger"></i> Situación laboral</a>
+      {% endif %}
+
+      {% if pr.nipr_seccion_5 == True %}
+      <a class="list-group-item nav__enlace-dark--modificado active" href="{{url_for('nipr_c_5', id = pr.nipr_rfc)}}">
+        <i class="fas fa-check-square text-success"></i> Información de Emergencia</a>
+      {% else %}
+      <a class="list-group-item color-default nav__enlace-dark--modificado" href="{{url_for('nipr_c_5', id = pr.nipr_rfc)}}"> <i class="fas fa-check-square text-danger"></i> Información de Emergencia</a>
+      {% endif %}
+
+      {% if pr.nipr_seccion_6 == True %}
+      <a class="list-group-item nav__enlace-dark--modificado active" href="{{url_for('nipr_c_6', id = pr.nipr_rfc)}}">
+        <i class="fas fa-check-square text-success"></i> Documentos probatorios</a>
+      {% else %}
+      <a class="list-group-item color-default nav__enlace-dark--modificado" href="{{url_for('nipr_c_6', id = pr.nipr_rfc)}}"> <i class="fas fa-check-square text-danger"></i> Documentos probatorios</a>
+      {% endif %}
+
+    </ul>
+  </div>
+</div>
+
+<div id="crearS1s1" class="col-lg-8 col-md-12 justify-content-center">
+  <div class="container">
+
+    <div class="formulario__titulo">
+      <h6 id="titulo">{{title}}</h6>
+    </div>
+    <br>
+
+    <form class="formu" action="{{url_for('nipr_add_grado', id = pr.nipr_rfc)}}" method="post" enctype="multipart/form-data">
+        {{ form.csrf_token }}
+        {% for field, errors in form.errors.items() %}
+          <div class="alert alert-danger">
+            {{ form[field].label }}: {{ ', '.join(errors) }}
+          </div>
+        {% endfor %}
+        <div class="form-group">
+          {{form.nipr_grado.label(class = "formulario_label", id = "grado_l") }}
+          {{form.nipr_grado(class ="form-control", id = "grado" )}}
+        </div>
+        <hr>
+        <div class="form-group">
+          {{form.nipr_titulo.label(class = "formulario_label", id = "grado_titulo_l") }}
+          {{form.nipr_titulo(class ="form-control", id = "grado_titulo" )}}
+        </div>
+        <div class="form-group">
+          {{form.nipr_universidad.label(class = "formulario_label", id = "grado_univ_l") }}
+          {{form.nipr_universidad(class ="form-control", id = "grado_univ" )}}
+        </div>
+        <div class="form-group">
+          {{form.nipr_pais.label(class = "formulario_label", id = "grado_pais_l") }}
+          {{form.nipr_pais(class ="form-control", id = "grado_pais" )}}
+        </div>
+        <div class="form-group">
+          {{form.nipr_fechaexamen.label(class = "formulario_label", id = "grado_fexamen_l") }}
+          {{form.nipr_fechaexamen(class ="form-control", id = "grado_fexamen" )}}
+        </div>
+        <div class="form-group">
+          {{form.nipr_fechaexpedi.label(class = "formulario_label", id = "grado_fexped_l") }}
+          {{form.nipr_fechaexpedi(class ="form-control", id = "grado_fexped" )}}
+        </div>
+        <div class="form-group">
+          {{form.nipr_fecha_inicio.label(class = "formulario_label", id ="pdoc_inicio_l") }}
+          {{form.nipr_fecha_inicio(class ="form-control", id ="pdoc_inicio" )}}
+        </div>
+        <div class="form-group">
+          {{form.nipr_fecha_fin.label(class = "formulario_label", id ="pdoc_fin_l") }}
+          {{form.nipr_fecha_fin(class ="form-control", id ="pdoc_fin" )}}
+        </div>
+        <div class="form-group">
+          {{form.nipr_file_1.label(class = "formulario_label", id = "grado_probatorio_l") }}
+          {{form.nipr_file_1(class ="form-control", id = "grado_probatorio" )}}
+        </div>
+
+         {{form.subant(class="formulario__boton" )}}
+         {{form.submit(class="formulario__boton" )}}
+    </form>
+
+    <br>
+    <div class="progress mb-5">
+      <div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"
+        style="width:{{pr.nipr_advance()}}%">
+      </div>
+    </div>
+  </div>
+</div>
+
+  <br>
+  <br>
+{% endblock %}
+  {% block scripts %}
+{{ super() }}
+<script>
+    /*
+      Grado academico
+    */
+    $('#grado_titulo_l').hide();
+    $('#grado_titulo').hide();
+    $('#grado_univ_l').hide();
+    $('#grado_univ').hide();
+    $('#grado_pais_l').hide();
+    $('#grado_pais').hide();
+    $('#grado_fexamen_l').hide();
+    $('#grado_fexamen').hide();
+    $('#grado_fexped_l').hide();
+    $('#grado_fexped').hide();
+    $('#pdoc_inicio_l').hide();
+    $('#pdoc_inicio').hide();
+    $('#pdoc_fin_l').hide();
+    $('#pdoc_fin').hide();
+    $('#grado_probatorio_l').hide();
+    $('#grado_probatorio').hide();
+</script>
+<script>
+  jQuery(document).ready(function () {
+    $("#grado").change(function () {
+      var chosen_val = $(this).val();
+      if (chosen_val == '2' || chosen_val == '3' || chosen_val == '4' || chosen_val == '5') {
+          $('#grado_titulo_l').show();
+          $('#grado_titulo').show();
+          $('#grado_univ_l').show();
+          $('#grado_univ').show();
+          $('#grado_pais_l').show();
+          $('#grado_pais').show();
+          $('#grado_fexamen_l').show();
+          $('#grado_fexamen').show();
+          $('#grado_fexped_l').show();
+          $('#grado_fexped').show();
+          $('#grado_probatorio_l').show();
+          $('#grado_probatorio').show();
+
+          $('#pdoc_inicio_l').hide();
+          $('#pdoc_inicio').hide();
+          $('#pdoc_fin_l').hide();
+          $('#pdoc_fin').hide();
+
+      } else if (chosen_val == '1') {
+          $('#grado_titulo_l').hide();
+          $('#grado_titulo').hide();
+          $('#grado_univ_l').show();
+          $('#grado_univ').show();
+          $('#grado_pais_l').show();
+          $('#grado_pais').show();
+          $('#grado_probatorio_l').show();
+          $('#grado_probatorio').show();
+          $('#pdoc_inicio_l').show();
+          $('#pdoc_inicio').show();
+          $('#pdoc_fin_l').show();
+          $('#pdoc_fin').show();
+
+          $('#grado_fexamen_l').hide();
+          $('#grado_fexamen').hide();
+          $('#grado_fexped_l').hide();
+          $('#grado_fexped').hide();
+
+      } else {
+          $('#grado_titulo_l').hide();
+          $('#grado_titulo').hide();
+          $('#grado_univ_l').hide();
+          $('#grado_univ').hide();
+          $('#grado_pais_l').hide();
+          $('#grado_pais').hide();
+          $('#grado_fexamen_l').hide();
+          $('#grado_fexamen').hide();
+          $('#grado_fexped_l').hide();
+          $('#grado_fexped').hide();
+          $('#pdoc_inicio_l').hide();
+          $('#pdoc_inicio').hide();
+          $('#pdoc_fin_l').hide();
+          $('#pdoc_fin').hide();
+          $('#grado_probatorio_l').hide();
+          $('#grado_probatorio').hide();
+      }
+
+    });
+  });
+</script>
+
+{% endblock %}

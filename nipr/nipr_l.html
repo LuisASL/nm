@@ -1,0 +1,210 @@
+{% extends base %}
+
+
+{% block app_content %}
+<br>
+<br>
+        <!-- Begin Page Content -->
+        <div class="container-fluid">
+
+          <!-- Page Heading -->
+          <h1 class="h3 mb-2 text-gray-800">Profesores</h1>
+          <!-- DataTales Example -->
+          <div class="card shadow mb-4">
+            <div class="card-header py-3">
+              <h6 class="m-0 font-weight-bold text-primary">Profesores en proceso de revisión</h6>
+            </div>
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table table-bordered display" id="dataTable" width="100%" cellspacing="0">
+                  <thead>
+                    <tr>
+                      <th>Profesor</th>
+                      <th>Teléfono</th>
+                      <th>Email</th>
+                      <th>No. de Trabajador</th>
+                      <th>Modificar</th>
+                      <th>Borrar</th> 
+                    </tr>
+                  </thead>
+                  <tfoot>
+                    <tr>
+                      <th>Profesor</th>
+                      <th>Teléfono</th>
+                      <th>Email</th>
+                      <th>No. de Trabajador</th>
+                      <th>Modificar</th>
+                      <th>Borrar</th>               
+                    </tr>
+                  </tfoot>
+                  <tbody>
+          {% for a in profesores %}
+          <tr>
+            <td>{{a.nipr_papellido}} {{a.nipr_sapellido}} {{a.nipr_nombre}}</td>
+            <td>{{a.nipr_telefono}}</td>
+            <td>{{a.nipr_email}}</td>
+            <td>{% if a.nipr_ntrabajador %}
+                  {{ a.nipr_ntrabajador }}
+                {% else %}
+                <div class="btn-group">
+                  <a class ="btn btn-info" href="#rev_1_1" data-bs-toggle="modal" data-bs-id = {{ a.nipr_rfc }}>
+                    <span class="glyphicon glyphicon-plus"></span> Agregar </a>
+                  <button type="button" class="btn btn-info dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+                   <ul class="dropdown-menu">
+                      <li><a href="#act_1_1" data-bs-toggle="modal" data-bs-id = {{ a.nipr_rfc }}>Actualizar académico de la BD</a></li>
+                    </ul>
+
+                </div>
+                {% endif %}
+            </td>
+            <td>
+              <a href = "{{url_for('nipr_p', id = a.nipr_rfc)}}"><span class="glyphicon glyphicon-pencil"></span> Editar/Revisar </a>
+            </td>
+            <td>
+              <a href="{{ url_for('nipr_d', id = a.nipr_rfc) }}"><span class="glyphicon glyphicon-trash"></span> Borrar</a>
+            </td>
+           
+          </tr>
+          {% endfor %}          
+          </tbody>
+        </table>
+      </div>
+  </div>
+  </div>
+</div>
+
+          <div class="modal in fade" id="act_1_1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Actualizar</h5>
+                  <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <form action="{{url_for('nipr_add_cepr')}}" method="POST" enctype="multipart/form-data">
+
+                          <div class="form-group">
+                            <label for="rfc-name" class="col-form-label">RFC:</label>
+                            <input readonly type="text" class="form-control" name="ac_1_1" id="ac_1_1" value=""/>                           
+                          </div>     
+                          <div class="form-group">
+                            <label for="recipient-name" class="col-form-label">Número de trabajador:</label>
+                            <input type="text" class="form-control" name="rev_ntrabajador_id" id="rev_ntrabajador_id">
+                          </div>
+
+                          <div class="form-group">
+                            <label for="tipo-name" class="col-form-label">Nombramiento del trabajador:</label>
+                            <select class="custom-select" id="rev_estatus_id" name="rev_estatus_id">
+                              <option selected>Seleccionar opción</option>
+                              <option value="1">Profesor de Asignatura</option>
+                              <option value="2">Profesor de Carrera MT</option>
+                              <option value="3">Profesor de Carrera TC</option>
+                              <option value="4">Técnico Académico MT</option>
+                              <option value="5">Técnico Académico TC</option>
+                            </select>
+                          </div>
+
+                          <div class="modal-body">
+                            <p>
+                              Confirmar el número de trabajador.<br>
+                              Al asignar un número de trabajador la nuevo del académico será actualizada en el directorio de académicos de la ENES Juriquilla.<br>
+                              No se enviará correo de notificación debido a que los académicos ya tienen una cuanta previamente creada
+                            </p>
+                          </div>
+
+
+                          <div class="modal-footer">
+                            <button class="list-group-item" data-bs-dismiss="modal">Regresar</button>
+                            <button type="submit" class="list-group-item active">Actualizar</button>                           
+                         </div>
+
+
+                        </form>
+                    </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+          <div class="modal in fade" id="rev_1_1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Revisión</h5>
+                  <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <form action="{{url_for('nipr_add_cepr')}}" method="POST" enctype="multipart/form-data">
+
+                          <div class="form-group">
+                            <label for="rfc-name" class="col-form-label">RFC:</label>
+                            <input readonly type="text" class="form-control" name="rp_1_1" id="rp_1_1" value=""/>                           
+                          </div>     
+                          <div class="form-group">
+                            <label for="recipient-name" class="col-form-label">Número de trabajador:</label>
+                            <input type="text" class="form-control" name="rev_ntrabajador_id" id="rev_ntrabajador_id">
+                          </div>
+
+                          <div class="form-group">
+                            <label for="tipo-name" class="col-form-label">Nombramiento del trabajador:</label>
+                            <select class="custom-select" id="rev_estatus_id" name="rev_estatus_id">
+                              <option selected>Seleccionar opción</option>
+                              <option value="1">Profesor de Asignatura</option>
+                              <option value="2">Profesor de Carrera MT</option>
+                              <option value="3">Profesor de Carrera TC</option>
+                              <option value="4">Técnico Académico MT</option>
+                              <option value="5">Técnico Académico TC</option>
+                            </select>
+                          </div>
+
+                          <div class="modal-body">
+                            <p>
+                              El número de trabajador no podrá ser modificado posteriormente.<br>
+                              Al asignar un número de trabajador el nuevo profesor será migrado al directorio de académicos de la ENES Juriquilla.
+                            </p>
+                          </div>
+
+
+                          <div class="modal-footer">
+                            <button class="list-group-item" data-bs-dismiss="modal">Regresar</button>
+                            <button type="submit" class="list-group-item active">Actualizar</button>                           
+                         </div>
+
+
+                        </form>
+                    </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+
+<br>
+{% endblock %}
+
+{% block scripts %}
+    {{ super() }}
+  <script>
+  $('#rev_1_1').on('show.bs.modal', function(e) {
+      var rp_1_1 = $(e.relatedTarget).data('id');
+      $(e.currentTarget).find('input[name="rp_1_1"]').val(rp_1_1);
+  });
+  </script>
+
+  <script>
+  $('#act_1_1').on('show.bs.modal', function(e) {
+      var ac_1_1 = $(e.relatedTarget).data('id');
+      $(e.currentTarget).find('input[name="ac_1_1"]').val(ac_1_1);
+  });
+  </script>
+
+
+  {% endblock %}

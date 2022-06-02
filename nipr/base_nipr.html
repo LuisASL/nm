@@ -1,0 +1,143 @@
+{% extends 'bootstrap5/base.html' %}
+{% from 'bootstrap5/form.html' import render_form as wtf %}
+
+{% block title %}
+{% if title %}{{ title }} - ENES-Juriquilla{% else %}Bienvenidos a la ENES-J{% endif %}
+{% endblock %}
+
+
+{% block styles %}
+{{ super() }}
+<!-- Archivo principal -->
+<link type="text/css" href="{{url_for('static',filename='nipr/nipr-main.css')}}" rel="stylesheet">
+<!-- Iconos-->
+<link href="{{url_for('static',filename='nipr/css/fontawesome-web/css/all.css')}}" rel="stylesheet">
+<!-- favicon -->
+<link rel="shortcut icon" type="image/jpg" href="{{url_for('static',filename='nipr/img/favicon.ico')}}" />
+{% endblock %}
+
+
+{% block content %}
+<header>
+  <!-- Navbar escritorio -->
+  <nav class="navbar nav fixed-top navbar-expand-lg">
+    <div class="container-fluid logo__movil">
+      <a class="navbar-brand" href="http://132.247.20.23/index#"><img class="nav__logo"
+          src="{{url_for ('static', filename = 'nipr/img/logo-UNAM-d.png')}}" alt="Escudo UNAM"></a>
+      <a class="navbar-brand" href="http://132.247.20.23/index#"><img class="nav__logo"
+          src="{{url_for ('static', filename = 'nipr/img/logo-ENES-d-l.png')}}" alt="Escudo ENES JURIQUILLA"></a>
+    </div>
+  </nav>
+  <!-- Navbar escritorio termina -->
+</header>
+
+<div class="container-fluid">
+  <div class="acomodar">
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    {% for message in messages %}
+    <div class="alert alert-info" role="alert">{{ message }}</div>
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
+
+    {# application content needs to be provided in the app_content block #}
+    {% block app_content %}{% endblock %}
+  </div>
+</div>
+
+<!-- Footer -->
+<footer class="estilo__footer">
+  <div class="container-fluid">
+      <div class="row footer__contenido1">
+          <div class="col-lg-4 col-md-12 footer__separaciones">
+              <ul class="estilo__listas ">
+                  <li>
+                      <a class="nav__enlace" href="http://www.enesjuriquilla.unam.mx/" target="_blank">
+                          ENES Juriquilla
+                      </a>
+                  </li>
+                  <li>
+                      <a class="nav__enlace" href="https://www.unam.mx/" target="_blank">
+                          UNAM
+                      </a>
+                  </li>
+                  <li>
+                      <a class="nav__enlace"
+                          href="https://www.gaceta.unam.mx/wp-content/uploads/2021/12/211213lineamientostaxa.pdf"
+                          target="_blank">
+                          COVID-19
+                      </a>
+                  </li>
+                  <li>
+                      <a class="nav__enlace"
+                          href="http://www.enesjuriquilla.unam.mx/wp-content/uploads/2019/10/Integral-ENESJ.pdf"
+                          target="_blank">
+                          Política de Privacidad
+                      </a>
+                  </li>
+              </ul>
+          </div>
+
+          <div class="col-lg-4 col-md-12 footer__separaciones">
+              <a href="#!">
+                  <img class="footer__img" src="{{url_for('static',filename='nipr/img/unam-nacion.png')}}" alt>
+              </a>
+          </div>
+
+          <div class="col-lg-4 col-md-12 footer__separaciones">
+              <ul class="estilo__listas">
+                  <li>
+                      <a class="nav__enlace" data-bs-target="#exampleModal" data-bs-toggle="modal"
+                          data-bs-whatever="@mdo">
+                          Contacto
+                      </a>
+                  </li>
+                  <li>
+                      <a class="nav__enlace" href="#!">
+                          Preguntas Frecuentes
+                      </a>
+                  </li>
+              </ul>
+          </div>
+      </div>
+
+      <div class="dropdown-divider"></div>
+
+      <div class="footer__contenido2">
+          Hecho en México, Universidad Nacional Autónoma de México (UNAM), todos
+          los derechos reservados. Esta página puede ser reproducida con fines
+          no lucrativos, siempre y cuando no se mutile, se cite la fuente
+          completa y su dirección electrónica. De otra forma, requiere permiso
+          previo por escrito de la institución.
+          <br>
+          <span>
+              © 2022 Copyright:
+          </span>
+          <a class="nav__enlace" href="http://www.enesjuriquilla.unam.mx/" target="_blank">
+              ENES Juriquilla
+          </a>
+      </div>
+  </div>
+</footer>
+
+
+<a class="ir-arriba" javascript:void(0) title="Volver arriba">
+  <span class="fa-stack">
+      <i class="fa fa-circle fa-stack-2x"></i>
+      <i class="fa fa-arrow-up fa-stack-1x fa-inverse"></i>
+  </span>
+</a>
+
+
+{% endblock %}
+
+
+{% block scripts %}
+{{ super() }}
+
+
+<script src="/static/admin/vendor/jquery/jquery.min.js"></script>
+<script src="{{url_for('static',filename='nipr/js/boton.js')}}"></script>
+
+{% endblock %}

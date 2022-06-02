@@ -1,0 +1,84 @@
+{% extends current_user.base_usuario() %}
+
+
+{% block app_content %}
+<div class="row">
+    <div class="col-md-12">
+      <ul class="breadcrumb">
+        <li><a href="{{url_for('nipr_l')}}">Lista de profesores</a></li>
+        <li> {{ pr.nipr_rfc }} </li>
+      </ul>
+    </div>
+</div>
+<br>
+<br>
+
+<div class="row">
+    <div class="col-md-3">
+    <div class="list-group">   
+        <a class="list-group-item {{status_1}}" href="{{url_for('nipr_p', id = pr.nipr_rfc)}}">Información personal</a>
+        <a class="list-group-item {{status_2}}" href="{{url_for('nipr_a', id = pr.nipr_rfc)}}">Formación académica</a>
+        <a class="list-group-item {{status_3}}" href="{{url_for('nipr_sni', id = pr.nipr_rfc)}}">SNI</a>
+        <a class="list-group-item {{status_4}}" href="{{url_for('nipr_sl', id = pr.nipr_rfc)}}">Situación laboral</a>
+        <a class="list-group-item {{status_5}}" href="{{url_for('nipr_ie', id = pr.nipr_rfc)}}">Información de emergencia</a>
+        <a class="list-group-item {{status_6}}" href="{{url_for('nipr_arc', id = pr.nipr_rfc)}}">Archivos</a>
+    </div>
+    </div>
+
+
+
+    <div class="col-md-9">
+       <div id="crearS1s1" >
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Nuevo profesor</h5>
+                  </div>
+                  <div class="modal-body">
+                      <div class="form-group">
+                        {{ wtf(form, button_map={'submit':'success', 'subant':'success'}, horizontal_columns=('lg', 2, 10) ) }}
+                      </div>
+                  </div>
+
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Lista</h5>
+            <hr>
+                <p class="card-text">{% for a in pr.nipr_grado_obj 
+                |sort(attribute="nipr_grado", reverse = False) %}
+                
+                {% if a.nipr_titulo %}
+                <b>Título</b>: {{ a.nipr_titulo }}<br>
+                {% endif %}
+
+                <b>Grado de Estudios</b>: {{a.grado()}} <br>
+                <b>Universidad</b>: {{ a.nipr_universidad }}<br>
+                <b>País</b>: {{ a.nipr_pais }}<br>
+                
+                {% if a.nipr_fechaexamen %}
+                <b>Fecha de examen</b>: {{ a.nipr_fechaexamen.strftime('%d-%m-%Y') }}<br>
+                {% endif %}
+
+                {% if a.nipr_fechaexpedi %}
+                <b>Fecha de expedición del título</b>: {{ a.nipr_fechaexpedi.strftime('%d-%m-%Y') }}<br>
+                {% endif %}
+                <b>Archivo</b>:<a href="{{url_for('download_nipr_grado', id_file=a.nipr_grado_id, id_nipr = pr.nipr_rfc)}}"> {{ a.nipr_file_1}}</a><br>
+                <a href="{{url_for('nipr_m_grado', id_tipo = a.nipr_grado, id_gr = a.nipr_grado_id, id_nipr = pr.nipr_rfc)}}" class="btn btn-sm btn-warning"
+                role="button">Modificar</a>
+                <a href="{{url_for('nipr_d_grado', id=a.nipr_grado_id)}}" class="btn btn-sm btn-danger"
+                role="button">Eliminar</a><br>
+                <hr>
+                {% endfor %}
+                </p>
+        </div>
+      </div>
+    </div>
+</div>
+
+{% endblock %}
