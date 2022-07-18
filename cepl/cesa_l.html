@@ -1,0 +1,59 @@
+{% extends current_user.base_usuario() %}
+
+
+{% block app_content %}
+<br>
+<div class="row">
+<div class="col-xl-4 col-lg-4">
+    <a class="list-group-item active" href="{{url_for('ra_cesa_c')}}" role="button">Crear nuevo salón</a>
+</div>
+</div>
+<br>
+
+<div class="col-xl-12 col-lg-12">
+    <h1 class="h3 mb-2 text-gray-800">Salones registrados por semestre</h1>
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+      <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Licenciaturas activas</h6>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-bordered display table-hover" id="dataTable" width="100%" cellspacing="0">
+          <thead>
+            <tr>
+            <th>Salon</th>
+            <th>Clave</th>
+            <th>Edificio (Clave)</th> 
+            <th>Plantel (Clave)</th>
+            <th>Horarios</th>
+            <th>Carreras</th>
+          </tr>
+          </thead>
+          <tfoot>
+            <tr>
+            <th>Salon</th>
+            <th>Clave</th>
+            <th>Edificio (Clave)</th> 
+            <th>Plantel (Clave)</th>
+            <th>Horarios</th>
+            <th>Carreras</th>
+            </tr>
+          </tfoot>          
+          {% for p in salones %}
+          <tr>
+            <td>{{p.cesa_nombre}}</td>
+            <td>{{p.cesa_clave}}</td>
+            <td>{{salones.ceed_nombre}}({{p.cesa_edificio_ceed }}) </td>
+            <td>{{p.salon.cepl_nombre}} ({{p.cesa_plantel_cepl}})</td>      
+            <td><a href="{{url_for('ra_cesa_calendario', id=p.cesa_clave)}}"><span class="glyphicon glyphicon-calendar"></span> Horarios </a></td>
+            <td><a href="{{url_for('ra_cesa_l', id_cepl = salones.ceed_plantel_cepl, id_cesa = p.cesa_clave)}}"><span class="glyphicon glyphicon-calendar"></span> Carreras </a></td>            
+            </tr>
+          {% endfor %}
+
+        </table>
+      </div>
+    </div>   
+  </div>
+</div>
+{% endblock %}      

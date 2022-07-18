@@ -1,0 +1,14 @@
+{% extends current_user.base_usuario() %}
+
+
+{% block app_content %}
+    <h1>Editar plantel - ENES</h1>
+    <br>
+    <div class="row">
+        <div class="col-md-4">
+            {{ wtf(form) }}
+        </div>
+    </div>
+    <br>
+    <br>
+{% endblock %}

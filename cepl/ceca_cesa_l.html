@@ -1,0 +1,57 @@
+{% extends current_user.base_usuario() %}
+
+
+{% block app_content %}
+
+
+<h1 class="h3 mb-2 text-gray-800">Lista de Salones - Período {{ semestre.cese_ciclo }}</h1>
+
+  <div class="row">
+    <div class="col-md-12">
+        <div class="container-fluid">
+          <div class="card shadow mb-4">
+            <div class="card-header py-3">
+              <h6 class="m-0 font-weight-bold text-primary">Historico </h6>
+            </div>
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table table-bordered display" id="dataTable" width="100%" cellspacing="0">
+                  <thead>
+                    <tr>
+                      <th>Clave</th>
+                      <th>Nombre</th> 
+                      <th>Responsable</th>
+                      <th>Contacto</th>
+                      <th>Salones</th>
+                    </tr>
+                  </thead>
+                  <tfoot>
+                    <tr>
+                      <th>Clave</th>
+                      <th>Nombre</th> 
+                      <th>Responsable</th>
+                      <th>Contacto</th>
+                      <th>Salones</th>
+                    </tr>
+                  </tfoot>
+                  <tbody>
+          {% for c in carrera %}
+          <tr>
+            <td>{{c.ceca_clave}}</td>
+            <td>{{c.ceca_nombre}}</td>
+            <td>{{c.ceca_coordinador}}</td>
+            <td>{{c.ceca_contacto}}</td>
+            <td>
+              <a href="{{url_for('ra_car_cesa_l', id_ceca = c.ceca_clave )}}"><span class="glyphicon glyphicon-list-alt"></span> Salones</a>
+            </td>
+          </tr>
+          {% endfor %}
+        </table>
+
+
+  </div>
+</div>
+
+
+
+{% endblock %}

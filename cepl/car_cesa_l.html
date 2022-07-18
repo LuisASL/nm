@@ -1,0 +1,82 @@
+{% extends current_user.base_usuario() %}
+
+
+{% block app_content %}
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+    <center>
+    <h1> ENES - Juriquilla </h1>
+    </center>
+    <br>
+        <div id="crearS1s1" >
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Asignar nuevo salón</h5>
+                  </div>
+                  <div class="modal-body">
+                      <div class="form-group">
+                        {{ wtf(form, button_map={'submit':'success', 'subant':'success', 'si':'danger', 'no':'primary'}, horizontal_columns=('lg', 2, 10) ) }}
+                      </div>
+                  </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+</div>
+
+<br>
+<div class="col-xl-12 col-lg-12">
+    <h1 class="h3 mb-2 text-gray-800">Salones registrados para {{ car.ceca_nombre }}</h1>
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+      <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Salones activos</h6>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-bordered display table-hover" id="dataTable" width="100%" cellspacing="0">
+          <thead>
+            <tr>
+            <th>Salon</th>
+            <th>Clave</th>
+            <th>Edificio (Clave)</th> 
+            <th>Plantel (Clave)</th>
+            <th>Remover</th>
+            <th>Horarios</th>
+            <th>Carreras</th>
+          </tr>
+          </thead>
+          <tfoot>
+            <tr>
+            <th>Salon</th>
+            <th>Clave</th>
+            <th>Edificio (Clave)</th> 
+            <th>Plantel (Clave)</th>
+            <th>Remover</th>
+            <th>Horarios</th>
+            <th>Carreras</th>
+            </tr>
+          </tfoot>          
+          {% for p in salones %}
+          <tr>
+            <td>{{p.cesa_nombre}}</td>
+            <td>{{p.cesa_clave}}</td>
+            <td>{{p.salones.ceed_nombre}}({{p.cesa_edificio_ceed }}) </td>
+            <td>{{p.salon.cepl_nombre}} ({{p.cesa_plantel_cepl}})</td>
+            <td><a href="{{url_for('ra_cesa_carrera_remove', id_cesa = p.cesa_clave, id_car= car.ceca_clave)}}"><span class="glyphicon glyphicon-trash"></span> Remover</a></td>
+            <td><a href="{{url_for('ra_cesa_calendario', id=p.cesa_clave)}}"><span class="glyphicon glyphicon-calendar"></span> Horarios </a></td>
+            <td><a href="{{url_for('ra_cesa_l', id_cepl = p.cesa_plantel_cepl, id_cesa = p.cesa_clave)}}"><span class="glyphicon glyphicon-calendar"></span> Carreras </a></td>            
+            </tr>
+          {% endfor %}
+
+        </table>
+      </div>
+    </div>   
+  </div>
+</div>
+{% endblock %}      

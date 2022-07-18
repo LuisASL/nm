@@ -1,0 +1,65 @@
+{% extends current_user.base_usuario() %}
+
+{% block app_content %}
+
+<br>
+<div class="row">
+<div class="col-xl-4 col-lg-4">
+    <a class="list-group-item active" href="{{url_for('ra_cepl_c')}}" role="button">Crear nuevo plantel</a>
+</div>
+</div>
+<br>
+<br>
+
+
+<br>
+<div class="container acomodar__footer">
+  <div class="col-md-12">
+    <!-- Page Heading -->
+    <div class="card shadow mb-4">
+      <div class="card-header py-3">
+        <h6>Planteles actuales</h6>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-bordered display" id="dataTable" width="100%" cellspacing="0">
+          <thead>
+          <tr>
+            <th>Clave</th> 
+            <th>Nombre</th>
+            <th>Edificios</th> 
+            <th>Salones</th>
+            <th>Modificar</th>
+            <th>Eliminar</th>
+          </tr>
+          </thead>
+          <tfoot>
+            <tr>
+            <th>Clave</th> 
+            <th>Nombre</th>
+            <th>Edificios</th> 
+            <th>Salones</th>
+            <th>Modificar</th>
+            <th>Eliminar</th>
+            </tr>
+          </tfoot> 
+
+          {% for p in plantel  if p.cepl_disponible == True %}
+          <tr>
+            <td><a herf="#" role="button" data-bs-toggle="popover" data-bs-trigger="focus" title= "Creado por: {{p.cepl_creador}} ({{p.cepl_fcreacion}}) / Modificado por: {{p.cepl_modificacion}} ({{p.cepl_fmodificacion}})">{{p.cepl_clave}}</a></td>
+            <td>{{p.cepl_nombre}}</td> 
+            <td><a href="{{url_for('ra_cepl_ceed_l', id=p.cepl_clave)}}"><span class="glyphicon glyphicon-folder-open"></span> Edificios</a></td>
+            <td><a href="{{url_for('ra_cepl_cesa_l', id=p.cepl_clave)}}"><span class="glyphicon glyphicon-folder-open"></span> Salones</a></td>
+            <td><a href="{{url_for('ra_cepl_m',id=p.cepl_clave)}}"><span class="glyphicon glyphicon-pencil"></span> Modificar</a></td>
+            <td><a href="{{url_for('ra_cepl_e',id=p.cepl_clave)}}"><span class="glyphicon glyphicon-trash"></span> Borrar</a></td>
+          </tr>
+          {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

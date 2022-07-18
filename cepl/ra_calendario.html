@@ -1,0 +1,933 @@
+{% extends current_user.base_usuario() %}
+
+
+{% block title %}
+    {% if title %}{{ title }} - Servicios{% else %}Bienvenidos a Servicios{% endif %}
+{% endblock %}
+
+{% block app_content %}
+<head>
+<style>
+* {box-sizing: border-box;}
+ul {list-style-type: none;}
+body {font-family: Verdana, sans-serif;}
+
+.weekdays {
+  margin: 0;
+  padding: 10px 0;
+  background-color: #ddd;
+}
+
+.weekdays li {
+  display: inline-block;
+  width: 13.6%;
+  color: #666;
+  text-align: center;
+}
+
+@media screen and (max-width:720px) {
+  .weekdays li, td {width: 13.1%;}
+}
+
+@media screen and (max-width: 420px) {
+  .weekdays li, td, .days li {width: 12.5%;}
+  .days li .active {padding: 2px;}
+}
+
+@media screen and (max-width: 290px) {
+  .weekdays li, .days li {width: 12.2%;}
+}
+</style>
+</head>
+<body>
+
+<h1>Planta física - {{ salon.cesa_nombre }}</h1>
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+
+
+<div class="table-responsive">
+<table class="table table-bordered display table-hover" width="100%" cellspacing="0">
+<thead>
+  <tr>
+    <th style="width: 5%;" style="background: #002B7A; height: 35px;" bgcolor="#002B7A"></th>
+    <th style="width: 16.7%;" style="background: #002B7A; height: 35px;" bgcolor="#002B7A"><span style="color: #BB8800;">Lunes</span></th>
+    <th style="width: 16.7%;" style="background: #002B7A; height: 35px;" bgcolor="#002B7A"><span style="color: #BB8800;">Martes</span></th>
+    <th style="width: 16.7%;" style="background: #002B7A; height: 35px;" bgcolor="#002B7A"><span style="color: #BB8800;">Miércoles</span></th>
+    <th style="width: 16.7%;" style="background: #002B7A; height: 35px;" bgcolor="#002B7A"><span style="color: #BB8800;">Jueves</span></th>
+    <th style="width: 16.7%;" style="background: #002B7A; height: 35px;" bgcolor="#002B7A"><span style="color: #BB8800;">Viernes</span></th>
+    <th style="width: 16.7%;" style="background: #002B7A; height: 35px;" bgcolor="#002B7A"><span style="color: #BB8800;">Sabado</span></th>
+  </tr>
+</thead>
+<tbody>
+  <span style="font-size: x-small;">
+  <tr>
+    <td><span style="font-size: small;">8:00<br></td>
+    <td><span style="font-size: small;">
+        {% for a in salon.cesa_omateria_ceom if a.ceom_ciclo_cese == sem and a.info_ceom_lunes('08:00:00'|string) %} 
+            {% for info in a.info_ceom_lunes('08:00:00'|string) %}
+                {{ info }}<br>
+            {% endfor %}
+        {% endfor %}
+
+        {% for a in salon.cesa_omateria_ceom if a.ceom_ciclo_cese == sem and a.info_ceom_lunes('08:30:00'|string) %} 
+            {% for info in a.info_ceom_lunes('08:30:00'|string) %}
+                {{ info }}<br>
+            {% endfor %}
+        {% endfor %}
+    </td>
+    <td><span style="font-size: small;">
+        {% for a in salon.cesa_omateria_ceom if a.ceom_ciclo_cese == sem and a.info_ceom_martes('08:00:00'|string) %} 
+            {% for info in a.info_ceom_martes('08:00:00'|string) %}
+                {{ info }}<br>
+            {% endfor %}
+        {% endfor %}
+
+        {% for a in salon.cesa_omateria_ceom if a.ceom_ciclo_cese == sem and a.info_ceom_martes('08:30:00'|string) %} 
+            {% for info in a.info_ceom_martes('08:30:00'|string) %}
+                {{ info }}<br>
+            {% endfor %}
+        {% endfor %}        
+    </td>    
+    <td><span style="font-size: small;">
+        {% for a in salon.cesa_omateria_ceom if a.ceom_ciclo_cese == sem and a.info_ceom_miercoles('08:00:00'|string) %} 
+            {% for info in a.info_ceom_miercoles('08:00:00'|string) %}
+                {{ info }}<br>
+            {% endfor %}
+        {% endfor %}
+
+        {% for a in salon.cesa_omateria_ceom if a.ceom_ciclo_cese == sem and a.info_ceom_miercoles('08:30:00'|string) %} 
+            {% for info in a.info_ceom_miercoles('08:30:00'|string) %}
+                {{ info }}<br>
+            {% endfor %}
+        {% endfor %}
+    </td> 
+    <td><span style="font-size: small;">
+    {% for a in salon.cesa_omateria_ceom if a.ceom_ciclo_cese == sem and a.info_ceom_jueves('08:00:00'|string) %} 
+            {% for info in a.info_ceom_jueves('08:00:00'|string) %}
+                {{ info }}<br>
+            {% endfor %}
+    {% endfor %}
+
+    {% for a in salon.cesa_omateria_ceom if a.ceom_ciclo_cese == sem and a.info_ceom_jueves('08:30:00'|string) %} 
+            {% for info in a.info_ceom_jueves('08:30:00'|string) %}
+                {{ info }}<br>
+            {% endfor %}
+    {% endfor %}        
+    </td> 
+    <td><span style="font-size: small;">
+        {% for a in salon.cesa_omateria_ceom if a.ceom_ciclo_cese == sem and a.info_ceom_viernes('08:00:00'|string) %} 
+            {% for info in a.info_ceom_viernes('08:00:00'|string) %}
+                {{ info }}<br>
+            {% endfor %}
+        {% endfor %}
+
+        {% for a in salon.cesa_omateria_ceom if a.ceom_ciclo_cese == sem and a.info_ceom_viernes('08:30:00'|string) %} 
+            {% for info in a.info_ceom_viernes('08:30:00'|string) %}
+                {{ info }}<br>
+            {% endfor %}
+        {% endfor %}        
+    </td> 
+    <td><span style="font-size: small;">
+        {% for a in salon.cesa_omateria_ceom if a.ceom_ciclo_cese == sem and a.info_ceom_sabado('08:00:00'|string) %} 
+            {% for info in a.info_ceom_sabado('08:00:00'|string) %}
+                {{ info }}<br>
+            {% endfor %}
+        {% endfor %}
+
+        {% for a in salon.cesa_omateria_ceom if a.ceom_ciclo_cese == sem and a.info_ceom_sabado('08:30:00'|string) %} 
+            {% for info in a.info_ceom_sabado('08:30:00'|string) %}
+                {{ info }}<br>
+            {% endfor %}
+        {% endfor %}        
+    </td> 
+  </tr>
+  <tr>
+    <td><span style="font-size: small;">9:00</td>
+    <td><span style="font-size: small;">
+        {% for a in salon.cesa_omateria_ceom if a.ceom_ciclo_cese == sem and a.info_ceom_lunes('09:00:00'|string) %} 
+            {% for info in a.info_ceom_lunes('09:00:00'|string) %}
+                {{ info }}<br>
+            {% endfor %}
+        {% endfor %}
+
+        {% for a in salon.cesa_omateria_ceom if a.ceom_ciclo_cese == sem and a.info_ceom_lunes('09:30:00'|string) %} 
+            {% for info in a.info_ceom_lunes('09:30:00'|string) %}
+                {{ info }}<br>
+            {% endfor %}
+        {% endfor %}        
+    </td>
+    <td><span style="font-size: small;">
+        {% for a in salon.cesa_omateria_ceom if a.ceom_ciclo_cese == sem and a.info_ceom_martes('09:00:00'|string) %} 
+            {% for info in a.info_ceom_martes('09:00:00'|string) %}
+                {{ info }}<br>
+            {% endfor %}
+        {% endfor %}
+
+        {% for a in salon.cesa_omateria_ceom if a.ceom_ciclo_cese == sem and a.info_ceom_martes('09:30:00'|string) %} 
+            {% for info in a.info_ceom_martes('09:30:00'|string) %}
+                {{ info }}<br>
+            {% endfor %}
+        {% endfor %}        
+    </td>    
+    <td><span style="font-size: small;">
+        {% for a in salon.cesa_omateria_ceom if a.ceom_ciclo_cese == sem and a.info_ceom_miercoles('09:00:00'|string) %} 
+            {% for info in a.info_ceom_miercoles('09:00:00'|string) %}
+                {{ info }}<br>
+            {% endfor %}
+        {% endfor %}
+
+        {% for a in salon.cesa_omateria_ceom if a.ceom_ciclo_cese == sem and a.info_ceom_miercoles('09:30:00'|string) %} 
+            {% for info in a.info_ceom_miercoles('09:30:00'|string) %}
+                {{ info }}<br>
+            {% endfor %}
+        {% endfor %}        
+    </td> 
+    <td><span style="font-size: small;">
+        {% for a in salon.cesa_omateria_ceom if a.ceom_ciclo_cese == sem and a.info_ceom_jueves('09:00:00'|string) %} 
+            {% for info in a.info_ceom_jueves('09:00:00'|string) %}
+                {{ info }}<br>
+            {% endfor %}
+        {% endfor %}
+
+        {% for a in salon.cesa_omateria_ceom if a.ceom_ciclo_cese == sem and a.info_ceom_jueves('09:30:00'|string) %} 
+            {% for info in a.info_ceom_jueves('09:30:00'|string) %}
+                {{ info }}<br>
+            {% endfor %}
+        {% endfor %}
+    </td> 
+    <td><span style="font-size: small;">
+        {% for a in salon.cesa_omateria_ceom if a.ceom_ciclo_cese == sem and a.info_ceom_viernes('09:00:00'|string) %} 
+            {% for info in a.info_ceom_viernes('09:00:00'|string) %}
+                {{ info }}<br>
+            {% endfor %}
+        {% endfor %}
+        {% for a in salon.cesa_omateria_ceom if a.ceom_ciclo_cese == sem and a.info_ceom_viernes('09:30:00'|string) %} 
+            {% for info in a.info_ceom_viernes('09:30:00'|string) %}
+                {{ info }}<br>
+            {% endfor %}
+        {% endfor %}
+    </td> 
+    <td><span style="font-size: small;">
+        {% for a in salon.cesa_omateria_ceom if a.ceom_ciclo_cese == sem and a.info_ceom_sabado('09:00:00'|string) %} 
+            {% for info in a.info_ceom_sabado('09:00:00'|string) %}
+                {{ info }}<br>
+            {% endfor %}
+        {% endfor %}
+
+        {% for a in salon.cesa_omateria_ceom if a.ceom_ciclo_cese == sem and a.info_ceom_sabado('09:30:00'|string) %} 
+            {% for info in a.info_ceom_sabado('09:30:00'|string) %}
+                {{ info }}<br>
+            {% endfor %}
+        {% endfor %}        
+    </td> 
+  </tr>
+  <tr>
+    <td><span style="font-size: small;">10:00</td>
+    <td><span style="font-size: small;">
+        {% for a in salon.cesa_omateria_ceom if a.ceom_ciclo_cese == sem and a.info_ceom_lunes('10:00:00'|string) %} 
+            {% for info in a.info_ceom_lunes('10:00:00'|string) %}
+                {{ info }}<br>
+            {% endfor %}
+        {% endfor %}
+
+        {% for a in salon.cesa_omateria_ceom if a.ceom_ciclo_cese == sem and a.info_ceom_lunes('10:30:00'|string) %} 
+            {% for info in a.info_ceom_lunes('10:30:00'|string) %}
+                {{ info }}<br>
+            {% endfor %}
+        {% endfor %}        
+    </td>
+    <td><span style="font-size: small;">
+        {% for a in salon.cesa_omateria_ceom if a.ceom_ciclo_cese == sem and a.info_ceom_martes('10:00:00'|string) %} 
+            {% for info in a.info_ceom_martes('10:00:00'|string) %}
+                {{ info }}<br>
+            {% endfor %}
+        {% endfor %}
+
+        {% for a in salon.cesa_omateria_ceom if a.ceom_ciclo_cese == sem and a.info_ceom_martes('10:30:00'|string) %} 
+            {% for info in a.info_ceom_martes('10:30:00'|string) %}
+                {{ info }}<br>
+            {% endfor %}
+        {% endfor %}        
+    </td>    
+    <td><span style="font-size: small;">
+        {% for a in salon.cesa_omateria_ceom if a.ceom_ciclo_cese == sem and a.info_ceom_miercoles('10:00:00'|string) %} 
+            {% for info in a.info_ceom_miercoles('10:00:00'|string) %}
+                {{ info }}<br>
+            {% endfor %}
+        {% endfor %}
+
+        {% for a in salon.cesa_omateria_ceom if a.ceom_ciclo_cese == sem and a.info_ceom_miercoles('10:30:00'|string) %} 
+            {% for info in a.info_ceom_miercoles('10:30:00'|string) %}
+                {{ info }}<br>
+            {% endfor %}
+        {% endfor %}        
+    </td> 
+    <td><span style="font-size: small;">
+        {% for a in salon.cesa_omateria_ceom if a.ceom_ciclo_cese == sem and a.info_ceom_jueves('10:00:00'|string) %} 
+            {% for info in a.info_ceom_jueves('10:00:00'|string) %}
+                {{ info }}<br>
+            {% endfor %}
+        {% endfor %}
+
+        {% for a in salon.cesa_omateria_ceom if a.ceom_ciclo_cese == sem and a.info_ceom_jueves('10:30:00'|string) %} 
+            {% for info in a.info_ceom_jueves('10:30:00'|string) %}
+                {{ info }}<br>
+            {% endfor %}
+        {% endfor %}        
+    </td> 
+    <td><span style="font-size: small;">
+        {% for a in salon.cesa_omateria_ceom if a.ceom_ciclo_cese == sem and a.info_ceom_viernes('10:00:00'|string) %} 
+            {% for info in a.info_ceom_viernes('10:00:00'|string) %}
+                {{ info }}<br>
+            {% endfor %}
+        {% endfor %}
+
+        {% for a in salon.cesa_omateria_ceom if a.ceom_ciclo_cese == sem and a.info_ceom_viernes('10:30:00'|string) %} 
+            {% for info in a.info_ceom_viernes('10:30:00'|string) %}
+                {{ info }}<br>
+            {% endfor %}
+        {% endfor %}        
+    </td> 
+    <td><span style="font-size: small;">
+        {% for a in salon.cesa_omateria_ceom if a.ceom_ciclo_cese == sem and a.info_ceom_sabado('10:00:00'|string) %} 
+            {% for info in a.info_ceom_sabado('10:00:00'|string) %}
+                {{ info }}<br>
+            {% endfor %}
+        {% endfor %}
+
+        {% for a in salon.cesa_omateria_ceom if a.ceom_ciclo_cese == sem and a.info_ceom_sabado('10:30:00'|string) %} 
+            {% for info in a.info_ceom_sabado('10:30:00'|string) %}
+                {{ info }}<br>
+            {% endfor %}
+        {% endfor %}        
+    </td> 
+  </tr>
+  <tr>
+    <td><span style="font-size: small;">11:00</td>
+    <td><span style="font-size: small;">
+        {% for a in salon.cesa_omateria_ceom if a.ceom_ciclo_cese == sem and a.info_ceom_lunes('11:00:00'|string) %} 
+            {% for info in a.info_ceom_lunes('11:00:00'|string) %}
+                {{ info }}<br>
+            {% endfor %}
+        {% endfor %}
+
+        {% for a in salon.cesa_omateria_ceom if a.ceom_ciclo_cese == sem and a.info_ceom_lunes('11:30:00'|string) %} 
+            {% for info in a.info_ceom_lunes('11:30:00'|string) %}
+                {{ info }}<br>
+            {% endfor %}
+        {% endfor %}        
+    </td>
+    <td><span style="font-size: small;">
+        {% for a in salon.cesa_omateria_ceom if a.ceom_ciclo_cese == sem and a.info_ceom_martes('11:00:00'|string) %} 
+            {% for info in a.info_ceom_martes('11:00:00'|string) %}
+                {{ info }}<br>
+            {% endfor %}
+        {% endfor %}
+
+        {% for a in salon.cesa_omateria_ceom if a.ceom_ciclo_cese == sem and a.info_ceom_martes('11:30:00'|string) %} 
+            {% for info in a.info_ceom_martes('11:30:00'|string) %}
+                {{ info }}<br>
+            {% endfor %}
+        {% endfor %}        
+    </td>    
+    <td><span style="font-size: small;">
+        {% for a in salon.cesa_omateria_ceom if a.ceom_ciclo_cese == sem and a.info_ceom_miercoles('11:00:00'|string) %} 
+            {% for info in a.info_ceom_miercoles('11:00:00'|string) %}
+                {{ info }}<br>
+            {% endfor %}
+        {% endfor %}
+
+        {% for a in salon.cesa_omateria_ceom if a.ceom_ciclo_cese == sem and a.info_ceom_miercoles('11:30:00'|string) %} 
+            {% for info in a.info_ceom_miercoles('11:30:00'|string) %}
+                {{ info }}<br>
+            {% endfor %}
+        {% endfor %}        
+    </td> 
+    <td><span style="font-size: small;">
+        {% for a in salon.cesa_omateria_ceom if a.ceom_ciclo_cese == sem and a.info_ceom_jueves('11:00:00'|string) %} 
+            {% for info in a.info_ceom_jueves('11:00:00'|string) %}
+                {{ info }}<br>
+            {% endfor %}
+        {% endfor %}
+
+        {% for a in salon.cesa_omateria_ceom if a.ceom_ciclo_cese == sem and a.info_ceom_jueves('11:30:00'|string) %} 
+            {% for info in a.info_ceom_jueves('11:30:00'|string) %}
+                {{ info }}<br>
+            {% endfor %}
+        {% endfor %}        
+    </td> 
+    <td><span style="font-size: small;">
+        {% for a in salon.cesa_omateria_ceom if a.ceom_ciclo_cese == sem and a.info_ceom_viernes('11:00:00'|string) %} 
+            {% for info in a.info_ceom_viernes('11:00:00'|string) %}
+                {{ info }}<br>
+            {% endfor %}
+        {% endfor %}
+
+        {% for a in salon.cesa_omateria_ceom if a.ceom_ciclo_cese == sem and a.info_ceom_viernes('11:30:00'|string) %} 
+            {% for info in a.info_ceom_viernes('11:30:00'|string) %}
+                {{ info }}<br>
+            {% endfor %}
+        {% endfor %}        
+    </td> 
+    <td><span style="font-size: small;">
+        {% for a in salon.cesa_omateria_ceom if a.ceom_ciclo_cese == sem and a.info_ceom_sabado('11:00:00'|string) %} 
+            {% for info in a.info_ceom_sabado('11:00:00'|string) %}
+                {{ info }}<br>
+            {% endfor %}
+        {% endfor %}
+
+        {% for a in salon.cesa_omateria_ceom if a.ceom_ciclo_cese == sem and a.info_ceom_sabado('11:30:00'|string) %} 
+            {% for info in a.info_ceom_sabado('11:30:00'|string) %}
+                {{ info }}<br>
+            {% endfor %}
+        {% endfor %}        
+    </td> 
+  </tr>
+  <tr>
+    <td><span style="font-size: small;">12:00</td>
+    <td><span style="font-size: small;">
+        {% for a in salon.cesa_omateria_ceom if a.ceom_ciclo_cese == sem and a.info_ceom_lunes('12:00:00'|string) %} 
+            {% for info in a.info_ceom_lunes('12:00:00'|string) %}
+                {{ info }}<br>
+            {% endfor %}
+        {% endfor %}
+
+        {% for a in salon.cesa_omateria_ceom if a.ceom_ciclo_cese == sem and a.info_ceom_lunes('12:30:00'|string) %} 
+            {% for info in a.info_ceom_lunes('12:30:00'|string) %}
+                {{ info }}<br>
+            {% endfor %}
+        {% endfor %}        
+    </td>
+    <td><span style="font-size: small;">
+        {% for a in salon.cesa_omateria_ceom if a.ceom_ciclo_cese == sem and a.info_ceom_martes('12:00:00'|string) %} 
+            {% for info in a.info_ceom_martes('12:00:00'|string) %}
+                {{ info }}<br>
+            {% endfor %}
+        {% endfor %}
+
+        {% for a in salon.cesa_omateria_ceom if a.ceom_ciclo_cese == sem and a.info_ceom_martes('12:30:00'|string) %} 
+            {% for info in a.info_ceom_martes('12:30:00'|string) %}
+                {{ info }}<br>
+            {% endfor %}
+        {% endfor %}        
+    </td>    
+    <td><span style="font-size: small;">
+        {% for a in salon.cesa_omateria_ceom if a.ceom_ciclo_cese == sem and a.info_ceom_miercoles('12:00:00'|string) %} 
+            {% for info in a.info_ceom_miercoles('12:00:00'|string) %}
+                {{ info }}<br>
+            {% endfor %}
+        {% endfor %}
+
+        {% for a in salon.cesa_omateria_ceom if a.ceom_ciclo_cese == sem and a.info_ceom_miercoles('12:30:00'|string) %} 
+            {% for info in a.info_ceom_miercoles('12:30:00'|string) %}
+                {{ info }}<br>
+            {% endfor %}
+        {% endfor %}        
+    </td> 
+    <td><span style="font-size: small;">
+       {% for a in salon.cesa_omateria_ceom if a.ceom_ciclo_cese == sem and a.info_ceom_jueves('12:00:00'|string) %} 
+            {% for info in a.info_ceom_jueves('12:00:00'|string) %}
+                {{ info }}<br>
+            {% endfor %}
+        {% endfor %}
+
+        {% for a in salon.cesa_omateria_ceom if a.ceom_ciclo_cese == sem and a.info_ceom_jueves('12:30:00'|string) %} 
+            {% for info in a.info_ceom_jueves('12:30:00'|string) %}
+                {{ info }}<br>
+            {% endfor %}
+        {% endfor %}        
+    </td> 
+    <td><span style="font-size: small;">
+        {% for a in salon.cesa_omateria_ceom if a.ceom_ciclo_cese == sem and a.info_ceom_viernes('12:00:00'|string) %} 
+            {% for info in a.info_ceom_viernes('12:00:00'|string) %}
+                {{ info }}<br>
+            {% endfor %}
+        {% endfor %}
+
+        {% for a in salon.cesa_omateria_ceom if a.ceom_ciclo_cese == sem and a.info_ceom_viernes('12:30:00'|string) %} 
+            {% for info in a.info_ceom_viernes('12:30:00'|string) %}
+                {{ info }}<br>
+            {% endfor %}
+        {% endfor %}        
+    </td> 
+    <td><span style="font-size: small;">
+        {% for a in salon.cesa_omateria_ceom if a.ceom_ciclo_cese == sem and a.info_ceom_sabado('12:00:00'|string) %} 
+            {% for info in a.info_ceom_sabado('12:00:00'|string) %}
+                {{ info }}<br>
+            {% endfor %}
+        {% endfor %}
+
+        {% for a in salon.cesa_omateria_ceom if a.ceom_ciclo_cese == sem and a.info_ceom_sabado('12:30:00'|string) %} 
+            {% for info in a.info_ceom_sabado('12:30:00'|string) %}
+                {{ info }}<br>
+            {% endfor %}
+        {% endfor %}        
+    </td> 
+  </tr>
+  <tr>
+    <td><span style="font-size: small;">13:00</td>
+    <td><span style="font-size: small;">
+        {% for a in salon.cesa_omateria_ceom if a.ceom_ciclo_cese == sem and a.info_ceom_lunes('13:00:00'|string) %} 
+            {% for info in a.info_ceom_lunes('13:00:00'|string) %}
+                {{ info }}<br>
+            {% endfor %}
+        {% endfor %}
+
+        {% for a in salon.cesa_omateria_ceom if a.ceom_ciclo_cese == sem and a.info_ceom_lunes('13:30:00'|string) %} 
+            {% for info in a.info_ceom_lunes('13:30:00'|string) %}
+                {{ info }}<br>
+            {% endfor %}
+        {% endfor %}        
+    </td>
+    <td><span style="font-size: small;">
+        {% for a in salon.cesa_omateria_ceom if a.ceom_ciclo_cese == sem and a.info_ceom_martes('13:00:00'|string) %} 
+            {% for info in a.info_ceom_martes('13:00:00'|string) %}
+                {{ info }}<br>
+            {% endfor %}
+        {% endfor %}
+
+        {% for a in salon.cesa_omateria_ceom if a.ceom_ciclo_cese == sem and a.info_ceom_martes('13:30:00'|string) %} 
+            {% for info in a.info_ceom_martes('13:30:00'|string) %}
+                {{ info }}<br>
+            {% endfor %}
+        {% endfor %}        
+    </td>    
+    <td><span style="font-size: small;">
+        {% for a in salon.cesa_omateria_ceom if a.ceom_ciclo_cese == sem and a.info_ceom_miercoles('13:00:00'|string) %} 
+            {% for info in a.info_ceom_miercoles('13:00:00'|string) %}
+                {{ info }}<br>
+            {% endfor %}
+        {% endfor %}
+
+        {% for a in salon.cesa_omateria_ceom if a.ceom_ciclo_cese == sem and a.info_ceom_miercoles('13:30:00'|string) %} 
+            {% for info in a.info_ceom_miercoles('13:30:00'|string) %}
+                {{ info }}<br>
+            {% endfor %}
+        {% endfor %}        
+    </td> 
+    <td><span style="font-size: small;">
+    {% for a in salon.cesa_omateria_ceom if a.ceom_ciclo_cese == sem and a.info_ceom_jueves('13:00:00'|string) %} 
+            {% for info in a.info_ceom_jueves('13:00:00'|string) %}
+                {{ info }}<br>
+            {% endfor %}
+        {% endfor %}
+    {% for a in salon.cesa_omateria_ceom if a.ceom_ciclo_cese == sem and a.info_ceom_jueves('13:30:00'|string) %} 
+            {% for info in a.info_ceom_jueves('13:30:00'|string) %}
+                {{ info }}<br>
+            {% endfor %}
+        {% endfor %}
+    </td> 
+    <td><span style="font-size: small;">
+        {% for a in salon.cesa_omateria_ceom if a.ceom_ciclo_cese == sem and a.info_ceom_viernes('13:00:00'|string) %} 
+            {% for info in a.info_ceom_viernes('13:00:00'|string) %}
+                {{ info }}<br>
+            {% endfor %}
+        {% endfor %}
+        {% for a in salon.cesa_omateria_ceom if a.ceom_ciclo_cese == sem and a.info_ceom_viernes('13:30:00'|string) %} 
+            {% for info in a.info_ceom_viernes('13:30:00'|string) %}
+                {{ info }}<br>
+            {% endfor %}
+        {% endfor %}
+    </td> 
+    <td><span style="font-size: small;">
+        {% for a in salon.cesa_omateria_ceom if a.ceom_ciclo_cese == sem and a.info_ceom_sabado('13:00:00'|string) %} 
+            {% for info in a.info_ceom_sabado('13:00:00'|string) %}
+                {{ info }}<br>
+            {% endfor %}
+        {% endfor %}
+        {% for a in salon.cesa_omateria_ceom if a.ceom_ciclo_cese == sem and a.info_ceom_sabado('13:30:00'|string) %} 
+            {% for info in a.info_ceom_sabado('13:30:00'|string) %}
+                {{ info }}<br>
+            {% endfor %}
+        {% endfor %}
+    </td> 
+  </tr>
+  <tr>
+    <td><span style="font-size: small;">14:00</td>
+    <td><span style="font-size: small;">
+        {% for a in salon.cesa_omateria_ceom if a.ceom_ciclo_cese == sem and a.info_ceom_lunes('14:00:00'|string) %} 
+            {% for info in a.info_ceom_lunes('14:00:00'|string) %}
+                {{ info }}<br>
+            {% endfor %}
+        {% endfor %}
+        {% for a in salon.cesa_omateria_ceom if a.ceom_ciclo_cese == sem and a.info_ceom_lunes('14:30:00'|string) %} 
+            {% for info in a.info_ceom_lunes('14:30:00'|string) %}
+                {{ info }}<br>
+            {% endfor %}
+        {% endfor %}
+    </td>
+    <td><span style="font-size: small;">
+        {% for a in salon.cesa_omateria_ceom if a.ceom_ciclo_cese == sem and a.info_ceom_martes('14:00:00'|string) %} 
+            {% for info in a.info_ceom_martes('14:00:00'|string) %}
+                {{ info }}<br>
+            {% endfor %}
+        {% endfor %}
+        {% for a in salon.cesa_omateria_ceom if a.ceom_ciclo_cese == sem and a.info_ceom_martes('14:30:00'|string) %} 
+            {% for info in a.info_ceom_martes('14:30:00'|string) %}
+                {{ info }}<br>
+            {% endfor %}
+        {% endfor %}
+    </td>    
+    <td><span style="font-size: small;">
+        {% for a in salon.cesa_omateria_ceom if a.ceom_ciclo_cese == sem and a.info_ceom_miercoles('14:00:00'|string) %} 
+            {% for info in a.info_ceom_miercoles('14:00:00'|string) %}
+                {{ info }}<br>
+            {% endfor %}
+        {% endfor %}
+        {% for a in salon.cesa_omateria_ceom if a.ceom_ciclo_cese == sem and a.info_ceom_miercoles('14:30:00'|string) %} 
+            {% for info in a.info_ceom_miercoles('14:30:00'|string) %}
+                {{ info }}<br>
+            {% endfor %}
+        {% endfor %}
+    </td> 
+    <td><span style="font-size: small;">
+    {% for a in salon.cesa_omateria_ceom if a.ceom_ciclo_cese == sem and a.info_ceom_jueves('14:00:00'|string) %} 
+            {% for info in a.info_ceom_jueves('14:00:00'|string) %}
+                {{ info }}<br>
+            {% endfor %}
+        {% endfor %}
+    {% for a in salon.cesa_omateria_ceom if a.ceom_ciclo_cese == sem and a.info_ceom_jueves('14:30:00'|string) %} 
+            {% for info in a.info_ceom_jueves('14:30:00'|string) %}
+                {{ info }}<br>
+            {% endfor %}
+        {% endfor %}
+    </td> 
+    <td><span style="font-size: small;">
+        {% for a in salon.cesa_omateria_ceom if a.ceom_ciclo_cese == sem and a.info_ceom_viernes('14:00:00'|string) %} 
+            {% for info in a.info_ceom_viernes('14:00:00'|string) %}
+                {{ info }}<br>
+            {% endfor %}
+        {% endfor %}
+        {% for a in salon.cesa_omateria_ceom if a.ceom_ciclo_cese == sem and a.info_ceom_viernes('14:30:00'|string) %} 
+            {% for info in a.info_ceom_viernes('14:30:00'|string) %}
+                {{ info }}<br>
+            {% endfor %}
+        {% endfor %}
+    </td> 
+    <td><span style="font-size: small;">
+        {% for a in salon.cesa_omateria_ceom if a.ceom_ciclo_cese == sem and a.info_ceom_sabado('14:00:00'|string) %} 
+            {% for info in a.info_ceom_sabado('14:00:00'|string) %}
+                {{ info }}<br>
+            {% endfor %}
+        {% endfor %}
+        {% for a in salon.cesa_omateria_ceom if a.ceom_ciclo_cese == sem and a.info_ceom_sabado('14:30:00'|string) %} 
+            {% for info in a.info_ceom_sabado('14:30:00'|string) %}
+                {{ info }}<br>
+            {% endfor %}
+        {% endfor %}
+    </td> 
+  </tr>
+  <tr>
+    <td><span style="font-size: small;">15:00</td>
+    <td><span style="font-size: small;">
+        {% for a in salon.cesa_omateria_ceom if a.ceom_ciclo_cese == sem and a.info_ceom_lunes('15:00:00'|string) %} 
+            {% for info in a.info_ceom_lunes('15:00:00'|string) %}
+                {{ info }}<br>
+            {% endfor %}
+        {% endfor %}
+        {% for a in salon.cesa_omateria_ceom if a.ceom_ciclo_cese == sem and a.info_ceom_lunes('15:30:00'|string) %} 
+            {% for info in a.info_ceom_lunes('15:30:00'|string) %}
+                {{ info }}<br>
+            {% endfor %}
+        {% endfor %}
+    </td>
+    <td><span style="font-size: small;">
+        {% for a in salon.cesa_omateria_ceom if a.ceom_ciclo_cese == sem and a.info_ceom_martes('15:00:00'|string) %} 
+            {% for info in a.info_ceom_martes('15:00:00'|string) %}
+                {{ info }}<br>
+            {% endfor %}
+        {% endfor %}
+        {% for a in salon.cesa_omateria_ceom if a.ceom_ciclo_cese == sem and a.info_ceom_martes('15:30:00'|string) %} 
+            {% for info in a.info_ceom_martes('15:30:00'|string) %}
+                {{ info }}<br>
+            {% endfor %}
+        {% endfor %}
+    </td>    
+    <td><span style="font-size: small;">
+        {% for a in salon.cesa_omateria_ceom if a.ceom_ciclo_cese == sem and a.info_ceom_miercoles('15:00:00'|string) %} 
+            {% for info in a.info_ceom_miercoles('15:00:00'|string) %}
+                {{ info }}<br>
+            {% endfor %}
+        {% endfor %}
+        {% for a in salon.cesa_omateria_ceom if a.ceom_ciclo_cese == sem and a.info_ceom_miercoles('15:30:00'|string) %} 
+            {% for info in a.info_ceom_miercoles('15:30:00'|string) %}
+                {{ info }}<br>
+            {% endfor %}
+        {% endfor %}
+    </td> 
+    <td><span style="font-size: small;">
+    {% for a in salon.cesa_omateria_ceom if a.ceom_ciclo_cese == sem and a.info_ceom_jueves('15:00:00'|string) %} 
+            {% for info in a.info_ceom_jueves('15:00:00'|string) %}
+                {{ info }}<br>
+            {% endfor %}
+        {% endfor %}
+    {% for a in salon.cesa_omateria_ceom if a.ceom_ciclo_cese == sem and a.info_ceom_jueves('15:30:00'|string) %} 
+            {% for info in a.info_ceom_jueves('15:30:00'|string) %}
+                {{ info }}<br>
+            {% endfor %}
+        {% endfor %}
+    </td> 
+    <td><span style="font-size: small;">
+        {% for a in salon.cesa_omateria_ceom if a.ceom_ciclo_cese == sem and a.info_ceom_viernes('15:00:00'|string) %} 
+            {% for info in a.info_ceom_viernes('15:00:00'|string) %}
+                {{ info }}<br>
+            {% endfor %}
+        {% endfor %}
+        {% for a in salon.cesa_omateria_ceom if a.ceom_ciclo_cese == sem and a.info_ceom_viernes('15:30:00'|string) %} 
+            {% for info in a.info_ceom_viernes('15:30:00'|string) %}
+                {{ info }}<br>
+            {% endfor %}
+        {% endfor %}
+    </td> 
+    <td><span style="font-size: small;">
+        {% for a in salon.cesa_omateria_ceom if a.ceom_ciclo_cese == sem and a.info_ceom_sabado('15:00:00'|string) %} 
+            {% for info in a.info_ceom_sabado('15:00:00'|string) %}
+                {{ info }}<br>
+            {% endfor %}
+        {% endfor %}
+        {% for a in salon.cesa_omateria_ceom if a.ceom_ciclo_cese == sem and a.info_ceom_sabado('15:30:00'|string) %} 
+            {% for info in a.info_ceom_sabado('15:30:00'|string) %}
+                {{ info }}<br>
+            {% endfor %}
+        {% endfor %}
+    </td> 
+  </tr>
+  <tr>
+    <td><span style="font-size: small;">16:00</td>
+    <td><span style="font-size: small;">
+        {% for a in salon.cesa_omateria_ceom if a.ceom_ciclo_cese == sem and a.info_ceom_lunes('16:00:00'|string) %} 
+            {% for info in a.info_ceom_lunes('16:00:00'|string) %}
+                {{ info }}<br>
+            {% endfor %}
+        {% endfor %}
+        {% for a in salon.cesa_omateria_ceom if a.ceom_ciclo_cese == sem and a.info_ceom_lunes('16:30:00'|string) %} 
+            {% for info in a.info_ceom_lunes('16:30:00'|string) %}
+                {{ info }}<br>
+            {% endfor %}
+        {% endfor %}
+    </td>
+    <td><span style="font-size: small;">
+        {% for a in salon.cesa_omateria_ceom if a.ceom_ciclo_cese == sem and a.info_ceom_martes('16:00:00'|string) %} 
+            {% for info in a.info_ceom_martes('16:00:00'|string) %}
+                {{ info }}<br>
+            {% endfor %}
+        {% endfor %}
+        {% for a in salon.cesa_omateria_ceom if a.ceom_ciclo_cese == sem and a.info_ceom_martes('16:30:00'|string) %} 
+            {% for info in a.info_ceom_martes('16:30:00'|string) %}
+                {{ info }}<br>
+            {% endfor %}
+        {% endfor %}
+    </td>    
+    <td><span style="font-size: small;">
+        {% for a in salon.cesa_omateria_ceom if a.ceom_ciclo_cese == sem and a.info_ceom_miercoles('16:00:00'|string) %} 
+            {% for info in a.info_ceom_miercoles('16:00:00'|string) %}
+                {{ info }}<br>
+            {% endfor %}
+        {% endfor %}
+        {% for a in salon.cesa_omateria_ceom if a.ceom_ciclo_cese == sem and a.info_ceom_miercoles('16:30:00'|string) %} 
+            {% for info in a.info_ceom_miercoles('16:30:00'|string) %}
+                {{ info }}<br>
+            {% endfor %}
+        {% endfor %}
+    </td> 
+    <td><span style="font-size: small;">
+    {% for a in salon.cesa_omateria_ceom if a.ceom_ciclo_cese == sem and a.info_ceom_jueves('16:00:00'|string) %} 
+            {% for info in a.info_ceom_jueves('16:00:00'|string) %}
+                {{ info }}<br>
+            {% endfor %}
+        {% endfor %}
+    {% for a in salon.cesa_omateria_ceom if a.ceom_ciclo_cese == sem and a.info_ceom_jueves('16:30:00'|string) %} 
+            {% for info in a.info_ceom_jueves('16:30:00'|string) %}
+                {{ info }}<br>
+            {% endfor %}
+        {% endfor %}
+    </td> 
+    <td><span style="font-size: small;">
+        {% for a in salon.cesa_omateria_ceom if a.ceom_ciclo_cese == sem and a.info_ceom_viernes('16:00:00'|string) %} 
+            {% for info in a.info_ceom_viernes('16:00:00'|string) %}
+                {{ info }}<br>
+            {% endfor %}
+        {% endfor %}
+        {% for a in salon.cesa_omateria_ceom if a.ceom_ciclo_cese == sem and a.info_ceom_viernes('16:30:00'|string) %} 
+            {% for info in a.info_ceom_viernes('16:30:00'|string) %}
+                {{ info }}<br>
+            {% endfor %}
+        {% endfor %}
+    </td> 
+    <td><span style="font-size: small;">
+        {% for a in salon.cesa_omateria_ceom if a.ceom_ciclo_cese == sem and a.info_ceom_sabado('16:00:00'|string) %} 
+            {% for info in a.info_ceom_sabado('16:00:00'|string) %}
+                {{ info }}<br>
+            {% endfor %}
+        {% endfor %}
+        {% for a in salon.cesa_omateria_ceom if a.ceom_ciclo_cese == sem and a.info_ceom_sabado('16:30:00'|string) %} 
+            {% for info in a.info_ceom_sabado('16:30:00'|string) %}
+                {{ info }}<br>
+            {% endfor %}
+        {% endfor %}
+    </td> 
+  </tr>
+  <tr>
+    <td><span style="font-size: small;">17:00</td>
+    <td><span style="font-size: small;">
+        {% for a in salon.cesa_omateria_ceom if a.ceom_ciclo_cese == sem and a.info_ceom_lunes('17:00:00'|string) %} 
+            {% for info in a.info_ceom_lunes('17:00:00'|string) %}
+                {{ info }}<br>
+            {% endfor %}
+        {% endfor %}
+        {% for a in salon.cesa_omateria_ceom if a.ceom_ciclo_cese == sem and a.info_ceom_lunes('17:30:00'|string) %} 
+            {% for info in a.info_ceom_lunes('17:30:00'|string) %}
+                {{ info }}<br>
+            {% endfor %}
+        {% endfor %}
+    </td>
+    <td><span style="font-size: small;">
+        {% for a in salon.cesa_omateria_ceom if a.ceom_ciclo_cese == sem and a.info_ceom_martes('17:00:00'|string) %} 
+            {% for info in a.info_ceom_martes('17:00:00'|string) %}
+                {{ info }}<br>
+            {% endfor %}
+        {% endfor %}
+        {% for a in salon.cesa_omateria_ceom if a.ceom_ciclo_cese == sem and a.info_ceom_martes('17:30:00'|string) %} 
+            {% for info in a.info_ceom_martes('17:30:00'|string) %}
+                {{ info }}<br>
+            {% endfor %}
+        {% endfor %}
+    </td>    
+    <td><span style="font-size: small;">
+        {% for a in salon.cesa_omateria_ceom if a.ceom_ciclo_cese == sem and a.info_ceom_miercoles('17:00:00'|string) %} 
+            {% for info in a.info_ceom_miercoles('17:00:00'|string) %}
+                {{ info }}<br>
+            {% endfor %}
+        {% endfor %}
+        {% for a in salon.cesa_omateria_ceom if a.ceom_ciclo_cese == sem and a.info_ceom_miercoles('17:30:00'|string) %} 
+            {% for info in a.info_ceom_miercoles('17:30:00'|string) %}
+                {{ info }}<br>
+            {% endfor %}
+        {% endfor %}
+    </td> 
+    <td><span style="font-size: small;">
+    {% for a in salon.cesa_omateria_ceom if a.ceom_ciclo_cese == sem and a.info_ceom_jueves('17:00:00'|string) %} 
+            {% for info in a.info_ceom_jueves('17:00:00'|string) %}
+                {{ info }}<br>
+            {% endfor %}
+        {% endfor %}
+    {% for a in salon.cesa_omateria_ceom if a.ceom_ciclo_cese == sem and a.info_ceom_jueves('17:30:00'|string) %} 
+            {% for info in a.info_ceom_jueves('17:30:00'|string) %}
+                {{ info }}<br>
+            {% endfor %}
+        {% endfor %}
+    </td> 
+    <td><span style="font-size: small;">
+        {% for a in salon.cesa_omateria_ceom if a.ceom_ciclo_cese == sem and a.info_ceom_viernes('17:00:00'|string) %} 
+            {% for info in a.info_ceom_viernes('17:00:00'|string) %}
+                {{ info }}<br>
+            {% endfor %}
+        {% endfor %}
+        {% for a in salon.cesa_omateria_ceom if a.ceom_ciclo_cese == sem and a.info_ceom_viernes('17:30:00'|string) %} 
+            {% for info in a.info_ceom_viernes('17:30:00'|string) %}
+                {{ info }}<br>
+            {% endfor %}
+        {% endfor %}
+    </td> 
+    <td><span style="font-size: small;">
+        {% for a in salon.cesa_omateria_ceom if a.ceom_ciclo_cese == sem and a.info_ceom_sabado('17:00:00'|string) %} 
+            {% for info in a.info_ceom_sabado('17:00:00'|string) %}
+                {{ info }}<br>
+            {% endfor %}
+        {% endfor %}
+        {% for a in salon.cesa_omateria_ceom if a.ceom_ciclo_cese == sem and a.info_ceom_sabado('17:30:00'|string) %} 
+            {% for info in a.info_ceom_sabado('17:30:00'|string) %}
+                {{ info }}<br>
+            {% endfor %}
+        {% endfor %}
+    </td> 
+  </tr>
+  <tr>
+    <td><span style="font-size: small;">18:00</td>
+    <td><span style="font-size: small;">
+        {% for a in salon.cesa_omateria_ceom if a.ceom_ciclo_cese == sem and a.info_ceom_lunes('18:00:00'|string) %} 
+            {% for info in a.info_ceom_lunes('18:00:00'|string) %}
+                {{ info }}<br>
+            {% endfor %}
+        {% endfor %}
+        {% for a in salon.cesa_omateria_ceom if a.ceom_ciclo_cese == sem and a.info_ceom_lunes('18:30:00'|string) %} 
+            {% for info in a.info_ceom_lunes('18:30:00'|string) %}
+                {{ info }}<br>
+            {% endfor %}
+        {% endfor %}
+    </td>
+    <td><span style="font-size: small;">
+        {% for a in salon.cesa_omateria_ceom if a.ceom_ciclo_cese == sem and a.info_ceom_martes('18:00:00'|string) %} 
+            {% for info in a.info_ceom_martes('18:00:00'|string) %}
+                {{ info }}<br>
+            {% endfor %}
+        {% endfor %}
+        {% for a in salon.cesa_omateria_ceom if a.ceom_ciclo_cese == sem and a.info_ceom_martes('18:30:00'|string) %} 
+            {% for info in a.info_ceom_martes('18:30:00'|string) %}
+                {{ info }}<br>
+            {% endfor %}
+        {% endfor %}
+    </td>    
+    <td><span style="font-size: small;">
+        {% for a in salon.cesa_omateria_ceom if a.ceom_ciclo_cese == sem and a.info_ceom_miercoles('18:00:00'|string) %} 
+            {% for info in a.info_ceom_miercoles('18:00:00'|string) %}
+                {{ info }}<br>
+            {% endfor %}
+        {% endfor %}
+        {% for a in salon.cesa_omateria_ceom if a.ceom_ciclo_cese == sem and a.info_ceom_miercoles('18:30:00'|string) %} 
+            {% for info in a.info_ceom_miercoles('18:30:00'|string) %}
+                {{ info }}<br>
+            {% endfor %}
+        {% endfor %}
+    </td> 
+    <td><span style="font-size: small;">
+    {% for a in salon.cesa_omateria_ceom if a.ceom_ciclo_cese == sem and a.info_ceom_jueves('18:00:00'|string) %} 
+            {% for info in a.info_ceom_jueves('18:00:00'|string) %}
+                {{ info }}<br>
+            {% endfor %}
+        {% endfor %}
+    {% for a in salon.cesa_omateria_ceom if a.ceom_ciclo_cese == sem and a.info_ceom_jueves('18:30:00'|string) %} 
+            {% for info in a.info_ceom_jueves('18:30:00'|string) %}
+                {{ info }}<br>
+            {% endfor %}
+        {% endfor %}
+    </td> 
+    <td><span style="font-size: small;">
+        {% for a in salon.cesa_omateria_ceom if a.ceom_ciclo_cese == sem and a.info_ceom_viernes('18:00:00'|string) %} 
+            {% for info in a.info_ceom_viernes('18:00:00'|string) %}
+                {{ info }}<br>
+            {% endfor %}
+        {% endfor %}
+        {% for a in salon.cesa_omateria_ceom if a.ceom_ciclo_cese == sem and a.info_ceom_viernes('18:30:00'|string) %} 
+            {% for info in a.info_ceom_viernes('18:30:00'|string) %}
+                {{ info }}<br>
+            {% endfor %}
+        {% endfor %}
+    </td> 
+    <td><span style="font-size: small;">
+        {% for a in salon.cesa_omateria_ceom if a.ceom_ciclo_cese == sem and a.info_ceom_sabado('18:00:00'|string) %} 
+            {% for info in a.info_ceom_sabado('18:00:00'|string) %}
+                {{ info }}<br>
+            {% endfor %}
+        {% endfor %}
+        {% for a in salon.cesa_omateria_ceom if a.ceom_ciclo_cese == sem and a.info_ceom_sabado('18:30:00'|string) %} 
+            {% for info in a.info_ceom_sabado('18:30:00'|string) %}
+                {{ info }}<br>
+            {% endfor %}
+        {% endfor %}
+    </td> 
+  </tr>
+</span>
+</tbody>
+</table>
+
+    </div>
+  </div>
+</div>  
+
+
+
+
+{% endblock %}

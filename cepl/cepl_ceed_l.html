@@ -1,0 +1,50 @@
+{% extends current_user.base_usuario() %}
+
+
+{% block app_content %}
+
+
+<div class="col-xl-12 col-lg-12">
+   <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+      <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Edificios </h6>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-bordered display table-hover" id="dataTable" width="100%" cellspacing="0">
+          <thead>
+            <th>Clave</th>
+            <th>Edificio</th> 
+            <th>Plantel</th>
+            <th>Salones</th>
+            <th>Modificar</th>
+            <th>Eliminar</th>
+          </tr>
+          </thead>
+          <tfoot>
+            <tr>
+            <th>Clave</th>
+            <th>Edificio</th> 
+            <th>Plantel</th>
+            <th>Salones</th>
+            <th>Modificar</th>
+            <th>Eliminar</th>
+            </tr>
+          </tfoot>
+          <tbody>           
+          {% for p in salones.cepl_edificio_ceed %}
+          <tr>
+            <td>{{p.ceed_clave}}</td>
+            <td>{{p.ceed_nombre}}</td> 
+            <td>{{salones.cepl_nombre}} ({{p.ceed_plantel_cepl}})</td>             
+            <td><a href="{{url_for('ra_ceed_cesa_l', id=p.ceed_clave)}}"><span class="glyphicon glyphicon-folder-open"></span> Salones</a></td>
+            <td><a href="{{url_for('ra_ceed_m', id=p.ceed_clave)}}"><span class="glyphicon glyphicon-pencil"></span> Modificar</a></td>
+            <td><a href="{{url_for('ra_ceed_e', id=p.ceed_clave)}}"><span class="glyphicon glyphicon-trash"></span> Borrar</a></td>
+          </tr>
+          {% endfor %}
+
+        </table>
+      </div>
+</div>   
+{% endblock %}      
